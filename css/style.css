@@ -323,7 +323,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .contact-info ul { display: flex; flex-direction: column; gap: 1.5rem; }
 .contact-label { display: block; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--gray); margin-bottom: .3rem; }
 .contact-info a { color: var(--teal-dark); font-weight: 600; }
-.placeholder { color: var(--gray); font-style: italic; }
 .social-links { display: flex; gap: 1rem; }
 .social-links a { color: var(--navy-dark); font-weight: 600; border-bottom: 1px solid var(--line); }
 
