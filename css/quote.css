@@ -14,9 +14,7 @@
 .quote-grid > *,
 .quote-step,
 .quote-input-row,
-.quote-input-row > *,
-.quote-add-row,
-.quote-add-row > * { min-width: 0; }
+.quote-input-row > * { min-width: 0; }
 
 /* ---- Form panel ---- */
 .quote-form-panel {
@@ -69,8 +67,6 @@
 .quote-form-panel select:focus,
 .quote-form-panel textarea:focus { outline: 2px solid var(--teal); }
 .quote-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.quote-add-row { grid-template-columns: 1fr auto; align-items: start; }
-.quote-add-row select { margin-bottom: 0; }
 .quote-hint { font-size: .8rem; color: var(--gray); margin: -.4rem 0 .8rem; }
 
 /* ---- Preview panel ---- */
@@ -206,7 +202,6 @@
 }
 @media (max-width: 520px) {
     .quote-input-row { grid-template-columns: 1fr; }
-    .quote-add-row { grid-template-columns: 1fr; }
     .quote-doc-parties { grid-template-columns: 1fr; }
     .quote-doc-head { flex-direction: column; }
     .quote-doc-meta { text-align: left; }

@@ -1,29 +1,5 @@
-const CATALOG = [
-    { group: 'Weekly Plans', desc: '5GB (5 days)', price: 1000 },
-    { group: 'Weekly Plans', desc: '10GB (7 days, 2 devices)', price: 2000 },
-    { group: 'Weekly Plans', desc: '15GB Premium (7 days, 2 devices)', price: 3000 },
-    { group: 'Weekly Plans', desc: '25GB VIP (14 days, 2 devices)', price: 5000 },
-    { group: 'Monthly Plans', desc: '40GB (30 days, 3 devices)', price: 8000 },
-    { group: 'Monthly Plans', desc: '50GB Premium (30 days, 3 devices)', price: 10000 },
-    { group: 'Monthly Plans', desc: '75GB Big Boys & Big Girls (30 days, 4 devices)', price: 15000 },
-    { group: 'Unlimited Plans', desc: 'Unlimited (1 week, 1 device)', price: 8000 },
-    { group: 'Unlimited Plans', desc: 'Unlimited (1 week, 2 devices)', price: 15000 },
-    { group: 'Unlimited Plans', desc: 'Unlimited (1 month, 2 devices)', price: 32000 },
-];
-
-const itemCatalog = document.getElementById('itemCatalog');
-if (itemCatalog) {
-    const groups = {};
-    CATALOG.forEach((item, i) => {
-        if (!groups[item.group]) groups[item.group] = document.createElement('optgroup');
-        groups[item.group].label = item.group;
-        const opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = `${item.desc} — ₦${item.price.toLocaleString()}`;
-        groups[item.group].appendChild(opt);
-    });
-    Object.values(groups).forEach((g) => itemCatalog.appendChild(g));
-
+const quoteItemsBody = document.getElementById('quoteItemsBody');
+if (quoteItemsBody) {
     let items = [];
     const naira = (n) => `₦${n.toLocaleString()}`;
 
@@ -32,10 +8,9 @@ if (itemCatalog) {
     document.getElementById('quoteDate').textContent = new Date().toLocaleDateString('en-NG', { year: 'numeric', month: 'long', day: 'numeric' });
 
     function render() {
-        const body = document.getElementById('quoteItemsBody');
-        body.innerHTML = '';
+        quoteItemsBody.innerHTML = '';
         if (items.length === 0) {
-            body.innerHTML = '<tr class="quote-empty-row"><td colspan="5">No items added yet — add a plan or custom item to build your quote.</td></tr>';
+            quoteItemsBody.innerHTML = '<tr class="quote-empty-row"><td colspan="5">No items added yet — add a service, material, or solar item to build your quote.</td></tr>';
         } else {
             items.forEach((item, i) => {
                 const tr = document.createElement('tr');
@@ -47,14 +22,14 @@ if (itemCatalog) {
                     <td>${naira(lineTotal)}</td>
                     <td class="quote-no-print"><button type="button" class="quote-remove-btn" data-i="${i}" aria-label="Remove item">&times;</button></td>
                 `;
-                body.appendChild(tr);
+                quoteItemsBody.appendChild(tr);
             });
         }
         const total = items.reduce((sum, item) => sum + item.qty * item.price, 0);
         document.getElementById('quoteSubtotal').textContent = naira(total);
         document.getElementById('quoteTotal').textContent = naira(total);
 
-        body.querySelectorAll('.quote-item-qty').forEach((input) => {
+        quoteItemsBody.querySelectorAll('.quote-item-qty').forEach((input) => {
             input.addEventListener('change', (e) => {
                 const i = Number(e.target.dataset.i);
                 const qty = Math.max(1, Number(e.target.value) || 1);
@@ -62,7 +37,7 @@ if (itemCatalog) {
                 render();
             });
         });
-        body.querySelectorAll('.quote-remove-btn').forEach((btn) => {
+        quoteItemsBody.querySelectorAll('.quote-remove-btn').forEach((btn) => {
             btn.addEventListener('click', (e) => {
                 const i = Number(e.target.dataset.i);
                 items.splice(i, 1);
@@ -71,18 +46,6 @@ if (itemCatalog) {
         });
         updateEmailLink();
     }
-
-    document.getElementById('addCatalogItem').addEventListener('click', () => {
-        const catalogItem = CATALOG[Number(itemCatalog.value)];
-        if (!catalogItem) return;
-        const existing = items.find((it) => it.desc === catalogItem.desc && it.price === catalogItem.price);
-        if (existing) {
-            existing.qty += 1;
-        } else {
-            items.push({ desc: catalogItem.desc, price: catalogItem.price, qty: 1 });
-        }
-        render();
-    });
 
     function addFreeformItem(descId, priceId, qtyId) {
         const descEl = document.getElementById(descId);
@@ -100,20 +63,33 @@ if (itemCatalog) {
         render();
     }
 
+    function bindPreset(presetId, descId, priceId) {
+        const preset = document.getElementById(presetId);
+        preset.addEventListener('change', () => {
+            if (preset.value) {
+                document.getElementById(descId).value = preset.value;
+                document.getElementById(priceId).focus();
+            }
+        });
+        return preset;
+    }
+
+    const servicePreset = bindPreset('servicePreset', 'customDesc', 'customPrice');
     document.getElementById('addCustomItem').addEventListener('click', () => {
         addFreeformItem('customDesc', 'customPrice', 'customQty');
+        servicePreset.value = '';
     });
 
-    const materialPreset = document.getElementById('materialPreset');
-    materialPreset.addEventListener('change', () => {
-        if (materialPreset.value) {
-            document.getElementById('materialDesc').value = materialPreset.value;
-            document.getElementById('materialPrice').focus();
-        }
-    });
+    const materialPreset = bindPreset('materialPreset', 'materialDesc', 'materialPrice');
     document.getElementById('addMaterialItem').addEventListener('click', () => {
         addFreeformItem('materialDesc', 'materialPrice', 'materialQty');
         materialPreset.value = '';
+    });
+
+    const solarPreset = bindPreset('solarPreset', 'solarDesc', 'solarPrice');
+    document.getElementById('addSolarItem').addEventListener('click', () => {
+        addFreeformItem('solarDesc', 'solarPrice', 'solarQty');
+        solarPreset.value = '';
     });
 
     function bindPreviewField(inputId, previewId, format) {
