@@ -60,8 +60,22 @@ if (quoteItemsBody) {
         descEl.value = '';
         document.getElementById(priceId).value = '';
         document.getElementById(qtyId).value = '1';
+        const liveEl = document.getElementById(priceId + 'Live');
+        if (liveEl) liveEl.textContent = '';
         render();
     }
+
+    function bindLivePrice(priceId, liveId) {
+        const priceEl = document.getElementById(priceId);
+        const liveEl = document.getElementById(liveId);
+        priceEl.addEventListener('input', () => {
+            const value = Number(priceEl.value);
+            liveEl.textContent = priceEl.value && value > 0 ? `= ${naira(value)} — check the digit count` : '';
+        });
+    }
+    bindLivePrice('customPrice', 'customPriceLive');
+    bindLivePrice('materialPrice', 'materialPriceLive');
+    bindLivePrice('solarPrice', 'solarPriceLive');
 
     function bindPreset(presetId, descId, priceId) {
         const preset = document.getElementById(presetId);

@@ -110,7 +110,8 @@
                     <div class="quote-input-row">
                         <div>
                             <label for="customPrice">Price (₦) — set your own</label>
-                            <input type="number" id="customPrice" min="0" step="500" placeholder="0">
+                            <input type="number" id="customPrice" min="0" step="500" placeholder="0" inputmode="numeric">
+                            <span class="quote-live-price" id="customPriceLive"></span>
                         </div>
                         <div>
                             <label for="customQty">Qty</label>
@@ -143,7 +144,8 @@
                     <div class="quote-input-row">
                         <div>
                             <label for="materialPrice">Unit price (₦)</label>
-                            <input type="number" id="materialPrice" min="0" step="100" placeholder="0">
+                            <input type="number" id="materialPrice" min="0" step="100" placeholder="0" inputmode="numeric">
+                            <span class="quote-live-price" id="materialPriceLive"></span>
                         </div>
                         <div>
                             <label for="materialQty">Qty</label>
@@ -174,7 +176,8 @@
                     <div class="quote-input-row">
                         <div>
                             <label for="solarPrice">Price (₦) — set your own</label>
-                            <input type="number" id="solarPrice" min="0" step="500" placeholder="0">
+                            <input type="number" id="solarPrice" min="0" step="500" placeholder="0" inputmode="numeric">
+                            <span class="quote-live-price" id="solarPriceLive"></span>
                         </div>
                         <div>
                             <label for="solarQty">Qty</label>

@@ -68,6 +68,14 @@
 .quote-form-panel textarea:focus { outline: 2px solid var(--teal); }
 .quote-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .quote-hint { font-size: .8rem; color: var(--gray); margin: -.4rem 0 .8rem; }
+.quote-live-price {
+    display: block;
+    margin: -.7rem 0 1rem;
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--teal-dark);
+    min-height: 1.1em;
+}
 
 /* ---- Preview panel ---- */
 .quote-preview-panel { position: sticky; top: 90px; }
