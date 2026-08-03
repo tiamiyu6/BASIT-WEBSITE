@@ -47,10 +47,15 @@ if (quoteItemsBody) {
         updateEmailLink();
     }
 
+    function parsePrice(priceId) {
+        const raw = document.getElementById(priceId).value.replace(/,/g, '');
+        return Math.max(0, Number(raw) || 0);
+    }
+
     function addFreeformItem(descId, priceId, qtyId) {
         const descEl = document.getElementById(descId);
         const desc = descEl.value.trim();
-        const price = Math.max(0, Number(document.getElementById(priceId).value) || 0);
+        const price = parsePrice(priceId);
         const qty = Math.max(1, Number(document.getElementById(qtyId).value) || 1);
         if (!desc) {
             descEl.focus();
@@ -60,22 +65,19 @@ if (quoteItemsBody) {
         descEl.value = '';
         document.getElementById(priceId).value = '';
         document.getElementById(qtyId).value = '1';
-        const liveEl = document.getElementById(priceId + 'Live');
-        if (liveEl) liveEl.textContent = '';
         render();
     }
 
-    function bindLivePrice(priceId, liveId) {
+    function bindCommaFormatting(priceId) {
         const priceEl = document.getElementById(priceId);
-        const liveEl = document.getElementById(liveId);
         priceEl.addEventListener('input', () => {
-            const value = Number(priceEl.value);
-            liveEl.textContent = priceEl.value && value > 0 ? `= ${naira(value)} — check the digit count` : '';
+            const digitsOnly = priceEl.value.replace(/[^\d]/g, '');
+            priceEl.value = digitsOnly ? Number(digitsOnly).toLocaleString('en-US') : '';
         });
     }
-    bindLivePrice('customPrice', 'customPriceLive');
-    bindLivePrice('materialPrice', 'materialPriceLive');
-    bindLivePrice('solarPrice', 'solarPriceLive');
+    bindCommaFormatting('customPrice');
+    bindCommaFormatting('materialPrice');
+    bindCommaFormatting('solarPrice');
 
     function bindPreset(presetId, descId, priceId) {
         const preset = document.getElementById(presetId);
