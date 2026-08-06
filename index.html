@@ -115,28 +115,22 @@
             <span class="counter-text">Hostels currently running on Accessnetng, serving 2,630 users across the network — and counting</span>
         </div>
 
-        <div class="coverage-grid">
-            <div class="coverage-card">
-                <span class="coverage-icon" aria-hidden="true">🏠</span>
-                <h3>Student Hostels</h3>
-                <p>Shared internet built to handle many devices per room without slowing down.</p>
-            </div>
-            <div class="coverage-card">
-                <span class="coverage-icon" aria-hidden="true">🛏️</span>
-                <h3>Dormitories</h3>
-                <p>Whole-building coverage instead of one router struggling to reach every floor.</p>
-            </div>
-            <div class="coverage-card">
-                <span class="coverage-icon" aria-hidden="true">🎒</span>
-                <h3>Backpacker &amp; Transient Hostels</h3>
-                <p>Reliable WiFi for short-stay guests who expect it to just work.</p>
-            </div>
-            <div class="coverage-card">
-                <span class="coverage-icon" aria-hidden="true">🏢</span>
-                <h3>Co-living &amp; Residential Buildings</h3>
-                <p>Multi-tenant setups with individual or building-wide access options.</p>
-            </div>
+        <div class="coverage-tabs" role="tablist" aria-label="Filter coverage locations">
+            <button type="button" class="coverage-tab active" data-filter="all">All Locations</button>
+            <button type="button" class="coverage-tab" data-filter="live">Live Now</button>
+            <button type="button" class="coverage-tab" data-filter="soon">Coming Soon</button>
         </div>
+
+        <div class="coverage-map-wrap">
+            <svg id="coverageMap" class="coverage-map" role="img" aria-label="Map of Accessnetng locations connected to the main server at Downtown Apartment"></svg>
+            <div class="coverage-tooltip" id="coverageTooltip">
+                <strong class="coverage-tooltip-name"></strong>
+                <span class="coverage-tooltip-meta"></span>
+            </div>
+            <p class="coverage-map-hint">Tap or hover a point for details</p>
+        </div>
+
+        <div class="coverage-list" id="coverageList"></div>
 
         <p class="coverage-note">Not on the list yet? <a href="#contact">Request Accessnetng at your hostel →</a></p>
     </section>
@@ -300,5 +294,6 @@
 <button id="backToTop" aria-label="Back to top">↑</button>
 
 <script src="js/script.js"></script>
+<script src="js/coverage.js"></script>
 </body>
 </html>
