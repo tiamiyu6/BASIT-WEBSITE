@@ -9,7 +9,7 @@ if (coverageMapEl) {
         { name: 'Kik Apartment', area: 'Malate, KWASU', status: 'live' },
         { name: 'Ife Hostel', area: 'Malate, KWASU', status: 'live' },
         { name: 'Jagun Hostel', area: 'Malate, KWASU', status: 'live' },
-        { name: 'Jospelh', area: 'Malate, KWASU', status: 'live' },
+        { name: 'Joseph Hostel', area: 'Malate, KWASU', status: 'live' },
         { name: 'Alajitaiwo Hostel', area: 'Malate, KWASU', status: 'live' },
         { name: 'White Bridge', area: 'Malate, KWASU', status: 'live' },
         { name: 'Sandra', area: 'Malate, KWASU', status: 'live' },
@@ -18,6 +18,8 @@ if (coverageMapEl) {
         { name: 'Downtown Apartment 3', area: 'Malate, KWASU', status: 'soon' },
         { name: 'Downtown Apartment 4', area: 'Malate, KWASU', status: 'soon' },
         { name: 'Downtown Apartment 5', area: 'Malate, KWASU', status: 'soon' },
+        { name: 'Fadaka Hostel', area: 'Malate, KWASU', status: 'soon' },
+        { name: 'Atinuke', area: 'Malate, KWASU', status: 'soon' },
     ];
 
     const SVG_NS = 'http://www.w3.org/2000/svg';
