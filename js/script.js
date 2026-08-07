@@ -85,3 +85,16 @@ if (starfield) {
         if (reduceMotion) drawStatic();
     });
 }
+
+const projectCards = document.querySelectorAll('.project-card');
+if (projectCards.length) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('in-view'), i * 120);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    projectCards.forEach((card) => observer.observe(card));
+}
