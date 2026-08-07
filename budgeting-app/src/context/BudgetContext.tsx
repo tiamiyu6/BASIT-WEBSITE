@@ -18,7 +18,7 @@ import {
   Transaction,
 } from '../types';
 
-const DEFAULT_SETTINGS: AppSettings = { currency: 'USD' };
+const DEFAULT_SETTINGS: AppSettings = { currency: 'NGN' };
 
 interface BudgetContextValue {
   loading: boolean;

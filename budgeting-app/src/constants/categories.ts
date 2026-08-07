@@ -16,10 +16,10 @@ export const DEFAULT_CATEGORIES: Category[] = [
 ];
 
 export const CURRENCIES: { code: string; symbol: string; label: string }[] = [
+  { code: 'NGN', symbol: '₦', label: 'Nigerian Naira' },
   { code: 'USD', symbol: '$', label: 'US Dollar' },
   { code: 'EUR', symbol: '€', label: 'Euro' },
   { code: 'GBP', symbol: '£', label: 'British Pound' },
-  { code: 'NGN', symbol: '₦', label: 'Nigerian Naira' },
   { code: 'CAD', symbol: 'CA$', label: 'Canadian Dollar' },
   { code: 'AUD', symbol: 'A$', label: 'Australian Dollar' },
 ];

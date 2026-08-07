@@ -30,6 +30,15 @@ const TAB_ICONS: Record<keyof RootTabParamList, string> = {
   Settings: '⚙️',
 };
 
+const TAB_LABELS: Record<keyof RootTabParamList, string> = {
+  Dashboard: 'Home',
+  Transactions: 'Activity',
+  Budgets: 'Budgets',
+  Recurring: 'Bills',
+  Insights: 'Insights',
+  Settings: 'Settings',
+};
+
 export function RootNavigator() {
   return (
     <NavigationContainer>
@@ -39,6 +48,7 @@ export function RootNavigator() {
           tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: colors.textMuted,
           tabBarIcon: () => <Text style={{ fontSize: 18 }}>{TAB_ICONS[route.name as keyof RootTabParamList]}</Text>,
+          tabBarLabel: TAB_LABELS[route.name as keyof RootTabParamList],
           tabBarLabelStyle: { fontSize: 11 },
         })}
       >
