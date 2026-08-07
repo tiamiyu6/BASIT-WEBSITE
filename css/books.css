@@ -1,0 +1,131 @@
+/* Accessnetng — Bookkeeping */
+
+.books-intro { padding-bottom: 1.5rem; }
+
+.books-warning {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff8e6;
+    border: 1px solid #f0d38a;
+    border-radius: var(--radius);
+    padding: 1rem 1.3rem;
+    font-size: .88rem;
+    color: #6b5410;
+    text-align: center;
+}
+
+/* ---- Add entry form ---- */
+.books-form-section { padding-top: 0; padding-bottom: 2rem; }
+.books-form-card {
+    max-width: 560px;
+    margin: 0 auto;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2rem;
+}
+.books-form-card h3 { margin-bottom: 1.3rem; font-size: 1.1rem; }
+.books-form-card label {
+    display: block;
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: .35rem;
+}
+.books-form-card input,
+.books-form-card select {
+    width: 100%;
+    padding: .65rem .8rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .93rem;
+    background: #fff;
+    margin-bottom: 1rem;
+}
+.books-form-card input:focus,
+.books-form-card select:focus { outline: 2px solid var(--teal); }
+.books-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+/* ---- Summary ---- */
+.books-summary-section { padding-top: 0; padding-bottom: 2rem; }
+.books-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+}
+.books-stat {
+    background: var(--navy-dark);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+}
+.books-stat-label {
+    display: block;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #8792ab;
+    margin-bottom: .6rem;
+}
+.books-stat-amount { display: block; font-size: 1.5rem; font-weight: 800; color: var(--teal); font-variant-numeric: tabular-nums; }
+.books-stat-meta { display: block; font-size: .8rem; color: #cfe3e6; margin-top: .3rem; }
+
+/* ---- Records ---- */
+.books-records-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.books-records-head h3 { font-size: 1.1rem; }
+.books-toolbar { display: flex; gap: .7rem; flex-wrap: wrap; }
+.books-toolbar .btn { padding: .55rem 1rem; font-size: .82rem; }
+.books-file-btn { cursor: pointer; display: inline-block; }
+.books-danger { border-color: #d9534f; color: #c0392b; }
+.books-danger:hover { background: #d9534f; color: #fff; }
+
+.books-table-scroll { overflow-x: auto; }
+.books-table { width: 100%; min-width: 720px; border-collapse: collapse; }
+.books-table th {
+    text-align: left;
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--gray);
+    padding: .6rem;
+    border-bottom: 2px solid var(--ink);
+}
+.books-table td {
+    padding: .7rem .6rem;
+    border-bottom: 1px solid var(--line);
+    font-size: .88rem;
+    font-variant-numeric: tabular-nums;
+}
+.books-table tbody tr:hover { background: var(--bg-alt); }
+.books-empty-row td { text-align: center; color: var(--gray); font-style: italic; }
+.books-remove-btn {
+    border: none;
+    background: none;
+    color: var(--gray);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: .2rem .4rem;
+}
+.books-remove-btn:hover { color: #c0392b; }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .books-summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .books-input-row { grid-template-columns: 1fr; }
+    .books-form-card { padding: 1.4rem; }
+    .books-records-head { flex-direction: column; align-items: stretch; }
+    .books-toolbar { justify-content: stretch; }
+    .books-toolbar .btn { flex: 1; }
+}
