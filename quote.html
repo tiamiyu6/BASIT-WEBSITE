@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote — Accessnetng</title>
+<meta name="description" content="Build a branded, itemized Accessnetng quote for installation services, materials, and solar systems, then download it or send it straight to us.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="assets/logo-light.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/quote.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+    <div class="nav-wrap">
+        <a href="index.html" class="logo">
+            <img src="assets/logo-horizontal-light.png" alt="Accessnetng" class="logo-img">
+        </a>
+        <nav id="primaryNav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#coverage">Coverage</a></li>
+                <li><a href="index.html#plans">Plans</a></li>
+                <li><a href="index.html#installation">Installation Services</a></li>
+                <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<main>
+
+    <!-- QUOTE INTRO -->
+    <section class="section quote-intro">
+        <div class="section-head">
+            <p class="eyebrow">Get a Quote</p>
+            <h1>Build your own Accessnetng quote</h1>
+            <p class="section-sub">Add services, materials, or a solar system at whatever price you set, adjust quantities, and get an instant, branded quote — print it, save it as a PDF, or send it straight to us to confirm.</p>
+        </div>
+    </section>
+
+    <!-- QUOTE BUILDER -->
+    <section class="section quote-builder-section">
+        <div class="quote-grid">
+
+            <div class="quote-form-panel">
+                <div class="quote-step">
+                    <h3><span class="quote-step-num">1</span>Client details</h3>
+                    <label for="qClientName">Client / business name</label>
+                    <input type="text" id="qClientName" placeholder="e.g. Olive Hall Hostel">
+
+                    <label for="qBuilding">Hostel / building (optional)</label>
+                    <input type="text" id="qBuilding" placeholder="e.g. 4-floor hostel, 40 rooms">
+
+                    <div class="quote-input-row">
+                        <div>
+                            <label for="qEmail">Email (optional)</label>
+                            <input type="email" id="qEmail" placeholder="client@email.com">
+                        </div>
+                        <div>
+                            <label for="qPhone">Phone (optional)</label>
+                            <input type="tel" id="qPhone" placeholder="0803 000 0000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quote-step">
+                    <h3><span class="quote-step-num">2</span>Site details</h3>
+                    <p class="quote-hint">Helps us scope an installation quote accurately — skip any you're not sure of.</p>
+                    <div class="quote-input-row">
+                        <div>
+                            <label for="qHostelsOnStreet">Hostels on this street</label>
+                            <input type="number" id="qHostelsOnStreet" min="0" placeholder="e.g. 5">
+                        </div>
+                        <div>
+                            <label for="qRoomCount">Rooms needing coverage</label>
+                            <input type="number" id="qRoomCount" min="0" placeholder="e.g. 40">
+                        </div>
+                    </div>
+                    <label for="qCluster">Part of a cluster of buildings?</label>
+                    <select id="qCluster">
+                        <option value="">Not sure</option>
+                        <option value="Yes">Yes, part of a cluster</option>
+                        <option value="No">No, standalone building</option>
+                    </select>
+                </div>
+
+                <div class="quote-step">
+                    <h3><span class="quote-step-num">3</span>Services &amp; workmanship</h3>
+                    <p class="quote-hint">Add any service or labor line, at whatever price you choose — pick a common one to prefill the description, or type your own.</p>
+                    <label for="servicePreset">Common services</label>
+                    <select id="servicePreset">
+                        <option value="">Select a service…</option>
+                        <option value="Workmanship / installation labor">Workmanship / installation labor</option>
+                        <option value="Site survey &amp; signal mapping">Site survey &amp; signal mapping</option>
+                        <option value="Cable running &amp; termination">Cable running &amp; termination</option>
+                        <option value="Equipment mounting &amp; configuration">Equipment mounting &amp; configuration</option>
+                        <option value="Rooftop / pole access fee">Rooftop / pole access fee</option>
+                        <option value="Full hostel installation">Full hostel installation</option>
+                        <option value="Internet subscription">Internet subscription</option>
+                    </select>
+                    <label for="customDesc">Service description</label>
+                    <input type="text" id="customDesc" placeholder="e.g. Workmanship / installation labor">
+                    <div class="quote-input-row">
+                        <div class="quote-price-field">
+                            <label for="customPrice">Price (₦) — set your own</label>
+                            <input type="text" inputmode="numeric" id="customPrice" placeholder="0" class="quote-price-input">
+                            <span class="quote-price-symbol">₦</span>
+                        </div>
+                        <div>
+                            <label for="customQty">Qty</label>
+                            <input type="number" id="customQty" min="1" value="1">
+                        </div>
+                    </div>
+                    <button id="addCustomItem" class="btn btn-outline btn-block" type="button">Add service</button>
+                </div>
+
+                <div class="quote-step">
+                    <h3><span class="quote-step-num">4</span>Materials needed</h3>
+                    <p class="quote-hint">Pick a common material to prefill the description, then set the current price and quantity — material costs change with the market, so prices aren't preset.</p>
+                    <label for="materialPreset">Common materials</label>
+                    <select id="materialPreset">
+                        <option value="">Select a material…</option>
+                        <option value="Router / access point">Router / access point</option>
+                        <option value="MikroTik router">MikroTik router</option>
+                        <option value="Outdoor access point">Outdoor access point</option>
+                        <option value="PoE switch">PoE switch</option>
+                        <option value="Ethernet cable (per meter)">Ethernet cable (per meter)</option>
+                        <option value="RJ45 connectors (pack)">RJ45 connectors (pack)</option>
+                        <option value="Patch panel">Patch panel</option>
+                        <option value="Mounting bracket / pole mount">Mounting bracket / pole mount</option>
+                        <option value="Weatherproof cable gland">Weatherproof cable gland</option>
+                        <option value="Junction / enclosure box">Junction / enclosure box</option>
+                        <option value="Surge protector">Surge protector</option>
+                        <option value="Power adapter">Power adapter</option>
+                        <option value="Trunking / cable conduit">Trunking / cable conduit</option>
+                    </select>
+                    <label for="materialDesc">Material description</label>
+                    <input type="text" id="materialDesc" placeholder="e.g. Router / access point">
+                    <div class="quote-input-row">
+                        <div class="quote-price-field">
+                            <label for="materialPrice">Unit price (₦)</label>
+                            <input type="text" inputmode="numeric" id="materialPrice" placeholder="0" class="quote-price-input">
+                            <span class="quote-price-symbol">₦</span>
+                        </div>
+                        <div>
+                            <label for="materialQty">Qty</label>
+                            <input type="number" id="materialQty" min="1" value="1">
+                        </div>
+                    </div>
+                    <button id="addMaterialItem" class="btn btn-outline btn-block" type="button">Add material</button>
+                </div>
+
+                <div class="quote-step">
+                    <h3><span class="quote-step-num">5</span>Solar</h3>
+                    <p class="quote-hint">Pick the system you're proposing to prefill the description, then set your own price and quantity.</p>
+                    <label for="solarPreset">Common solar systems</label>
+                    <select id="solarPreset">
+                        <option value="">Select a system…</option>
+                        <option value="1kVA solar inverter system">1kVA solar inverter system</option>
+                        <option value="1.5kVA solar inverter system">1.5kVA solar inverter system</option>
+                        <option value="2.5kVA solar inverter system">2.5kVA solar inverter system</option>
+                        <option value="5kVA solar inverter system">5kVA solar inverter system</option>
+                        <option value="Solar panel (250W)">Solar panel (250W)</option>
+                        <option value="Deep cycle battery">Deep cycle battery</option>
+                        <option value="Lithium battery">Lithium battery</option>
+                        <option value="Charge controller / MPPT">Charge controller / MPPT</option>
+                        <option value="Solar installation & mounting">Solar installation &amp; mounting</option>
+                    </select>
+                    <label for="solarDesc">System / component description</label>
+                    <input type="text" id="solarDesc" placeholder="e.g. 2.5kVA solar inverter system">
+                    <div class="quote-input-row">
+                        <div class="quote-price-field">
+                            <label for="solarPrice">Price (₦) — set your own</label>
+                            <input type="text" inputmode="numeric" id="solarPrice" placeholder="0" class="quote-price-input">
+                            <span class="quote-price-symbol">₦</span>
+                        </div>
+                        <div>
+                            <label for="solarQty">Qty</label>
+                            <input type="number" id="solarQty" min="1" value="1">
+                        </div>
+                    </div>
+                    <button id="addSolarItem" class="btn btn-outline btn-block" type="button">Add solar item</button>
+                </div>
+
+                <div class="quote-step">
+                    <h3><span class="quote-step-num">6</span>Notes (optional)</h3>
+                    <textarea id="qNotes" rows="3" placeholder="Anything specific about this quote..."></textarea>
+                </div>
+            </div>
+
+            <div class="quote-preview-panel">
+                <div class="quote-doc" id="quotePreview">
+                    <div class="quote-doc-head">
+                        <img src="assets/logo-horizontal-light.png" alt="Accessnetng" class="quote-doc-logo">
+                        <div class="quote-doc-meta">
+                            <span class="quote-doc-title">QUOTATION</span>
+                            <span id="quoteNumber"></span>
+                            <span id="quoteDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="quote-doc-parties">
+                        <div>
+                            <span class="quote-doc-label">Prepared for</span>
+                            <strong id="previewClientName">—</strong>
+                            <span id="previewBuilding"></span>
+                            <span id="previewEmail"></span>
+                            <span id="previewPhone"></span>
+                        </div>
+                        <div>
+                            <span class="quote-doc-label">Prepared by</span>
+                            <strong>Accessnetng</strong>
+                            <span>Basit Tiamiyu</span>
+                            <span>0903 143 8368</span>
+                            <span>tiamiyubasit47@gmail.com</span>
+                            <span>Malate, KWASU</span>
+                        </div>
+                    </div>
+
+                    <div class="quote-doc-site" id="previewSiteWrap" hidden>
+                        <span class="quote-doc-label">Site Details</span>
+                        <p id="previewSiteDetails"></p>
+                    </div>
+
+                    <div class="quote-table-scroll">
+                        <table class="quote-doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Qty</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                    <th class="quote-no-print"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="quoteItemsBody">
+                                <tr class="quote-empty-row">
+                                    <td colspan="5">No items added yet — add a plan or custom item to build your quote.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="quote-doc-totals">
+                        <div><span>Subtotal</span><span id="quoteSubtotal">₦0</span></div>
+                        <div class="quote-doc-total"><span>Total</span><span id="quoteTotal">₦0</span></div>
+                    </div>
+                    <p class="quote-doc-contact">Questions about this quote? <strong>0903 143 8368</strong> &middot; <strong>tiamiyubasit47@gmail.com</strong></p>
+
+                    <div class="quote-doc-notes" id="previewNotesWrap" hidden>
+                        <span class="quote-doc-label">Notes</span>
+                        <p id="previewNotes"></p>
+                    </div>
+
+                    <div class="quote-doc-terms">
+                        <p>Quote valid for 7 days from the date above. Prices in Nigerian Naira (₦). Subscription payments via Moniepoint MFB. Installation pricing is an estimate, confirmed after a site survey.</p>
+                    </div>
+                </div>
+
+                <div class="quote-actions quote-no-print">
+                    <button id="printQuote" class="btn btn-primary" type="button">Print / Save as PDF</button>
+                    <a id="emailQuote" class="btn btn-outline" href="mailto:tiamiyubasit47@gmail.com">Email this Quote to Accessnetng</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer quote-no-print">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="logo">
+                <img src="assets/logo-horizontal-dark.png" alt="Accessnetng" class="logo-img">
+            </span>
+            <p>Internet service provider based in Malate, KWASU. Connecting hostels since day one.</p>
+        </div>
+        <div class="footer-links">
+            <a href="index.html#about">About</a>
+            <a href="index.html#coverage">Coverage</a>
+            <a href="index.html#plans">Plans</a>
+            <a href="index.html#installation">Installation Services</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; <span id="year"></span> Accessnetng · Malate, KWASU</p>
+</footer>
+
+<button id="backToTop" aria-label="Back to top" class="quote-no-print">↑</button>
+
+<script src="js/script.js"></script>
+<script src="js/quote.js"></script>
+</body>
+</html>

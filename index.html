@@ -1,278 +1,336 @@
 <!DOCTYPE html>
-<html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accessnetng — Internet Service Provider in Malate</title>
+<meta name="description" content="Accessnetng is a Malate-based ISP providing fast, reliable internet to 30+ hostels and residential buildings. Also offering professional ISP installation contracting.">
+<link rel="icon" type="image/png" href="assets/logo-light.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-    </head>
-    <body>
-    <title>gbolahon.com</title>
-    <header>
-        <div class="logo"><img src="logo2.png"></div>
-    <ul>
-        <li><a href="#">HOME</a></li>
-        <li><a href="home.html">ABOUT</a></li>
-        <li><a href="#">GALLARY</a></li>
-    </ul>
-    <div class="title">
-        <h1>BASIT LINK TREE</h1>
+<header class="site-header" id="siteHeader">
+    <div class="nav-wrap">
+        <a href="#home" class="logo">
+            <img src="assets/logo-horizontal-light.png" alt="Accessnetng" class="logo-img">
+        </a>
+        <nav id="primaryNav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#coverage">Coverage</a></li>
+                <li><a href="#plans">Plans</a></li>
+                <li><a href="#installation">Installation Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact" class="nav-cta">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
     </div>
-    <div class="button">
-       <a href="https://www.instagram.com/basittiamiyu/" class="btn">INSTAGRAM</a>
-        <a href="https://web.facebook.com/basit.tiamiyu.79/" class="btn" >FACEBOOK LINK</a>
-        <a href="https://twitter.com/basit_official1" class="btn">TWITER LINK</a>
+</header>
 
+<main>
 
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <canvas id="starfield" aria-hidden="true"></canvas>
+        <div class="hero-inner">
+            <p class="eyebrow">Internet Service Provider · Malate, KWASU</p>
+            <h1>Fast, reliable <span class="accent-text">internet</span> — built for hostels &amp; homes in Malate</h1>
+            <p class="hero-sub">Accessnetng connects student hostels, dormitories, and residential buildings across Malate with stable, high-speed internet. Currently live in <strong>30+ hostels</strong>, serving <strong>2,630 users across the network</strong> and growing.</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-gradient">Get Connected</a>
+                <a href="#coverage" class="btn btn-outline">Check Coverage</a>
+            </div>
+            <div class="live-badges">
+                <span class="live-badges-label">Live in:</span>
+                <span class="live-badge"><i></i>Student Hostels</span>
+                <span class="live-badge"><i></i>Dormitories</span>
+                <span class="live-badge"><i></i>Co-living Spaces</span>
+                <span class="live-badge"><i></i>Backpacker Hostels</span>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-num stat-teal">30+</span>
+                <span class="stat-label">Hostels Connected</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num stat-indigo">2,630</span>
+                <span class="stat-label">All Users</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num stat-white">Malate</span>
+                <span class="stat-label">Locally Based</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num stat-teal">24/7</span>
+                <span class="stat-label">Network Monitoring</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+        <div class="section-head">
+            <p class="eyebrow">About Us</p>
+            <h2>An internet provider rooted in Malate</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>Accessnetng is an internet service provider based in <strong>Malate, KWASU</strong>, focused on keeping students and residents connected. We specialize in shared-building internet — the kind of setup that has to work for dozens of rooms, floors, and tenants at once, not just a single household.</p>
+                <p>What started as hands-on ISP installation work has grown into a full network operator: we now supply and manage internet for <strong>30+ hostels</strong> across the area, serving <strong>2,630 users across the network</strong>, with new buildings coming online every month.</p>
+                <p>The brand is run by <strong>Basit Tiamiyu</strong>, who is also a working <strong>ISP installation contractor</strong> — meaning every hostel we connect is planned and wired using the same field-tested approach used across the rest of our network.</p>
+            </div>
+            <ul class="about-points">
+                <li>
+                    <strong>Built for shared buildings</strong>
+                    <span>Hostels, dorms, and co-living spaces with many rooms on one connection.</span>
+                </li>
+                <li>
+                    <strong>Local &amp; hands-on</strong>
+                    <span>Based in Malate — installs, support, and troubleshooting happen on the ground, not over a call center.</span>
+                </li>
+                <li>
+                    <strong>Growing coverage</strong>
+                    <span>30+ hostels and 2,630 users currently connected across the network, with new sites added regularly.</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- COVERAGE -->
+    <section id="coverage" class="section section-alt">
+        <div class="section-head">
+            <p class="eyebrow">Coverage</p>
+            <h2>Live in 30+ hostels across Malate</h2>
+            <p class="section-sub">Accessnetng already powers internet for a growing list of hostels and shared residences in Malate. If your building isn't connected yet, we can usually change that.</p>
+        </div>
+
+        <div class="coverage-counter">
+            <span class="counter-num">30+</span>
+            <span class="counter-text">Hostels currently running on Accessnetng, serving 2,630 users across the network — and counting</span>
+        </div>
+
+        <div class="coverage-tabs" role="tablist" aria-label="Filter coverage locations">
+            <button type="button" class="coverage-tab active" data-filter="all">All Locations</button>
+            <button type="button" class="coverage-tab" data-filter="live">Live Now</button>
+            <button type="button" class="coverage-tab" data-filter="soon">Coming Soon</button>
+        </div>
+
+        <div class="coverage-map-wrap">
+            <svg id="coverageMap" class="coverage-map" role="img" aria-label="Map of Accessnetng locations connected to the main server at Downtown Apartment"></svg>
+            <div class="coverage-tooltip" id="coverageTooltip">
+                <strong class="coverage-tooltip-name"></strong>
+                <span class="coverage-tooltip-meta"></span>
+            </div>
+            <p class="coverage-map-hint">Tap or hover a point for details</p>
+        </div>
+
+        <div class="coverage-list" id="coverageList"></div>
+
+        <p class="coverage-note">Not on the list yet? <a href="#contact">Request Accessnetng at your hostel →</a></p>
+    </section>
+
+    <!-- PLANS -->
+    <section id="plans" class="section">
+        <div class="section-head">
+            <p class="eyebrow">Plans</p>
+            <h2>Available service plans</h2>
+            <p class="section-sub">Unbeatable internet packages, billed by data or unlimited. Pick a plan below, then contact us to activate.</p>
+        </div>
+        <div class="plans-grid">
+            <div class="plan-group">
+                <h3>Weekly Plans</h3>
+                <ul class="plan-list">
+                    <li><span class="plan-name">5GB <em>(5 days)</em></span><span class="plan-amount">₦1,000</span></li>
+                    <li><span class="plan-name">10GB <em>(7 days · 2 devices)</em></span><span class="plan-amount">₦2,000</span></li>
+                    <li><span class="plan-name">15GB Premium <em>(7 days · 2 devices)</em></span><span class="plan-amount">₦3,000</span></li>
+                    <li><span class="plan-name">25GB VIP <em>(14 days · 2 devices)</em></span><span class="plan-amount">₦5,000</span></li>
+                </ul>
+                <a href="#contact" class="btn btn-outline btn-block">Subscribe</a>
+            </div>
+            <div class="plan-group plan-featured">
+                <span class="plan-badge">Most Requested</span>
+                <h3>Monthly Plans</h3>
+                <ul class="plan-list">
+                    <li><span class="plan-name">40GB <em>(30 days · 3 devices)</em></span><span class="plan-amount">₦8,000</span></li>
+                    <li><span class="plan-name">50GB Premium <em>(30 days · 3 devices)</em></span><span class="plan-amount">₦10,000</span></li>
+                    <li><span class="plan-name">75GB Big Boys &amp; Big Girls <em>(30 days · 4 devices)</em></span><span class="plan-amount">₦15,000</span></li>
+                </ul>
+                <a href="#contact" class="btn btn-primary btn-block">Subscribe</a>
+            </div>
+            <div class="plan-group">
+                <h3>Unlimited Plans</h3>
+                <ul class="plan-list">
+                    <li><span class="plan-name">Unlimited <em>(1 week · 1 device)</em></span><span class="plan-amount">₦8,000</span></li>
+                    <li><span class="plan-name">Unlimited <em>(1 week · 2 devices)</em></span><span class="plan-amount">₦15,000</span></li>
+                    <li><span class="plan-name">Unlimited <em>(1 month · 2 devices)</em></span><span class="plan-amount">₦32,000</span></li>
+                </ul>
+                <a href="#contact" class="btn btn-outline btn-block">Subscribe</a>
+            </div>
+        </div>
+        <p class="plans-note">Subscription account creation, activation, and support: <strong>Basit Tiamiyu</strong> — <a href="tel:+2349031438368">0903 143 8368</a> · payments via Moniepoint MFB.</p>
+    </section>
+
+    <!-- INSTALLATION / CONTRACTOR SERVICES -->
+    <section id="installation" class="section section-dark">
+        <div class="spotlight-card">
+            <span class="spotlight-badge"><i></i>ISP Installation Contracting by Accessnetng</span>
+            <h2>Professional installs,<br><span class="accent-text">one hostel at a time.</span></h2>
+            <p>Beyond running the Accessnetng network, <strong>Basit Tiamiyu</strong> works directly as an independent ISP setup contractor — planning and installing internet systems for hostels, apartments, and shared buildings, whether or not they end up on the Accessnetng network.</p>
+            <p class="spotlight-meta">30+ hostels installed using this method &middot; tested, repeatable, built to cover more ground per install</p>
+            <a href="#contact" class="btn btn-gradient">Book an Installation →</a>
+        </div>
+
+        <div class="method-block">
+            <h3>A coverage-first installation method</h3>
+            <p>Most hostel WiFi problems come down to one thing: not enough of the building is actually covered. The method used on every Accessnetng install is built to close that gap — mapping the building first, then placing equipment to cover more rooms and floors with fewer dead zones, instead of just dropping a router at the front desk and hoping it reaches the back rooms.</p>
+            <div class="method-grid">
+                <div class="method-item">
+                    <span class="method-num">01</span>
+                    <h4>Site survey &amp; signal mapping</h4>
+                    <p>Every floor and room is checked before any cable is run, so weak spots are found in advance, not after move-in.</p>
+                </div>
+                <div class="method-item">
+                    <span class="method-num">02</span>
+                    <h4>Wider ground coverage per install</h4>
+                    <p>Access points and cable runs are planned to reach more floors and rooms from fewer install points, cutting down on dead zones common in multi-story hostels.</p>
+                </div>
+                <div class="method-item">
+                    <span class="method-num">03</span>
+                    <h4>Structured cabling</h4>
+                    <p>Cable routes are planned for the building's actual layout, not the shortest run, so signal stays stable to the far end of the property.</p>
+                </div>
+                <div class="method-item">
+                    <span class="method-num">04</span>
+                    <h4>Tested across 30+ live sites</h4>
+                    <p>This is the same approach behind every hostel currently running on Accessnetng — proven across a real, growing network.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+        <div class="section-head">
+            <p class="eyebrow">Projects</p>
+            <h2>Selected installation work</h2>
+            <p class="section-sub">A few of the buildouts behind the Accessnetng network — real installs, using the same coverage-first method every time.</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <span class="project-tag">Multi-building buildout</span>
+                <h3>Downtown Apartment — main server &amp; rollout</h3>
+                <p>Built the main server setup at Downtown Apartment and extended coverage to a second building on the same street, with three more currently underway.</p>
+                <span class="project-meta">Malate, KWASU · Live, expanding</span>
+            </div>
+            <div class="project-card">
+                <span class="project-tag">Full hostel install</span>
+                <h3>Folab — full hostel installation</h3>
+                <p>Complete hostel-wide coverage from a single install point, planned around the building's actual layout rather than the shortest cable run.</p>
+                <span class="project-meta">Malate, KWASU · Live since 2025</span>
+            </div>
+            <div class="project-card">
+                <span class="project-tag">Network expansion</span>
+                <h3>Malate hostel network expansion</h3>
+                <p>Connected a run of additional hostels onto the Accessnetng network — including Bob Sam, Kik Apartment, Ife Hostel, and Jagun Hostel — each installed with the same site survey and coverage-first approach.</p>
+                <span class="project-meta">Malate, KWASU · 10+ hostels connected</span>
+            </div>
+            <div class="project-card">
+                <span class="project-tag">Plug-and-play setup</span>
+                <h3>Sonic, N-Net, AY &amp; iCrypt Network</h3>
+                <p>Four clients that came to Accessnetng for a fast, plug-and-play network setup rather than a full ground-up build. Each now runs profitably, with 100+ users on the network.</p>
+                <span class="project-meta">Plug-and-play setups · 100+ users each · Profitable</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+        <div class="section-head">
+            <p class="eyebrow">Contact</p>
+            <h2>Get connected, or book an installation</h2>
+            <p class="section-sub">Whether you run a hostel in Malate looking for Accessnetng coverage, or need an ISP setup contractor for your own building, reach out below.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <ul>
+                    <li>
+                        <span class="contact-label">Email</span>
+                        <a href="mailto:tiamiyubasit47@gmail.com">tiamiyubasit47@gmail.com</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Phone / WhatsApp</span>
+                        <a href="tel:+2349031438368">0903 143 8368</a>
+                        &nbsp;·&nbsp;
+                        <a href="https://wa.me/2349031438368" target="_blank" rel="noopener">Chat on WhatsApp</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Location</span>
+                        <span>Downtown Apartment, Malate, KWASU</span>
+                    </li>
+                    <li>
+                        <span class="contact-label">Social</span>
+                        <span class="social-links">
+                            <a href="https://www.instagram.com/basittiamiyu/" target="_blank" rel="noopener">Instagram</a>
+                            <a href="https://web.facebook.com/basit.tiamiyu.79/" target="_blank" rel="noopener">Facebook</a>
+                            <a href="https://twitter.com/basit_official1" target="_blank" rel="noopener">Twitter</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <form class="contact-form" action="mailto:tiamiyubasit47@gmail.com" method="post" enctype="text/plain">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="Name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="Email" required>
+
+                <label for="building">Hostel / Building name (if applicable)</label>
+                <input type="text" id="building" name="Building">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="Message" rows="4" placeholder="Tell us about your building, or what you need installed..." required></textarea>
+
+                <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                <p class="form-note">Opens your email app to send this message to Accessnetng.</p>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="logo">
+                <img src="assets/logo-horizontal-dark.png" alt="Accessnetng" class="logo-img">
+            </span>
+            <p>Internet service provider based in Malate, KWASU. Connecting hostels since day one.</p>
+        </div>
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#coverage">Coverage</a>
+            <a href="#plans">Plans</a>
+            <a href="#installation">Installation Services</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
     </div>
-    </header>
+    <p class="footer-bottom">&copy; <span id="year"></span> Accessnetng · Malate, KWASU</p>
+</footer>
+
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<script src="js/script.js"></script>
+<script src="js/coverage.js"></script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="test.css">

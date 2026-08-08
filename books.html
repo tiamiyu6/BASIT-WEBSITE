@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookkeeping — Accessnetng</title>
+<meta name="description" content="Accessnetng sales and payment records — daily, weekly, and monthly totals.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="assets/logo-light.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/quote.css">
+<link rel="stylesheet" href="css/books.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+    <div class="nav-wrap">
+        <a href="index.html" class="logo">
+            <img src="assets/logo-horizontal-light.png" alt="Accessnetng" class="logo-img">
+        </a>
+        <nav id="primaryNav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#coverage">Coverage</a></li>
+                <li><a href="index.html#plans">Plans</a></li>
+                <li><a href="index.html#installation">Installation Services</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<main>
+
+    <!-- BOOKS INTRO -->
+    <section class="section books-intro">
+        <div class="section-head">
+            <p class="eyebrow">Bookkeeping</p>
+            <h1>Sales &amp; payment records</h1>
+            <p class="section-sub">Log every sale — data plan, amount, and GB — and get accurate daily, weekly, and monthly totals automatically.</p>
+        </div>
+        <div class="books-warning">
+            <strong>This stays on this device only.</strong> Records are saved in this browser, not on a server — clearing your browser data or switching devices means they won't be there. Use <strong>Backup (JSON)</strong> below regularly, and store the file somewhere safe (email it to yourself, save to cloud storage).
+        </div>
+    </section>
+
+    <!-- BALANCE -->
+    <section class="section books-balance-section">
+        <div class="books-balance-card">
+            <span class="books-balance-label">Current Balance</span>
+            <span class="books-balance-amount" id="currentBalance">₦0</span>
+            <span class="books-balance-meta" id="balanceMeta">₦0 in · ₦0 out · all time</span>
+        </div>
+    </section>
+
+    <!-- ADD ENTRY -->
+    <section class="section books-form-section">
+        <div class="books-form-card">
+            <h3>Add a transaction</h3>
+            <div class="books-type-toggle" role="tablist" aria-label="Transaction type">
+                <button type="button" class="books-type-btn active" data-type="income">Income (Sale)</button>
+                <button type="button" class="books-type-btn" data-type="expense">Expense</button>
+            </div>
+            <div class="books-input-row">
+                <div>
+                    <label for="bDate">Date</label>
+                    <input type="date" id="bDate">
+                </div>
+                <div>
+                    <label for="bMethod">Payment method</label>
+                    <select id="bMethod">
+                        <option value="Moniepoint">Moniepoint</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <label for="bCustomer">Customer / description (optional)</label>
+            <input type="text" id="bCustomer" placeholder="e.g. Olive Hall Hostel">
+
+            <div class="books-plan-row" id="bPlanRow">
+                <label for="bPlanPreset">Quick-pick a plan (auto-fills below)</label>
+                <select id="bPlanPreset">
+                    <option value="">Select a plan…</option>
+                </select>
+            </div>
+
+            <div class="books-input-row">
+                <div>
+                    <label for="bPlan" id="bPlanLabel">Plan / package</label>
+                    <input type="text" id="bPlan" placeholder="e.g. 10GB Weekly">
+                </div>
+                <div id="bGbWrap">
+                    <label for="bGb">Data (GB)</label>
+                    <input type="number" id="bGb" min="0" step="0.5" placeholder="e.g. 10">
+                </div>
+            </div>
+            <div class="quote-price-field">
+                <label for="bAmount" id="bAmountLabel">Amount paid (₦)</label>
+                <input type="text" inputmode="numeric" id="bAmount" placeholder="0" class="quote-price-input">
+                <span class="quote-price-symbol">₦</span>
+            </div>
+            <button id="addEntry" class="btn btn-primary btn-block" type="button">Add Entry</button>
+        </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="section books-summary-section">
+        <div class="books-summary-grid" id="booksSummary"></div>
+    </section>
+
+    <!-- TREND -->
+    <section class="section books-trend-section">
+        <h3>Last 7 days</h3>
+        <div class="books-trend-wrap">
+            <svg id="trendChart" class="books-trend-chart"></svg>
+        </div>
+    </section>
+
+    <!-- RECORDS -->
+    <section class="section books-records-section">
+        <div class="books-records-head">
+            <h3>All records</h3>
+            <div class="books-toolbar">
+                <button id="exportCsv" class="btn btn-outline" type="button">Export CSV</button>
+                <button id="backupJson" class="btn btn-outline" type="button">Backup (JSON)</button>
+                <label class="btn btn-outline books-file-btn">
+                    Restore backup
+                    <input type="file" id="restoreJson" accept="application/json" hidden>
+                </label>
+                <button id="clearAll" class="btn btn-outline books-danger" type="button">Clear All</button>
+            </div>
+        </div>
+        <div class="books-table-scroll">
+            <table class="books-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Customer</th>
+                        <th>Plan</th>
+                        <th>GB</th>
+                        <th>Amount</th>
+                        <th>Method</th>
+                        <th>Balance</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="booksTableBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="logo">
+                <img src="assets/logo-horizontal-dark.png" alt="Accessnetng" class="logo-img">
+            </span>
+            <p>Internet service provider based in Malate, KWASU. Connecting hostels since day one.</p>
+        </div>
+        <div class="footer-links">
+            <a href="index.html#about">About</a>
+            <a href="index.html#coverage">Coverage</a>
+            <a href="index.html#plans">Plans</a>
+            <a href="index.html#installation">Installation Services</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; <span id="year"></span> Accessnetng · Malate, KWASU</p>
+</footer>
+
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<script src="js/script.js"></script>
+<script src="js/books.js"></script>
+</body>
+</html>
