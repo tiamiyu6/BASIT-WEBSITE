@@ -50,10 +50,23 @@
         </div>
     </section>
 
+    <!-- BALANCE -->
+    <section class="section books-balance-section">
+        <div class="books-balance-card">
+            <span class="books-balance-label">Current Balance</span>
+            <span class="books-balance-amount" id="currentBalance">₦0</span>
+            <span class="books-balance-meta" id="balanceMeta">₦0 in · ₦0 out · all time</span>
+        </div>
+    </section>
+
     <!-- ADD ENTRY -->
     <section class="section books-form-section">
         <div class="books-form-card">
-            <h3>Add a sale</h3>
+            <h3>Add a transaction</h3>
+            <div class="books-type-toggle" role="tablist" aria-label="Transaction type">
+                <button type="button" class="books-type-btn active" data-type="income">Income (Sale)</button>
+                <button type="button" class="books-type-btn" data-type="expense">Expense</button>
+            </div>
             <div class="books-input-row">
                 <div>
                     <label for="bDate">Date</label>
@@ -71,18 +84,26 @@
             </div>
             <label for="bCustomer">Customer / description (optional)</label>
             <input type="text" id="bCustomer" placeholder="e.g. Olive Hall Hostel">
+
+            <div class="books-plan-row" id="bPlanRow">
+                <label for="bPlanPreset">Quick-pick a plan (auto-fills below)</label>
+                <select id="bPlanPreset">
+                    <option value="">Select a plan…</option>
+                </select>
+            </div>
+
             <div class="books-input-row">
                 <div>
-                    <label for="bPlan">Plan / package</label>
+                    <label for="bPlan" id="bPlanLabel">Plan / package</label>
                     <input type="text" id="bPlan" placeholder="e.g. 10GB Weekly">
                 </div>
-                <div>
+                <div id="bGbWrap">
                     <label for="bGb">Data (GB)</label>
                     <input type="number" id="bGb" min="0" step="0.5" placeholder="e.g. 10">
                 </div>
             </div>
             <div class="quote-price-field">
-                <label for="bAmount">Amount paid (₦)</label>
+                <label for="bAmount" id="bAmountLabel">Amount paid (₦)</label>
                 <input type="text" inputmode="numeric" id="bAmount" placeholder="0" class="quote-price-input">
                 <span class="quote-price-symbol">₦</span>
             </div>
@@ -93,6 +114,14 @@
     <!-- SUMMARY -->
     <section class="section books-summary-section">
         <div class="books-summary-grid" id="booksSummary"></div>
+    </section>
+
+    <!-- TREND -->
+    <section class="section books-trend-section">
+        <h3>Last 7 days</h3>
+        <div class="books-trend-wrap">
+            <svg id="trendChart" class="books-trend-chart"></svg>
+        </div>
     </section>
 
     <!-- RECORDS -->
@@ -114,11 +143,13 @@
                 <thead>
                     <tr>
                         <th>Date</th>
+                        <th>Type</th>
                         <th>Customer</th>
                         <th>Plan</th>
                         <th>GB</th>
                         <th>Amount</th>
                         <th>Method</th>
+                        <th>Balance</th>
                         <th></th>
                     </tr>
                 </thead>

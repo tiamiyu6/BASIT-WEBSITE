@@ -14,8 +14,40 @@
     text-align: center;
 }
 
+/* ---- Balance ---- */
+.books-balance-section { padding-top: 0; padding-bottom: 1.5rem; }
+.books-balance-card {
+    max-width: 560px;
+    margin: 0 auto;
+    background: radial-gradient(ellipse 120% 100% at 50% -10%, rgba(0,209,160,.18), transparent 60%), var(--navy-dark);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    color: #fff;
+}
+.books-balance-label { display: block; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: #8792ab; margin-bottom: .6rem; }
+.books-balance-amount { display: block; font-size: 2.6rem; font-weight: 800; color: var(--teal); font-variant-numeric: tabular-nums; text-shadow: 0 0 24px rgba(0,209,160,.4); }
+.books-balance-amount.negative { color: #e6725f; text-shadow: 0 0 24px rgba(230,114,95,.4); }
+.books-balance-meta { display: block; font-size: .85rem; color: #cfe3e6; margin-top: .6rem; }
+
 /* ---- Add entry form ---- */
 .books-form-section { padding-top: 0; padding-bottom: 2rem; }
+.books-type-toggle { display: flex; gap: .6rem; margin-bottom: 1.3rem; }
+.books-type-btn {
+    flex: 1;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: .85rem;
+    padding: .65rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.books-type-btn[data-type="income"].active { background: var(--teal); border-color: var(--teal); color: var(--navy-dark); }
+.books-type-btn[data-type="expense"].active { background: #e6725f; border-color: #e6725f; color: #fff; }
+.books-plan-row { margin-bottom: 0; }
 .books-form-card {
     max-width: 560px;
     margin: 0 auto;
@@ -72,6 +104,23 @@
 .books-stat-amount { display: block; font-size: 1.5rem; font-weight: 800; color: var(--teal); font-variant-numeric: tabular-nums; }
 .books-stat-meta { display: block; font-size: .8rem; color: #cfe3e6; margin-top: .3rem; }
 
+/* ---- Trend ---- */
+.books-trend-section { padding-top: 0; padding-bottom: 2rem; }
+.books-trend-section h3 { text-align: center; font-size: 1rem; margin-bottom: 1rem; }
+.books-trend-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem;
+}
+.books-trend-chart { display: block; width: 100%; height: auto; }
+.books-trend-bar-income { fill: var(--teal); }
+.books-trend-bar-expense { fill: #e6725f; }
+.books-trend-axis-label { fill: var(--gray); font-size: 10px; }
+.books-trend-value-label { fill: var(--ink); font-size: 10px; font-weight: 700; }
+
 /* ---- Records ---- */
 .books-records-head {
     display: flex;
@@ -89,7 +138,17 @@
 .books-danger:hover { background: #d9534f; color: #fff; }
 
 .books-table-scroll { overflow-x: auto; }
-.books-table { width: 100%; min-width: 720px; border-collapse: collapse; }
+.books-table { width: 100%; min-width: 880px; border-collapse: collapse; }
+.books-type-badge {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: .2rem .6rem;
+    border-radius: 999px;
+}
+.books-type-badge-income { background: rgba(0,209,160,.12); color: var(--teal-dark); }
+.books-type-badge-expense { background: rgba(230,114,95,.12); color: #c0392b; }
+.books-amount-expense { color: #c0392b; }
 .books-table th {
     text-align: left;
     font-size: .72rem;
