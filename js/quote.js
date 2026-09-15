@@ -54,16 +54,30 @@ if (quoteItemsBody) {
 
     function addFreeformItem(descId, priceId, qtyId) {
         const descEl = document.getElementById(descId);
+        const priceEl = document.getElementById(priceId);
         const desc = descEl.value.trim();
         const price = parsePrice(priceId);
         const qty = Math.max(1, Number(document.getElementById(qtyId).value) || 1);
+
         if (!desc) {
+            descEl.setCustomValidity('Add a description before adding this item.');
+            descEl.reportValidity();
             descEl.focus();
             return;
         }
+        descEl.setCustomValidity('');
+
+        if (price <= 0) {
+            priceEl.setCustomValidity('Enter a price greater than ₦0.');
+            priceEl.reportValidity();
+            priceEl.focus();
+            return;
+        }
+        priceEl.setCustomValidity('');
+
         items.push({ desc, price, qty });
         descEl.value = '';
-        document.getElementById(priceId).value = '';
+        priceEl.value = '';
         document.getElementById(qtyId).value = '1';
         render();
     }
