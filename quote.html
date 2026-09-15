@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get a Quote — Accessnetng</title>
-<meta name="description" content="Build a branded, itemized Accessnetng quote for installation services, materials, and solar systems, then download it or send it straight to us.">
+<meta name="description" content="Build a branded, itemized Accessnetng quote for installation services, materials, solar systems, and web development — domains, hosting, and dev charges — then download it or send it straight to us.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="assets/logo-light.png">
 <link rel="stylesheet" href="css/style.css">
@@ -41,7 +41,7 @@
         <div class="section-head">
             <p class="eyebrow">Get a Quote</p>
             <h1>Build your own Accessnetng quote</h1>
-            <p class="section-sub">Add services, materials, or a solar system at whatever price you set, adjust quantities, and get an instant, branded quote — print it, save it as a PDF, or send it straight to us to confirm.</p>
+            <p class="section-sub">Add services, materials, solar, or web development — domains, hosting, and dev charges — at whatever price you set, adjust quantities, and get an instant, branded quote — print it, save it as a PDF, or send it straight to us to confirm.</p>
         </div>
     </section>
 
@@ -190,7 +190,40 @@
                 </div>
 
                 <div class="quote-step">
-                    <h3><span class="quote-step-num">6</span>Notes (optional)</h3>
+                    <h3><span class="quote-step-num">6</span>Web development</h3>
+                    <p class="quote-hint">Domain, hosting, and dev/professional charges — pick a common one to prefill the description, then set your own price.</p>
+                    <label for="webPreset">Common web items</label>
+                    <select id="webPreset">
+                        <option value="">Select an item…</option>
+                        <option value="Domain registration (.com)">Domain registration (.com)</option>
+                        <option value="Domain registration (.com.ng)">Domain registration (.com.ng)</option>
+                        <option value="Domain registration (.ng)">Domain registration (.ng)</option>
+                        <option value="Web hosting (1 month)">Web hosting (1 month)</option>
+                        <option value="Web hosting (1 year)">Web hosting (1 year)</option>
+                        <option value="Landing page design & build">Landing page design &amp; build</option>
+                        <option value="Business website design & build">Business website design &amp; build</option>
+                        <option value="E-commerce website design & build">E-commerce website design &amp; build</option>
+                        <option value="Website maintenance (monthly)">Website maintenance (monthly)</option>
+                        <option value="Professional / service charge">Professional / service charge</option>
+                    </select>
+                    <label for="webDesc">Item description</label>
+                    <input type="text" id="webDesc" placeholder="e.g. Business website design & build">
+                    <div class="quote-input-row">
+                        <div class="quote-price-field">
+                            <label for="webPrice">Price (₦) — set your own</label>
+                            <input type="text" inputmode="numeric" id="webPrice" placeholder="0" class="quote-price-input">
+                            <span class="quote-price-symbol">₦</span>
+                        </div>
+                        <div>
+                            <label for="webQty">Qty</label>
+                            <input type="number" id="webQty" min="1" value="1">
+                        </div>
+                    </div>
+                    <button id="addWebItem" class="btn btn-outline btn-block" type="button">Add web item</button>
+                </div>
+
+                <div class="quote-step">
+                    <h3><span class="quote-step-num">7</span>Notes (optional)</h3>
                     <textarea id="qNotes" rows="3" placeholder="Anything specific about this quote..."></textarea>
                 </div>
             </div>

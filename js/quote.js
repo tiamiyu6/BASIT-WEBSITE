@@ -78,6 +78,7 @@ if (quoteItemsBody) {
     bindCommaFormatting('customPrice');
     bindCommaFormatting('materialPrice');
     bindCommaFormatting('solarPrice');
+    bindCommaFormatting('webPrice');
 
     function bindPreset(presetId, descId, priceId) {
         const preset = document.getElementById(presetId);
@@ -106,6 +107,12 @@ if (quoteItemsBody) {
     document.getElementById('addSolarItem').addEventListener('click', () => {
         addFreeformItem('solarDesc', 'solarPrice', 'solarQty');
         solarPreset.value = '';
+    });
+
+    const webPreset = bindPreset('webPreset', 'webDesc', 'webPrice');
+    document.getElementById('addWebItem').addEventListener('click', () => {
+        addFreeformItem('webDesc', 'webPrice', 'webQty');
+        webPreset.value = '';
     });
 
     function bindPreviewField(inputId, previewId, format) {
