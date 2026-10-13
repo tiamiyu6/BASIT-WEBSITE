@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malete Life</title>
+<style>
+  :root{
+    --bg:#1b120c; --panel:#2a1d14; --panel2:#3a2a1d; --text:#f6ead9; --muted:#c9b59c;
+    --accent:#f2a33a; --good:#6fcf7a; --bad:#ef6b5b; --bar:#4a3828;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Trebuchet MS',Arial,sans-serif;background:var(--bg);color:var(--text);
+    min-height:100vh;padding:16px;line-height:1.4;
+  }
+  a{color:var(--accent)}
+  .wrap{max-width:760px;margin:0 auto}
+  header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  header h1{font-size:28px;color:var(--accent);letter-spacing:1px}
+  header small{color:var(--muted)}
+  .card{background:var(--panel);border-radius:12px;padding:16px;margin-bottom:14px}
+  .day{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-weight:bold}
+  .day .slot{color:var(--accent)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .stat label{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+  .bar{height:10px;background:var(--bar);border-radius:6px;overflow:hidden;margin-top:4px}
+  .bar span{display:block;height:100%;background:var(--good);transition:width .3s}
+  .bar span.low{background:var(--bad)}
+  .money{font-size:22px;font-weight:bold;color:var(--good)}
+  .money.broke{color:var(--bad)}
+  .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  button{
+    font:inherit;color:var(--text);background:var(--panel2);border:2px solid transparent;
+    border-radius:10px;padding:12px;text-align:left;cursor:pointer;transition:border-color .15s,transform .1s;
+  }
+  button:hover:not(:disabled){border-color:var(--accent)}
+  button:active:not(:disabled){transform:scale(.98)}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  button b{display:block;font-size:16px}
+  button small{color:var(--muted);font-size:12px}
+  .primary{background:var(--accent);color:#1b120c;text-align:center;font-weight:bold}
+  .primary small{color:#3a2a1d}
+  .event{border-left:4px solid var(--accent)}
+  .event h3{margin-bottom:6px}
+  .event .choices{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .event .choices button{flex:1 1 180px}
+  .log{max-height:180px;overflow-y:auto;font-size:14px;color:var(--muted)}
+  .log p{padding:3px 0;border-bottom:1px solid var(--panel2)}
+  .log p:first-child{color:var(--text)}
+  .end{text-align:center}
+  .end h2{font-size:32px;color:var(--accent);margin:8px 0}
+  .end .cgpa{font-size:56px;font-weight:bold}
+  .hidden{display:none}
+  .intro p{margin-bottom:10px}
+  @media (max-width:480px){header h1{font-size:22px}.end .cgpa{font-size:44px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>MALETE LIFE</h1>
+      <small>Survive one semester as a student in Malete</small>
+    </div>
+    <a href="index.html">&larr; Back to site</a>
+  </header>
+
+  <!-- Intro -->
+  <section id="intro" class="card intro">
+    <p>You just resumed in <b>Malete</b>. Your lodge is off-campus, light is not guaranteed,
+      the borehole has moods, and your account balance is praying for you.</p>
+    <p>You have <b>20 days</b> until exams. Each day has a <b>morning, afternoon and night</b>.
+      Pick what to do in each slot. Keep your <b>food</b> and <b>energy</b> up, don't go broke,
+      and read enough to pass. There's a <b>test on day 10</b>.</p>
+    <p>Your final CGPA depends on your test, your exam, and how many lectures you actually showed up for.</p>
+    <p id="best" class="hidden"></p>
+    <button class="primary" id="startBtn"><b>Resume school</b><small>Start the semester</small></button>
+  </section>
+
+  <!-- Game -->
+  <section id="game" class="hidden">
+    <div class="card">
+      <div class="day"><span id="dayLabel">Day 1 of 20</span><span class="slot" id="slotLabel">Morning</span></div>
+    </div>
+
+    <div class="card">
+      <div class="stats">
+        <div class="stat"><label>Money</label><div class="money" id="money">₦0</div></div>
+        <div class="stat"><label><span>Energy</span><span id="energyVal"></span></label><div class="bar"><span id="energyBar"></span></div></div>
+        <div class="stat"><label><span>Food</span><span id="foodVal"></span></label><div class="bar"><span id="foodBar"></span></div></div>
+        <div class="stat"><label><span>Knowledge</span><span id="knowVal"></span></label><div class="bar"><span id="knowBar"></span></div></div>
+        <div class="stat"><label><span>Vibes</span><span id="vibesVal"></span></label><div class="bar"><span id="vibesBar"></span></div></div>
+      </div>
+    </div>
+
+    <div id="eventCard" class="card event hidden">
+      <h3 id="eventTitle"></h3>
+      <p id="eventText"></p>
+      <div class="choices" id="eventChoices"></div>
+    </div>
+
+    <div id="actionCard" class="card">
+      <div class="actions" id="actions"></div>
+    </div>
+
+    <div class="card">
+      <div class="log" id="log"></div>
+    </div>
+  </section>
+
+  <!-- End -->
+  <section id="end" class="card end hidden">
+    <p>Results are out!</p>
+    <div class="cgpa" id="cgpa"></div>
+    <h2 id="rank"></h2>
+    <p id="summary"></p>
+    <br>
+    <button class="primary" id="againBtn"><b>Play again</b><small>New semester, new you</small></button>
+  </section>
+</div>
+
+<script>
+(function(){
+  var DAYS = 20, TEST_DAY = 10;
+  var SLOTS = ['Morning','Afternoon','Night'];
+  var s; // game state
+
+  function $(id){ return document.getElementById(id); }
+  function clamp(v){ return Math.max(0, Math.min(100, v)); }
+  function rand(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+  function naira(n){ return '₦' + n.toLocaleString(); }
+
+  function loadBest(){ try { return parseFloat(localStorage.getItem('malete-best')) || 0; } catch(e){ return 0; } }
+  function saveBest(v){ try { localStorage.setItem('malete-best', String(v)); } catch(e){} }
+
+  function newGame(){
+    s = {
+      day:1, slot:0, money:15000, energy:80, food:70, know:10, vibes:60,
+      lectures:0, testScore:null, lastCallHome:-10,
+      noLight:false, noClass:false, log:[]
+    };
+    log('You arrive in Malete with ' + naira(s.money) + ' and big dreams.');
+    startDay();
+  }
+
+  // ---------- Actions ----------
+  var ACTIONS = [
+    { id:'lecture', name:'Attend lecture', desc:'Keke to campus ₦200 · -15 energy · +knowledge',
+      slots:[0,1], can:function(){ return s.money>=200 && !s.noClass; },
+      run:function(){
+        s.money-=200; s.energy-=15; s.food-=5; s.lectures++;
+        var gain = s.energy<20 ? 3 : (s.vibes<25 ? 5 : 8);
+        s.know+=gain;
+        return s.energy<20 ? 'You dozed off in class. Lecturer noticed. Small knowledge gained.'
+                           : 'You attended lecture and actually understood something. +' + gain + ' knowledge.';
+      }},
+    { id:'library', name:'Read in the library', desc:'-12 energy · -3 vibes · +knowledge',
+      slots:[0,1], can:function(){ return true; },
+      run:function(){
+        s.energy-=12; s.vibes-=3; var g = s.energy<20 ? 2 : 6; s.know+=g;
+        return 'You found a seat with fan and read for hours. +' + g + ' knowledge.';
+      }},
+    { id:'readNight', name:'Night reading', desc:'TDB with torchlight · -18 energy · +knowledge',
+      slots:[2], can:function(){ return true; },
+      run:function(){
+        s.energy-=18; var g = s.noLight ? 3 : 7; if(s.energy<15) g=2; s.know+=g;
+        return s.noLight ? 'No light. You read with phone torch until it died. +' + g + ' knowledge.'
+                         : 'Light stayed on! You read till 2am. +' + g + ' knowledge.';
+      }},
+    { id:'amala', name:'Eat amala at the buka', desc:'Amala, ewedu & gbegiri ₦900 · +food',
+      slots:[0,1,2], can:function(){ return s.money>=900; },
+      run:function(){
+        s.money-=900; s.food+=45; s.energy+=5; s.vibes+=3;
+        return 'Mama put dropped extra meat because you greeted well. Belle full.';
+      }},
+    { id:'noodles', name:'Cook noodles in your room', desc:'Indomie + egg ₦400 · +food',
+      slots:[0,1,2], can:function(){ return s.money>=400; },
+      run:function(){
+        s.money-=400; s.food+=25;
+        return 'Two packs of noodles and one egg. Student classic.';
+      }},
+    { id:'garri', name:'Soak garri', desc:'Free (you stocked up) · small +food',
+      slots:[0,1,2], can:function(){ return true; },
+      run:function(){
+        s.food+=12; s.vibes-=2;
+        return 'Garri, sugar, groundnut and cold water. It is well.';
+      }},
+    { id:'hustle', name:'Run your hustle', desc:'POS / data / graphic design · -15 energy · +₦',
+      slots:[0,1,2], can:function(){ return true; },
+      run:function(){
+        s.energy-=15; s.food-=5; var earn = rand(600,2500); s.money+=earn;
+        return 'Customers came through. You made ' + naira(earn) + '.';
+      }},
+    { id:'hangout', name:'Hang out with the guys', desc:'Suya & gist ₦600 · +vibes',
+      slots:[1,2], can:function(){ return s.money>=600; },
+      run:function(){
+        s.money-=600; s.vibes+=18; s.energy-=8; s.food+=10;
+        return 'Suya by the junction, endless gist, plenty laughter. Vibes restored.';
+      }},
+    { id:'sleep', name:'Sleep', desc:'+energy',
+      slots:[0,1,2], can:function(){ return true; },
+      run:function(){
+        var g = s.slot===2 ? (s.noLight ? 30 : 45) : 25; s.energy+=g;
+        return s.slot===2 && s.noLight ? 'Hot night, mosquitoes on duty, but you slept small.'
+                                       : 'You slept like a baby. +' + g + ' energy.';
+      }},
+    { id:'callhome', name:'Call home for money', desc:'"Mummy, they said we should buy handout..."',
+      slots:[0,1,2], can:function(){ return s.day - s.lastCallHome >= 5; },
+      run:function(){
+        s.lastCallHome = s.day; var r = Math.random();
+        if(r<0.25){ s.vibes-=5; return 'Dad picked up and asked about your results. No money. Pain.'; }
+        var amt = rand(3,8)*1000; s.money+=amt; s.vibes+=5;
+        return 'Mummy came through with ' + naira(amt) + '. "Face your books!"';
+      }}
+  ];
+
+  // ---------- Events ----------
+  // Each event: weight check + text + optional choices
+  var EVENTS = [
+    { title:'NEPA took light', text:'No light in the whole area since morning. Night reading will be hard and sleep will be hot.',
+      apply:function(){ s.noLight=true; s.vibes-=4; } },
+    { title:'Borehole wahala', text:'No water in the lodge. You carried gallons from the borehole down the road.',
+      apply:function(){ s.energy-=12; } },
+    { title:'Lecturer no show', text:'Your lecturer travelled. No classes today. Rest small or read on your own.',
+      apply:function(){ s.noClass=true; s.energy+=8; } },
+    { title:'Found money!', text:'You found ₦1,000 inside the jeans you wore last week. God when?',
+      apply:function(){ s.money+=1000; s.vibes+=5; } },
+    { title:'Roommate cooked jollof', text:'Your roommate cooked party jollof and dished your own. True friend.',
+      apply:function(){ s.food+=25; s.vibes+=6; } },
+    { title:'Keke fare increased', text:'Fuel price go up again. Keke man collected extra ₦300 from you.',
+      apply:function(){ s.money=Math.max(0,s.money-300); s.vibes-=3; } },
+    { title:'Harmattan morning', text:'Dust everywhere, lips cracking, cold mornings. Everything feels slower.',
+      apply:function(){ s.energy-=6; } },
+    { title:'Handout must be bought', text:'Course rep announced: buy the lecturer\'s handout for ₦2,000 or "you are on your own".',
+      choices:[
+        { label:'Buy it (₦2,000)', ok:function(){ return s.money>=2000; }, run:function(){ s.money-=2000; s.know+=8; return 'You bought the handout. Highlighted half of it already.'; } },
+        { label:'Photocopy a friend\'s (₦500)', ok:function(){ return s.money>=500; }, run:function(){ s.money-=500; s.know+=4; if(Math.random()<0.3){ s.vibes-=5; return 'Some pages were blurry. You managed.'; } return 'Photocopy came out clean. Smart move.'; } },
+        { label:'Skip it', run:function(){ s.know-=3; return 'You decided to "read from the internet". Hmm.'; } }
+      ]},
+    { title:'Departmental week', text:'It\'s departmental week. There\'s a dinner night and everybody is going.',
+      choices:[
+        { label:'Go (₦1,500)', ok:function(){ return s.money>=1500; }, run:function(){ s.money-=1500; s.vibes+=20; s.food+=15; return 'You danced, ate rice and chicken, and made new friends.'; } },
+        { label:'Stay home and read', run:function(){ s.know+=4; s.vibes-=6; return 'You read while the music played in the distance.'; } }
+      ]},
+    { title:'Friend needs help', text:'Your coursemate is stranded and needs ₦1,000 to get back to the lodge.',
+      choices:[
+        { label:'Help them', ok:function(){ return s.money>=1000; }, run:function(){ s.money-=1000; s.vibes+=10; s.helped=true; return 'They promised to explain tomorrow\'s topic to you. Good karma.'; } },
+        { label:'"Omo, I\'m broke too"', run:function(){ s.vibes-=4; return 'You both understood the struggle.'; } }
+      ]},
+    { title:'Group assignment', text:'Your group needs someone to type and print the assignment.',
+      choices:[
+        { label:'Do it yourself', run:function(){ s.energy-=10; s.know+=5; s.money=Math.max(0,s.money-300); return 'You typed, printed and learned the topic well.'; } },
+        { label:'Let others handle it', run:function(){ s.vibes+=3; if(Math.random()<0.4){ s.know-=4; return 'They forgot your name on the cover page. Ehn!'; } return 'They added your name. You owe them one.'; } }
+      ]}
+  ];
+
+  // ---------- Flow ----------
+  function startDay(){
+    s.noLight=false; s.noClass=false; s.slot=0;
+    if(s.day===TEST_DAY){ return showTest(); }
+    if(s.day>1 && Math.random()<0.6){
+      return showEvent(EVENTS[rand(0,EVENTS.length-1)]);
+    }
+    render();
+  }
+
+  function showEvent(ev){
+    $('eventTitle').textContent = ev.title;
+    $('eventText').textContent = ev.text;
+    var box = $('eventChoices'); box.innerHTML='';
+    $('actionCard').classList.add('hidden');
+    $('eventCard').classList.remove('hidden');
+    var choices = ev.choices || [{ label:'Okay', run:function(){ ev.apply(); return ev.title + '.'; } }];
+    choices.forEach(function(c){
+      var b = document.createElement('button');
+      b.className = 'primary';
+      b.innerHTML = '<b>' + c.label + '</b>';
+      if(c.ok && !c.ok()) b.disabled = true;
+      b.onclick = function(){
+        var msg = c.run();
+        normalize();
+        log('Day ' + s.day + ': ' + msg);
+        $('eventCard').classList.add('hidden');
+        $('actionCard').classList.remove('hidden');
+        render();
+      };
+      box.appendChild(b);
+    });
+    render();
+  }
+
+  function showTest(){
+    var score = Math.round(clamp(s.know*0.8 + s.energy*0.1 + s.vibes*0.1 + rand(-8,8)));
+    s.testScore = score;
+    var verdict = score>=70 ? 'You sabi! The questions looked like what you read.' :
+                  score>=50 ? 'You managed. Some questions came from nowhere.' :
+                              'The questions looked like Greek. You wrote your name very well though.';
+    showEvent({ title:'Day ' + TEST_DAY + ': Surprise test!', text:'Test score: ' + score + '/100. ' + verdict,
+                apply:function(){ s.energy-=10; s.vibes += score>=50 ? 5 : -8; } });
+  }
+
+  function doAction(a){
+    var msg = a.run();
+    s.food -= 8; // hunger ticks every slot
+    normalize();
+    log('Day ' + s.day + ', ' + SLOTS[s.slot] + ': ' + msg);
+    checkPenalties();
+    nextSlot();
+  }
+
+  function checkPenalties(){
+    if(s.food<=0){ s.energy-=15; s.vibes-=8; log('You are starving! Energy and vibes dropping fast.'); }
+    if(s.energy<=0){
+      s.energy=20; s.know=clamp(s.know-3);
+      log('You collapsed from exhaustion and slept through the next part of the day.');
+      s.slot++;
+    }
+    if(s.money<=0 && s.food<20){ s.vibes-=5; }
+    normalize();
+  }
+
+  function nextSlot(){
+    s.slot++;
+    if(s.slot>=SLOTS.length){
+      s.day++;
+      if(s.day>DAYS) return endGame();
+      startDay();
+    } else render();
+  }
+
+  function normalize(){
+    s.energy=clamp(s.energy); s.food=clamp(s.food); s.know=clamp(s.know); s.vibes=clamp(s.vibes);
+    if(s.money<0) s.money=0;
+  }
+
+  function endGame(){
+    var exam = clamp(s.know*0.85 + s.vibes*0.05 + s.energy*0.1 + rand(-6,6));
+    var attendance = Math.min(1, s.lectures / 15);
+    var total = (s.testScore||0)*0.3 + exam*0.6 + attendance*100*0.1;
+    var cgpa = Math.max(0, Math.min(5, total/20)).toFixed(2);
+    var rank = cgpa>=4.5 ? 'First Class Legend' :
+               cgpa>=3.5 ? 'Second Class Upper' :
+               cgpa>=2.4 ? 'Second Class Lower' :
+               cgpa>=1.5 ? 'Third Class Survivor' : 'Extra Year Loading...';
+    $('cgpa').textContent = cgpa;
+    $('rank').textContent = rank;
+    $('summary').textContent = 'Test: ' + s.testScore + '/100 · Exam: ' + Math.round(exam) + '/100 · Lectures attended: ' +
+      s.lectures + ' · Money left: ' + naira(s.money);
+    var best = loadBest();
+    if(parseFloat(cgpa) > best){ saveBest(cgpa); $('summary').textContent += ' · New personal best!'; }
+    show('end');
+  }
+
+  // ---------- Render ----------
+  function setBar(name, v){
+    $(name+'Val').textContent = v;
+    var b = $(name+'Bar'); b.style.width = v+'%';
+    b.className = v<25 ? 'low' : '';
+  }
+
+  function render(){
+    $('dayLabel').textContent = 'Day ' + s.day + ' of ' + DAYS + (s.noLight ? ' · No light' : '');
+    $('slotLabel').textContent = SLOTS[s.slot];
+    var m = $('money'); m.textContent = naira(s.money); m.className = 'money' + (s.money<1000 ? ' broke' : '');
+    setBar('energy', s.energy); setBar('food', s.food); setBar('know', s.know); setBar('vibes', s.vibes);
+
+    var box = $('actions'); box.innerHTML='';
+    ACTIONS.forEach(function(a){
+      if(a.slots.indexOf(s.slot)<0) return;
+      var b = document.createElement('button');
+      var desc = a.desc;
+      if(a.id==='callhome' && !a.can()) desc = 'You just called. Wait ' + (5-(s.day-s.lastCallHome)) + ' more day(s).';
+      if(a.id==='lecture' && s.noClass) desc = 'No classes today.';
+      b.innerHTML = '<b>' + a.name + '</b><small>' + desc + '</small>';
+      b.disabled = !a.can();
+      b.onclick = function(){ doAction(a); };
+      box.appendChild(b);
+    });
+
+    $('log').innerHTML = s.log.slice(0,30).map(function(t){ return '<p>' + t + '</p>'; }).join('');
+    show('game');
+  }
+
+  function log(t){ s.log.unshift(t.replace(/</g,'&lt;')); }
+
+  function show(id){
+    ['intro','game','end'].forEach(function(x){ $(x).classList.toggle('hidden', x!==id); });
+  }
+
+  $('startBtn').onclick = newGame;
+  $('againBtn').onclick = newGame;
+  var best = loadBest();
+  if(best>0){ $('best').textContent = 'Your best CGPA so far: ' + best; $('best').classList.remove('hidden'); }
+})();
+</script>
+</body>
+</html>
