@@ -10,21 +10,22 @@
     --accent:#f2a33a; --good:#6fcf7a; --bad:#ef6b5b; --bar:#4a3828;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:'Trebuchet MS',Arial,sans-serif;background:var(--bg);color:var(--text);
-    min-height:100vh;padding:16px;line-height:1.4;
-  }
+  body{font-family:'Trebuchet MS',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:16px;line-height:1.4}
   a{color:var(--accent)}
   .wrap{max-width:760px;margin:0 auto}
   header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
   header h1{font-size:28px;color:var(--accent);letter-spacing:1px}
   header small{color:var(--muted)}
-  .head-right{display:flex;gap:12px;align-items:center}
-  .mute{width:auto;padding:8px 12px;text-align:center;font-size:18px;line-height:1}
+  .head-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .pill{background:var(--panel2);border-radius:20px;padding:6px 12px;font-size:13px;font-weight:bold}
+  .pill .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--good);margin-right:6px;animation:blink 1s infinite alternate}
+  .pill.off .dot{background:var(--muted);animation:none}
+  .mute{padding:6px 12px;text-align:center;font-size:18px;line-height:1}
   .card{background:var(--panel);border-radius:12px;padding:16px;margin-bottom:14px}
+  .banner{background:#3d2a12;border:1px solid var(--accent);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:14px}
   .day{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-weight:bold}
   .day .slot{color:var(--accent)}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
   .stat label{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
   .bar{height:10px;background:var(--bar);border-radius:6px;overflow:hidden;margin-top:4px}
   .bar span{display:block;height:100%;background:var(--good);transition:width .5s ease}
@@ -34,10 +35,7 @@
   .money.flash{animation:pop .5s ease-out}
   .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
   .actions button{animation:fadein .35s ease-out backwards}
-  button{
-    font:inherit;color:var(--text);background:var(--panel2);border:2px solid transparent;
-    border-radius:10px;padding:12px;text-align:left;cursor:pointer;transition:border-color .15s,transform .1s;
-  }
+  button{font:inherit;color:var(--text);background:var(--panel2);border:2px solid transparent;border-radius:10px;padding:12px;text-align:left;cursor:pointer;transition:border-color .15s,transform .1s}
   button:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}
   button:active:not(:disabled){transform:scale(.97)}
   button:disabled{opacity:.4;cursor:not-allowed}
@@ -46,33 +44,82 @@
   button .ico{font-size:20px;float:right;margin-left:6px}
   .primary{background:var(--accent);color:#1b120c;text-align:center;font-weight:bold}
   .primary small{color:#3a2a1d}
+  .small-btn{padding:6px 10px;font-size:13px;text-align:center}
+  input[type=text]{font:inherit;background:var(--panel2);color:var(--text);border:2px solid var(--bar);border-radius:10px;padding:10px 12px;width:100%}
+  input:focus{outline:none;border-color:var(--accent)}
   .event{border-left:4px solid var(--accent);animation:slidein .4s cubic-bezier(.2,1.4,.4,1)}
   .event h3{margin-bottom:6px}
   .event .choices{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
   .event .choices button{flex:1 1 180px}
-  .log{max-height:180px;overflow-y:auto;font-size:14px;color:var(--muted)}
+  .log{max-height:160px;overflow-y:auto;font-size:14px;color:var(--muted)}
   .log p{padding:3px 0;border-bottom:1px solid var(--panel2)}
   .log p:first-child{color:var(--text);animation:fadein .4s}
-  .end{text-align:center;position:relative;overflow:hidden}
-  .end h2{font-size:32px;color:var(--accent);margin:8px 0}
-  .end .cgpa{font-size:56px;font-weight:bold;animation:pop .8s ease-out}
-  .hidden{display:none}
+  .hidden{display:none!important}
   .intro p{margin-bottom:10px}
+  h3.sec{font-size:15px;color:var(--muted);margin:14px 0 8px;text-transform:uppercase;letter-spacing:1px}
+
+  /* Tabs */
+  .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+  .tabs button{text-align:center;padding:10px 4px;font-weight:bold;font-size:14px;position:relative}
+  .tabs button.on{background:var(--accent);color:#1b120c}
+  .badge{position:absolute;top:-6px;right:-4px;background:var(--bad);color:#fff;border-radius:10px;font-size:11px;padding:1px 6px}
 
   /* Scene */
   .scene{position:relative;padding:0;overflow:hidden}
   .scene svg{display:block;width:100%;height:auto}
-  .scene .caption{position:absolute;left:10px;top:8px;background:rgba(0,0,0,.55);padding:3px 10px;border-radius:20px;font-size:13px;font-weight:bold}
+  .scene .caption{position:absolute;left:10px;top:8px;background:rgba(0,0,0,.6);padding:3px 10px;border-radius:20px;font-size:13px;font-weight:bold;max-width:calc(100% - 20px)}
   .shake{animation:shake .45s}
-  .float{position:absolute;font-weight:bold;font-size:18px;pointer-events:none;white-space:nowrap;
-    text-shadow:0 2px 4px rgba(0,0,0,.8);animation:floatup 1.6s ease-out forwards}
+  .float{position:absolute;font-weight:bold;font-size:18px;pointer-events:none;white-space:nowrap;text-shadow:0 2px 4px rgba(0,0,0,.8);animation:floatup 1.6s ease-out forwards}
   .float.up{color:#9dffa8}.float.down{color:#ff9c90}
 
-  /* Character picker */
-  .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  /* Picker */
+  .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 14px}
   .pick button{text-align:center;padding:8px}
   .pick button.sel{border-color:var(--accent);background:#4a3420}
-  .pick svg{width:100%;max-width:110px;height:auto;display:block;margin:0 auto}
+  .pick svg{width:100%;max-width:100px;height:auto;display:block;margin:0 auto}
+
+  /* Map */
+  .map svg{width:100%;height:auto;display:block;border-radius:10px}
+  .map .node{cursor:pointer}
+  .map .node:hover circle.base{stroke:#fff}
+  .travel{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .travel button{flex:1 1 160px}
+
+  /* Chat */
+  .chat{max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+  .msg{background:var(--panel2);border-radius:10px;padding:8px 12px;animation:fadein .3s;overflow-wrap:anywhere}
+  .msg .who{font-weight:bold;color:var(--accent);font-size:13px}
+  .msg .meta{color:var(--muted);font-size:11px;margin-left:6px;font-weight:normal}
+  .msg.me{background:#3d3220}
+  .msg.sys{background:transparent;border:1px dashed var(--bar);font-size:13px;color:var(--muted)}
+  .send{display:flex;gap:8px}
+  .send button{flex:0 0 auto;text-align:center}
+  .quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+  /* People */
+  .seg{display:flex;gap:6px;margin-bottom:10px}
+  .seg button{flex:1;text-align:center;padding:8px;font-size:14px}
+  .seg button.on{border-color:var(--accent)}
+  .plist{display:flex;flex-direction:column;gap:8px}
+  .prow{display:flex;align-items:center;gap:10px;background:var(--panel2);border-radius:10px;padding:8px 10px}
+  .prow svg{width:38px;height:44px;flex:0 0 auto}
+  .prow .info{flex:1;min-width:0}
+  .prow .info b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prow .info small{color:var(--muted);font-size:12px}
+  .prow .rk{font-weight:bold;color:var(--accent);width:22px;text-align:center}
+  .prow .on-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--good);margin-left:6px}
+  .prow .btns{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .giftbox{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+
+  /* Toasts */
+  #toasts{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:50;width:min(92vw,420px);pointer-events:none}
+  .toast{background:#111;border:1px solid var(--accent);border-radius:10px;padding:10px 14px;font-size:14px;animation:slidein .3s;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+
+  /* Results */
+  .results{text-align:center;position:relative;overflow:hidden}
+  .results h2{font-size:30px;color:var(--accent);margin:6px 0}
+  .results .cgpa{font-size:54px;font-weight:bold;animation:pop .8s ease-out}
+  .confetti{position:absolute;top:-10px;width:8px;height:14px;animation:fall 2.8s linear forwards}
 
   /* SVG animations */
   .hero{transform-box:fill-box;transform-origin:50% 100%;animation:bob 1.6s ease-in-out infinite}
@@ -85,8 +132,10 @@
   .zzz{animation:zzz 2.2s ease-out infinite;opacity:0}
   .glow{animation:glow 1.2s ease-in-out infinite alternate}
   .drive{animation:drive 7s linear infinite}
+  .ride{animation:ride 1.8s ease-in-out forwards}
+  .bump{animation:bump .25s ease-in-out infinite alternate}
   .cloud{animation:cloud 30s linear infinite}
-  .confetti{position:absolute;top:-10px;width:8px;height:14px;animation:fall 2.8s linear forwards}
+  .ring{transform-box:fill-box;transform-origin:center;animation:ring 1.4s ease-out infinite}
 
   @keyframes bob{50%{transform:translateY(-2px)}}
   @keyframes walkin{from{transform:translateX(-160px)}to{transform:translateX(0)}}
@@ -98,16 +147,19 @@
   @keyframes zzz{0%{opacity:0;transform:translate(0,0)}30%{opacity:1}100%{opacity:0;transform:translate(14px,-28px)}}
   @keyframes glow{from{opacity:.25}to{opacity:.55}}
   @keyframes drive{from{transform:translateX(-170px)}to{transform:translateX(480px)}}
+  @keyframes ride{from{transform:translateX(-140px)}to{transform:translateX(470px)}}
+  @keyframes bump{to{transform:translateY(-2px)}}
   @keyframes cloud{from{transform:translateX(-120px)}to{transform:translateX(460px)}}
+  @keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(2);opacity:0}}
   @keyframes floatup{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translateY(-70px)}}
   @keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
   @keyframes slidein{from{opacity:0;transform:translateY(-20px) scale(.96)}to{opacity:1;transform:none}}
   @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   @keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
   @keyframes blink{to{opacity:.55}}
-  @keyframes fall{to{transform:translateY(420px) rotate(540deg)}}
+  @keyframes fall{to{transform:translateY(460px) rotate(540deg)}}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
-  @media (max-width:480px){header h1{font-size:22px}.end .cgpa{font-size:44px}}
+  @media (max-width:480px){header h1{font-size:22px}.results .cgpa{font-size:44px}.tabs button{font-size:12px}}
 </style>
 </head>
 <body>
@@ -115,31 +167,37 @@
   <header>
     <div>
       <h1>MALETE LIFE</h1>
-      <small>Survive one semester as a student in Malete</small>
+      <small>Live your student life in Malete, online with everyone</small>
     </div>
     <div class="head-right">
+      <span class="pill off" id="onlinePill"><span class="dot"></span><span id="onlineTxt">Connecting…</span></span>
       <button class="mute" id="muteBtn" title="Sound on/off">🔊</button>
       <a href="index.html">&larr; Back to site</a>
     </div>
   </header>
 
-  <!-- Intro -->
-  <section id="intro" class="card intro">
-    <p>You just resumed in <b>Malete</b>. Your lodge is off-campus, light is not guaranteed,
-      the borehole has moods, and your account balance is praying for you.</p>
-    <p>You have <b>20 days</b> until exams. Each day has a <b>morning, afternoon and night</b>.
-      Pick what to do in each slot. Keep your <b>food</b> and <b>energy</b> up, don't go broke,
-      and read enough to pass. There's a <b>test on day 10</b>.</p>
-    <p><b>Choose your student:</b></p>
+  <div class="banner hidden" id="banner"></div>
+
+  <!-- Loading -->
+  <section id="loading" class="card"><p>Opening the gate to Malete…</p></section>
+
+  <!-- Setup (first time) -->
+  <section id="setup" class="card intro hidden">
+    <p>Welcome to <b>Malete</b>. Create your student and start your life. Your life keeps running online:
+      your money, stats and CGPA are saved, and other students can see you around town, gist with you and even send you money.</p>
+    <h3 class="sec">Your name</h3>
+    <input type="text" id="nickIn" maxlength="16" placeholder="e.g. Basit">
+    <h3 class="sec">Choose your student</h3>
     <div class="pick" id="pick"></div>
-    <p id="best" class="hidden"></p>
-    <button class="primary" id="startBtn"><b>Resume school</b><small>Start the semester</small></button>
+    <h3 class="sec">Where is your lodge?</h3>
+    <div class="pick" id="homePick"></div>
+    <button class="primary" id="startBtn"><b>Resume school</b><small>Start your Malete life</small></button>
   </section>
 
   <!-- Game -->
   <section id="game" class="hidden">
     <div class="card">
-      <div class="day"><span id="dayLabel">Day 1 of 20</span><span class="slot" id="slotLabel">Morning</span></div>
+      <div class="day"><span id="dayLabel"></span><span class="slot" id="slotLabel"></span></div>
     </div>
 
     <div class="card scene" id="sceneBox">
@@ -149,7 +207,7 @@
 
     <div class="card">
       <div class="stats">
-        <div class="stat"><label>Money</label><div class="money" id="money">₦0</div></div>
+        <div class="stat"><label>Wallet</label><div class="money" id="money">₦0</div></div>
         <div class="stat"><label><span>⚡ Energy</span><span id="energyVal"></span></label><div class="bar"><span id="energyBar"></span></div></div>
         <div class="stat"><label><span>🍲 Food</span><span id="foodVal"></span></label><div class="bar"><span id="foodBar"></span></div></div>
         <div class="stat"><label><span>📚 Knowledge</span><span id="knowVal"></span></label><div class="bar"><span id="knowBar"></span></div></div>
@@ -163,41 +221,90 @@
       <div class="choices" id="eventChoices"></div>
     </div>
 
-    <div id="actionCard" class="card">
-      <div class="actions" id="actions"></div>
+    <div id="resultsCard" class="card results hidden">
+      <p id="resTitle">Results are out!</p>
+      <div class="cgpa" id="cgpa"></div>
+      <h2 id="rank"></h2>
+      <p id="summary"></p><br>
+      <button class="primary" id="nextSemBtn"><b>Start next semester</b><small>Your life continues</small></button>
+    </div>
+
+    <div id="mainCard" class="card">
+      <div class="tabs">
+        <button data-tab="do" class="on">🎒 Do</button>
+        <button data-tab="keke">🛺 Keke</button>
+        <button data-tab="gist">💬 Gist<span class="badge hidden" id="gistBadge"></span></button>
+        <button data-tab="people">👥 People</button>
+      </div>
+
+      <div data-panel="do">
+        <div class="actions" id="actions"></div>
+      </div>
+
+      <div data-panel="keke" class="hidden">
+        <div class="map"><svg id="map" viewBox="0 0 400 252" role="img" aria-label="Map of Malete"></svg></div>
+        <div id="travelBox" class="travel"></div>
+      </div>
+
+      <div data-panel="gist" class="hidden">
+        <div class="chat" id="chat"></div>
+        <div class="send">
+          <input type="text" id="chatIn" maxlength="140" placeholder="Drop your gist…">
+          <button class="primary" id="chatSend"><b>Send</b></button>
+        </div>
+        <div class="quick" id="quick"></div>
+      </div>
+
+      <div data-panel="people" class="hidden">
+        <div class="seg">
+          <button data-sort="money" class="on">💰 Richest</button>
+          <button data-sort="cgpa">🎓 Top CGPA</button>
+          <button data-sort="online">🟢 Online</button>
+        </div>
+        <div class="plist" id="plist"></div>
+      </div>
     </div>
 
     <div class="card">
+      <h3 class="sec" style="margin-top:0">Your diary</h3>
       <div class="log" id="log"></div>
     </div>
   </section>
-
-  <!-- End -->
-  <section id="end" class="card end hidden">
-    <p>Results are out!</p>
-    <svg id="endHero" viewBox="-50 -95 100 100" width="120" height="120"></svg>
-    <div class="cgpa" id="cgpa"></div>
-    <h2 id="rank"></h2>
-    <p id="summary"></p>
-    <br>
-    <button class="primary" id="againBtn"><b>Play again</b><small>New semester, new you</small></button>
-  </section>
 </div>
+<div id="toasts"></div>
 
 <script>
 (function(){
   var DAYS = 20, TEST_DAY = 10;
   var SLOTS = ['Morning','Afternoon','Night'];
-  var s; // game state
+  var SAVE_KEY = 'malete-life-v2';
+  var s = null;              // your life
+  var online = false, canWrite = false;
+  var db = null, user = null, room = null, uid = null;
+  var players = {};          // uid -> player doc (everyone's life summary)
+  var social = {};           // uid -> {msgs, gifts}
+  var mySocial = { msgs:[], gifts:[], loaded:false };
+  var peers = [];            // live room peers
+  var busy = false, tab = 'do', sortBy = 'money', unread = 0, seenMsgs = {}, initialChatLoaded = false;
+  var giftOpen = null, mapSel = null;
 
   function $(id){ return document.getElementById(id); }
   function clamp(v){ return Math.max(0, Math.min(100, v)); }
   function rand(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-  function naira(n){ return '₦' + n.toLocaleString(); }
-  function store(k,v){ try { if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,String(v)); } catch(e){ return null; } }
+  function naira(n){ return (n<0?'-':'') + '₦' + Math.abs(n).toLocaleString(); }
+  function esc(t){ return String(t==null?'':t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function rid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+  function clean(t, max){ return String(t==null?'':t).replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,max); }
+  function num(v, d){ v = Number(v); return isFinite(v) ? v : d; }
+  function local(k,v){ try { if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,String(v)); } catch(e){ return null; } }
+  function ago(ts){
+    var d = Math.max(0, Math.floor((Date.now()-ts)/1000));
+    if(d<60) return 'now'; if(d<3600) return Math.floor(d/60)+'m ago'; if(d<86400) return Math.floor(d/3600)+'h ago'; return Math.floor(d/86400)+'d ago';
+  }
+  function each(sel, fn){ Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
 
   // ================= SOUND (Web Audio, no files) =================
-  var ac = null, muted = store('malete-muted') === '1';
+  var ac = null, muted = local('malete-muted') === '1';
   function audio(){
     if(!ac){ try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ return null; } }
     if(ac.state === 'suspended') ac.resume();
@@ -213,12 +320,12 @@
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.05);
   }
-  function noise(start, dur, vol){
+  function noise(start, dur, vol, freq){
     var a = audio(); if(!a || muted) return;
     var len = Math.floor(a.sampleRate * dur), buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
     for(var i=0;i<len;i++) d[i] = (Math.random()*2-1) * (1 - i/len);
     var src = a.createBufferSource(), g = a.createGain(), f = a.createBiquadFilter();
-    f.type = 'lowpass'; f.frequency.value = 900; g.gain.value = vol || 0.2;
+    f.type = 'lowpass'; f.frequency.value = freq || 900; g.gain.value = vol || 0.2;
     src.buffer = buf; src.connect(f); f.connect(g); g.connect(a.destination);
     src.start(a.currentTime + start);
   }
@@ -232,9 +339,13 @@
     sleep:  function(){ tone(440,0,.7,'sine',.08,220); tone(330,.4,.8,'sine',.06,165); },
     party:  function(){ [392,494,587,784].forEach(function(f,i){ tone(f,i*.09,.15,'square',.06); }); noise(.36,.05,.15); },
     phone:  function(){ for(var i=0;i<3;i++){ tone(1400,i*.18,.08,'sine',.08); tone(1100,i*.18+.08,.08,'sine',.08); } },
+    keke:   function(){ tone(520,0,.14,'square',.09); tone(440,.18,.2,'square',.09); for(var i=0;i<6;i++) noise(.3+i*.2,.2,.18,300); },
+    walk:   function(){ for(var i=0;i<5;i++) noise(i*.22,.05,.15,600); },
     event:  function(){ tone(784,0,.15,'triangle',.12); tone(1047,.13,.3,'triangle',.12); },
     good:   function(){ [523,659,784].forEach(function(f,i){ tone(f,i*.08,.2,'triangle',.1); }); },
     bad:    function(){ tone(220,0,.35,'sawtooth',.1,90); tone(160,.05,.35,'square',.05,70); },
+    msg:    function(){ tone(880,0,.08,'sine',.08); tone(1320,.07,.12,'sine',.07); },
+    wave:   function(){ tone(660,0,.1,'triangle',.1,990); tone(990,.12,.15,'triangle',.08,660); },
     win:    function(){ [523,659,784,1047,784,1047].forEach(function(f,i){ tone(f,i*.13,.25,'square',.08); }); },
     lose:   function(){ [392,370,349,262].forEach(function(f,i){ tone(f,i*.25,.3,'triangle',.1); }); }
   };
@@ -246,8 +357,8 @@
     { id:'aisha', name:'Aisha', skin:'#a0642d', shirt:'#27ae60', pants:'#5b3a8a', style:'scarf', extra:'#8e44ad' },
     { id:'femi',  name:'Femi',  skin:'#6b3e1f', shirt:'#f39c12', pants:'#34495e', style:'glasses', extra:'#222' }
   ];
-  var charId = store('malete-char') || 'tunde';
   function getChar(id){ return CHARS.filter(function(c){ return c.id===id; })[0] || CHARS[0]; }
+  var MOODS = ['happy','tired','hungry','sad'];
 
   // Character drawn with feet at (0,0), facing right, ~78px tall
   function charSVG(c, mood){
@@ -273,7 +384,7 @@
     }
     return '' +
       '<ellipse cx="0" cy="1" rx="16" ry="3" fill="rgba(0,0,0,.25)"/>' +
-      '<rect x="-17" y="-48" width="9" height="20" rx="3" fill="#34495e"/>' +             // backpack
+      '<rect x="-17" y="-48" width="9" height="20" rx="3" fill="#34495e"/>' +
       '<rect x="-9" y="-25" width="7" height="25" rx="2" fill="'+c.pants+'"/>' +
       '<rect x="2" y="-25" width="7" height="25" rx="2" fill="'+c.pants+'"/>' +
       '<ellipse cx="-5" cy="0" rx="6" ry="2.6" fill="#111"/><ellipse cx="7" cy="0" rx="6" ry="2.6" fill="#111"/>' +
@@ -285,13 +396,36 @@
       '<circle cx="0" cy="-63" r="13" fill="'+c.skin+'"/>' +
       hair + eyes + mouth + top;
   }
+  // Just the head, for a rider inside a keke
+  function headSVG(c){
+    var str = charSVG(c, 'happy');
+    return '<g transform="translate(0,63)">' + str.slice(str.indexOf('<circle cx="0" cy="-63"')) + '</g>';
+  }
+  function miniChar(c, mood){ return '<svg viewBox="-24 -82 48 86">' + charSVG(c, mood||'happy') + '</svg>'; }
 
-  function mood(){
-    if(s.energy<25) return 'tired';
-    if(s.food<25) return 'hungry';
-    if(s.vibes<30 || s.money<500) return 'sad';
+  function moodOf(st){
+    if(st.energy<25) return 'tired';
+    if(st.food<25) return 'hungry';
+    if(st.vibes<30 || st.money<500) return 'sad';
     return 'happy';
   }
+
+  // ================= PLACES & MAP =================
+  var LOCS = {
+    campus:     { name:'KWASU Campus', icon:'🏫', kind:'campus' },
+    schoolroad: { name:'School Road',  icon:'🍲', kind:'road' },
+    junction:   { name:'Malete Junction', icon:'🛺', kind:'junction' },
+    safari:     { name:'Safari',   icon:'🏠', kind:'lodge', wall:'#efe1c0', roof:'#8b3a2b' },
+    maple:      { name:'Maple',    icon:'🏠', kind:'lodge', wall:'#e3ecd9', roof:'#2d6a4f' },
+    westend:    { name:'West End', icon:'🏠', kind:'lodge', wall:'#f0d9d0', roof:'#5b3a8a' }
+  };
+  var HOMES = ['safari','maple','westend'];
+  var MAP = { campus:[200,34], schoolroad:[200,104], junction:[200,182], safari:[66,140], maple:[334,140], westend:[86,214] };
+  var ROADS = [['campus','schoolroad'],['schoolroad','junction'],['schoolroad','safari'],['schoolroad','maple'],['junction','westend'],['junction','safari'],['junction','maple']];
+  function dist(a,b){ var p=MAP[a], q=MAP[b]; return Math.hypot(p[0]-q[0], p[1]-q[1]); }
+  function fare(a,b){ var f = 100 + Math.round(dist(a,b)/40)*50; if(s.slot===2) f = Math.round(f*1.5/50)*50; return f; }
+  function trekCost(a,b){ return Math.max(5, Math.round(dist(a,b)/10)); }
+  function locName(id){ return (LOCS[id]||LOCS.junction).name; }
 
   // ================= SCENES =================
   var SKY = [['#7ec8f0','#fdf3d8'],['#f08a4b','#ffe2a1'],['#0b1d3a','#2b4a7e']];
@@ -304,45 +438,17 @@
     return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="15" rx="2" fill="'+bg+'"/>' +
       '<text x="'+(x+w/2)+'" y="'+(y+11)+'" font-size="10" font-weight="bold" text-anchor="middle" fill="'+fg+'" font-family="Arial">'+text+'</text>';
   }
-
-  var LOCS = {
-    lodge: { label:'🏠 Your lodge', draw:function(){
-      return '<polygon points="20,98 115,62 210,98" fill="#8b3a2b"/>' +
-        '<rect x="30" y="98" width="170" height="80" fill="#efe1c0" stroke="#b89f72"/>' +
-        win(48,115,30,22) + win(150,115,30,22) +
-        '<rect x="100" y="132" width="28" height="46" fill="#6b4226"/><circle cx="122" cy="156" r="2" fill="#f2a33a"/>' +
-        sign(85,78,60,'LODGE','#fff','#8b3a2b') +
-        '<rect x="214" y="78" width="28" height="32" rx="5" fill="#1f1f1f"/>' +
-        '<path d="M217 110v68M239 110v68M217 140h22" stroke="#666" stroke-width="3"/>';
-    }},
-    campus: { label:'🏫 Faculty building', draw:function(){ return campus('FACULTY'); } },
-    library:{ label:'📖 University library', draw:function(){ return campus('LIBRARY'); } },
-    buka: { label:'🍲 Mama Put buka', draw:function(){
-      return '<polygon points="28,112 202,112 190,90 40,90" fill="#9aa3ab"/>' +
-        '<path d="M60 91v20M90 91v20M120 91v20M150 91v20M180 91v20" stroke="#7e868e" stroke-width="2"/>' +
-        '<rect x="40" y="112" width="150" height="66" fill="#c9a26b" stroke="#8a6a3e"/>' +
-        sign(70,118,90,'MAMA PUT','#d62828','#fff') +
-        '<rect x="60" y="158" width="90" height="5" fill="#6b4226"/><path d="M66 163v15M144 163v15" stroke="#6b4226" stroke-width="4"/>' +
-        '<path d="M205 178l8 -14 8 14M219 178l8 -14 8 14" fill="#ff7b00"/>' +
-        '<rect x="204" y="146" width="36" height="20" rx="4" fill="#2b2b2b"/>' +
-        '<path class="steam" d="M214 142c-4 -6 4 -10 0 -16" stroke="#fff" stroke-width="2" fill="none"/>' +
-        '<path class="steam" style="animation-delay:.8s" d="M228 142c-4 -6 4 -10 0 -16" stroke="#fff" stroke-width="2" fill="none"/>';
-    }},
-    junction: { label:'🛺 Malete junction', draw:function(){
-      return '<rect x="0" y="180" width="400" height="20" fill="#555"/>' +
-        '<path d="M0 190h400" stroke="#ddd" stroke-width="2" stroke-dasharray="14 12"/>' +
-        '<rect x="150" y="146" width="56" height="7" fill="#6b4226"/><path d="M155 153v25M201 153v25" stroke="#6b4226" stroke-width="4"/>' +
-        '<rect x="156" y="139" width="44" height="7" fill="#333"/>' +
-        '<path d="M162 139h32" stroke="#ff7b00" stroke-width="2" stroke-dasharray="4 3"/>' +
-        '<path class="steam" d="M170 134c-4 -6 4 -10 0 -16" stroke="#ccc" stroke-width="2" fill="none"/>' +
-        '<path class="steam" style="animation-delay:1s" d="M186 134c-4 -6 4 -10 0 -16" stroke="#ccc" stroke-width="2" fill="none"/>' +
-        sign(152,118,52,'SUYA','#f2a33a','#1b120c') +
-        '<g class="drive"><rect x="20" y="147" width="78" height="36" rx="10" fill="#f7c600"/>' +
-        '<rect x="24" y="136" width="66" height="14" rx="6" fill="#2d6a4f"/>' +
-        '<rect x="70" y="152" width="20" height="14" fill="#9fd3e6"/>' +
-        '<circle cx="36" cy="185" r="8" fill="#222"/><circle cx="84" cy="185" r="8" fill="#222"/></g>';
-    }}
-  };
+  function kekeSVG(x, y, rider){
+    return '<g transform="translate('+x+','+y+')">' +
+      '<rect x="0" y="0" width="78" height="36" rx="10" fill="#f7c600"/>' +
+      '<rect x="4" y="-11" width="66" height="14" rx="6" fill="#2d6a4f"/>' +
+      '<rect x="50" y="5" width="20" height="14" fill="#9fd3e6"/>' +
+      (rider ? '<rect x="10" y="5" width="34" height="14" fill="#3a3a3a" opacity=".5"/><g transform="translate(28,16) scale(.62)">' + headSVG(rider) + '</g>'
+             : '<rect x="10" y="5" width="34" height="14" fill="#3a3a3a" opacity=".6"/>') +
+      '<text x="14" y="31" font-size="7" font-weight="bold" fill="#1b120c" font-family="Arial">MALETE</text>' +
+      '<circle cx="16" cy="38" r="8" fill="#222"/><circle cx="64" cy="38" r="8" fill="#222"/>' +
+      '<circle cx="16" cy="38" r="3" fill="#888"/><circle cx="64" cy="38" r="3" fill="#888"/></g>';
+  }
   function campus(label){
     var p = '';
     for(var x=34;x<=196;x+=27) p += '<rect x="'+x+'" y="102" width="9" height="66" fill="#e2dccd"/>';
@@ -353,16 +459,49 @@
       '<rect x="14" y="168" width="212" height="10" fill="#cfc6b2"/>' +
       '<rect x="240" y="120" width="8" height="58" fill="#6b4226"/><circle cx="244" cy="110" r="26" fill="#3f7d3a"/><circle cx="230" cy="122" r="14" fill="#4d9246"/>';
   }
+  function drawLoc(id){
+    var L = LOCS[id] || LOCS.junction;
+    if(L.kind==='lodge'){
+      return '<polygon points="20,98 115,62 210,98" fill="'+L.roof+'"/>' +
+        '<rect x="30" y="98" width="170" height="80" fill="'+L.wall+'" stroke="#b89f72"/>' +
+        win(48,115,30,22) + win(150,115,30,22) +
+        '<rect x="100" y="132" width="28" height="46" fill="#6b4226"/><circle cx="122" cy="156" r="2" fill="#f2a33a"/>' +
+        sign(70,78,90,L.name.toUpperCase(),'#fff',L.roof) +
+        '<rect x="214" y="78" width="28" height="32" rx="5" fill="#1f1f1f"/>' +
+        '<path d="M217 110v68M239 110v68M217 140h22" stroke="#666" stroke-width="3"/>';
+    }
+    if(L.kind==='campus') return campus('KWASU');
+    if(L.kind==='road'){
+      return '<rect x="0" y="182" width="400" height="18" fill="#555"/><path d="M0 191h400" stroke="#ddd" stroke-width="2" stroke-dasharray="14 12"/>' +
+        '<polygon points="10,112 160,112 150,92 20,92" fill="#9aa3ab"/>' +
+        '<path d="M40 93v18M70 93v18M100 93v18M130 93v18" stroke="#7e868e" stroke-width="2"/>' +
+        '<rect x="20" y="112" width="130" height="66" fill="#c9a26b" stroke="#8a6a3e"/>' +
+        sign(40,118,90,'MAMA PUT','#d62828','#fff') +
+        '<rect x="35" y="158" width="90" height="5" fill="#6b4226"/><path d="M41 163v15M119 163v15" stroke="#6b4226" stroke-width="4"/>' +
+        '<rect x="165" y="146" width="56" height="7" fill="#6b4226"/><path d="M170 153v25M216 153v25" stroke="#6b4226" stroke-width="4"/>' +
+        '<rect x="171" y="139" width="44" height="7" fill="#333"/><path d="M177 139h32" stroke="#ff7b00" stroke-width="2" stroke-dasharray="4 3"/>' +
+        '<path class="steam" d="M185 134c-4 -6 4 -10 0 -16" stroke="#ccc" stroke-width="2" fill="none"/>' +
+        '<path class="steam" style="animation-delay:1s" d="M201 134c-4 -6 4 -10 0 -16" stroke="#ccc" stroke-width="2" fill="none"/>' +
+        sign(167,120,52,'SUYA','#f2a33a','#1b120c') +
+        sign(214,96,60,'SCHOOL RD','#1f5fa8','#fff') + '<rect x="241" y="111" width="5" height="70" fill="#888"/>';
+    }
+    // junction: keke park + market
+    return '<rect x="0" y="180" width="400" height="20" fill="#555"/><path d="M0 190h400" stroke="#ddd" stroke-width="2" stroke-dasharray="14 12"/>' +
+      sign(20,92,110,'KEKE PARK','#2d6a4f','#fff') + '<rect x="72" y="107" width="5" height="30" fill="#888"/>' +
+      kekeSVG(12,140) + kekeSVG(100,140) +
+      '<path d="M195 120l35 -18 35 18z" fill="#e63946"/><path d="M230 102v76" stroke="#555" stroke-width="3"/>' +
+      '<rect x="200" y="150" width="60" height="8" fill="#6b4226"/>' +
+      '<circle cx="212" cy="146" r="5" fill="#e9c46a"/><circle cx="224" cy="146" r="5" fill="#e9c46a"/><circle cx="236" cy="146" r="5" fill="#2a9d8f"/><circle cx="248" cy="146" r="5" fill="#e76f51"/>' +
+      sign(205,160,50,'MARKET','#e63946','#fff') +
+      '<g class="drive">' + kekeSVG(-60,146) + '</g>';
+  }
 
-  function drawScene(opts){
-    opts = opts || {};
-    var loc = LOCS[s.loc] || LOCS.lodge, sky = SKY[s.slot], night = s.slot===2, c = getChar(charId);
+  function skyAndGround(){
+    var sky = SKY[s.slot], night = s.slot===2;
     var out = '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+sky[0]+'"/><stop offset="1" stop-color="'+sky[1]+'"/></linearGradient></defs>' +
       '<rect width="400" height="220" fill="url(#sky)"/>';
     if(night){
-      for(var i=0;i<14;i++){
-        out += '<circle class="twinkle" style="animation-delay:'+(i*0.27).toFixed(2)+'s" cx="'+((i*53)%390+5)+'" cy="'+((i*37)%70+8)+'" r="'+(i%3?1:1.6)+'" fill="#fff"/>';
-      }
+      for(var i=0;i<14;i++) out += '<circle class="twinkle" style="animation-delay:'+(i*0.27).toFixed(2)+'s" cx="'+((i*53)%390+5)+'" cy="'+((i*37)%70+8)+'" r="'+(i%3?1:1.6)+'" fill="#fff"/>';
       out += '<circle cx="335" cy="40" r="15" fill="#f4f1de"/><circle cx="342" cy="35" r="13" fill="'+sky[0]+'"/>';
     } else {
       out += '<circle class="sun" cx="'+(s.slot===0?340:70)+'" cy="'+(s.slot===0?42:52)+'" r="'+(s.slot===0?18:22)+'" fill="'+(s.slot===0?'#ffd23f':'#ff9f1c')+'"/>';
@@ -370,13 +509,39 @@
     }
     out += '<path d="M0 150Q60 118 120 145T240 138T400 132V180H0Z" fill="#6a8d4e" opacity="'+(night?.35:.6)+'"/>' +
       '<rect x="0" y="176" width="400" height="44" fill="#b5652f"/>' +
-      '<path d="M30 178l3 -7 3 7M300 180l3 -8 3 8M360 178l3 -6 3 6M250 182l3 -7 3 7" stroke="#4d7a2e" stroke-width="2" fill="none"/>' +
-      loc.draw();
+      '<path d="M30 178l3 -7 3 7M300 180l3 -8 3 8M360 178l3 -6 3 6M250 182l3 -7 3 7" stroke="#4d7a2e" stroke-width="2" fill="none"/>';
+    return out;
+  }
+
+  // Other real players standing in the same place right now
+  function peersHere(){
+    var seen = {}, out = [];
+    peers.forEach(function(p){
+      if(p.isMe || p.kind!=='viewer') return;
+      var pr = p.presence || {}, pid = p.by || pr.uid;
+      if(!pid || pid===uid || seen[pid] || pr.loc!==s.loc) return;
+      seen[pid] = 1;
+      out.push({ uid:pid, nick: clean((players[pid]&&players[pid].nick) || pr.nick || 'Student', 16), char: getChar(pr.char), mood: MOODS.indexOf(pr.mood)>=0 ? pr.mood : 'happy' });
+    });
+    return out;
+  }
+
+  function drawScene(opts){
+    opts = opts || {};
+    var night = s.slot===2, c = getChar(s.char);
+    var out = skyAndGround() + drawLoc(s.loc);
     if(night) out += '<rect width="400" height="220" fill="#0b1d3a" opacity=".22"/>';
     if(opts.extra==='lamp' && night) out += '<circle cx="300" cy="140" r="46" fill="'+(s.noLight?'#ffffff':'#fff6b0')+'" opacity=".35" class="glow"/>';
 
-    // Hero
-    var heroCls = 'hero' + (opts.walk ? ' walk' : opts.hop ? ' hop' : (mood()==='sad' ? ' sad' : ''));
+    // Real players here, with name tags
+    var here = peersHere(), spots = [352, 384, 262, 232];
+    here.slice(0,4).forEach(function(p, i){
+      out += '<g transform="translate('+spots[i]+',180) scale(-.8,.8)"><g class="hero" style="animation-delay:'+(i*.3)+'s">' + charSVG(p.char, p.mood) + '</g></g>' +
+        '<g transform="translate('+spots[i]+','+(i%2?96:108)+')"><rect x="-27" y="-9" width="54" height="13" rx="6" fill="rgba(0,0,0,.7)"/>' +
+        '<text y="1" font-size="9" text-anchor="middle" fill="#fff" font-family="Arial">'+esc(p.nick)+'</text></g>';
+    });
+
+    var heroCls = 'hero' + (opts.walk ? ' walk' : opts.hop ? ' hop' : (moodOf(s)==='sad' ? ' sad' : ''));
     if(opts.prop==='sleep'){
       out += '<g transform="translate(300,178)"><rect x="-58" y="-6" width="100" height="7" rx="3" fill="#e67e22"/>' +
         '<g transform="translate(22,-8) rotate(-90)">'+charSVG(c,'sleep')+'</g>' +
@@ -384,15 +549,32 @@
         '<text class="zzz" style="animation-delay:.7s" x="-40" y="-40" font-size="12" font-weight="bold" fill="#fff">z</text>' +
         '<text class="zzz" style="animation-delay:1.4s" x="-32" y="-48" font-size="10" font-weight="bold" fill="#fff">z</text></g>';
     } else {
-      out += '<g transform="translate(300,180)"><g class="'+heroCls+'">' + charSVG(c, opts.mood || mood()) + propSVG(opts.prop) + '</g></g>';
+      out += '<g transform="translate(300,180)"><g class="'+heroCls+'">' + charSVG(c, moodOf(s)) + propSVG(opts.prop) +
+        '<rect x="-20" y="-92" width="40" height="13" rx="6" fill="#f2a33a"/><text y="-82" font-size="9" font-weight="bold" text-anchor="middle" fill="#1b120c" font-family="Arial">YOU</text></g></g>';
     }
-    if(opts.prop==='friends'){
-      var others = CHARS.filter(function(x){ return x.id!==charId; });
+    if(opts.prop==='friends' && !here.length){
+      var others = CHARS.filter(function(x){ return x.id!==s.char; });
       out += '<g transform="translate(345,180) scale(-.9,.9)"><g class="hero hop">'+charSVG(others[0],'happy')+'</g></g>';
       out += '<g transform="translate(378,182) scale(-.8,.8)"><g class="hero hop" style="animation-delay:.2s">'+charSVG(others[1],'happy')+'</g></g>';
     }
     $('scene').innerHTML = out;
-    $('caption').textContent = loc.label + (s.noLight ? ' · No light 🕯️' : '');
+    var L = LOCS[s.loc];
+    $('caption').textContent = L.icon + ' ' + L.name + (s.loc===s.home ? ' · your lodge' : '') +
+      (here.length ? ' · ' + here.length + ' student' + (here.length>1?'s':'') + ' here' : '') + (s.noLight ? ' · No light 🕯️' : '');
+  }
+
+  function drawRide(to, mode){
+    var c = getChar(s.char), out = skyAndGround() +
+      '<rect x="0" y="176" width="400" height="26" fill="#555"/><path d="M0 189h400" stroke="#ddd" stroke-width="2" stroke-dasharray="14 12"/>';
+    for(var i=0;i<5;i++) out += '<rect x="'+(i*90+20)+'" y="128" width="6" height="50" fill="#6b4226"/><circle cx="'+(i*90+23)+'" cy="122" r="16" fill="#3f7d3a"/>';
+    if(s.slot===2) out += '<rect width="400" height="220" fill="#0b1d3a" opacity=".22"/>';
+    if(mode==='keke'){
+      out += '<g class="ride"><g class="bump">' + kekeSVG(0,140,c) + '</g></g>';
+    } else {
+      out += '<g class="ride"><g transform="translate(40,182)"><g class="hero hop">' + charSVG(c, moodOf(s)) + '</g></g></g>';
+    }
+    $('scene').innerHTML = out;
+    $('caption').textContent = (mode==='keke' ? '🛺 Keke to ' : '🚶 Trekking to ') + locName(to) + '…';
   }
 
   function propSVG(p){
@@ -401,14 +583,13 @@
       case 'amala': return '<ellipse cx="18" cy="-34" rx="12" ry="3.5" fill="#fff"/><ellipse cx="14" cy="-37" rx="6" ry="4" fill="#5a4030"/><ellipse cx="22" cy="-36" rx="5" ry="2.5" fill="#3e7d2a"/><circle cx="24" cy="-39" r="2.5" fill="#8b3a2b"/>';
       case 'noodles': return '<ellipse cx="18" cy="-34" rx="12" ry="3.5" fill="#fff"/><path d="M9 -36q4 -5 8 0t8 0" stroke="#f3c969" stroke-width="3" fill="none"/><circle cx="20" cy="-39" r="3" fill="#fff"/><circle cx="20" cy="-39" r="1.5" fill="#f2a33a"/>';
       case 'garri': return '<rect x="12" y="-46" width="11" height="14" rx="2" fill="#aed6f1" opacity=".9"/><rect x="12" y="-40" width="11" height="8" fill="#f5f0dc"/>';
+      case 'bag': return '<path d="M10 -40h16l-2 14h-12z" fill="#2a9d8f"/><path d="M13 -40q5 -8 10 0" stroke="#2a9d8f" stroke-width="2" fill="none"/>';
       case 'phone': return '<rect x="12" y="-46" width="7" height="12" rx="1.5" fill="#111"/><rect x="13" y="-45" width="5" height="9" fill="#5dade2" class="glow"/>';
-      case 'call': return '<rect x="9" y="-70" width="6" height="12" rx="1.5" fill="#111"/>' +
-        '<path class="steam" d="M20 -72q4 4 0 8M24 -75q7 7 0 14" stroke="#fff" stroke-width="1.5" fill="none"/>';
+      case 'call': return '<rect x="9" y="-70" width="6" height="12" rx="1.5" fill="#111"/><path class="steam" d="M20 -72q4 4 0 8M24 -75q7 7 0 14" stroke="#fff" stroke-width="1.5" fill="none"/>';
       default: return '';
     }
   }
 
-  // Floating "+8 📚" numbers over the scene
   function floats(diff){
     var box = $('sceneBox'), n = 0;
     var icons = { money:'💰', energy:'⚡', food:'🍲', know:'📚', vibes:'😎' };
@@ -416,7 +597,7 @@
       var v = diff[k]; if(!v) return;
       var el = document.createElement('div');
       el.className = 'float ' + (v>0 ? 'up' : 'down');
-      el.textContent = (v>0?'+':'') + (k==='money' ? naira(v).replace('₦-','-₦') : v) + ' ' + icons[k];
+      el.textContent = (v>0?'+':'') + (k==='money' ? naira(v) : v) + ' ' + icons[k];
       el.style.left = (52 + (n%2)*18) + '%';
       el.style.top = (30 + n*9) + '%';
       el.style.animationDelay = (n*0.12) + 's';
@@ -424,135 +605,119 @@
       setTimeout(function(){ el.remove(); }, 2200);
     });
   }
-  function shake(){
-    var b = $('sceneBox'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
-  }
+  function shake(){ var b = $('sceneBox'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); }
   function snap(){ return { money:s.money, energy:s.energy, food:s.food, know:s.know, vibes:s.vibes }; }
   function delta(a,b){ var d={}; for(var k in a) d[k]=b[k]-a[k]; return d; }
+  function flashMoney(){ var m=$('money'); m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash'); }
 
-  // ================= GAME =================
-  function newGame(){
-    audio(); play('good');
-    s = {
-      day:1, slot:0, money:15000, energy:80, food:70, know:10, vibes:60,
-      lectures:0, testScore:null, lastCallHome:-10,
-      noLight:false, noClass:false, loc:'lodge', log:[]
-    };
-    log(getChar(charId).name + ' arrives in Malete with ' + naira(s.money) + ' and big dreams.');
-    startDay();
+  function toast(text){
+    var t = document.createElement('div'); t.className = 'toast'; t.textContent = text;
+    $('toasts').appendChild(t);
+    setTimeout(function(){ t.remove(); }, 4000);
   }
 
+  // ================= LIFE =================
+  function newLife(nick, charId, home){
+    return {
+      v:2, nick:nick, char:charId, home:home, loc:home,
+      sem:1, day:1, tday:1, slot:0,
+      money:15000, energy:80, food:70, know:10, vibes:60, garri:3,
+      lectures:0, testScore:null, lastCallHome:-10, noLight:false, noClass:false,
+      cgpas:[], claimed:[], log:[], lastResult:null, awaitingNextSem:false, created:Date.now()
+    };
+  }
+  function cgpa(st){ st = st || s; if(!st.cgpas || !st.cgpas.length) return 0; return st.cgpas.reduce(function(a,b){ return a+b; },0)/st.cgpas.length; }
+  function semLabel(sem){ return 'Year ' + Math.ceil(sem/2) + ' · Sem ' + (sem%2 ? 1 : 2); }
+
   var ACTIONS = [
-    { id:'lecture', ico:'🎓', name:'Attend lecture', desc:'Keke to campus ₦200 · -15 energy · +knowledge',
-      loc:'campus', prop:'book', sfx:'bell', walk:true,
-      slots:[0,1], can:function(){ return s.money>=200 && !s.noClass; },
+    { id:'lecture', ico:'🎓', name:'Attend lecture', desc:'-15 energy · +knowledge', at:['campus'], slots:[0,1], prop:'book', sfx:'bell',
+      can:function(){ return !s.noClass; },
       run:function(){
-        s.money-=200; s.energy-=15; s.food-=5; s.lectures++;
-        var gain = s.energy<20 ? 3 : (s.vibes<25 ? 5 : 8);
-        s.know+=gain;
+        s.energy-=15; s.food-=5; s.lectures++;
+        var gain = s.energy<20 ? 3 : (s.vibes<25 ? 5 : 8); s.know+=gain;
         return s.energy<20 ? 'You dozed off in class. Lecturer noticed. Small knowledge gained.'
                            : 'You attended lecture and actually understood something. +' + gain + ' knowledge.';
       }},
-    { id:'library', ico:'📖', name:'Read in the library', desc:'-12 energy · -3 vibes · +knowledge',
-      loc:'library', prop:'book', sfx:'read', walk:true,
-      slots:[0,1], can:function(){ return true; },
-      run:function(){
-        s.energy-=12; s.vibes-=3; var g = s.energy<20 ? 2 : 6; s.know+=g;
-        return 'You found a seat with fan and read for hours. +' + g + ' knowledge.';
-      }},
-    { id:'readNight', ico:'🕯️', name:'Night reading', desc:'TDB with torchlight · -18 energy · +knowledge',
-      loc:'lodge', prop:'book', extra:'lamp', sfx:'read',
-      slots:[2], can:function(){ return true; },
+    { id:'library', ico:'📖', name:'Read in the library', desc:'-12 energy · -3 vibes · +knowledge', at:['campus'], slots:[0,1], prop:'book', sfx:'read',
+      run:function(){ s.energy-=12; s.vibes-=3; var g = s.energy<20 ? 2 : 6; s.know+=g; return 'You found a seat with fan and read for hours. +' + g + ' knowledge.'; }},
+    { id:'readNight', ico:'🕯️', name:'Night reading (TDB)', desc:'-18 energy · +knowledge', at:['home'], slots:[2], prop:'book', extra:'lamp', sfx:'read',
       run:function(){
         s.energy-=18; var g = s.noLight ? 3 : 7; if(s.energy<15) g=2; s.know+=g;
-        return s.noLight ? 'No light. You read with phone torch until it died. +' + g + ' knowledge.'
-                         : 'Light stayed on! You read till 2am. +' + g + ' knowledge.';
+        return s.noLight ? 'No light. You read with phone torch until it died. +' + g + ' knowledge.' : 'Light stayed on! You read till 2am. +' + g + ' knowledge.';
       }},
-    { id:'amala', ico:'🍲', name:'Eat amala at the buka', desc:'Amala, ewedu & gbegiri ₦900 · +food',
-      loc:'buka', prop:'amala', sfx:'eat', walk:true,
-      slots:[0,1,2], can:function(){ return s.money>=900; },
+    { id:'amala', ico:'🍲', name:'Amala at Mama Put', desc:'Amala, ewedu & gbegiri ₦900 · +food', at:['schoolroad'], slots:[0,1,2], prop:'amala', sfx:'eat',
+      can:function(){ return s.money>=900; },
+      run:function(){ s.money-=900; s.food+=45; s.energy+=5; s.vibes+=3; return 'Mama put dropped extra meat because you greeted well. Belle full.'; }},
+    { id:'suya', ico:'🍢', name:'Suya & gist', desc:'₦600 · +vibes (more with real students here)', at:['schoolroad','junction'], slots:[1,2], prop:'friends', sfx:'party',
+      can:function(){ return s.money>=600; },
       run:function(){
-        s.money-=900; s.food+=45; s.energy+=5; s.vibes+=3;
-        return 'Mama put dropped extra meat because you greeted well. Belle full.';
+        var n = Math.min(3, peersHere().length);
+        s.money-=600; s.vibes+=14 + n*4; s.energy-=8; s.food+=10;
+        return n ? 'Suya and gist with ' + n + ' other student' + (n>1?'s':'') + ' here. Vibes on another level!' : 'Suya by the roadside, endless gist, plenty laughter.';
       }},
-    { id:'noodles', ico:'🍜', name:'Cook noodles in your room', desc:'Indomie + egg ₦400 · +food',
-      loc:'lodge', prop:'noodles', sfx:'eat',
-      slots:[0,1,2], can:function(){ return s.money>=400; },
+    { id:'hustle', ico:'📱', name:'Run your hustle', desc:'POS / data / graphic design · -15 energy · +₦', at:['schoolroad','junction'], slots:[0,1,2], prop:'phone', sfx:'coin',
+      run:function(){ s.energy-=15; s.food-=5; var earn = rand(600,2500); s.money+=earn; return 'Customers came through. You made ' + naira(earn) + '.'; }},
+    { id:'market', ico:'🛍️', name:'Buy garri at the market', desc:'₦1,500 for 6 cups', at:['junction'], slots:[0,1], prop:'bag', sfx:'spend',
+      can:function(){ return s.money>=1500; },
+      run:function(){ s.money-=1500; s.garri+=6; return 'You bought a bag of garri and groundnut. Survival stock: ' + s.garri + ' cups.'; }},
+    { id:'noodles', ico:'🍜', name:'Cook noodles', desc:'Indomie + egg ₦400 · +food', at:['home'], slots:[0,1,2], prop:'noodles', sfx:'eat',
+      can:function(){ return s.money>=400; },
+      run:function(){ s.money-=400; s.food+=25; return 'Two packs of noodles and one egg. Student classic.'; }},
+    { id:'garri', ico:'🥣', name:'Soak garri', desc:'Uses 1 cup from your stock · +food', at:['home'], slots:[0,1,2], prop:'garri', sfx:'eat',
+      can:function(){ return s.garri>0; },
+      run:function(){ s.garri--; s.food+=15; s.vibes-=1; return 'Garri, sugar, groundnut and cold water. ' + s.garri + ' cups left.'; }},
+    { id:'visit', ico:'🏘️', name:'Visit friends here', desc:'Free · +vibes (more with real students here)', at:['away-lodge'], slots:[0,1,2], prop:'friends', sfx:'party',
       run:function(){
-        s.money-=400; s.food+=25;
-        return 'Two packs of noodles and one egg. Student classic.';
+        var n = Math.min(3, peersHere().length);
+        s.vibes+=10 + n*5; s.energy-=5; s.food+=5;
+        return 'You checked on your people in ' + locName(s.loc) + '. They shared their food.' + (n ? ' Real gist with ' + n + ' student' + (n>1?'s':'') + '!' : '');
       }},
-    { id:'garri', ico:'🥣', name:'Soak garri', desc:'Free (you stocked up) · small +food',
-      loc:'lodge', prop:'garri', sfx:'eat',
-      slots:[0,1,2], can:function(){ return true; },
-      run:function(){
-        s.food+=12; s.vibes-=2;
-        return 'Garri, sugar, groundnut and cold water. It is well.';
-      }},
-    { id:'hustle', ico:'📱', name:'Run your hustle', desc:'POS / data / graphic design · -15 energy · +₦',
-      loc:'junction', prop:'phone', sfx:'coin', walk:true,
-      slots:[0,1,2], can:function(){ return true; },
-      run:function(){
-        s.energy-=15; s.food-=5; var earn = rand(600,2500); s.money+=earn;
-        return 'Customers came through. You made ' + naira(earn) + '.';
-      }},
-    { id:'hangout', ico:'🍢', name:'Hang out with the guys', desc:'Suya & gist ₦600 · +vibes',
-      loc:'junction', prop:'friends', sfx:'party', walk:true,
-      slots:[1,2], can:function(){ return s.money>=600; },
-      run:function(){
-        s.money-=600; s.vibes+=18; s.energy-=8; s.food+=10;
-        return 'Suya by the junction, endless gist, plenty laughter. Vibes restored.';
-      }},
-    { id:'sleep', ico:'😴', name:'Sleep', desc:'+energy',
-      loc:'lodge', prop:'sleep', sfx:'sleep',
-      slots:[0,1,2], can:function(){ return true; },
+    { id:'sleep', ico:'😴', name:'Sleep', desc:'+energy', at:['home'], slots:[0,1,2], prop:'sleep', sfx:'sleep',
       run:function(){
         var g = s.slot===2 ? (s.noLight ? 30 : 45) : 25; s.energy+=g;
-        return s.slot===2 && s.noLight ? 'Hot night, mosquitoes on duty, but you slept small.'
-                                       : 'You slept like a baby. +' + g + ' energy.';
+        return s.slot===2 && s.noLight ? 'Hot night, mosquitoes on duty, but you slept small.' : 'You slept like a baby. +' + g + ' energy.';
       }},
-    { id:'callhome', ico:'📞', name:'Call home for money', desc:'"Mummy, they said we should buy handout..."',
-      loc:'lodge', prop:'call', sfx:'phone',
-      slots:[0,1,2], can:function(){ return s.day - s.lastCallHome >= 5; },
+    { id:'callhome', ico:'📞', name:'Call home for money', desc:'"Mummy, they said we should buy handout..."', at:['any'], slots:[0,1,2], prop:'call', sfx:'phone',
+      can:function(){ return s.tday - s.lastCallHome >= 5; },
       run:function(){
-        s.lastCallHome = s.day; var r = Math.random();
-        if(r<0.25){ s.vibes-=5; return 'Dad picked up and asked about your results. No money. Pain.'; }
+        s.lastCallHome = s.tday;
+        if(Math.random()<0.25){ s.vibes-=5; return 'Dad picked up and asked about your results. No money. Pain.'; }
         var amt = rand(3,8)*1000; s.money+=amt; s.vibes+=5;
         return 'Mummy came through with ' + naira(amt) + '. "Face your books!"';
       }}
   ];
+  function isHere(a){
+    return a.at.some(function(w){
+      return w==='any' || w===s.loc || (w==='home' && s.loc===s.home) ||
+        (w==='away-lodge' && LOCS[s.loc].kind==='lodge' && s.loc!==s.home);
+    });
+  }
+  function whereText(a){
+    var w = a.at[0];
+    if(w==='home') return 'your lodge in ' + locName(s.home);
+    if(w==='away-lodge') return "a friend's lodge area";
+    return a.at.map(locName).join(' or ');
+  }
 
-  // Events: bad:true shakes the screen and plays the "bad" sound
   var EVENTS = [
-    { title:'⚡ NEPA took light', bad:true, text:'No light in the whole area since morning. Night reading will be hard and sleep will be hot.',
-      apply:function(){ s.noLight=true; s.vibes-=4; } },
-    { title:'💧 Borehole wahala', bad:true, text:'No water in the lodge. You carried gallons from the borehole down the road.',
-      apply:function(){ s.energy-=12; } },
-    { title:'🙌 Lecturer no show', text:'Your lecturer travelled. No classes today. Rest small or read on your own.',
-      apply:function(){ s.noClass=true; s.energy+=8; } },
-    { title:'💸 Found money!', text:'You found ₦1,000 inside the jeans you wore last week. God when?',
-      apply:function(){ s.money+=1000; s.vibes+=5; } },
-    { title:'🍛 Roommate cooked jollof', text:'Your roommate cooked party jollof and dished your own. True friend.',
-      apply:function(){ s.food+=25; s.vibes+=6; } },
-    { title:'🛺 Keke fare increased', bad:true, text:'Fuel price go up again. Keke man collected extra ₦300 from you.',
-      apply:function(){ s.money=Math.max(0,s.money-300); s.vibes-=3; } },
-    { title:'🌫️ Harmattan morning', bad:true, text:'Dust everywhere, lips cracking, cold mornings. Everything feels slower.',
-      apply:function(){ s.energy-=6; } },
+    { title:'⚡ NEPA took light', bad:true, text:'No light in the whole area since morning. Night reading will be hard and sleep will be hot.', apply:function(){ s.noLight=true; s.vibes-=4; } },
+    { title:'💧 Borehole wahala', bad:true, text:'No water in the lodge. You carried gallons from the borehole down the road.', apply:function(){ s.energy-=12; } },
+    { title:'🙌 Lecturer no show', text:'Your lecturer travelled. No classes today. Rest small or read on your own.', apply:function(){ s.noClass=true; s.energy+=8; } },
+    { title:'💸 Found money!', text:'You found ₦1,000 inside the jeans you wore last week. God when?', apply:function(){ s.money+=1000; s.vibes+=5; } },
+    { title:'🍛 Roommate cooked jollof', text:'Your roommate cooked party jollof and dished your own. True friend.', apply:function(){ s.food+=25; s.vibes+=6; } },
+    { title:'🛺 Keke fare increased', bad:true, text:'Fuel price go up again. A keke man collected extra ₦300 from you this morning.', apply:function(){ s.money=Math.max(0,s.money-300); s.vibes-=3; } },
+    { title:'🛺 Keke driver no get change', bad:true, text:'"Oga, I no get change o." You left ₦200 balance with him. E go better.', apply:function(){ s.money=Math.max(0,s.money-200); } },
+    { title:'🌫️ Harmattan morning', bad:true, text:'Dust everywhere, lips cracking, cold mornings. Everything feels slower.', apply:function(){ s.energy-=6; } },
     { title:'📄 Handout must be bought', text:'Course rep announced: buy the lecturer\'s handout for ₦2,000 or "you are on your own".',
       choices:[
         { label:'Buy it (₦2,000)', ok:function(){ return s.money>=2000; }, run:function(){ s.money-=2000; s.know+=8; return 'You bought the handout. Highlighted half of it already.'; } },
-        { label:'Photocopy a friend\'s (₦500)', ok:function(){ return s.money>=500; }, run:function(){ s.money-=500; s.know+=4; if(Math.random()<0.3){ s.vibes-=5; return 'Some pages were blurry. You managed.'; } return 'Photocopy came out clean. Smart move.'; } },
+        { label:'Photocopy a friend\'s (₦500)', ok:function(){ return s.money>=500; }, run:function(){ s.money-=500; s.know+=4; return 'Photocopy came out clean. Smart move.'; } },
         { label:'Skip it', run:function(){ s.know-=3; return 'You decided to "read from the internet". Hmm.'; } }
       ]},
     { title:'🎉 Departmental week', text:'It\'s departmental week. There\'s a dinner night and everybody is going.',
       choices:[
         { label:'Go (₦1,500)', ok:function(){ return s.money>=1500; }, run:function(){ s.money-=1500; s.vibes+=20; s.food+=15; play('party'); return 'You danced, ate rice and chicken, and made new friends.'; } },
         { label:'Stay home and read', run:function(){ s.know+=4; s.vibes-=6; return 'You read while the music played in the distance.'; } }
-      ]},
-    { title:'🤝 Friend needs help', text:'Your coursemate is stranded and needs ₦1,000 to get back to the lodge.',
-      choices:[
-        { label:'Help them', ok:function(){ return s.money>=1000; }, run:function(){ s.money-=1000; s.vibes+=10; return 'They promised to explain tomorrow\'s topic to you. Good karma.'; } },
-        { label:'"Omo, I\'m broke too"', run:function(){ s.vibes-=4; return 'You both understood the struggle.'; } }
       ]},
     { title:'📝 Group assignment', text:'Your group needs someone to type and print the assignment.',
       choices:[
@@ -561,40 +726,40 @@
       ]}
   ];
 
+  // ================= FLOW =================
   function startDay(){
-    s.noLight=false; s.noClass=false; s.slot=0; s.loc='lodge';
-    if(s.day===TEST_DAY){ return showTest(); }
-    if(s.day>1 && Math.random()<0.6){
-      return showEvent(EVENTS[rand(0,EVENTS.length-1)]);
-    }
-    render({ walk:s.day===1 });
+    s.noLight=false; s.noClass=false; s.slot=0;
+    save();
+    if(s.day===TEST_DAY) return showTest();
+    if(s.day>1 && Math.random()<0.6) return showEvent(EVENTS[rand(0,EVENTS.length-1)]);
+    render({ walk:true });
   }
 
   function showEvent(ev){
     $('eventTitle').textContent = ev.title;
     $('eventText').textContent = ev.text;
     var box = $('eventChoices'); box.innerHTML='';
-    $('actionCard').classList.add('hidden');
+    $('mainCard').classList.add('hidden');
     var card = $('eventCard'); card.classList.add('hidden'); void card.offsetWidth; card.classList.remove('hidden');
     play(ev.bad ? 'bad' : 'event');
     var choices = ev.choices || [{ label:'Okay', run:function(){ ev.apply(); return ev.title.replace(/^\S+\s/,'') + '.'; } }];
     choices.forEach(function(c){
       var b = document.createElement('button');
       b.className = 'primary';
-      b.innerHTML = '<b>' + c.label + '</b>';
+      b.innerHTML = '<b>' + esc(c.label) + '</b>';
       if(c.ok && !c.ok()) b.disabled = true;
       b.onclick = function(){
         play('click');
-        var before = snap();
-        var msg = c.run();
+        var before = snap(), msg = c.run();
         normalize();
         log('Day ' + s.day + ': ' + msg);
         $('eventCard').classList.add('hidden');
-        $('actionCard').classList.remove('hidden');
+        $('mainCard').classList.remove('hidden');
         render({ hop:true });
         var d = delta(before, snap()); floats(d);
         if(ev.bad) shake();
         if(d.money>0) play('coin');
+        save();
       };
       box.appendChild(b);
     });
@@ -607,36 +772,53 @@
     var verdict = score>=70 ? 'You sabi! The questions looked like what you read.' :
                   score>=50 ? 'You managed. Some questions came from nowhere.' :
                               'The questions looked like Greek. You wrote your name very well though.';
-    s.loc = 'campus';
-    showEvent({ title:'📝 Day ' + TEST_DAY + ': Surprise test!', bad:score<50,
-                text:'Test score: ' + score + '/100. ' + verdict,
+    showEvent({ title:'📝 Day ' + TEST_DAY + ': Surprise test!', bad:score<50, text:'Test score: ' + score + '/100. ' + verdict,
                 apply:function(){ s.energy-=10; s.vibes += score>=50 ? 5 : -8; if(score>=50) play('good'); } });
   }
 
-  var busy = false;
   function doAction(a){
     if(busy) return;
     busy = true;
-    var before = snap(), prevLoc = s.loc;
-    s.loc = a.loc;
+    var before = snap();
     var msg = a.run();
     s.food -= 8; // hunger ticks every slot
     normalize();
     log('Day ' + s.day + ', ' + SLOTS[s.slot] + ': ' + msg);
     play(a.sfx);
     var d = delta(before, snap());
-    if(d.money<0 && a.sfx!=='eat') setTimeout(function(){ play('spend'); }, 250);
-
-    // Show the action happening in the current time slot, then move on
-    var walk = a.walk && prevLoc!==a.loc;
-    drawScene({ walk:walk, hop:!walk, prop:a.prop, extra:a.extra });
+    if(d.money<0 && a.sfx!=='eat' && a.sfx!=='spend') setTimeout(function(){ play('spend'); }, 250);
+    drawScene({ hop:true, prop:a.prop, extra:a.extra });
     var hurt = checkPenalties();
     renderStats(); renderLog();
-    Array.prototype.forEach.call($('actions').children, function(b){ b.disabled = true; });
+    each('#actions button', function(b){ b.disabled = true; });
     floats(delta(before, snap()));
-    if(d.money) { var m=$('money'); m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash'); }
+    if(d.money) flashMoney();
     if(hurt){ shake(); setTimeout(function(){ play('bad'); }, 400); }
-    setTimeout(function(){ busy = false; nextSlot(); }, walk ? 1700 : 1300);
+    setTimeout(function(){ busy = false; nextSlot(); }, 1300);
+  }
+
+  function travel(to, mode){
+    if(busy || to===s.loc) return;
+    var cost = mode==='keke' ? fare(s.loc, to) : trekCost(s.loc, to);
+    if(mode==='keke' && s.money<cost) return;
+    busy = true;
+    var before = snap(), from = s.loc;
+    if(mode==='keke'){ s.money -= cost; } else { s.energy -= cost; s.food -= 3; }
+    normalize();
+    log((mode==='keke' ? '🛺 Keke from ' + locName(from) + ' to ' + locName(to) + ' (' + naira(cost) + ')' : '🚶 Trekked from ' + locName(from) + ' to ' + locName(to)) + '.');
+    play(mode==='keke' ? 'keke' : 'walk');
+    drawRide(to, mode);
+    renderStats(); renderLog(); renderMap();
+    floats(delta(before, snap()));
+    if(mode==='keke') flashMoney();
+    setTimeout(function(){
+      busy = false; s.loc = to; mapSel = null;
+      var hurt = checkPenalties();
+      setPresence(); save();
+      switchTab('do');
+      render({ walk:true });
+      if(hurt) shake();
+    }, 1900);
   }
 
   function checkPenalties(){
@@ -644,7 +826,7 @@
     if(s.food<=0){ s.energy-=15; s.vibes-=8; hurt=true; log('You are starving! Energy and vibes dropping fast.'); }
     if(s.energy<=0){
       s.energy=20; s.know=clamp(s.know-3); hurt=true;
-      log('You collapsed from exhaustion and slept through the next part of the day.');
+      log('You collapsed from exhaustion and lost the next part of the day.');
       s.slot++;
     }
     if(s.money<=0 && s.food<20){ s.vibes-=5; }
@@ -652,44 +834,67 @@
     return hurt;
   }
 
-  function nextSlot(opts){
+  function nextSlot(){
     s.slot++;
     if(s.slot>=SLOTS.length){
-      s.day++;
-      if(s.day>DAYS) return endGame();
+      if(s.loc!==s.home){
+        s.energy-=8; s.vibes-=3; normalize();
+        log('You couldn\'t make it back to ' + locName(s.home) + ' and slept on a friend\'s mattress. Back home at dawn.');
+      }
+      s.loc = s.home; setPresence();
+      s.day++; s.tday++;
+      if(s.day>DAYS) return endSemester();
       startDay();
-    } else render(opts);
+    } else { save(); render(); }
   }
 
   function normalize(){
     s.energy=clamp(s.energy); s.food=clamp(s.food); s.know=clamp(s.know); s.vibes=clamp(s.vibes);
-    if(s.money<0) s.money=0;
+    s.money = Math.max(0, Math.round(s.money));
   }
 
-  function endGame(){
+  function endSemester(){
     var exam = clamp(s.know*0.85 + s.vibes*0.05 + s.energy*0.1 + rand(-6,6));
     var attendance = Math.min(1, s.lectures / 15);
     var total = (s.testScore||0)*0.3 + exam*0.6 + attendance*100*0.1;
-    var cgpa = Math.max(0, Math.min(5, total/20)).toFixed(2);
-    var rank = cgpa>=4.5 ? 'First Class Legend' :
-               cgpa>=3.5 ? 'Second Class Upper' :
-               cgpa>=2.4 ? 'Second Class Lower' :
-               cgpa>=1.5 ? 'Third Class Survivor' : 'Extra Year Loading...';
-    var good = cgpa>=2.4;
-    $('cgpa').textContent = cgpa;
-    $('rank').textContent = rank;
-    $('endHero').innerHTML = '<g class="hero hop">' + charSVG(getChar(charId), good ? 'happy' : 'sad') + '</g>';
-    $('summary').textContent = 'Test: ' + s.testScore + '/100 · Exam: ' + Math.round(exam) + '/100 · Lectures attended: ' +
-      s.lectures + ' · Money left: ' + naira(s.money);
-    var best = parseFloat(store('malete-best')) || 0;
-    if(parseFloat(cgpa) > best){ store('malete-best', cgpa); $('summary').textContent += ' · New personal best!'; }
-    show('end');
-    play(good ? 'win' : 'lose');
-    if(good) confetti();
+    var gp = Math.round(Math.max(0, Math.min(5, total/20))*100)/100;
+    var rank = gp>=4.5 ? 'First Class Legend' : gp>=3.5 ? 'Second Class Upper' : gp>=2.4 ? 'Second Class Lower' : gp>=1.5 ? 'Third Class Survivor' : 'Extra Year Loading...';
+    s.cgpas.push(gp);
+    s.lastResult = { gp:gp, rank:rank, test:s.testScore||0, exam:Math.round(exam), lectures:s.lectures, sem:s.sem };
+    s.day = DAYS; s.slot = 2; s.awaitingNextSem = true;
+    log('Results: ' + semLabel(s.sem) + ' GPA ' + gp.toFixed(2) + ' (' + rank + ').');
+    postSystem(s.nick + ' finished ' + semLabel(s.sem) + ' with a ' + gp.toFixed(2) + ' GPA 🎓 ' + rank);
+    save();
+    show('game');
+    showResults(true);
+  }
+
+  function showResults(fresh){
+    var r = s.lastResult; if(!r) return;
+    $('resTitle').textContent = semLabel(r.sem) + ' results are out!';
+    $('cgpa').textContent = r.gp.toFixed(2);
+    $('rank').textContent = r.rank;
+    $('summary').textContent = 'Test: ' + r.test + '/100 · Exam: ' + r.exam + '/100 · Lectures: ' + r.lectures +
+      ' · Cumulative CGPA: ' + cgpa().toFixed(2) + ' · Wallet: ' + naira(s.money);
+    $('mainCard').classList.add('hidden'); $('eventCard').classList.add('hidden');
+    $('resultsCard').classList.remove('hidden');
+    renderStats(); renderLog(); drawScene({ hop:true });
+    if(fresh){ play(r.gp>=2.4 ? 'win' : 'lose'); if(r.gp>=2.4) confetti(); }
+  }
+
+  function nextSemester(){
+    play('good');
+    s.awaitingNextSem = false;
+    s.sem++; s.day = 1; s.slot = 0; s.lectures = 0; s.testScore = null;
+    s.know = Math.max(10, Math.round(s.know*0.4)); s.energy = Math.max(s.energy, 70); s.vibes = Math.max(s.vibes, 50);
+    s.money += 5000;
+    log('New semester! Your people sent ₦5,000 for resumption. ' + semLabel(s.sem) + ' begins.');
+    $('resultsCard').classList.add('hidden'); $('mainCard').classList.remove('hidden');
+    startDay();
   }
 
   function confetti(){
-    var box = $('end'), colors = ['#f2a33a','#6fcf7a','#2e86de','#ef6b5b','#fff'];
+    var box = $('resultsCard'), colors = ['#f2a33a','#6fcf7a','#2e86de','#ef6b5b','#fff'];
     for(var i=0;i<40;i++){
       var c = document.createElement('div');
       c.className = 'confetti';
@@ -707,66 +912,478 @@
     var b = $(name+'Bar'); b.style.width = v+'%';
     b.className = v<25 ? 'low' : '';
   }
-
   function renderStats(){
-    $('dayLabel').textContent = 'Day ' + s.day + ' of ' + DAYS;
+    $('dayLabel').textContent = semLabel(s.sem) + ' · Day ' + s.day + '/' + DAYS;
     $('slotLabel').textContent = ['☀️ ','🌇 ','🌙 '][s.slot] + SLOTS[s.slot];
     var m = $('money'); m.textContent = naira(s.money); m.className = 'money' + (s.money<1000 ? ' broke' : '');
     setBar('energy', s.energy); setBar('food', s.food); setBar('know', s.know); setBar('vibes', s.vibes);
   }
-
   function renderLog(){
-    $('log').innerHTML = s.log.slice(0,30).map(function(t){ return '<p>' + t + '</p>'; }).join('');
+    $('log').innerHTML = s.log.slice(0,30).map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('');
   }
-
-  function render(opts){
-    renderStats();
-    drawScene(opts || {});
-
+  function renderActions(){
     var box = $('actions'); box.innerHTML=''; var i = 0;
-    ACTIONS.forEach(function(a){
-      if(a.slots.indexOf(s.slot)<0) return;
-      var b = document.createElement('button');
+    var list = ACTIONS.filter(function(a){ return a.slots.indexOf(s.slot)>=0; });
+    list.sort(function(a,b){ return isHere(b) - isHere(a); });
+    list.forEach(function(a){
+      var here = isHere(a), ok = here && (!a.can || a.can());
       var desc = a.desc;
-      if(a.id==='callhome' && !a.can()) desc = 'You just called. Wait ' + (5-(s.day-s.lastCallHome)) + ' more day(s).';
-      if(a.id==='lecture' && s.noClass) desc = 'No classes today.';
-      b.innerHTML = '<span class="ico">' + a.ico + '</span><b>' + a.name + '</b><small>' + desc + '</small>';
-      b.disabled = !a.can();
-      b.style.animationDelay = (i++ * 0.04) + 's';
+      if(!here) desc = '📍 Go to ' + whereText(a) + ' (Keke tab)';
+      else if(a.id==='callhome' && !ok) desc = 'You just called. Wait ' + (5-(s.tday-s.lastCallHome)) + ' more day(s).';
+      else if(a.id==='lecture' && s.noClass) desc = 'No classes today.';
+      else if(a.id==='garri') desc = (s.garri ? s.garri + ' cups left' : 'No garri left. Buy at the Malete Junction market') + ' · +food';
+      var b = document.createElement('button');
+      b.innerHTML = '<span class="ico">' + a.ico + '</span><b>' + esc(a.name) + '</b><small>' + esc(desc) + '</small>';
+      b.disabled = !ok || busy;
+      b.style.animationDelay = (i++ * 0.03) + 's';
       b.onclick = function(){ doAction(a); };
       box.appendChild(b);
     });
-
+  }
+  function render(opts){
+    renderStats();
+    drawScene(opts || {});
+    renderActions();
+    renderMap();
     renderLog();
     show('game');
   }
-
-  function log(t){ s.log.unshift(t.replace(/</g,'&lt;')); }
-
   function show(id){
-    ['intro','game','end'].forEach(function(x){ $(x).classList.toggle('hidden', x!==id); });
+    ['loading','setup','game'].forEach(function(x){ $(x).classList.toggle('hidden', x!==id); });
+  }
+  function log(t){ s.log.unshift(clean(t, 200)); if(s.log.length>40) s.log.length = 40; }
+
+  // ---------- Map ----------
+  function renderMap(){
+    if(!s) return;
+    var out = '<rect width="400" height="252" fill="#8a5a33"/>';
+    for(var i=0;i<30;i++) out += '<circle cx="'+((i*97)%400)+'" cy="'+((i*61)%240)+'" r="'+(3+i%4)+'" fill="#5f7d3a" opacity=".5"/>';
+    ROADS.forEach(function(r){
+      var a = MAP[r[0]], b = MAP[r[1]];
+      out += '<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="#3a3a3a" stroke-width="10" stroke-linecap="round"/>' +
+             '<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="#ddd" stroke-width="1.2" stroke-dasharray="6 6"/>';
+    });
+    // how many real students are at each place right now
+    var counts = {};
+    peers.forEach(function(p){
+      var pr = p.presence || {};
+      if(!p.isMe && p.kind==='viewer' && LOCS[pr.loc] && (p.by || pr.uid) !== uid) counts[pr.loc] = (counts[pr.loc]||0)+1;
+    });
+    Object.keys(MAP).forEach(function(id){
+      var p = MAP[id], L = LOCS[id], here = id===s.loc, sel = id===mapSel;
+      out += '<g class="node" data-loc="'+id+'" transform="translate('+p[0]+','+p[1]+')">' +
+        (here ? '<circle class="ring" r="16" fill="none" stroke="#f2a33a" stroke-width="3"/>' : '') +
+        '<circle class="base" r="16" fill="'+(here?'#f2a33a':sel?'#fff':'#2a1d14')+'" stroke="'+(sel?'#f2a33a':'#f6ead9')+'" stroke-width="2"/>' +
+        '<text y="6" font-size="15" text-anchor="middle">'+(id===s.home?'🏠':L.icon)+'</text>' +
+        '<rect x="-46" y="19" width="92" height="15" rx="7" fill="rgba(0,0,0,.7)"/>' +
+        '<text y="30" font-size="10" font-weight="bold" text-anchor="middle" fill="#fff" font-family="Arial">'+esc(L.name)+(here?' (you)':'')+'</text>' +
+        (counts[id] ? '<circle cx="14" cy="-13" r="8" fill="#6fcf7a"/><text x="14" y="-9.5" font-size="10" font-weight="bold" text-anchor="middle" fill="#1b120c" font-family="Arial">'+counts[id]+'</text>' : '') +
+        '</g>';
+    });
+    if(busy && $('scene').querySelector('.ride')){
+      // little keke moving on the map during a ride
+      out += '<text x="200" y="230" font-size="11" text-anchor="middle" fill="#fff" font-family="Arial">On the road…</text>';
+    }
+    $('map').innerHTML = out;
+    each('#map .node', function(n){
+      n.onclick = function(){ if(busy) return; mapSel = n.getAttribute('data-loc'); play('click'); renderMap(); };
+    });
+    var box = $('travelBox');
+    if(!mapSel || mapSel===s.loc){
+      box.innerHTML = '<p style="color:var(--muted)">You are at <b>' + esc(locName(s.loc)) + '</b>. Tap another place on the map to go there.' +
+        (s.slot===2 ? ' Night fares are higher.' : '') + ' Green bubbles show how many students are there right now.</p>';
+      return;
+    }
+    var f = fare(s.loc, mapSel), t = trekCost(s.loc, mapSel);
+    box.innerHTML = '';
+    var k = document.createElement('button');
+    k.className = 'primary';
+    k.innerHTML = '<b>🛺 Take keke to ' + esc(locName(mapSel)) + '</b><small>Fare ' + naira(f) + (s.slot===2?' (night fare)':'') + '</small>';
+    k.disabled = busy || s.money < f;
+    k.onclick = function(){ travel(mapSel, 'keke'); };
+    var w = document.createElement('button');
+    w.innerHTML = '<b>🚶 Trek there</b><small>Free · -' + t + ' energy</small>';
+    w.disabled = busy || s.energy <= t;
+    w.onclick = function(){ travel(mapSel, 'trek'); };
+    box.appendChild(k); box.appendChild(w);
   }
 
-  // ================= INTRO / CONTROLS =================
-  function renderPicker(){
+  // ---------- Tabs ----------
+  function switchTab(t){
+    tab = t;
+    each('.tabs button', function(b){ b.classList.toggle('on', b.getAttribute('data-tab')===t); });
+    each('[data-panel]', function(p){ p.classList.toggle('hidden', p.getAttribute('data-panel')!==t); });
+    if(t==='gist'){ unread = 0; renderBadge(); renderChat(); $('chat').scrollTop = 0; }
+    if(t==='people') renderPeople();
+    if(t==='keke') renderMap();
+  }
+  each('.tabs button', function(b){ b.onclick = function(){ play('click'); switchTab(b.getAttribute('data-tab')); }; });
+
+  // ================= ONLINE: SAVE, GIST, MONEY, PEOPLE =================
+  var saving = false, dirty = false;
+  function lifeForSave(){
+    var copy = JSON.parse(JSON.stringify(s));
+    copy.log = copy.log.slice(0,15);
+    copy.claimed = copy.claimed.slice(-200);
+    return copy;
+  }
+  function save(){
+    if(!s) return;
+    dirty = true;
+    if(!saving) flush();
+  }
+  // one write at a time; the latest state wins
+  function flush(){
+    if(!dirty){ saving = false; return; }
+    saving = true; dirty = false;
+    var life = lifeForSave(), p;
+    local(SAVE_KEY, JSON.stringify(life)); // device backup
+    if(online && canWrite){
+      p = db.doc('players/' + uid).set({
+        nick:s.nick, char:s.char, home:s.home, loc:s.loc, money:s.money,
+        cgpa: Math.round(cgpa()*100)/100, sem:s.sem, day:s.day, mood:moodOf(s), updatedAt:Date.now(), life:life
+      }).catch(function(e){
+        var code = e && e.code;
+        if(code==='invalid_argument' || code==='not_granted' || code==='revoked') goLocalOnly();
+        else if(code==='quota_exceeded') toast('Malete is full right now. Your life is saved on this device.');
+        else { dirty = true; return new Promise(function(r){ setTimeout(r, 1500 + Math.random()*1000); }); }
+      });
+    } else p = Promise.resolve();
+    p.then(flush, flush);
+  }
+  function goLocalOnly(){
+    if(!canWrite && $('banner').textContent) return;
+    canWrite = false;
+    showBanner('You can look around Malete, but your account can\'t save to the shared game, so your life is saved on this device only. Ask the owner to share the game with you as an Editor to play online.');
+    if(s && tab==='people') renderPeople();
+  }
+  function showBanner(t){ var b = $('banner'); b.textContent = t; b.classList.remove('hidden'); }
+
+  // Social doc (my gist messages + money I sent), one per player
+  var socialQueue = Promise.resolve();
+  function writeSocial(){
+    if(!(online && canWrite)) return;
+    socialQueue = socialQueue.then(function(){
+      var data = { msgs: mySocial.msgs.slice(-15), gifts: mySocial.gifts.slice(-20), nick: s.nick, char: s.char };
+      return db.doc('social/' + uid).set(data);
+    }).catch(function(e){ if(e && e.code==='invalid_argument') goLocalOnly(); });
+  }
+  function postMessage(text, sys){
+    text = clean(text, 140); if(!text) return;
+    var m = { id:rid(), ts:Date.now(), text:text, loc:s.loc };
+    if(sys) m.sys = true;
+    mySocial.msgs.push(m);
+    if(mySocial.msgs.length>15) mySocial.msgs = mySocial.msgs.slice(-15);
+    seenMsgs[m.id] = 1;
+    writeSocial();
+    renderChat();
+  }
+  function postSystem(text){ postMessage(text, true); }
+
+  function sendMoney(toUid, amount){
+    amount = Math.floor(num(amount,0));
+    if(!(online && canWrite) || !players[toUid] || toUid===uid) return;
+    if(amount<50 || amount>s.money){ toast('You don\'t have up to ' + naira(amount)); return; }
+    s.money -= amount;
+    mySocial.gifts.push({ id:rid(), to:toUid, amount:amount, ts:Date.now() });
+    if(mySocial.gifts.length>20) mySocial.gifts = mySocial.gifts.slice(-20);
+    var name = clean(players[toUid].nick, 16) || 'a student';
+    log('You sent ' + naira(amount) + ' to ' + name + '.');
+    var m = { id:rid(), ts:Date.now(), text:s.nick + ' sent ' + naira(amount) + ' to ' + name + ' 💸', loc:s.loc, sys:true };
+    mySocial.msgs.push(m); seenMsgs[m.id] = 1;
+    if(mySocial.msgs.length>15) mySocial.msgs = mySocial.msgs.slice(-15);
+    writeSocial(); save();
+    play('coin'); flashMoney(); renderStats(); renderLog(); renderActions();
+    giftOpen = null; renderPeople(); renderChat();
+    toast('Sent ' + naira(amount) + ' to ' + name);
+  }
+
+  // Credit money other players sent me (each gift id is claimed once, recorded in my saved life)
+  function claimGifts(){
+    if(!s || !(online && canWrite)) return;
+    var got = false;
+    Object.keys(social).forEach(function(from){
+      if(from===uid) return;
+      var gifts = (social[from] && Array.isArray(social[from].gifts)) ? social[from].gifts : [];
+      gifts.forEach(function(g){
+        if(!g || g.to!==uid || typeof g.id!=='string' || s.claimed.indexOf(g.id)>=0) return;
+        var amt = Math.floor(num(g.amount,0));
+        if(amt<1 || amt>200000) return;
+        s.claimed.push(g.id);
+        s.money += amt; got = true;
+        var name = clean((players[from]&&players[from].nick) || social[from].nick, 16) || 'Someone';
+        log(name + ' sent you ' + naira(amt) + '! 💸');
+        toast('💸 ' + name + ' sent you ' + naira(amt) + '!');
+      });
+    });
+    if(got){ play('coin'); save(); if(!$('game').classList.contains('hidden')){ renderStats(); flashMoney(); renderLog(); if(!busy) renderActions(); } }
+  }
+
+  function allMessages(){
+    var out = [], have = {};
+    Object.keys(social).forEach(function(id){
+      if(id===uid) return; // my own come from mySocial (always freshest)
+      var d = social[id]; if(!d || !Array.isArray(d.msgs)) return;
+      d.msgs.forEach(function(m){
+        if(!m || typeof m.text!=='string') return;
+        out.push({ id:String(m.id||rid()), ts:num(m.ts,0), text:clean(m.text,140), loc:LOCS[m.loc]?m.loc:null, sys:!!m.sys,
+          from:id, nick: clean((players[id]&&players[id].nick) || d.nick, 16) || 'Student' });
+      });
+    });
+    mySocial.msgs.forEach(function(m){ out.push({ id:m.id, ts:m.ts, text:m.text, loc:m.loc, sys:!!m.sys, from:uid||'me', nick:s.nick, me:true }); });
+    out.sort(function(a,b){ return b.ts - a.ts; });
+    return out.slice(0,50);
+  }
+
+  function renderChat(){
+    if(!s) return;
+    var msgs = allMessages(), box = $('chat');
+    if(!msgs.length){
+      box.innerHTML = '<p style="color:var(--muted)">' + (online ? 'No gist yet. Be the first to talk!' : 'Gist with other students is live in the online version. What you type here stays on this device.') + '</p>';
+    } else {
+      box.innerHTML = msgs.map(function(m){
+        if(m.sys) return '<div class="msg sys">📣 ' + esc(m.text) + ' <span class="meta">' + ago(m.ts) + '</span></div>';
+        return '<div class="msg' + (m.me?' me':'') + '"><span class="who">' + esc(m.me ? 'You' : m.nick) +
+          '<span class="meta">' + (m.loc ? '📍 ' + esc(locName(m.loc)) + ' · ' : '') + ago(m.ts) + '</span></span><div>' + esc(m.text) + '</div></div>';
+      }).join('');
+    }
+    var fresh = false;
+    msgs.forEach(function(m){
+      if(seenMsgs[m.id]) return;
+      seenMsgs[m.id] = 1;
+      if(!m.me && initialChatLoaded && Date.now()-m.ts < 5*60000){
+        fresh = true;
+        if(tab!=='gist'){ unread++; if(!m.sys) toast('💬 ' + m.nick + ': ' + m.text); }
+      }
+    });
+    if(fresh) play('msg');
+    renderBadge();
+  }
+  function renderBadge(){ var b = $('gistBadge'); b.textContent = unread; b.classList.toggle('hidden', !unread); }
+
+  var QUICK = ['Who dey School Road?', 'Light don come for Safari!', 'Any keke for campus?', 'Who get handout?', 'Maple people, una dey?', 'West End no water again 😩'];
+  function renderQuick(){
+    $('quick').innerHTML = '';
+    QUICK.forEach(function(q){
+      var b = document.createElement('button'); b.className = 'small-btn'; b.textContent = q;
+      b.onclick = function(){ play('msg'); postMessage(q); };
+      $('quick').appendChild(b);
+    });
+  }
+  $('chatSend').onclick = function(){ var v = $('chatIn').value; if(!clean(v,140)) return; play('msg'); postMessage(v); $('chatIn').value=''; };
+  $('chatIn').addEventListener('keydown', function(e){ if(e.key==='Enter') $('chatSend').onclick(); });
+
+  // ---------- People ----------
+  function onlineUids(){
+    var o = {};
+    peers.forEach(function(p){ if(p.kind==='viewer'){ var id = p.by || (p.presence && p.presence.uid); if(id) o[id] = p; } });
+    return o;
+  }
+  function renderPeople(){
+    if(!s) return;
+    var box = $('plist');
+    if(!online){ box.innerHTML = '<p style="color:var(--muted)">Other students show up here in the online version of the game.</p>'; return; }
+    var on = onlineUids();
+    var list = Object.keys(players).map(function(id){
+      var p = players[id] || {};
+      return { uid:id, nick: clean(p.nick,16) || 'Student', char:getChar(p.char), home: LOCS[p.home]?p.home:null,
+        loc: (on[id] && on[id].presence && LOCS[on[id].presence.loc]) ? on[id].presence.loc : (LOCS[p.loc]?p.loc:null),
+        money: Math.max(0, Math.floor(num(p.money,0))), cgpa: Math.max(0, Math.min(5, num(p.cgpa,0))), sem: Math.max(1, Math.floor(num(p.sem,1))),
+        mood: MOODS.indexOf(p.mood)>=0 ? p.mood : 'happy', online: !!on[id], updatedAt: num(p.updatedAt,0) };
+    });
+    if(sortBy==='online') list = list.filter(function(p){ return p.online; });
+    list.sort(function(a,b){
+      if(sortBy==='cgpa') return b.cgpa - a.cgpa || b.money - a.money;
+      if(sortBy==='online') return b.updatedAt - a.updatedAt;
+      return b.money - a.money;
+    });
+    if(!list.length){ box.innerHTML = '<p style="color:var(--muted)">' + (sortBy==='online' ? 'Nobody else is online right now. Their lives are still saved, so check the other lists.' : 'No students yet. Share the game with your friends!') + '</p>'; return; }
+    box.innerHTML = '';
+    list.slice(0,50).forEach(function(p, i){
+      var me = p.uid===uid;
+      var row = document.createElement('div'); row.className = 'prow';
+      row.innerHTML = '<span class="rk">' + (i+1) + '</span>' + miniChar(p.char, p.mood) +
+        '<div class="info"><b>' + esc(me ? p.nick + ' (you)' : p.nick) + (p.online ? '<span class="on-dot" title="Online now"></span>' : '') + '</b>' +
+        '<small>' + naira(p.money) + ' · CGPA ' + p.cgpa.toFixed(2) + ' · ' + esc(semLabel(p.sem)) + '<br>' +
+        (p.online && p.loc ? '📍 At ' + esc(locName(p.loc)) + ' now' : '🏠 Lodge in ' + esc(p.home ? locName(p.home) : 'Malete') + (p.updatedAt ? ' · seen ' + ago(p.updatedAt) : '')) + '</small>' +
+        '<div class="giftbox hidden"></div></div>';
+      if(!me && canWrite){
+        var btns = document.createElement('div'); btns.className = 'btns';
+        if(p.online && room){
+          var w = document.createElement('button'); w.className = 'small-btn'; w.textContent = '👋'; w.title = 'Wave';
+          w.onclick = function(){ wave(p.uid, p.nick); };
+          btns.appendChild(w);
+        }
+        var g = document.createElement('button'); g.className = 'small-btn'; g.textContent = '💸 Send';
+        g.onclick = function(){ giftOpen = giftOpen===p.uid ? null : p.uid; play('click'); renderPeople(); };
+        btns.appendChild(g);
+        row.appendChild(btns);
+        if(giftOpen===p.uid){
+          var gb = row.querySelector('.giftbox'); gb.classList.remove('hidden');
+          [200,500,1000,2000].forEach(function(a){
+            var b = document.createElement('button'); b.className = 'small-btn primary'; b.textContent = 'Send ' + naira(a);
+            b.disabled = s.money < a;
+            b.onclick = function(){ sendMoney(p.uid, a); };
+            gb.appendChild(b);
+          });
+        }
+      }
+      box.appendChild(row);
+    });
+  }
+  each('.seg button', function(b){
+    b.onclick = function(){
+      sortBy = b.getAttribute('data-sort'); play('click');
+      each('.seg button', function(x){ x.classList.toggle('on', x===b); });
+      renderPeople();
+    };
+  });
+
+  // ---------- Live room ----------
+  function setPresence(){
+    if(!room || !s) return;
+    room.presence({ uid:uid, nick:s.nick, char:s.char, loc:s.loc, mood:moodOf(s) }).catch(function(){});
+  }
+  function wave(toUid, nick){
+    if(!room) return;
+    room.emit('wave', { to:toUid, emoji:'👋' }).then(function(){ toast('You waved at ' + nick + ' 👋'); play('wave'); }).catch(function(){ toast('Could not wave right now'); });
+  }
+  function updateOnline(){
+    var n = Object.keys(onlineUids()).length;
+    $('onlineTxt').textContent = Math.max(1,n) + ' online in Malete';
+    $('onlinePill').classList.remove('off');
+  }
+
+  // ================= SETUP =================
+  var pickChar = 'tunde', pickHome = 'safari';
+  function renderSetup(){
     $('pick').innerHTML = '';
     CHARS.forEach(function(c){
       var b = document.createElement('button');
-      b.className = c.id===charId ? 'sel' : '';
-      b.innerHTML = '<svg viewBox="-30 -82 60 88"><g class="hero'+(c.id===charId?' hop':'')+'">' + charSVG(c,'happy') + '</g></svg><b>' + c.name + '</b>';
-      b.onclick = function(){ charId = c.id; store('malete-char', c.id); play('click'); renderPicker(); };
+      b.className = c.id===pickChar ? 'sel' : '';
+      b.innerHTML = '<svg viewBox="-30 -82 60 88"><g class="hero'+(c.id===pickChar?' hop':'')+'">' + charSVG(c,'happy') + '</g></svg><b>' + c.name + '</b>';
+      b.onclick = function(){ pickChar = c.id; play('click'); renderSetup(); };
       $('pick').appendChild(b);
     });
+    $('homePick').innerHTML = '';
+    HOMES.forEach(function(h){
+      var b = document.createElement('button');
+      b.className = h===pickHome ? 'sel' : '';
+      b.innerHTML = '<b>🏠 ' + LOCS[h].name + '</b><small>Lodge area</small>';
+      b.onclick = function(){ pickHome = h; play('click'); renderSetup(); };
+      $('homePick').appendChild(b);
+    });
   }
-  function updateMute(){ $('muteBtn').textContent = muted ? '🔇' : '🔊'; }
-  $('muteBtn').onclick = function(){ muted = !muted; store('malete-muted', muted ? '1' : '0'); updateMute(); play('click'); };
+  $('startBtn').onclick = function(){
+    audio();
+    var nick = clean($('nickIn').value, 16);
+    if(nick.length<2){ $('nickIn').focus(); $('nickIn').placeholder = 'Type your name (2+ letters)'; play('bad'); return; }
+    s = newLife(nick, pickChar, pickHome);
+    log(nick + ' arrives in Malete with ' + naira(s.money) + ' and big dreams. Lodge: ' + locName(pickHome) + '.');
+    postSystem(nick + ' just resumed in Malete! Lodge: ' + locName(pickHome) + ' 🎒');
+    play('good');
+    setPresence();
+    renderQuick();
+    startDay();
+  };
+  $('nextSemBtn').onclick = nextSemester;
 
-  $('startBtn').onclick = newGame;
-  $('againBtn').onclick = function(){ show('intro'); renderPicker(); play('click'); };
-  updateMute();
-  renderPicker();
-  var best = parseFloat(store('malete-best')) || 0;
-  if(best>0){ $('best').textContent = 'Your best CGPA so far: ' + best; $('best').classList.remove('hidden'); }
+  function updateMute(){ $('muteBtn').textContent = muted ? '🔇' : '🔊'; }
+  $('muteBtn').onclick = function(){ muted = !muted; local('malete-muted', muted ? '1' : '0'); updateMute(); play('click'); };
+
+  function validLife(l){
+    return !!(l && typeof l==='object' && typeof l.nick==='string' && LOCS[l.home] && typeof l.money==='number');
+  }
+  function resume(life){
+    s = life;
+    var base = newLife(s.nick, s.char, s.home);
+    for(var k in base) if(s[k]===undefined) s[k] = base[k];
+    if(!LOCS[s.loc]) s.loc = s.home;
+    renderQuick();
+    setPresence();
+    if(s.awaitingNextSem){ render(); showResults(false); return; }
+    log('Welcome back to Malete, ' + s.nick + '.');
+    render({ walk:true });
+    renderChat();
+    claimGifts();
+  }
+
+  // ================= BOOT =================
+  function bootLocal(reason){
+    online = false; canWrite = false;
+    $('onlineTxt').textContent = 'Offline mode';
+    if(reason) showBanner(reason);
+    var saved = null; try { saved = JSON.parse(local(SAVE_KEY) || 'null'); } catch(e){}
+    if(validLife(saved)) resume(saved); else { renderSetup(); show('setup'); }
+  }
+
+  async function boot(){
+    updateMute();
+    if(!window.claude || typeof window.claude.use!=='function'){
+      return bootLocal('You\'re playing offline, so your life is saved on this device. Open the online version of Malete Life to play with other students.');
+    }
+    var caps = await Promise.all([claude.use('db'), claude.use('user'), claude.use('room')]).catch(function(){ return [null,null,null]; });
+    db = caps[0]; user = caps[1]; room = caps[2];
+    uid = user ? await user.id().catch(function(){ return null; }) : null;
+    if(!db || !uid) return bootLocal('Sign in to play online with other students. For now your life is saved on this device.');
+    online = true; canWrite = true;
+    var w = user.can ? await user.can('data.write').catch(function(){ return null; }) : null;
+    if(w===false) canWrite = false;
+
+    // Everyone's life summary (leaderboards, names)
+    db.collection('players').limit(500).onSnapshot(function(snap){
+      var next = {};
+      snap.docs.forEach(function(d){ var v = d.data(); if(v) next[d.id] = v; });
+      players = next;
+      if(s){ if(tab==='people') renderPeople(); renderChat(); }
+    }, function(){});
+
+    // Everyone's gist + money transfers
+    db.collection('social').limit(500).onSnapshot(function(snap){
+      var next = {};
+      snap.docs.forEach(function(d){ var v = d.data(); if(v) next[d.id] = v; });
+      social = next;
+      if(!mySocial.loaded){
+        if(next[uid]){
+          var mine = next[uid];
+          var keep = mySocial.msgs; // anything posted before the first snapshot arrived
+          mySocial.msgs = (Array.isArray(mine.msgs) ? mine.msgs.slice() : []).concat(keep).slice(-15);
+          mySocial.gifts = (Array.isArray(mine.gifts) ? mine.gifts.slice() : []).concat(mySocial.gifts).slice(-20);
+          if(keep.length) writeSocial();
+        }
+        mySocial.loaded = true;
+      }
+      if(s){ renderChat(); claimGifts(); }
+      initialChatLoaded = true;
+    }, function(){});
+
+    if(room){
+      room.onPeers(function(ch){
+        peers = ch.peers.slice();
+        updateOnline();
+        if(s && !busy && !$('game').classList.contains('hidden')){
+          drawScene(); renderMap(); if(tab==='people') renderPeople();
+        }
+      }, function(){});
+      room.on('wave', function(m){
+        var d = m.data || {};
+        if(d.to!==uid || m.isMe) return;
+        var nick = clean((m.by && players[m.by] && players[m.by].nick) || 'A student', 16);
+        toast('👋 ' + nick + ' waved at you!');
+        play('wave');
+      });
+    } else {
+      $('onlineTxt').textContent = 'Online';
+      $('onlinePill').classList.remove('off');
+    }
+
+    if(!canWrite) goLocalOnly();
+    var mine = await db.doc('players/' + uid).get().catch(function(){ return null; });
+    var life = mine && mine.exists ? (mine.data()||{}).life : null;
+    if(!validLife(life)){ try { var dev = JSON.parse(local(SAVE_KEY) || 'null'); if(validLife(dev) && !canWrite) life = dev; } catch(e){} }
+    if(validLife(life)) resume(JSON.parse(JSON.stringify(life))); else { renderSetup(); show('setup'); }
+  }
+  boot().catch(function(){ bootLocal('Could not reach the online Malete. Playing offline for now.'); });
 })();
 </script>
 </body>
