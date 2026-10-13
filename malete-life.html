@@ -19,40 +19,94 @@
   header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
   header h1{font-size:28px;color:var(--accent);letter-spacing:1px}
   header small{color:var(--muted)}
+  .head-right{display:flex;gap:12px;align-items:center}
+  .mute{width:auto;padding:8px 12px;text-align:center;font-size:18px;line-height:1}
   .card{background:var(--panel);border-radius:12px;padding:16px;margin-bottom:14px}
   .day{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-weight:bold}
   .day .slot{color:var(--accent)}
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
   .stat label{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
   .bar{height:10px;background:var(--bar);border-radius:6px;overflow:hidden;margin-top:4px}
-  .bar span{display:block;height:100%;background:var(--good);transition:width .3s}
-  .bar span.low{background:var(--bad)}
-  .money{font-size:22px;font-weight:bold;color:var(--good)}
+  .bar span{display:block;height:100%;background:var(--good);transition:width .5s ease}
+  .bar span.low{background:var(--bad);animation:blink 1s infinite alternate}
+  .money{font-size:22px;font-weight:bold;color:var(--good);display:inline-block}
   .money.broke{color:var(--bad)}
+  .money.flash{animation:pop .5s ease-out}
   .actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  .actions button{animation:fadein .35s ease-out backwards}
   button{
     font:inherit;color:var(--text);background:var(--panel2);border:2px solid transparent;
     border-radius:10px;padding:12px;text-align:left;cursor:pointer;transition:border-color .15s,transform .1s;
   }
-  button:hover:not(:disabled){border-color:var(--accent)}
-  button:active:not(:disabled){transform:scale(.98)}
+  button:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}
+  button:active:not(:disabled){transform:scale(.97)}
   button:disabled{opacity:.4;cursor:not-allowed}
   button b{display:block;font-size:16px}
   button small{color:var(--muted);font-size:12px}
+  button .ico{font-size:20px;float:right;margin-left:6px}
   .primary{background:var(--accent);color:#1b120c;text-align:center;font-weight:bold}
   .primary small{color:#3a2a1d}
-  .event{border-left:4px solid var(--accent)}
+  .event{border-left:4px solid var(--accent);animation:slidein .4s cubic-bezier(.2,1.4,.4,1)}
   .event h3{margin-bottom:6px}
   .event .choices{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
   .event .choices button{flex:1 1 180px}
   .log{max-height:180px;overflow-y:auto;font-size:14px;color:var(--muted)}
   .log p{padding:3px 0;border-bottom:1px solid var(--panel2)}
-  .log p:first-child{color:var(--text)}
-  .end{text-align:center}
+  .log p:first-child{color:var(--text);animation:fadein .4s}
+  .end{text-align:center;position:relative;overflow:hidden}
   .end h2{font-size:32px;color:var(--accent);margin:8px 0}
-  .end .cgpa{font-size:56px;font-weight:bold}
+  .end .cgpa{font-size:56px;font-weight:bold;animation:pop .8s ease-out}
   .hidden{display:none}
   .intro p{margin-bottom:10px}
+
+  /* Scene */
+  .scene{position:relative;padding:0;overflow:hidden}
+  .scene svg{display:block;width:100%;height:auto}
+  .scene .caption{position:absolute;left:10px;top:8px;background:rgba(0,0,0,.55);padding:3px 10px;border-radius:20px;font-size:13px;font-weight:bold}
+  .shake{animation:shake .45s}
+  .float{position:absolute;font-weight:bold;font-size:18px;pointer-events:none;white-space:nowrap;
+    text-shadow:0 2px 4px rgba(0,0,0,.8);animation:floatup 1.6s ease-out forwards}
+  .float.up{color:#9dffa8}.float.down{color:#ff9c90}
+
+  /* Character picker */
+  .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+  .pick button{text-align:center;padding:8px}
+  .pick button.sel{border-color:var(--accent);background:#4a3420}
+  .pick svg{width:100%;max-width:110px;height:auto;display:block;margin:0 auto}
+
+  /* SVG animations */
+  .hero{transform-box:fill-box;transform-origin:50% 100%;animation:bob 1.6s ease-in-out infinite}
+  .hero.walk{animation:walkin .9s ease-out, bob 1.6s ease-in-out .9s infinite}
+  .hero.hop{animation:hop .5s ease-out, bob 1.6s ease-in-out .5s infinite}
+  .hero.sad{animation:droop 2.4s ease-in-out infinite}
+  .twinkle{animation:twinkle 1.8s ease-in-out infinite alternate}
+  .sun{transform-box:fill-box;transform-origin:center;animation:pulse 3s ease-in-out infinite alternate}
+  .steam{animation:steam 2.4s ease-out infinite;opacity:0}
+  .zzz{animation:zzz 2.2s ease-out infinite;opacity:0}
+  .glow{animation:glow 1.2s ease-in-out infinite alternate}
+  .drive{animation:drive 7s linear infinite}
+  .cloud{animation:cloud 30s linear infinite}
+  .confetti{position:absolute;top:-10px;width:8px;height:14px;animation:fall 2.8s linear forwards}
+
+  @keyframes bob{50%{transform:translateY(-2px)}}
+  @keyframes walkin{from{transform:translateX(-160px)}to{transform:translateX(0)}}
+  @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-14px) scale(1.04)}}
+  @keyframes droop{50%{transform:translateY(1px) rotate(-2deg)}}
+  @keyframes twinkle{from{opacity:.2}to{opacity:1}}
+  @keyframes pulse{from{transform:scale(1)}to{transform:scale(1.12)}}
+  @keyframes steam{0%{opacity:0;transform:translateY(0)}30%{opacity:.8}100%{opacity:0;transform:translateY(-26px)}}
+  @keyframes zzz{0%{opacity:0;transform:translate(0,0)}30%{opacity:1}100%{opacity:0;transform:translate(14px,-28px)}}
+  @keyframes glow{from{opacity:.25}to{opacity:.55}}
+  @keyframes drive{from{transform:translateX(-170px)}to{transform:translateX(480px)}}
+  @keyframes cloud{from{transform:translateX(-120px)}to{transform:translateX(460px)}}
+  @keyframes floatup{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translateY(-70px)}}
+  @keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+  @keyframes slidein{from{opacity:0;transform:translateY(-20px) scale(.96)}to{opacity:1;transform:none}}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+  @keyframes blink{to{opacity:.55}}
+  @keyframes fall{to{transform:translateY(420px) rotate(540deg)}}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
   @media (max-width:480px){header h1{font-size:22px}.end .cgpa{font-size:44px}}
 </style>
 </head>
@@ -63,7 +117,10 @@
       <h1>MALETE LIFE</h1>
       <small>Survive one semester as a student in Malete</small>
     </div>
-    <a href="index.html">&larr; Back to site</a>
+    <div class="head-right">
+      <button class="mute" id="muteBtn" title="Sound on/off">🔊</button>
+      <a href="index.html">&larr; Back to site</a>
+    </div>
   </header>
 
   <!-- Intro -->
@@ -73,7 +130,8 @@
     <p>You have <b>20 days</b> until exams. Each day has a <b>morning, afternoon and night</b>.
       Pick what to do in each slot. Keep your <b>food</b> and <b>energy</b> up, don't go broke,
       and read enough to pass. There's a <b>test on day 10</b>.</p>
-    <p>Your final CGPA depends on your test, your exam, and how many lectures you actually showed up for.</p>
+    <p><b>Choose your student:</b></p>
+    <div class="pick" id="pick"></div>
     <p id="best" class="hidden"></p>
     <button class="primary" id="startBtn"><b>Resume school</b><small>Start the semester</small></button>
   </section>
@@ -84,13 +142,18 @@
       <div class="day"><span id="dayLabel">Day 1 of 20</span><span class="slot" id="slotLabel">Morning</span></div>
     </div>
 
+    <div class="card scene" id="sceneBox">
+      <svg id="scene" viewBox="0 0 400 220" role="img" aria-label="Game scene"></svg>
+      <div class="caption" id="caption"></div>
+    </div>
+
     <div class="card">
       <div class="stats">
         <div class="stat"><label>Money</label><div class="money" id="money">₦0</div></div>
-        <div class="stat"><label><span>Energy</span><span id="energyVal"></span></label><div class="bar"><span id="energyBar"></span></div></div>
-        <div class="stat"><label><span>Food</span><span id="foodVal"></span></label><div class="bar"><span id="foodBar"></span></div></div>
-        <div class="stat"><label><span>Knowledge</span><span id="knowVal"></span></label><div class="bar"><span id="knowBar"></span></div></div>
-        <div class="stat"><label><span>Vibes</span><span id="vibesVal"></span></label><div class="bar"><span id="vibesBar"></span></div></div>
+        <div class="stat"><label><span>⚡ Energy</span><span id="energyVal"></span></label><div class="bar"><span id="energyBar"></span></div></div>
+        <div class="stat"><label><span>🍲 Food</span><span id="foodVal"></span></label><div class="bar"><span id="foodBar"></span></div></div>
+        <div class="stat"><label><span>📚 Knowledge</span><span id="knowVal"></span></label><div class="bar"><span id="knowBar"></span></div></div>
+        <div class="stat"><label><span>😎 Vibes</span><span id="vibesVal"></span></label><div class="bar"><span id="vibesBar"></span></div></div>
       </div>
     </div>
 
@@ -112,6 +175,7 @@
   <!-- End -->
   <section id="end" class="card end hidden">
     <p>Results are out!</p>
+    <svg id="endHero" viewBox="-50 -95 100 100" width="120" height="120"></svg>
     <div class="cgpa" id="cgpa"></div>
     <h2 id="rank"></h2>
     <p id="summary"></p>
@@ -130,23 +194,257 @@
   function clamp(v){ return Math.max(0, Math.min(100, v)); }
   function rand(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
   function naira(n){ return '₦' + n.toLocaleString(); }
+  function store(k,v){ try { if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,String(v)); } catch(e){ return null; } }
 
-  function loadBest(){ try { return parseFloat(localStorage.getItem('malete-best')) || 0; } catch(e){ return 0; } }
-  function saveBest(v){ try { localStorage.setItem('malete-best', String(v)); } catch(e){} }
+  // ================= SOUND (Web Audio, no files) =================
+  var ac = null, muted = store('malete-muted') === '1';
+  function audio(){
+    if(!ac){ try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ return null; } }
+    if(ac.state === 'suspended') ac.resume();
+    return ac;
+  }
+  function tone(freq, start, dur, type, vol, slideTo){
+    var a = audio(); if(!a || muted) return;
+    var t = a.currentTime + start, o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t);
+    if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.15, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.05);
+  }
+  function noise(start, dur, vol){
+    var a = audio(); if(!a || muted) return;
+    var len = Math.floor(a.sampleRate * dur), buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
+    for(var i=0;i<len;i++) d[i] = (Math.random()*2-1) * (1 - i/len);
+    var src = a.createBufferSource(), g = a.createGain(), f = a.createBiquadFilter();
+    f.type = 'lowpass'; f.frequency.value = 900; g.gain.value = vol || 0.2;
+    src.buffer = buf; src.connect(f); f.connect(g); g.connect(a.destination);
+    src.start(a.currentTime + start);
+  }
+  var SFX = {
+    click:  function(){ tone(660,0,.05,'square',.05); },
+    coin:   function(){ tone(988,0,.08,'square',.08); tone(1319,.08,.25,'square',.08); },
+    spend:  function(){ tone(420,0,.12,'triangle',.1,260); },
+    eat:    function(){ noise(0,.07,.25); noise(.14,.07,.25); noise(.28,.07,.25); tone(523,.42,.12,'triangle',.08); tone(784,.52,.18,'triangle',.08); },
+    read:   function(){ noise(0,.12,.12); tone(880,.1,.15,'sine',.06); },
+    bell:   function(){ tone(1175,0,.5,'sine',.12); tone(1175,.25,.6,'sine',.1); },
+    sleep:  function(){ tone(440,0,.7,'sine',.08,220); tone(330,.4,.8,'sine',.06,165); },
+    party:  function(){ [392,494,587,784].forEach(function(f,i){ tone(f,i*.09,.15,'square',.06); }); noise(.36,.05,.15); },
+    phone:  function(){ for(var i=0;i<3;i++){ tone(1400,i*.18,.08,'sine',.08); tone(1100,i*.18+.08,.08,'sine',.08); } },
+    event:  function(){ tone(784,0,.15,'triangle',.12); tone(1047,.13,.3,'triangle',.12); },
+    good:   function(){ [523,659,784].forEach(function(f,i){ tone(f,i*.08,.2,'triangle',.1); }); },
+    bad:    function(){ tone(220,0,.35,'sawtooth',.1,90); tone(160,.05,.35,'square',.05,70); },
+    win:    function(){ [523,659,784,1047,784,1047].forEach(function(f,i){ tone(f,i*.13,.25,'square',.08); }); },
+    lose:   function(){ [392,370,349,262].forEach(function(f,i){ tone(f,i*.25,.3,'triangle',.1); }); }
+  };
+  function play(name){ if(SFX[name]) SFX[name](); }
 
+  // ================= CHARACTERS =================
+  var CHARS = [
+    { id:'tunde', name:'Tunde', skin:'#8d5524', shirt:'#2e86de', pants:'#2c3e50', style:'cap', extra:'#e74c3c' },
+    { id:'aisha', name:'Aisha', skin:'#a0642d', shirt:'#27ae60', pants:'#5b3a8a', style:'scarf', extra:'#8e44ad' },
+    { id:'femi',  name:'Femi',  skin:'#6b3e1f', shirt:'#f39c12', pants:'#34495e', style:'glasses', extra:'#222' }
+  ];
+  var charId = store('malete-char') || 'tunde';
+  function getChar(id){ return CHARS.filter(function(c){ return c.id===id; })[0] || CHARS[0]; }
+
+  // Character drawn with feet at (0,0), facing right, ~78px tall
+  function charSVG(c, mood){
+    var eyes, mouth, dark = '#1a1a1a';
+    if(mood==='sleep' || mood==='tired'){
+      eyes = '<path d="M-7 -63h4M3 -63h4" stroke="'+dark+'" stroke-width="1.6" stroke-linecap="round"/>';
+    } else {
+      eyes = '<circle cx="-5" cy="-63" r="1.8" fill="'+dark+'"/><circle cx="5" cy="-63" r="1.8" fill="'+dark+'"/>';
+    }
+    if(mood==='happy') mouth = '<path d="M-5 -57 Q0 -51 5 -57" stroke="'+dark+'" stroke-width="1.6" fill="none" stroke-linecap="round"/>';
+    else if(mood==='hungry') mouth = '<ellipse cx="0" cy="-55" rx="2.6" ry="3.2" fill="'+dark+'"/>';
+    else if(mood==='sad') mouth = '<path d="M-5 -53 Q0 -58 5 -53" stroke="'+dark+'" stroke-width="1.6" fill="none" stroke-linecap="round"/>';
+    else mouth = '<path d="M-4 -55h8" stroke="'+dark+'" stroke-width="1.6" stroke-linecap="round"/>';
+
+    var hair = '<path d="M-13 -64a13 13 0 0 1 26 0z" fill="#1a1a1a"/>', top = '';
+    if(c.style==='cap'){
+      top = '<path d="M-14 -66a14 12 0 0 1 28 0z" fill="'+c.extra+'"/><rect x="2" y="-68" width="20" height="4" rx="2" fill="'+c.extra+'"/>';
+    } else if(c.style==='scarf'){
+      hair = '';
+      top = '<path d="M-16 -60a16 17 0 0 1 32 0v16h-6v-14a10 10 0 0 0 -20 0v14h-6z" fill="'+c.extra+'"/>';
+    } else if(c.style==='glasses'){
+      top = '<circle cx="-5" cy="-63" r="4.5" fill="none" stroke="'+c.extra+'" stroke-width="1.5"/><circle cx="5" cy="-63" r="4.5" fill="none" stroke="'+c.extra+'" stroke-width="1.5"/><path d="M-0.5 -63h1" stroke="'+c.extra+'" stroke-width="1.5"/>';
+    }
+    return '' +
+      '<ellipse cx="0" cy="1" rx="16" ry="3" fill="rgba(0,0,0,.25)"/>' +
+      '<rect x="-17" y="-48" width="9" height="20" rx="3" fill="#34495e"/>' +             // backpack
+      '<rect x="-9" y="-25" width="7" height="25" rx="2" fill="'+c.pants+'"/>' +
+      '<rect x="2" y="-25" width="7" height="25" rx="2" fill="'+c.pants+'"/>' +
+      '<ellipse cx="-5" cy="0" rx="6" ry="2.6" fill="#111"/><ellipse cx="7" cy="0" rx="6" ry="2.6" fill="#111"/>' +
+      '<rect x="-13" y="-51" width="26" height="29" rx="7" fill="'+c.shirt+'"/>' +
+      '<rect x="-17" y="-49" width="6" height="22" rx="3" fill="'+c.shirt+'"/>' +
+      '<rect x="11" y="-49" width="6" height="22" rx="3" fill="'+c.shirt+'"/>' +
+      '<circle cx="-14" cy="-26" r="3" fill="'+c.skin+'"/><circle cx="14" cy="-26" r="3" fill="'+c.skin+'"/>' +
+      '<rect x="-3" y="-53" width="6" height="4" fill="'+c.skin+'"/>' +
+      '<circle cx="0" cy="-63" r="13" fill="'+c.skin+'"/>' +
+      hair + eyes + mouth + top;
+  }
+
+  function mood(){
+    if(s.energy<25) return 'tired';
+    if(s.food<25) return 'hungry';
+    if(s.vibes<30 || s.money<500) return 'sad';
+    return 'happy';
+  }
+
+  // ================= SCENES =================
+  var SKY = [['#7ec8f0','#fdf3d8'],['#f08a4b','#ffe2a1'],['#0b1d3a','#2b4a7e']];
+  function win(x,y,w,h){
+    var night = s.slot===2, c = night ? (s.noLight ? '#1d1d1d' : '#ffe08a') : '#6fb7d9';
+    return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+c+'" stroke="#5a4630" stroke-width="2"/>' +
+      (night && !s.noLight ? '<rect x="'+(x-6)+'" y="'+(y-6)+'" width="'+(w+12)+'" height="'+(h+12)+'" fill="#ffe08a" opacity=".25" class="glow"/>' : '');
+  }
+  function sign(x,y,w,text,bg,fg){
+    return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="15" rx="2" fill="'+bg+'"/>' +
+      '<text x="'+(x+w/2)+'" y="'+(y+11)+'" font-size="10" font-weight="bold" text-anchor="middle" fill="'+fg+'" font-family="Arial">'+text+'</text>';
+  }
+
+  var LOCS = {
+    lodge: { label:'🏠 Your lodge', draw:function(){
+      return '<polygon points="20,98 115,62 210,98" fill="#8b3a2b"/>' +
+        '<rect x="30" y="98" width="170" height="80" fill="#efe1c0" stroke="#b89f72"/>' +
+        win(48,115,30,22) + win(150,115,30,22) +
+        '<rect x="100" y="132" width="28" height="46" fill="#6b4226"/><circle cx="122" cy="156" r="2" fill="#f2a33a"/>' +
+        sign(85,78,60,'LODGE','#fff','#8b3a2b') +
+        '<rect x="214" y="78" width="28" height="32" rx="5" fill="#1f1f1f"/>' +
+        '<path d="M217 110v68M239 110v68M217 140h22" stroke="#666" stroke-width="3"/>';
+    }},
+    campus: { label:'🏫 Faculty building', draw:function(){ return campus('FACULTY'); } },
+    library:{ label:'📖 University library', draw:function(){ return campus('LIBRARY'); } },
+    buka: { label:'🍲 Mama Put buka', draw:function(){
+      return '<polygon points="28,112 202,112 190,90 40,90" fill="#9aa3ab"/>' +
+        '<path d="M60 91v20M90 91v20M120 91v20M150 91v20M180 91v20" stroke="#7e868e" stroke-width="2"/>' +
+        '<rect x="40" y="112" width="150" height="66" fill="#c9a26b" stroke="#8a6a3e"/>' +
+        sign(70,118,90,'MAMA PUT','#d62828','#fff') +
+        '<rect x="60" y="158" width="90" height="5" fill="#6b4226"/><path d="M66 163v15M144 163v15" stroke="#6b4226" stroke-width="4"/>' +
+        '<path d="M205 178l8 -14 8 14M219 178l8 -14 8 14" fill="#ff7b00"/>' +
+        '<rect x="204" y="146" width="36" height="20" rx="4" fill="#2b2b2b"/>' +
+        '<path class="steam" d="M214 142c-4 -6 4 -10 0 -16" stroke="#fff" stroke-width="2" fill="none"/>' +
+        '<path class="steam" style="animation-delay:.8s" d="M228 142c-4 -6 4 -10 0 -16" stroke="#fff" stroke-width="2" fill="none"/>';
+    }},
+    junction: { label:'🛺 Malete junction', draw:function(){
+      return '<rect x="0" y="180" width="400" height="20" fill="#555"/>' +
+        '<path d="M0 190h400" stroke="#ddd" stroke-width="2" stroke-dasharray="14 12"/>' +
+        '<rect x="150" y="146" width="56" height="7" fill="#6b4226"/><path d="M155 153v25M201 153v25" stroke="#6b4226" stroke-width="4"/>' +
+        '<rect x="156" y="139" width="44" height="7" fill="#333"/>' +
+        '<path d="M162 139h32" stroke="#ff7b00" stroke-width="2" stroke-dasharray="4 3"/>' +
+        '<path class="steam" d="M170 134c-4 -6 4 -10 0 -16" stroke="#ccc" stroke-width="2" fill="none"/>' +
+        '<path class="steam" style="animation-delay:1s" d="M186 134c-4 -6 4 -10 0 -16" stroke="#ccc" stroke-width="2" fill="none"/>' +
+        sign(152,118,52,'SUYA','#f2a33a','#1b120c') +
+        '<g class="drive"><rect x="20" y="147" width="78" height="36" rx="10" fill="#f7c600"/>' +
+        '<rect x="24" y="136" width="66" height="14" rx="6" fill="#2d6a4f"/>' +
+        '<rect x="70" y="152" width="20" height="14" fill="#9fd3e6"/>' +
+        '<circle cx="36" cy="185" r="8" fill="#222"/><circle cx="84" cy="185" r="8" fill="#222"/></g>';
+    }}
+  };
+  function campus(label){
+    var p = '';
+    for(var x=34;x<=196;x+=27) p += '<rect x="'+x+'" y="102" width="9" height="66" fill="#e2dccd"/>';
+    return '<rect x="20" y="86" width="200" height="88" fill="#f5f0e6" stroke="#bdb5a3"/>' +
+      '<rect x="20" y="86" width="200" height="16" fill="#1f5fa8"/>' +
+      '<text x="120" y="98" font-size="11" font-weight="bold" text-anchor="middle" fill="#fff" font-family="Arial">'+label+'</text>' +
+      p + win(48,118,16,22) + win(102,118,16,22) + win(156,118,16,22) +
+      '<rect x="14" y="168" width="212" height="10" fill="#cfc6b2"/>' +
+      '<rect x="240" y="120" width="8" height="58" fill="#6b4226"/><circle cx="244" cy="110" r="26" fill="#3f7d3a"/><circle cx="230" cy="122" r="14" fill="#4d9246"/>';
+  }
+
+  function drawScene(opts){
+    opts = opts || {};
+    var loc = LOCS[s.loc] || LOCS.lodge, sky = SKY[s.slot], night = s.slot===2, c = getChar(charId);
+    var out = '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+sky[0]+'"/><stop offset="1" stop-color="'+sky[1]+'"/></linearGradient></defs>' +
+      '<rect width="400" height="220" fill="url(#sky)"/>';
+    if(night){
+      for(var i=0;i<14;i++){
+        out += '<circle class="twinkle" style="animation-delay:'+(i*0.27).toFixed(2)+'s" cx="'+((i*53)%390+5)+'" cy="'+((i*37)%70+8)+'" r="'+(i%3?1:1.6)+'" fill="#fff"/>';
+      }
+      out += '<circle cx="335" cy="40" r="15" fill="#f4f1de"/><circle cx="342" cy="35" r="13" fill="'+sky[0]+'"/>';
+    } else {
+      out += '<circle class="sun" cx="'+(s.slot===0?340:70)+'" cy="'+(s.slot===0?42:52)+'" r="'+(s.slot===0?18:22)+'" fill="'+(s.slot===0?'#ffd23f':'#ff9f1c')+'"/>';
+      out += '<g class="cloud" opacity=".85"><ellipse cx="60" cy="40" rx="26" ry="9" fill="#fff"/><ellipse cx="76" cy="34" rx="16" ry="9" fill="#fff"/></g>';
+    }
+    out += '<path d="M0 150Q60 118 120 145T240 138T400 132V180H0Z" fill="#6a8d4e" opacity="'+(night?.35:.6)+'"/>' +
+      '<rect x="0" y="176" width="400" height="44" fill="#b5652f"/>' +
+      '<path d="M30 178l3 -7 3 7M300 180l3 -8 3 8M360 178l3 -6 3 6M250 182l3 -7 3 7" stroke="#4d7a2e" stroke-width="2" fill="none"/>' +
+      loc.draw();
+    if(night) out += '<rect width="400" height="220" fill="#0b1d3a" opacity=".22"/>';
+    if(opts.extra==='lamp' && night) out += '<circle cx="300" cy="140" r="46" fill="'+(s.noLight?'#ffffff':'#fff6b0')+'" opacity=".35" class="glow"/>';
+
+    // Hero
+    var heroCls = 'hero' + (opts.walk ? ' walk' : opts.hop ? ' hop' : (mood()==='sad' ? ' sad' : ''));
+    if(opts.prop==='sleep'){
+      out += '<g transform="translate(300,178)"><rect x="-58" y="-6" width="100" height="7" rx="3" fill="#e67e22"/>' +
+        '<g transform="translate(22,-8) rotate(-90)">'+charSVG(c,'sleep')+'</g>' +
+        '<text class="zzz" x="-50" y="-30" font-size="16" font-weight="bold" fill="#fff">Z</text>' +
+        '<text class="zzz" style="animation-delay:.7s" x="-40" y="-40" font-size="12" font-weight="bold" fill="#fff">z</text>' +
+        '<text class="zzz" style="animation-delay:1.4s" x="-32" y="-48" font-size="10" font-weight="bold" fill="#fff">z</text></g>';
+    } else {
+      out += '<g transform="translate(300,180)"><g class="'+heroCls+'">' + charSVG(c, opts.mood || mood()) + propSVG(opts.prop) + '</g></g>';
+    }
+    if(opts.prop==='friends'){
+      var others = CHARS.filter(function(x){ return x.id!==charId; });
+      out += '<g transform="translate(345,180) scale(-.9,.9)"><g class="hero hop">'+charSVG(others[0],'happy')+'</g></g>';
+      out += '<g transform="translate(378,182) scale(-.8,.8)"><g class="hero hop" style="animation-delay:.2s">'+charSVG(others[1],'happy')+'</g></g>';
+    }
+    $('scene').innerHTML = out;
+    $('caption').textContent = loc.label + (s.noLight ? ' · No light 🕯️' : '');
+  }
+
+  function propSVG(p){
+    switch(p){
+      case 'book': return '<rect x="10" y="-44" width="16" height="12" rx="1" fill="#c0392b"/><path d="M18 -44v12" stroke="#fff" stroke-width="1"/>';
+      case 'amala': return '<ellipse cx="18" cy="-34" rx="12" ry="3.5" fill="#fff"/><ellipse cx="14" cy="-37" rx="6" ry="4" fill="#5a4030"/><ellipse cx="22" cy="-36" rx="5" ry="2.5" fill="#3e7d2a"/><circle cx="24" cy="-39" r="2.5" fill="#8b3a2b"/>';
+      case 'noodles': return '<ellipse cx="18" cy="-34" rx="12" ry="3.5" fill="#fff"/><path d="M9 -36q4 -5 8 0t8 0" stroke="#f3c969" stroke-width="3" fill="none"/><circle cx="20" cy="-39" r="3" fill="#fff"/><circle cx="20" cy="-39" r="1.5" fill="#f2a33a"/>';
+      case 'garri': return '<rect x="12" y="-46" width="11" height="14" rx="2" fill="#aed6f1" opacity=".9"/><rect x="12" y="-40" width="11" height="8" fill="#f5f0dc"/>';
+      case 'phone': return '<rect x="12" y="-46" width="7" height="12" rx="1.5" fill="#111"/><rect x="13" y="-45" width="5" height="9" fill="#5dade2" class="glow"/>';
+      case 'call': return '<rect x="9" y="-70" width="6" height="12" rx="1.5" fill="#111"/>' +
+        '<path class="steam" d="M20 -72q4 4 0 8M24 -75q7 7 0 14" stroke="#fff" stroke-width="1.5" fill="none"/>';
+      default: return '';
+    }
+  }
+
+  // Floating "+8 📚" numbers over the scene
+  function floats(diff){
+    var box = $('sceneBox'), n = 0;
+    var icons = { money:'💰', energy:'⚡', food:'🍲', know:'📚', vibes:'😎' };
+    Object.keys(diff).forEach(function(k){
+      var v = diff[k]; if(!v) return;
+      var el = document.createElement('div');
+      el.className = 'float ' + (v>0 ? 'up' : 'down');
+      el.textContent = (v>0?'+':'') + (k==='money' ? naira(v).replace('₦-','-₦') : v) + ' ' + icons[k];
+      el.style.left = (52 + (n%2)*18) + '%';
+      el.style.top = (30 + n*9) + '%';
+      el.style.animationDelay = (n*0.12) + 's';
+      box.appendChild(el); n++;
+      setTimeout(function(){ el.remove(); }, 2200);
+    });
+  }
+  function shake(){
+    var b = $('sceneBox'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+  }
+  function snap(){ return { money:s.money, energy:s.energy, food:s.food, know:s.know, vibes:s.vibes }; }
+  function delta(a,b){ var d={}; for(var k in a) d[k]=b[k]-a[k]; return d; }
+
+  // ================= GAME =================
   function newGame(){
+    audio(); play('good');
     s = {
       day:1, slot:0, money:15000, energy:80, food:70, know:10, vibes:60,
       lectures:0, testScore:null, lastCallHome:-10,
-      noLight:false, noClass:false, log:[]
+      noLight:false, noClass:false, loc:'lodge', log:[]
     };
-    log('You arrive in Malete with ' + naira(s.money) + ' and big dreams.');
+    log(getChar(charId).name + ' arrives in Malete with ' + naira(s.money) + ' and big dreams.');
     startDay();
   }
 
-  // ---------- Actions ----------
   var ACTIONS = [
-    { id:'lecture', name:'Attend lecture', desc:'Keke to campus ₦200 · -15 energy · +knowledge',
+    { id:'lecture', ico:'🎓', name:'Attend lecture', desc:'Keke to campus ₦200 · -15 energy · +knowledge',
+      loc:'campus', prop:'book', sfx:'bell', walk:true,
       slots:[0,1], can:function(){ return s.money>=200 && !s.noClass; },
       run:function(){
         s.money-=200; s.energy-=15; s.food-=5; s.lectures++;
@@ -155,57 +453,66 @@
         return s.energy<20 ? 'You dozed off in class. Lecturer noticed. Small knowledge gained.'
                            : 'You attended lecture and actually understood something. +' + gain + ' knowledge.';
       }},
-    { id:'library', name:'Read in the library', desc:'-12 energy · -3 vibes · +knowledge',
+    { id:'library', ico:'📖', name:'Read in the library', desc:'-12 energy · -3 vibes · +knowledge',
+      loc:'library', prop:'book', sfx:'read', walk:true,
       slots:[0,1], can:function(){ return true; },
       run:function(){
         s.energy-=12; s.vibes-=3; var g = s.energy<20 ? 2 : 6; s.know+=g;
         return 'You found a seat with fan and read for hours. +' + g + ' knowledge.';
       }},
-    { id:'readNight', name:'Night reading', desc:'TDB with torchlight · -18 energy · +knowledge',
+    { id:'readNight', ico:'🕯️', name:'Night reading', desc:'TDB with torchlight · -18 energy · +knowledge',
+      loc:'lodge', prop:'book', extra:'lamp', sfx:'read',
       slots:[2], can:function(){ return true; },
       run:function(){
         s.energy-=18; var g = s.noLight ? 3 : 7; if(s.energy<15) g=2; s.know+=g;
         return s.noLight ? 'No light. You read with phone torch until it died. +' + g + ' knowledge.'
                          : 'Light stayed on! You read till 2am. +' + g + ' knowledge.';
       }},
-    { id:'amala', name:'Eat amala at the buka', desc:'Amala, ewedu & gbegiri ₦900 · +food',
+    { id:'amala', ico:'🍲', name:'Eat amala at the buka', desc:'Amala, ewedu & gbegiri ₦900 · +food',
+      loc:'buka', prop:'amala', sfx:'eat', walk:true,
       slots:[0,1,2], can:function(){ return s.money>=900; },
       run:function(){
         s.money-=900; s.food+=45; s.energy+=5; s.vibes+=3;
         return 'Mama put dropped extra meat because you greeted well. Belle full.';
       }},
-    { id:'noodles', name:'Cook noodles in your room', desc:'Indomie + egg ₦400 · +food',
+    { id:'noodles', ico:'🍜', name:'Cook noodles in your room', desc:'Indomie + egg ₦400 · +food',
+      loc:'lodge', prop:'noodles', sfx:'eat',
       slots:[0,1,2], can:function(){ return s.money>=400; },
       run:function(){
         s.money-=400; s.food+=25;
         return 'Two packs of noodles and one egg. Student classic.';
       }},
-    { id:'garri', name:'Soak garri', desc:'Free (you stocked up) · small +food',
+    { id:'garri', ico:'🥣', name:'Soak garri', desc:'Free (you stocked up) · small +food',
+      loc:'lodge', prop:'garri', sfx:'eat',
       slots:[0,1,2], can:function(){ return true; },
       run:function(){
         s.food+=12; s.vibes-=2;
         return 'Garri, sugar, groundnut and cold water. It is well.';
       }},
-    { id:'hustle', name:'Run your hustle', desc:'POS / data / graphic design · -15 energy · +₦',
+    { id:'hustle', ico:'📱', name:'Run your hustle', desc:'POS / data / graphic design · -15 energy · +₦',
+      loc:'junction', prop:'phone', sfx:'coin', walk:true,
       slots:[0,1,2], can:function(){ return true; },
       run:function(){
         s.energy-=15; s.food-=5; var earn = rand(600,2500); s.money+=earn;
         return 'Customers came through. You made ' + naira(earn) + '.';
       }},
-    { id:'hangout', name:'Hang out with the guys', desc:'Suya & gist ₦600 · +vibes',
+    { id:'hangout', ico:'🍢', name:'Hang out with the guys', desc:'Suya & gist ₦600 · +vibes',
+      loc:'junction', prop:'friends', sfx:'party', walk:true,
       slots:[1,2], can:function(){ return s.money>=600; },
       run:function(){
         s.money-=600; s.vibes+=18; s.energy-=8; s.food+=10;
         return 'Suya by the junction, endless gist, plenty laughter. Vibes restored.';
       }},
-    { id:'sleep', name:'Sleep', desc:'+energy',
+    { id:'sleep', ico:'😴', name:'Sleep', desc:'+energy',
+      loc:'lodge', prop:'sleep', sfx:'sleep',
       slots:[0,1,2], can:function(){ return true; },
       run:function(){
         var g = s.slot===2 ? (s.noLight ? 30 : 45) : 25; s.energy+=g;
         return s.slot===2 && s.noLight ? 'Hot night, mosquitoes on duty, but you slept small.'
                                        : 'You slept like a baby. +' + g + ' energy.';
       }},
-    { id:'callhome', name:'Call home for money', desc:'"Mummy, they said we should buy handout..."',
+    { id:'callhome', ico:'📞', name:'Call home for money', desc:'"Mummy, they said we should buy handout..."',
+      loc:'lodge', prop:'call', sfx:'phone',
       slots:[0,1,2], can:function(){ return s.day - s.lastCallHome >= 5; },
       run:function(){
         s.lastCallHome = s.day; var r = Math.random();
@@ -215,54 +522,52 @@
       }}
   ];
 
-  // ---------- Events ----------
-  // Each event: weight check + text + optional choices
+  // Events: bad:true shakes the screen and plays the "bad" sound
   var EVENTS = [
-    { title:'NEPA took light', text:'No light in the whole area since morning. Night reading will be hard and sleep will be hot.',
+    { title:'⚡ NEPA took light', bad:true, text:'No light in the whole area since morning. Night reading will be hard and sleep will be hot.',
       apply:function(){ s.noLight=true; s.vibes-=4; } },
-    { title:'Borehole wahala', text:'No water in the lodge. You carried gallons from the borehole down the road.',
+    { title:'💧 Borehole wahala', bad:true, text:'No water in the lodge. You carried gallons from the borehole down the road.',
       apply:function(){ s.energy-=12; } },
-    { title:'Lecturer no show', text:'Your lecturer travelled. No classes today. Rest small or read on your own.',
+    { title:'🙌 Lecturer no show', text:'Your lecturer travelled. No classes today. Rest small or read on your own.',
       apply:function(){ s.noClass=true; s.energy+=8; } },
-    { title:'Found money!', text:'You found ₦1,000 inside the jeans you wore last week. God when?',
+    { title:'💸 Found money!', text:'You found ₦1,000 inside the jeans you wore last week. God when?',
       apply:function(){ s.money+=1000; s.vibes+=5; } },
-    { title:'Roommate cooked jollof', text:'Your roommate cooked party jollof and dished your own. True friend.',
+    { title:'🍛 Roommate cooked jollof', text:'Your roommate cooked party jollof and dished your own. True friend.',
       apply:function(){ s.food+=25; s.vibes+=6; } },
-    { title:'Keke fare increased', text:'Fuel price go up again. Keke man collected extra ₦300 from you.',
+    { title:'🛺 Keke fare increased', bad:true, text:'Fuel price go up again. Keke man collected extra ₦300 from you.',
       apply:function(){ s.money=Math.max(0,s.money-300); s.vibes-=3; } },
-    { title:'Harmattan morning', text:'Dust everywhere, lips cracking, cold mornings. Everything feels slower.',
+    { title:'🌫️ Harmattan morning', bad:true, text:'Dust everywhere, lips cracking, cold mornings. Everything feels slower.',
       apply:function(){ s.energy-=6; } },
-    { title:'Handout must be bought', text:'Course rep announced: buy the lecturer\'s handout for ₦2,000 or "you are on your own".',
+    { title:'📄 Handout must be bought', text:'Course rep announced: buy the lecturer\'s handout for ₦2,000 or "you are on your own".',
       choices:[
         { label:'Buy it (₦2,000)', ok:function(){ return s.money>=2000; }, run:function(){ s.money-=2000; s.know+=8; return 'You bought the handout. Highlighted half of it already.'; } },
         { label:'Photocopy a friend\'s (₦500)', ok:function(){ return s.money>=500; }, run:function(){ s.money-=500; s.know+=4; if(Math.random()<0.3){ s.vibes-=5; return 'Some pages were blurry. You managed.'; } return 'Photocopy came out clean. Smart move.'; } },
         { label:'Skip it', run:function(){ s.know-=3; return 'You decided to "read from the internet". Hmm.'; } }
       ]},
-    { title:'Departmental week', text:'It\'s departmental week. There\'s a dinner night and everybody is going.',
+    { title:'🎉 Departmental week', text:'It\'s departmental week. There\'s a dinner night and everybody is going.',
       choices:[
-        { label:'Go (₦1,500)', ok:function(){ return s.money>=1500; }, run:function(){ s.money-=1500; s.vibes+=20; s.food+=15; return 'You danced, ate rice and chicken, and made new friends.'; } },
+        { label:'Go (₦1,500)', ok:function(){ return s.money>=1500; }, run:function(){ s.money-=1500; s.vibes+=20; s.food+=15; play('party'); return 'You danced, ate rice and chicken, and made new friends.'; } },
         { label:'Stay home and read', run:function(){ s.know+=4; s.vibes-=6; return 'You read while the music played in the distance.'; } }
       ]},
-    { title:'Friend needs help', text:'Your coursemate is stranded and needs ₦1,000 to get back to the lodge.',
+    { title:'🤝 Friend needs help', text:'Your coursemate is stranded and needs ₦1,000 to get back to the lodge.',
       choices:[
-        { label:'Help them', ok:function(){ return s.money>=1000; }, run:function(){ s.money-=1000; s.vibes+=10; s.helped=true; return 'They promised to explain tomorrow\'s topic to you. Good karma.'; } },
+        { label:'Help them', ok:function(){ return s.money>=1000; }, run:function(){ s.money-=1000; s.vibes+=10; return 'They promised to explain tomorrow\'s topic to you. Good karma.'; } },
         { label:'"Omo, I\'m broke too"', run:function(){ s.vibes-=4; return 'You both understood the struggle.'; } }
       ]},
-    { title:'Group assignment', text:'Your group needs someone to type and print the assignment.',
+    { title:'📝 Group assignment', text:'Your group needs someone to type and print the assignment.',
       choices:[
         { label:'Do it yourself', run:function(){ s.energy-=10; s.know+=5; s.money=Math.max(0,s.money-300); return 'You typed, printed and learned the topic well.'; } },
         { label:'Let others handle it', run:function(){ s.vibes+=3; if(Math.random()<0.4){ s.know-=4; return 'They forgot your name on the cover page. Ehn!'; } return 'They added your name. You owe them one.'; } }
       ]}
   ];
 
-  // ---------- Flow ----------
   function startDay(){
-    s.noLight=false; s.noClass=false; s.slot=0;
+    s.noLight=false; s.noClass=false; s.slot=0; s.loc='lodge';
     if(s.day===TEST_DAY){ return showTest(); }
     if(s.day>1 && Math.random()<0.6){
       return showEvent(EVENTS[rand(0,EVENTS.length-1)]);
     }
-    render();
+    render({ walk:s.day===1 });
   }
 
   function showEvent(ev){
@@ -270,20 +575,26 @@
     $('eventText').textContent = ev.text;
     var box = $('eventChoices'); box.innerHTML='';
     $('actionCard').classList.add('hidden');
-    $('eventCard').classList.remove('hidden');
-    var choices = ev.choices || [{ label:'Okay', run:function(){ ev.apply(); return ev.title + '.'; } }];
+    var card = $('eventCard'); card.classList.add('hidden'); void card.offsetWidth; card.classList.remove('hidden');
+    play(ev.bad ? 'bad' : 'event');
+    var choices = ev.choices || [{ label:'Okay', run:function(){ ev.apply(); return ev.title.replace(/^\S+\s/,'') + '.'; } }];
     choices.forEach(function(c){
       var b = document.createElement('button');
       b.className = 'primary';
       b.innerHTML = '<b>' + c.label + '</b>';
       if(c.ok && !c.ok()) b.disabled = true;
       b.onclick = function(){
+        play('click');
+        var before = snap();
         var msg = c.run();
         normalize();
         log('Day ' + s.day + ': ' + msg);
         $('eventCard').classList.add('hidden');
         $('actionCard').classList.remove('hidden');
-        render();
+        render({ hop:true });
+        var d = delta(before, snap()); floats(d);
+        if(ev.bad) shake();
+        if(d.money>0) play('coin');
       };
       box.appendChild(b);
     });
@@ -296,37 +607,58 @@
     var verdict = score>=70 ? 'You sabi! The questions looked like what you read.' :
                   score>=50 ? 'You managed. Some questions came from nowhere.' :
                               'The questions looked like Greek. You wrote your name very well though.';
-    showEvent({ title:'Day ' + TEST_DAY + ': Surprise test!', text:'Test score: ' + score + '/100. ' + verdict,
-                apply:function(){ s.energy-=10; s.vibes += score>=50 ? 5 : -8; } });
+    s.loc = 'campus';
+    showEvent({ title:'📝 Day ' + TEST_DAY + ': Surprise test!', bad:score<50,
+                text:'Test score: ' + score + '/100. ' + verdict,
+                apply:function(){ s.energy-=10; s.vibes += score>=50 ? 5 : -8; if(score>=50) play('good'); } });
   }
 
+  var busy = false;
   function doAction(a){
+    if(busy) return;
+    busy = true;
+    var before = snap(), prevLoc = s.loc;
+    s.loc = a.loc;
     var msg = a.run();
     s.food -= 8; // hunger ticks every slot
     normalize();
     log('Day ' + s.day + ', ' + SLOTS[s.slot] + ': ' + msg);
-    checkPenalties();
-    nextSlot();
+    play(a.sfx);
+    var d = delta(before, snap());
+    if(d.money<0 && a.sfx!=='eat') setTimeout(function(){ play('spend'); }, 250);
+
+    // Show the action happening in the current time slot, then move on
+    var walk = a.walk && prevLoc!==a.loc;
+    drawScene({ walk:walk, hop:!walk, prop:a.prop, extra:a.extra });
+    var hurt = checkPenalties();
+    renderStats(); renderLog();
+    Array.prototype.forEach.call($('actions').children, function(b){ b.disabled = true; });
+    floats(delta(before, snap()));
+    if(d.money) { var m=$('money'); m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash'); }
+    if(hurt){ shake(); setTimeout(function(){ play('bad'); }, 400); }
+    setTimeout(function(){ busy = false; nextSlot(); }, walk ? 1700 : 1300);
   }
 
   function checkPenalties(){
-    if(s.food<=0){ s.energy-=15; s.vibes-=8; log('You are starving! Energy and vibes dropping fast.'); }
+    var hurt = false;
+    if(s.food<=0){ s.energy-=15; s.vibes-=8; hurt=true; log('You are starving! Energy and vibes dropping fast.'); }
     if(s.energy<=0){
-      s.energy=20; s.know=clamp(s.know-3);
+      s.energy=20; s.know=clamp(s.know-3); hurt=true;
       log('You collapsed from exhaustion and slept through the next part of the day.');
       s.slot++;
     }
     if(s.money<=0 && s.food<20){ s.vibes-=5; }
     normalize();
+    return hurt;
   }
 
-  function nextSlot(){
+  function nextSlot(opts){
     s.slot++;
     if(s.slot>=SLOTS.length){
       s.day++;
       if(s.day>DAYS) return endGame();
       startDay();
-    } else render();
+    } else render(opts);
   }
 
   function normalize(){
@@ -343,42 +675,69 @@
                cgpa>=3.5 ? 'Second Class Upper' :
                cgpa>=2.4 ? 'Second Class Lower' :
                cgpa>=1.5 ? 'Third Class Survivor' : 'Extra Year Loading...';
+    var good = cgpa>=2.4;
     $('cgpa').textContent = cgpa;
     $('rank').textContent = rank;
+    $('endHero').innerHTML = '<g class="hero hop">' + charSVG(getChar(charId), good ? 'happy' : 'sad') + '</g>';
     $('summary').textContent = 'Test: ' + s.testScore + '/100 · Exam: ' + Math.round(exam) + '/100 · Lectures attended: ' +
       s.lectures + ' · Money left: ' + naira(s.money);
-    var best = loadBest();
-    if(parseFloat(cgpa) > best){ saveBest(cgpa); $('summary').textContent += ' · New personal best!'; }
+    var best = parseFloat(store('malete-best')) || 0;
+    if(parseFloat(cgpa) > best){ store('malete-best', cgpa); $('summary').textContent += ' · New personal best!'; }
     show('end');
+    play(good ? 'win' : 'lose');
+    if(good) confetti();
   }
 
-  // ---------- Render ----------
+  function confetti(){
+    var box = $('end'), colors = ['#f2a33a','#6fcf7a','#2e86de','#ef6b5b','#fff'];
+    for(var i=0;i<40;i++){
+      var c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random()*100 + '%';
+      c.style.background = colors[i%colors.length];
+      c.style.animationDelay = (Math.random()*1.2) + 's';
+      box.appendChild(c);
+      (function(el){ setTimeout(function(){ el.remove(); }, 4500); })(c);
+    }
+  }
+
+  // ================= RENDER =================
   function setBar(name, v){
     $(name+'Val').textContent = v;
     var b = $(name+'Bar'); b.style.width = v+'%';
     b.className = v<25 ? 'low' : '';
   }
 
-  function render(){
-    $('dayLabel').textContent = 'Day ' + s.day + ' of ' + DAYS + (s.noLight ? ' · No light' : '');
-    $('slotLabel').textContent = SLOTS[s.slot];
+  function renderStats(){
+    $('dayLabel').textContent = 'Day ' + s.day + ' of ' + DAYS;
+    $('slotLabel').textContent = ['☀️ ','🌇 ','🌙 '][s.slot] + SLOTS[s.slot];
     var m = $('money'); m.textContent = naira(s.money); m.className = 'money' + (s.money<1000 ? ' broke' : '');
     setBar('energy', s.energy); setBar('food', s.food); setBar('know', s.know); setBar('vibes', s.vibes);
+  }
 
-    var box = $('actions'); box.innerHTML='';
+  function renderLog(){
+    $('log').innerHTML = s.log.slice(0,30).map(function(t){ return '<p>' + t + '</p>'; }).join('');
+  }
+
+  function render(opts){
+    renderStats();
+    drawScene(opts || {});
+
+    var box = $('actions'); box.innerHTML=''; var i = 0;
     ACTIONS.forEach(function(a){
       if(a.slots.indexOf(s.slot)<0) return;
       var b = document.createElement('button');
       var desc = a.desc;
       if(a.id==='callhome' && !a.can()) desc = 'You just called. Wait ' + (5-(s.day-s.lastCallHome)) + ' more day(s).';
       if(a.id==='lecture' && s.noClass) desc = 'No classes today.';
-      b.innerHTML = '<b>' + a.name + '</b><small>' + desc + '</small>';
+      b.innerHTML = '<span class="ico">' + a.ico + '</span><b>' + a.name + '</b><small>' + desc + '</small>';
       b.disabled = !a.can();
+      b.style.animationDelay = (i++ * 0.04) + 's';
       b.onclick = function(){ doAction(a); };
       box.appendChild(b);
     });
 
-    $('log').innerHTML = s.log.slice(0,30).map(function(t){ return '<p>' + t + '</p>'; }).join('');
+    renderLog();
     show('game');
   }
 
@@ -388,9 +747,25 @@
     ['intro','game','end'].forEach(function(x){ $(x).classList.toggle('hidden', x!==id); });
   }
 
+  // ================= INTRO / CONTROLS =================
+  function renderPicker(){
+    $('pick').innerHTML = '';
+    CHARS.forEach(function(c){
+      var b = document.createElement('button');
+      b.className = c.id===charId ? 'sel' : '';
+      b.innerHTML = '<svg viewBox="-30 -82 60 88"><g class="hero'+(c.id===charId?' hop':'')+'">' + charSVG(c,'happy') + '</g></svg><b>' + c.name + '</b>';
+      b.onclick = function(){ charId = c.id; store('malete-char', c.id); play('click'); renderPicker(); };
+      $('pick').appendChild(b);
+    });
+  }
+  function updateMute(){ $('muteBtn').textContent = muted ? '🔇' : '🔊'; }
+  $('muteBtn').onclick = function(){ muted = !muted; store('malete-muted', muted ? '1' : '0'); updateMute(); play('click'); };
+
   $('startBtn').onclick = newGame;
-  $('againBtn').onclick = newGame;
-  var best = loadBest();
+  $('againBtn').onclick = function(){ show('intro'); renderPicker(); play('click'); };
+  updateMute();
+  renderPicker();
+  var best = parseFloat(store('malete-best')) || 0;
   if(best>0){ $('best').textContent = 'Your best CGPA so far: ' + best; $('best').classList.remove('hidden'); }
 })();
 </script>
