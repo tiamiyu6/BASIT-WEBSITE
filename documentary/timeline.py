@@ -48,7 +48,18 @@ def build(timing_path):
         else:
             e["broll_secs"] = min(6.0, e["dur"] * 0.55 / nb) if nb else 0.0
         times = [k * e["broll_secs"] for k in range(nb)]
+        loopR = None
+        lp = os.path.join(os.path.dirname(timing_path), "loop.json")
+        if sc.get("loop_phrase") and os.path.exists(lp):
+            loopR = json.load(open(lp))["R"]
         for k, b in enumerate(sc.get("broll") or []):
+            if len(b) >= 6 and voice and b[5] == "loop":  # cut exactly where the looping phrase begins
+                if loopR is not None:
+                    times[k] = loopR - start
+                else:
+                    a0, a1, s_ = e["subs"][-1]
+                    times[k] = (a0 - start) + (a1 - a0) * s_.lower().rfind(sc["loop_phrase"].lower()) / max(len(s_), 1)
+                continue
             if len(b) >= 6 and voice:  # cut on the narrator's words: (sentence index, fraction)
                 si, fr = b[5]
                 a0, a1, _ = e["subs"][min(si, len(e["subs"]) - 1)]
