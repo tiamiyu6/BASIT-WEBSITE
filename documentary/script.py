@@ -176,6 +176,13 @@ scene("witness", "#ENDSARS", "witness", "A survivor's account", "Agbeze Ifeanyi 
       "What happened was the worst memory I can never forget. When they got to the toll gate, they immediately started shooting. "
       "He was shot in the chest, and survived.", trans="dip", mood="dark", hold=1.8,
       broll=[('agbeze-ifeanyi-matthew.jpg', 'Agbeze Ifeanyi Matthew', 'Shot in the chest at Lekki toll gate, 20 October 2020', 'Handout, via The Guardian')])
+scene("witness2", "#ENDSARS", "witness2", "A survivor's account", "Isaiah Ekabo, 32, from Lagos",
+      "Isaiah Ekabo, a thirty-two-year-old from Lagos, joined the protests from the first day. "
+      "In Nigeria, in a so-called democracy, he said, I was running from police who were trying to end my life, because of protests. "
+      "A year later, the architecture graduate told The Guardian that just surviving in Nigeria was too much: no light, no roads, few jobs, bad water. "
+      "Like many young Nigerians, he hoped to leave.", mood="dark", hold=1.6,
+      broll=[('endsars-cake-reuters.jpg', 'A cake made for an #EndSARS protest', 'Lagos, October 2020', 'Temilade Adelaja / Reuters')])
+scene("memorial", "#ENDSARS", "memorial", "", "", trans="dip", mood="outro", hold=7.5)
 scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to Tinubu set ablaze",
       "In the chaos that followed, the TVC television station and The Nation newspaper, both linked to Tinubu, were set on fire. "
       "Protesters had seen him as a symbol of the Lagos establishment. Tinubu denied owning the Lekki toll gate, and called for calm. "
@@ -234,4 +241,14 @@ scene("legacy", "LEGACY", "legacy", "", "",
       "A reformer making hard choices, or a leader whose decisions have deepened hardship? "
       "The answer depends on who you ask. What is certain is that, for more than three decades, few people have shaped Nigeria's politics more. "
       "And the final verdict on his legacy, is still being written.", trans="dip", mood="outro", hold=2.5)
+scene("people", "", "people", "", "",
+      "But this story was never only about one man. "
+      "It is the story of the fishermen on the lagoon at dawn, of the market women of Lagos, of a nation of more than two hundred and fifty peoples, "
+      "still learning how to live as one. "
+      "It is the story of the young Nigerians who filled the streets in twenty twenty, and of the ones who never came home. "
+      "At the Lekki toll gate, one protester held up a cardboard sign. "
+      "It read: The power of the people is stronger than the people in power.", trans="dip", mood="outro", hold=4.0,
+      broll=[('lagos-lagoon-dawn.jpg', 'The Lagos Lagoon at dawn', '', 'dotun55 / Flickr, CC BY-SA 2.0'),
+             ('endsars-lagos-2020.jpg', '#EndSARS, Lagos', '12 October 2020', 'Jerry Jallo / Heinrich Böll Stiftung, CC BY-SA 2.0'),
+             ('lekki-toll-gate-protest-2020.jpg', 'Lekki toll gate', 'October 2020', 'via Foreign Policy')])
 scene("credits", "", "credits", "", "", trans="dip", mood="outro", hold=9.0)

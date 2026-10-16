@@ -1054,3 +1054,48 @@ def p_witness():
     d.line([W / 2 - 220, 840, W / 2 + 220, 840], fill=RED, width=3)
     text(d, (W / 2, 900), "— Agbeze Ifeanyi Matthew, Lekki toll gate survivor, to The Guardian (2021)", F(34, "Medium"), DIM, "mm")
     return img
+
+
+def p_witness2():
+    img = bg((8, 8, 10), (0, 0, 0), glow=(40, 30, 14), glow_r=0.6, seed=35)
+    d = ImageDraw.Draw(img, "RGBA")
+    text(d, (W / 2 - 640, 230), "“", SF(260), GOLD + (140,), "mm", shadow=False)
+    lines = ["In Nigeria, in a so-called democracy,", "I was running from police", "who were trying to end my life,",
+             "because of protests."]
+    for i, ln in enumerate(lines):
+        text(d, (W / 2, 360 + i * 108), ln, SF(84, "Italic"), CREAM, "mm")
+    d.line([W / 2 - 220, 840, W / 2 + 220, 840], fill=GOLD, width=3)
+    text(d, (W / 2, 900), "— Isaiah Ekabo, #EndSARS protester, to The Guardian (2021)", F(34, "Medium"), DIM, "mm")
+    return img
+
+
+def p_memorial():
+    img = Image.new("RGB", (W, H), (0, 0, 0))
+    def candle(d):
+        d.ellipse([W / 2 - 16, 330, W / 2 + 16, 400], fill=(255, 200, 110, 255))
+        d.ellipse([W / 2 - 7, 350, W / 2 + 7, 392], fill=(255, 250, 220, 255))
+    img = glow_layer(img, candle, 50, 3)
+    d = ImageDraw.Draw(img, "RGBA")
+    d.rounded_rectangle([W / 2 - 34, 400, W / 2 + 34, 560], radius=8, fill=(230, 222, 205))
+    text(d, (W / 2, 690), "In memory of those who lost their lives", SF(64, "Italic"), CREAM, "mm")
+    text(d, (W / 2, 780), "during the #EndSARS protests", SF(64, "Italic"), CREAM, "mm")
+    text(d, (W / 2, 880), "OCTOBER 2020", F(32, "Bold"), DIM, "mm", spacing=10)
+    return img
+
+
+def p_people():
+    img = bg((10, 10, 8), (0, 0, 0), glow=(50, 40, 18), glow_r=0.6, seed=36)
+    img = particles(img, 160, 37, maxr=2.5)
+    paper = Image.new("RGBA", (1300, 640), (196, 170, 128, 255))
+    pd = ImageDraw.Draw(paper)
+    rng = random.Random(4)
+    for _ in range(900):
+        x, y = rng.randint(0, 1299), rng.randint(0, 639)
+        pd.point((x, y), fill=(170, 145, 105, 255))
+    for i, ln in enumerate(["THE POWER OF", "THE PEOPLE", "IS STRONGER THAN", "THE PEOPLE IN POWER"]):
+        pd.text((650, 110 + i * 140), ln, font=F(104, "Black"), fill=(40, 34, 28, 255), anchor="mm")
+    paper = paper.rotate(-2.5, expand=True, resample=Image.BICUBIC)
+    img.paste(paper, (W // 2 - paper.width // 2, 120), paper)
+    d = ImageDraw.Draw(img, "RGBA")
+    text(d, (W / 2, 950), "— a protester's sign, Lekki toll gate, October 2020", F(34, "Medium"), DIM, "mm")
+    return img
