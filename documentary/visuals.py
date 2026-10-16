@@ -893,3 +893,139 @@ def p_uturn():
         dd.ellipse([W / 2 - 120, 880, W / 2 + 120, 1040], fill=(30, 8, 8, 255), outline=RED + (255,), width=6)
         dd.text((W / 2, 960), "U-TURN", font=F(50, "Black"), fill=RED + (255,), anchor="mm")
     return glow_layer(img, fn, 18, 2)
+
+
+# ------------------------------------------------------------------ chapter 1: the land of many peoples
+def p_peoples():
+    img, P = map_plate(pins=())
+    d = ImageDraw.Draw(img, "RGBA")
+    groups = [("HAUSA–FULANI", 8.3, 12.2, 46), ("KANURI", 12.6, 12.0, 34), ("NUPE", 5.6, 9.2, 30),
+              ("TIV", 9.0, 7.4, 30), ("YORUBA", 4.1, 7.9, 46), ("EDO", 5.9, 6.7, 30), ("IGBO", 7.4, 5.9, 44),
+              ("IJAW", 5.9, 4.9, 28), ("IBIBIO", 8.0, 5.0, 26)]
+    for name, lon, lat, sz in groups:
+        x, y = P(lon, lat)
+        text(d, (x, y), name, F(sz, "Black"), CREAM, "mm")
+    text(d, (110, 150), "250+", SF(140), GOLD)
+    text(d, (114, 300), "ethnic groups", F(40, "SemiBold"), CREAM)
+    text(d, (110, 400), "500+", SF(140), GOLD)
+    text(d, (114, 550), "languages", F(40, "SemiBold"), CREAM)
+    text(d, (W - 110, 1030), "Simplified: approximate homelands of some of the largest groups", F(24, "Medium"), DIM, "ra")
+    return img
+
+
+def p_eko():
+    img = bg((240, 170, 100), (70, 50, 60), seed=31)
+    img = Image.fromarray(np.array(img)[::-1].copy())
+    d = ImageDraw.Draw(img, "RGBA")
+    d.rectangle([0, 640, W, H], fill=(50, 40, 56))
+    img = reflect(img, 640)
+    d = ImageDraw.Draw(img, "RGBA")
+    rng = random.Random(3)
+    for k in range(7):  # dugout canoes with paddlers
+        x, y, s = rng.uniform(100, W - 300), rng.uniform(700, 980), rng.uniform(0.7, 1.3)
+        c = (30, 20, 26)
+        d.polygon([(x, y), (x + 300 * s, y), (x + 270 * s, y + 22 * s), (x + 30 * s, y + 22 * s)], fill=c)
+        for j in range(rng.randint(1, 3)):
+            px = x + (70 + j * 80) * s
+            d.ellipse([px - 11 * s, y - 70 * s, px + 11 * s, y - 48 * s], fill=c)
+            d.rectangle([px - 9 * s, y - 50 * s, px + 9 * s, y], fill=c)
+            d.line([px, y - 40 * s, px + 50 * s, y + 40 * s], fill=c, width=max(2, int(4 * s)))
+    for k in range(9):  # palms on the shore
+        x = 60 + k * 230 + rng.uniform(-40, 40)
+        d.line([x, 640, x + 20, 470], fill=(40, 26, 30), width=10)
+        for a in range(7):
+            ang = math.pi * (0.15 + a * 0.12)
+            d.line([x + 20, 470, x + 20 + 110 * math.cos(ang) * (1 if a % 2 else -1), 470 - 60 * math.sin(ang) + 30],
+                   fill=(40, 26, 30), width=8)
+    text(d, (110, 110), "EKO", SF(150), (60, 30, 30), shadow=False)
+    text(d, (114, 280), "Awori settlement  →  Kingdom of Lagos  →  British colony, 1861", F(36, "SemiBold"), (60, 34, 34), shadow=False)
+    return img
+
+
+def p_amalgamation():
+    img, P = map_plate(pins=(("LAGOS", 3.38, 6.52, True),))
+    a = np.array(img).astype(np.float32)
+    # shade the old Northern Protectorate (roughly north of the Niger–Benue line) differently
+    yy, xx = np.mgrid[0:H, 0:W]
+    lat_line = np.interp(xx, [P(2.7, 0)[0], P(6.7, 0)[0], P(9.5, 0)[0], P(14.6, 0)[0]],
+                         [P(0, 9.0)[1], P(0, 8.0)[1], P(0, 7.6)[1], P(0, 7.0)[1]])
+    north = (yy < lat_line)[..., None]
+    green = (a[..., 1:2] > a[..., 0:1] + 25)
+    a = np.where(north & green, a * 0.35 + np.array([150, 112, 40]) * 0.65, a)
+    img = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(img, "RGBA")
+    x, y = P(8.5, 11.5)
+    text(d, (x, y), "NORTHERN PROTECTORATE", F(36, "Black"), CREAM, "mm")
+    x, y = P(7.2, 5.4)
+    text(d, (x, y), "SOUTHERN PROTECTORATE", F(32, "Black"), CREAM, "mm")
+    text(d, (110, 150), "1914", SF(160), GOLD)
+    text(d, (114, 320), "Amalgamation into one colony", F(40, "SemiBold"), CREAM)
+    text(d, (114, 376), "Name “Nigeria” suggested by Flora Shaw, 1897", F(34, "Medium"), DIM)
+    return img
+
+
+def p_independence():
+    img = bg((6, 10, 20), (2, 3, 6), seed=32)
+    rng = random.Random(8)
+
+    def fw(d):
+        for cx, cy in [(260, 260), (620, 160), (960, 300), (1300, 170), (1660, 280), (450, 430), (1500, 450), (1150, 120)]:
+            r = rng.uniform(100, 190)
+            col = rng.choice([(0, 200, 110), (255, 255, 255), (255, 210, 120)])
+            for k in range(36):
+                ang = k / 36 * 2 * math.pi
+                d.line([cx + math.cos(ang) * r * 0.2, cy + math.sin(ang) * r * 0.2,
+                        cx + math.cos(ang) * r, cy + math.sin(ang) * r], fill=col + (200,), width=3)
+    img = glow_layer(img, fw, 10, 2)
+    d = ImageDraw.Draw(img, "RGBA")
+    x0, y0, fw_, fh = W / 2 - 330, 560, 660, 330
+    for k, c in enumerate([(0, 135, 81), (245, 245, 245), (0, 135, 81)]):
+        pts = []
+        for j in range(21):
+            px = x0 + k * fw_ / 3 + j * (fw_ / 3) / 20
+            pts.append((px, y0 + 18 * math.sin((px - x0) / 70)))
+        pts += [(p[0], p[1] + fh) for p in reversed(pts)]
+        d.polygon(pts, fill=c)
+    d.line([x0 - 8, y0 - 20, x0 - 8, H], fill=(200, 190, 170), width=12)
+    text(d, (W / 2, 990), "1 OCTOBER 1960  ·  INDEPENDENCE", F(52, "Black"), GOLD, "mm", spacing=6)
+    return img
+
+
+def p_civilwar():
+    img, P = map_plate(pins=())
+    a = np.array(img).astype(np.float32)
+    yy, xx = np.mgrid[0:H, 0:W]
+    # Eastern Region (approximate): east of the lower Niger, south of the Benue
+    ex0, ey0 = P(6.0, 7.2)
+    east = (xx > ex0 + (yy - ey0) * 0.12) & (yy > ey0) & (xx < P(9.7, 0)[0])
+    green = (a[..., 1] > a[..., 0] + 25)
+    a[east & green] = a[east & green] * 0.25 + np.array([150, 40, 36]) * 0.75
+    img = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(img, "RGBA")
+    x, y = P(7.6, 5.7)
+    text(d, (x, y - 20), "BIAFRA", F(56, "Black"), CREAM, "mm")
+    text(d, (x, y + 34), "declared 30 May 1967", F(26, "Medium"), CREAM, "mm")
+    text(d, (110, 150), "1967 — 1970", SF(120), (240, 120, 110))
+    text(d, (114, 290), "The Nigerian Civil War", F(42, "SemiBold"), CREAM)
+    text(d, (114, 346), "Est. 500,000 to over 2 million dead, many from famine", F(34, "Medium"), DIM)
+    text(d, (W - 110, 1030), "Eastern Region boundary approximate", F(24, "Medium"), DIM, "ra")
+    return img
+
+
+def p_military():
+    img = bg((20, 24, 18), (4, 5, 4), glow=(40, 50, 30), seed=33)
+    d = ImageDraw.Draw(img, "RGBA")
+    years = [("JAN 1966", "Coup"), ("JUL 1966", "Coup"), ("1975", "Coup"), ("1979", "Civilian rule"),
+             ("1983", "Coup"), ("1985", "Coup"), ("1993", "Abacha seizes power"), ("1999", "Democracy returns")]
+    x0, x1, y = 160, W - 160, 600
+    d.line([x0, y, x1, y], fill=(120, 130, 100), width=6)
+    for k, (yr, what) in enumerate(years):
+        x = x0 + k * (x1 - x0) / (len(years) - 1)
+        civ = what in ("Civilian rule", "Democracy returns")
+        col = GREEN if civ else (200, 170, 90)
+        d.ellipse([x - 22, y - 22, x + 22, y + 22], fill=col)
+        text(d, (x, y - 80 if k % 2 else y + 80), yr, F(38, "Black"), CREAM, "mm")
+        text(d, (x, y - 130 if k % 2 else y + 130), what, F(28, "Medium"), DIM, "mm")
+    text(d, (W / 2, 160), "THE SOLDIERS' YEARS", SF(96), GOLD, "mm", spacing=6)
+    text(d, (W / 2, 270), "Military rule for 29 of Nigeria's first 39 years of independence", F(36, "Medium"), CREAM, "mm")
+    return img

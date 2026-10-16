@@ -8,7 +8,7 @@ import numpy as np, soundfile as sf
 from scipy.signal import butter, sosfilt, fftconvolve, resample_poly
 from timeline import build
 
-ARCHIVAL = {"map_lagos", "chicago", "senate", "june12", "exile"}
+ARCHIVAL = {"map_lagos", "chicago", "senate", "june12", "exile", "amalgamation", "independence", "civilwar", "military"}
 
 SR = 48000
 BUILD = sys.argv[1]

@@ -16,7 +16,7 @@ TLMAP = {e["id"]: e for e in TL}
 CH_NUM = {e["chapter"]: e["title"].split()[-1] for e in TL if e["plate"] == "chapter"}
 
 _cache = {}
-ARCHIVAL = {"map_lagos", "chicago", "senate", "june12", "exile"}
+ARCHIVAL = {"map_lagos", "chicago", "senate", "june12", "exile", "amalgamation", "independence", "civilwar", "military"}
 
 
 def smooth(x):

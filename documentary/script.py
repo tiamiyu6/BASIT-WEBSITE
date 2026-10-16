@@ -39,8 +39,40 @@ scene("open", "", "open", "", "",
       trans="flash", mood="intro", hold=0.6)
 scene("title", "", "title", "", "", trans="flash", mood="intro", hit=True, hold=5.5)
 
-# ---------------------------------------------------------------- 1
-chapter_card(1, "ORIGINS", "warm")
+# ---------------------------------------------------------------- 1  (the land and its peoples)
+chapter_card(1, "THE LAND OF MANY PEOPLES", "warm")
+scene("peoples", "THE LAND OF MANY PEOPLES", "peoples", "The peoples of Nigeria", "More than 250 ethnic groups · over 500 languages",
+      "To understand Tinubu, you have to understand the country that made him. "
+      "Nigeria is one of the most diverse nations on earth, home to more than two hundred and fifty ethnic groups, and over five hundred languages. "
+      "In the north, the Hausa and the Fulani, heirs to the Sokoto Caliphate and to ancient trading cities like Kano. "
+      "In the north-east, the Kanuri, of the old Kanem-Bornu empire. "
+      "In the south-east, the Igbo, known for enterprise and a tradition of village self-government. "
+      "In the south-west, the Yoruba, whose kingdoms of Ife and Oyo shaped art, faith and politics across West Africa. "
+      "And many more: the Tiv, the Edo, the Ijaw, the Ibibio, the Nupe, and hundreds of others.")
+scene("eko", "THE LAND OF MANY PEOPLES", "eko", "Eko — Lagos", "From Awori settlement to colonial port",
+      "Tinubu's Lagos has its own deep story. Its people call it Eko. "
+      "It grew from a settlement of the Awori, a Yoruba people, into a kingdom whose royal line is tied to the great Kingdom of Benin. "
+      "By the nineteenth century, it was one of West Africa's busiest ports, a trade that tragically included enslaved people. "
+      "In eighteen sixty-one, Britain annexed Lagos as a colony.", trans="zoom")
+scene("amalgamation", "THE LAND OF MANY PEOPLES", "amalgamation", "Amalgamation, 1914", "Northern and Southern Protectorates joined",
+      "In nineteen fourteen, the British merged their Northern and Southern Protectorates into one colony, called Nigeria, "
+      "a name first suggested by the journalist Flora Shaw. "
+      "Peoples with different languages, faiths and histories were bound into a single state, with Lagos as its capital, and its commercial heart.")
+scene("independence", "THE LAND OF MANY PEOPLES", "independence", "Independence", "1 October 1960",
+      "On the first of October, nineteen sixty, Nigeria became independent. "
+      "By his official birth date, Bola Tinubu was eight years old, growing up in a Lagos alive with hope.", trans="flash", hit=True)
+scene("civilwar", "THE LAND OF MANY PEOPLES", "civilwar", "The Nigerian Civil War", "1967 – 1970",
+      "That hope was soon tested. Two military coups in nineteen sixty-six were followed by civil war, when the Eastern Region declared itself the Republic of Biafra. "
+      "Between nineteen sixty-seven and nineteen seventy, estimates of the dead range from half a million to more than two million, many from famine. "
+      "The war left wounds that still shape every debate about unity, fairness and the sharing of power between regions and religions.",
+      trans="dip", mood="dark")
+scene("military", "THE LAND OF MANY PEOPLES", "military", "Military rule", "1966 – 1979 · 1983 – 1999",
+      "For most of the next three decades, soldiers ruled Nigeria. "
+      "It was into this country, rich in oil, rich in people, and hungry for democracy, that Bola Tinubu's political life would be born.",
+      mood="tension", hit=True)
+
+# ---------------------------------------------------------------- 2
+chapter_card(2, "ORIGINS", "warm")
 scene("born", "ORIGINS", "map_lagos", "Lagos, Nigeria", "Official birth date: 29 March 1952",
       "According to his official biography, Bola Ahmed Adekunle Tinubu was born on the twenty-ninth of March, nineteen fifty-two, in Lagos, into a Yoruba Muslim family. "
       "His mother, Abibatu Mogaji, would become a powerful leader of the Lagos market women. "
@@ -55,8 +87,8 @@ scene("questions", "ORIGINS", "questions", "Disputed records", "Age, early schoo
       "Tinubu has consistently rejected these claims, and no court has disqualified him over them.",
       trans="glitch", mood="tension")
 
-# ---------------------------------------------------------------- 2
-chapter_card(2, "DEMOCRACY & EXILE", "tension")
+# ---------------------------------------------------------------- 3
+chapter_card(3, "DEMOCRACY & EXILE", "tension")
 scene("senate", "DEMOCRACY & EXILE", "senate", "Senator, Lagos West", "Social Democratic Party (SDP) · 1992",
       "His political career began in nineteen ninety-two, when he won a Senate seat for Lagos West under the Social Democratic Party, "
       "during General Ibrahim Babangida's promised transition to civilian rule.")
@@ -67,8 +99,8 @@ scene("exile", "DEMOCRACY & EXILE", "exile", "Exile", "NADECO pro-democracy camp
       "Tinubu joined the National Democratic Coalition, NADECO, which campaigned for a return to democracy. "
       "Facing threats under Abacha's regime, he fled into exile in nineteen ninety-four, returning only after Abacha's death in nineteen ninety-eight.")
 
-# ---------------------------------------------------------------- 3
-chapter_card(3, "GOVERNOR OF LAGOS", "warm")
+# ---------------------------------------------------------------- 4
+chapter_card(4, "GOVERNOR OF LAGOS", "warm")
 scene("gov", "GOVERNOR OF LAGOS", "lagos", "Governor of Lagos State", "Alliance for Democracy · 1999 – 2007",
       "In nineteen ninety-nine, as Nigeria returned to civilian rule, he was elected Governor of Lagos State on the platform of the Alliance for Democracy. "
       "He was re-elected in two thousand and three.", trans="zoom", hit=True)
@@ -81,8 +113,8 @@ scene("lcda", "GOVERNOR OF LAGOS", "lcda", "Lagos vs. the Federal Government", "
       "President Olusegun Obasanjo's government withheld the state's local government funds. "
       "The battle went to the Supreme Court, which ruled that the federal government had no power to withhold the money.")
 
-# ---------------------------------------------------------------- 4
-chapter_card(4, "THE KINGMAKER", "epic")
+# ---------------------------------------------------------------- 5
+chapter_card(5, "THE KINGMAKER", "epic")
 scene("machine", "THE KINGMAKER", "network", "The Lagos political machine", "Successors and allies backed by Tinubu",
       "After leaving office in two thousand and seven, Tinubu never really left power. He built one of the most formidable political machines in the country. "
       "His successors in Lagos, Babatunde Fashola, Akinwunmi Ambode and Babajide Sanwo-Olu, all emerged with his backing. "
@@ -102,8 +134,8 @@ scene("apc", "THE KINGMAKER", "merger", "Birth of the APC", "2013 merger · 2015
       "Tinubu's former Attorney General in Lagos, Yemi Osinbajo, became Vice President.", trans="flash", hit=True,
       broll=[('chatham-house-2011.jpg', 'Tinubu at Chatham House, London', '“Democracy in Nigeria and the Rebirth of Opposition”, 18 July 2011', 'Chatham House, CC BY 2.0')])
 
-# ---------------------------------------------------------------- 5
-chapter_card(5, "THE CONTROVERSIES", "tension")
+# ---------------------------------------------------------------- 6
+chapter_card(6, "THE CONTROVERSIES", "tension")
 scene("case1993", "THE CONTROVERSIES", "case1993", "U.S. civil forfeiture case, 1993", "Settled · $460,000 forfeited · no criminal charge",
       "But alongside the rise came persistent questions about money. "
       "In nineteen ninety-three, United States federal prosecutors in Chicago alleged that funds in bank accounts linked to Tinubu were connected to proceeds of heroin trafficking. "
@@ -121,8 +153,8 @@ scene("bullion", "THE CONTROVERSIES", "bullion", "Bullion vans at his Lagos resi
       "And on the eve of the twenty nineteen general election, cameras filmed bullion vans entering his Lagos residence. "
       "Asked about it, Tinubu said that if he had money to spend, it was his own money, not the government's.", trans="glitch", hit=True)
 
-# ---------------------------------------------------------------- 6
-chapter_card(6, "#ENDSARS", "dark")
+# ---------------------------------------------------------------- 7
+chapter_card(7, "#ENDSARS", "dark")
 scene("endsars", "#ENDSARS", "endsars", "#EndSARS protests", "Nationwide, October 2020 · against police brutality",
       "In October twenty twenty, young Nigerians filled the streets in the #EndSARS protests, demanding an end to brutality by the police Special Anti-Robbery Squad. "
       "Lagos, Tinubu's political home, became the centre of the movement.", trans="dip")
@@ -135,8 +167,8 @@ scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to T
       "Protesters had seen him as a symbol of the Lagos establishment. Tinubu denied owning the Lekki toll gate, and called for calm. "
       "For many young Nigerians, the events of that night still shape how they see the political class.", hold=1.6)
 
-# ---------------------------------------------------------------- 7
-chapter_card(7, "\"IT'S MY TURN\"", "epic")
+# ---------------------------------------------------------------- 8
+chapter_card(8, "\"IT'S MY TURN\"", "epic")
 scene("emilokan", "\"IT'S MY TURN\"", "quote_emilokan", "Abeokuta, Ogun State", "June 2022",
       "By twenty twenty-two, Tinubu was ready to claim the prize. In a now famous speech in Abeokuta, he declared, in Yoruba: "
       "Emi lo kan. It is my turn. "
@@ -153,8 +185,8 @@ scene("court", "\"IT'S MY TURN\"", "court", "Supreme Court, Abuja", "26 October 
       "His rivals alleged rigging and failures in the electronic transmission of results. The tribunal dismissed their petitions, "
       "and on October twenty-sixth, twenty twenty-three, the Supreme Court upheld his victory.")
 
-# ---------------------------------------------------------------- 8
-chapter_card(8, "THE PRESIDENCY", "epic")
+# ---------------------------------------------------------------- 9
+chapter_card(9, "THE PRESIDENCY", "epic")
 scene("sworn", "THE PRESIDENCY", "quote_subsidy", "Eagle Square, Abuja", "Inauguration · 29 May 2023",
       "On May twenty-ninth, twenty twenty-three, Tinubu was sworn in as Nigeria's sixteenth president. "
       "In his inaugural speech, he made a declaration that shook the economy: Fuel subsidy is gone.", trans="flash", hit=True,
