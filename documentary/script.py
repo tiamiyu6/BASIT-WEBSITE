@@ -270,7 +270,8 @@ scene("emilokan", "\"IT'S MY TURN\"", "quote_emilokan", "Abeokuta, Ogun State", 
       trans="flash", hit=True, slam="Emi lo kan.")
 scene("ticket", "\"IT'S MY TURN\"", "ticket", "The Muslim–Muslim ticket", "Running mate: Kashim Shettima",
       "His choice of running mate, Kashim Shettima, who like Tinubu is a Muslim, broke an unwritten convention of balancing the ticket between Christians and Muslims, "
-      "and drew strong criticism, particularly from Christian leaders.")
+      "and drew strong criticism, particularly from Christian leaders.",
+      broll=[('tinubu-shettima-campaign.jpg', 'Tinubu and Shettima', 'On the campaign trail', 'via Leadership Newspaper')])
 scene("results", "\"IT'S MY TURN\"", "results", "2023 presidential election", "Official INEC results · 25 February 2023",
       "On February twenty-fifth, twenty twenty-three, Nigerians voted. The electoral commission declared Tinubu the winner, with about eight point eight million votes, roughly thirty-seven percent, "
       "ahead of Atiku Abubakar and Peter Obi. It was the lowest winning share of Nigeria's Fourth Republic, on a turnout of under thirty percent. "
@@ -311,6 +312,11 @@ scene("record", "THE PRESIDENCY", "ledger", "The record so far", "Reforms and cr
       broll=[('abuja-2024-lammy.jpg', 'State House, Abuja', 'With UK Foreign Secretary David Lammy, 4 November 2024', 'FCDO, CC BY 2.0'), ('blinken-tinubu-2024.jpg', 'State House, Abuja', 'With U.S. Secretary of State Antony Blinken, 23 January 2024', 'U.S. Department of State, public domain')])
 
 # ---------------------------------------------------------------- outro
+scene("next", "LEGACY", "ticket", "The road to 2027", "Nomination submitted, July 2026",
+      "And the story is not over. In July twenty twenty-six, Tinubu kept Kashim Shettima as his running mate, "
+      "and submitted his nomination to run again in twenty twenty-seven. "
+      "The man who once said it was his turn now wants another one.", trans="flash", hit=True, mood="epic",
+      broll=[('tinubu-shettima-2027.jpg', 'Tinubu and Shettima', 'Running together again for 2027', 'via Arise News')])
 scene("rise", "LEGACY", "rise", "How he rose", "From market woman's son to president",
       "So how did he do it? Step by step. "
       "A market woman's son who learned the power of networks. "

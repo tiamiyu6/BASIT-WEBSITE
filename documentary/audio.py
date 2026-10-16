@@ -314,7 +314,7 @@ def choir(notes, d, amp=0.06):
 
 def afro_layer(out, t0, bar, mood, b, ch):
     u = bar / 12  # triplet eighth
-    _add = add
+    _add = globals()["add"]
 
     def add(buf, x, at):  # percussion sits back in the mix
         _add(buf, x * 0.65, at)
@@ -531,7 +531,7 @@ def main():
     idx = np.arange(len(venv))
     lo, hi = np.clip(idx - k // 2, 0, len(venv)), np.clip(idx + k // 2, 0, len(venv))
     venv = (cs[hi] - cs[lo]) / np.maximum(hi - lo, 1)
-    duck = 1 - 0.82 * np.clip(venv * 1.8, 0, 1)  # music sits ~15 dB under the narrator
+    duck = 1 - 0.86 * np.clip(venv * 2.2, 0, 1)  # music sits ~15 dB under the narrator
     for e in tl:
         if e["slam_at"] is not None:
             g = np.ones(N)
@@ -543,7 +543,7 @@ def main():
             duck *= g
         if e["plate"] == "portrait":  # score enters after the eye push-in
             duck[: int(e["end"] * SR)] *= 0.35
-    sfx_duck = 1 - 0.6 * np.clip(venv * 1.8, 0, 1)
+    sfx_duck = 1 - 0.85 * np.clip(venv * 2.2, 0, 1)
     bed = music * duck[:, None] * 0.9 + sfx * sfx_duck[:, None]
     mix = bed + voice
     if os.environ.get("STEMS"):
