@@ -27,7 +27,18 @@ Allegations are reported as allegations. Tinubu has denied wrongdoing in each ca
 and none of the controversies described has led to a criminal conviction.
 
 CHAPTERS
-(timestamps added after the final render)
+0:00 Cold open: "It is my turn"
+1:11 The Land Of Many Peoples
+4:14 Origins
+7:29 Democracy & Exile (the Abacha years)
+9:44 Governor Of Lagos
+10:53 The Kingmaker
+12:55 The Controversies
+14:53 #EndSARS
+17:17 "It's My Turn"
+19:15 The Presidency
+21:32 How He Rose
+22:46 The People
 
 Sources: INEC, NBS, CBN, Supreme Court of Nigeria (Oct 2023), Lagos State #EndSARS
 Judicial Panel (2021), The Guardian, ThisDay, Tribune, contemporaneous reporting.
