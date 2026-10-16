@@ -236,7 +236,7 @@ def p_title():
     img = glow_layer(img, fn, blur=30, strength=2)
     d = ImageDraw.Draw(img, "RGBA")
     d.line([W / 2 - 520, 640, W / 2 + 520, 640], fill=GOLD + (200,), width=2)
-    text(d, (W / 2, 700), "THE STORY OF BOLA AHMED TINUBU", F(52, "SemiBold"), CREAM, "mm", spacing=10)
+    text(d, (W / 2, 700), "HOW BOLA AHMED TINUBU ROSE TO POWER", F(50, "SemiBold"), CREAM, "mm", spacing=9)
     text(d, (W / 2, 790), "A DOCUMENTARY", F(28, "Medium"), DIM, "mm", spacing=14)
     return img
 
@@ -1098,4 +1098,129 @@ def p_people():
     img.paste(paper, (W // 2 - paper.width // 2, 120), paper)
     d = ImageDraw.Draw(img, "RGBA")
     text(d, (W / 2, 950), "— a protester's sign, Lekki toll gate, October 2020", F(34, "Medium"), DIM, "mm")
+    return img
+
+
+# ------------------------------------------------------------------ roots, family, Abacha years, rise
+def p_mother():
+    img = bg((40, 26, 14), (8, 5, 3), glow=(110, 70, 26), glow_xy=(0.7, 0.4), seed=40)
+    d = ImageDraw.Draw(img, "RGBA")
+    rng = random.Random(6)
+    for row in range(3):  # market stalls with awnings
+        for k in range(9):
+            x = 60 + k * 210 + (row % 2) * 100
+            y = 640 + row * 120
+            col = rng.choice([(190, 60, 40), (220, 160, 40), (40, 120, 80), (60, 90, 170)])
+            d.polygon([(x, y), (x + 190, y), (x + 170, y - 60), (x + 20, y - 60)], fill=col + (230,))
+            d.rectangle([x + 20, y, x + 170, y + 70], fill=(20, 14, 10, 240))
+            for j in range(4):
+                d.ellipse([x + 30 + j * 34, y + 10, x + 56 + j * 34, y + 36], fill=rng.choice([(230, 120, 40), (240, 200, 60), (120, 170, 60)]))
+    text(d, (110, 130), "IYALOJA", SF(140), GOLD)
+    text(d, (114, 290), "Alhaja Abibatu Mogaji · 1916 – 2013", F(42, "SemiBold"), CREAM)
+    text(d, (114, 350), "Leader of the Lagos market women · President-General,", F(34, "Medium"), DIM)
+    text(d, (114, 398), "Association of Nigerian Market Women and Men", F(34, "Medium"), DIM)
+    return img
+
+
+def p_roots():
+    img, P = map_plate(pins=(("LAGOS", 3.38, 6.52, True), ("IRAGBIJI", 4.68, 7.90, False)),
+                       extent=(1.5, 9.5, 4.8, 10.6), cx=1180)
+    d = ImageDraw.Draw(img, "RGBA")
+    a, b = P(3.38, 6.52), P(4.68, 7.90)
+    for t in range(0, 100, 6):
+        x = a[0] + (b[0] - a[0]) * t / 100
+        y = a[1] + (b[1] - a[1]) * t / 100 - math.sin(math.pi * t / 100) * 80
+        d.ellipse([x - 5, y - 5, x + 5, y + 5], fill=GOLD + (220,))
+    text(d, (110, 150), "ROOTS", SF(140), GOLD)
+    text(d, (114, 310), "Born in Lagos (official biography)", F(38, "SemiBold"), CREAM)
+    text(d, (114, 366), "Ancestral home: Iragbiji, Osun State (claimed by allies)", F(34, "Medium"), DIM)
+    text(d, (114, 414), "Name and parentage questioned by critics", F(34, "Medium"), (240, 140, 120))
+    return img
+
+
+def p_family():
+    img = bg((14, 12, 10), (3, 3, 2), glow=(50, 38, 16), seed=41)
+    img = particles(img, 70, 42, maxr=2)
+    d = ImageDraw.Draw(img, "RGBA")
+
+    def node(x, y, name, role, gold=False, w=330):
+        d.rounded_rectangle([x - w, y - 62, x + w, y + 62], radius=16, fill=(22, 20, 18, 240),
+                            outline=(GOLD if gold else (120, 110, 90)) + (230,), width=4 if gold else 2)
+        text(d, (x, y - 18), name, F(40, "Bold"), GOLD if gold else CREAM, "mm")
+        text(d, (x, y + 28), role, F(26, "Medium"), DIM, "mm")
+    top = [(W / 2, 170, "Abibatu Mogaji", "Iyaloja of Lagos · his mother", False)]
+    mid = [(W / 2 - 360, 450, "Bola Ahmed Tinubu", "President since 2023", True),
+           (W / 2 + 360, 450, "Oluremi Tinubu", "Senator 2011–23 · First Lady", False)]
+    kids = [(W / 2 - 600, 790, "Folashade Tinubu-Ojo", "Iyaloja of Lagos since 2013"),
+            (W / 2, 790, "Seyi Tinubu", "Son"),
+            (W / 2 + 600, 790, "Jide Tinubu", "Eldest son · died 2017")]
+    d.line([W / 2, 232, W / 2, 330], fill=(140, 120, 80), width=3)
+    d.line([W / 2 - 360, 330, W / 2, 330], fill=(140, 120, 80), width=3)
+    d.line([W / 2 - 360, 330, W / 2 - 360, 388], fill=(140, 120, 80), width=3)
+    d.line([W / 2 - 30, 450, W / 2 + 30, 450], fill=GOLD, width=4)
+    d.line([W / 2, 450, W / 2, 728], fill=(140, 120, 80), width=3)
+    d.line([W / 2 - 600, 660, W / 2 + 600, 660], fill=(140, 120, 80), width=3)
+    for x, *_ in kids:
+        d.line([x, 660, x, 728], fill=(140, 120, 80), width=3)
+    for x, y, n, r, g in top + mid:
+        node(x, y, n, r, g, 300)
+    for x, y, n, r in kids:
+        node(x, y, n, r, False, 280)
+    text(d, (W / 2, 1010), "Three generations of the Lagos market-women network", F(30, "Medium"), DIM, "mm")
+    return img
+
+
+def p_abacha():
+    img = bg((22, 18, 14), (2, 2, 2), glow=(70, 20, 16), glow_r=0.6, seed=43)
+    d = ImageDraw.Draw(img, "RGBA")
+    # dark sunglasses silhouette motif + barbed wire
+    c = (6, 6, 6)
+    d.ellipse([W / 2 - 330, 230, W / 2 + 330, 900], fill=c)
+    d.rounded_rectangle([W / 2 - 280, 440, W / 2 - 30, 560], radius=40, fill=(30, 30, 34))
+    d.rounded_rectangle([W / 2 + 30, 440, W / 2 + 280, 560], radius=40, fill=(30, 30, 34))
+    d.rectangle([W / 2 - 40, 480, W / 2 + 40, 500], fill=(30, 30, 34))
+    d.polygon([(W / 2 - 380, 260), (W / 2 + 380, 260), (W / 2 + 300, 130), (W / 2 - 300, 130)], fill=(20, 40, 24))
+    d.rectangle([W / 2 - 400, 250, W / 2 + 400, 290], fill=(14, 28, 18))
+    for y in (980, 1030):
+        d.line([0, y, W, y], fill=(120, 120, 120), width=3)
+        for x in range(0, W, 60):
+            d.line([x, y - 14, x + 20, y + 14], fill=(150, 150, 150), width=3)
+            d.line([x + 20, y - 14, x, y + 14], fill=(150, 150, 150), width=3)
+    text(d, (110, 110), "1993 — 1998", SF(110), (230, 90, 80))
+    text(d, (114, 240), "The Abacha years", F(42, "SemiBold"), CREAM)
+    text(d, (W - 110, 120), "Ken Saro-Wiwa hanged · Nov 1995", F(32, "Medium"), DIM, "ra")
+    text(d, (W - 110, 170), "Kudirat Abiola killed · Jun 1996", F(32, "Medium"), DIM, "ra")
+    return img
+
+
+def p_kudirat():
+    img = Image.new("RGB", (W, H), (0, 0, 0))
+
+    def glow(d):
+        d.ellipse([W / 2 - 14, 260, W / 2 + 14, 320], fill=(255, 196, 110, 255))
+    img = glow_layer(img, glow, 50, 3)
+    d = ImageDraw.Draw(img, "RGBA")
+    d.rounded_rectangle([W / 2 - 30, 318, W / 2 + 30, 460], radius=8, fill=(230, 222, 205))
+    text(d, (W / 2, 590), "KUDIRAT ABIOLA", SF(110), CREAM, "mm", spacing=8)
+    text(d, (W / 2, 700), "1951 — 1996", F(44, "Bold"), GOLD, "mm", spacing=10)
+    text(d, (W / 2, 800), "Pro-democracy campaigner · shot dead in Lagos, 4 June 1996", F(34, "Medium"), DIM, "mm")
+    text(d, (W / 2, 850), "Radio Kudirat, the exiled opposition's station, carried her name", F(30, "Medium"), DIM, "mm")
+    return img
+
+
+def p_rise():
+    img = bg((10, 10, 8), (0, 0, 0), glow=(60, 46, 18), glow_xy=(0.7, 0.3), seed=44)
+    img = particles(img, 120, 45, maxr=2.5)
+    d = ImageDraw.Draw(img, "RGBA")
+    steps = [("1952", "Market woman's son"), ("1979", "Accountant"), ("1992", "Senator"), ("1994", "Exile"),
+             ("1999", "Governor of Lagos"), ("2015", "Kingmaker"), ("2023", "President")]
+    for i, (yr, what) in enumerate(steps):
+        x = 150 + i * 255
+        y = 900 - i * 110
+        top = i == len(steps) - 1
+        d.rectangle([x - 100, y, x + 100, 1000], fill=(GOLD if top else (60, 52, 36)) + (255,))
+        text(d, (x, y - 70), yr, F(40, "Black"), GOLD if top else CREAM, "mm")
+        text(d, (x, y - 28), what, F(24, "SemiBold"), CREAM if top else DIM, "mm")
+    text(d, (110, 130), "THE RISE", SF(130), GOLD)
+    text(d, (114, 270), "How Bola Ahmed Tinubu rose to power", F(40, "SemiBold"), CREAM)
     return img

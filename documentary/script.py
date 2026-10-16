@@ -47,7 +47,7 @@ scene("hook", "", "open", "", "",
       "To his critics, the ultimate godfather. "
       "This is his story. "
       "And the story of the people who live with his choices.",
-      trans="fade", mood="epic", hold=0.8, speed=1.0, lead=0.25, broll_frac=1.0,
+      trans="fade", mood="epic", hold=0.8, speed=1.04, lead=0.25, broll_frac=1.0,
       broll=[("chatham-house-2011.jpg", "", "", "Chatham House, CC BY 2.0", "THE GODFATHER", (0, 0.0)),
              ("eagle-square-2015.jpg", "", "", "U.S. Dept. of State", "THE KINGMAKER", (1, 0.0)),
              ("victoria-island-2014.jpg", "", "", "OpenUpEd, CC BY 2.0", "JAGABAN", (2, 0.0)),
@@ -103,14 +103,31 @@ scene("military", "THE LAND OF MANY PEOPLES", "military", "Military rule", "1966
 # ---------------------------------------------------------------- 2
 chapter_card(2, "ORIGINS", "warm")
 scene("born", "ORIGINS", "map_lagos", "Lagos, Nigeria", "Official birth date: 29 March 1952",
-      "According to his official biography, Bola Ahmed Adekunle Tinubu was born on the twenty-ninth of March, nineteen fifty-two, in Lagos, into a Yoruba Muslim family. "
-      "His mother, Abibatu Mogaji, would become a powerful leader of the Lagos market women. "
-      "An early lesson in how grassroots networks turn into power.")
+      "Lagos, the early nineteen-fifties. A colonial port city of lagoons and canoes, of crowded markets and the call to prayer drifting over Lagos Island. "
+      "According to his official biography, Bola Ahmed Adekunle Tinubu was born here on the twenty-ninth of March, nineteen fifty-two, into a Yoruba Muslim family.",
+      broll=[("tinubu-square-lagos.jpg", "Lagos Island", "Old commercial heart of Lagos", "Jeremy Weate / Flickr, CC BY 2.0")])
+scene("mother", "ORIGINS", "mother", "Alhaja Abibatu Mogaji", "Iyaloja of Lagos · 1916 – 2013",
+      "To understand his power, start with his mother. Alhaja Abibatu Mogaji was a trader who rose to lead the market women of Lagos as their Iyaloja, "
+      "and later headed the Association of Nigerian Market Women and Men. "
+      "In a city where markets are run by women, she commanded thousands of traders, and the votes and networks that came with them. "
+      "She lived to ninety-six. Her son learned early that real power is built on the ground, one market stall at a time.")
+scene("roots", "ORIGINS", "roots", "Where is Tinubu from?", "Lagos (official) · Iragbiji, Osun State (ancestral claim)",
+      "But where exactly is Tinubu from? Officially, Lagos. "
+      "Yet his roots have long been debated. Allies, including a traditional chief of Iragbiji in Osun State, say his ancestral home is Iragbiji. "
+      "Critics have gone further, questioning his original name and parentage, claims Tinubu has never accepted. "
+      "Even the Tinubu name carries history in Lagos, shared with Madam Efunroye Tinubu, the nineteenth-century merchant honoured by Tinubu Square, "
+      "though no family link between them has ever been established.")
 scene("chicago", "ORIGINS", "chicago", "Chicago, United States", "Studied accounting · graduated Chicago State University, 1979",
       "In the mid nineteen-seventies he travelled to the United States. "
       "He studied at Richard J. Daley College, then at Chicago State University, graduating in nineteen seventy-nine with a degree in accounting. "
       "He worked for firms including Arthur Andersen and Deloitte, before returning home to join Mobil Oil Nigeria, where he rose to become a senior finance executive. "
       "But the records from these years would come back to haunt him, decades later.")
+scene("family", "ORIGINS", "family", "The Tinubu family", "Wife, children and the market-women dynasty",
+      "Family has stayed close to the centre of his power. "
+      "His wife, Oluremi Tinubu, a pastor in the Redeemed Christian Church of God, served three terms as senator for Lagos Central, and became First Lady in twenty twenty-three. "
+      "Their daughter, Folashade Tinubu-Ojo, succeeded her grandmother as Iyaloja of Lagos in twenty thirteen, carrying the market women's network into a third generation. "
+      "His eldest son, Jide, died in London in twenty seventeen, a loss Tinubu called grave. "
+      "And his son Seyi has become one of the most visible faces around the presidency.")
 scene("questions", "ORIGINS", "questions", "Disputed records", "Age, early schooling and documents questioned by critics",
       "Yet even these early chapters are contested. "
       "Over the years, critics have questioned his age, his schooling in Nigeria, and documents he submitted to electoral authorities. "
@@ -125,9 +142,20 @@ scene("senate", "DEMOCRACY & EXILE", "senate", "Senator, Lagos West", "Social De
 scene("june12", "DEMOCRACY & EXILE", "june12", "12 June 1993", "Presidential election annulled by the military",
       "That transition collapsed. The June twelfth, nineteen ninety-three presidential election, widely seen as won by Moshood Abiola, was annulled by the military. "
       "Months later, General Sani Abacha seized power, and dissolved the Senate.", trans="flash", hit=True)
+scene("abacha", "DEMOCRACY & EXILE", "abacha", "General Sani Abacha", "Military ruler · 1993 – 1998",
+      "Abacha's Nigeria was a country of fear. Journalists were jailed, activists disappeared, and in nineteen ninety-five the writer Ken Saro-Wiwa and eight other Ogoni activists were hanged. "
+      "Tinubu chose a side. He helped found the National Democratic Coalition, NADECO, demanding that Abiola's mandate be restored.", trans="glitch", mood="dark")
 scene("exile", "DEMOCRACY & EXILE", "exile", "Exile", "NADECO pro-democracy campaign · 1994 – 1998",
-      "Tinubu joined the National Democratic Coalition, NADECO, which campaigned for a return to democracy. "
-      "Facing threats under Abacha's regime, he fled into exile in nineteen ninety-four, returning only after Abacha's death in nineteen ninety-eight.")
+      "In June nineteen ninety-four, Abiola declared himself president, and was arrested. The regime turned on his allies. "
+      "Tinubu was detained, and his home in Victoria Island was bombed. "
+      "He went into hiding, then slipped across the border into Benin Republic, and on into exile. "
+      "From abroad, NADECO backed Radio Kudirat, a pirate station that broadcast against the junta, and Tinubu helped fund the struggle.")
+scene("kudirat", "DEMOCRACY & EXILE", "kudirat", "Kudirat Abiola", "1951 – 1996",
+      "The station was named after a woman. Kudirat Abiola, Moshood Abiola's wife, led the campaign to free her jailed husband. "
+      "On the fourth of June, nineteen ninety-six, she was shot dead in her car on a Lagos street. "
+      "Tinubu's supporters say he had urged her to leave Lagos for her safety, and that she refused, an account that has never been independently confirmed. "
+      "Two years later, Abacha died suddenly in office. Within weeks, Abiola too was dead, still in detention. "
+      "The road to civilian rule was open, and Tinubu came home.", mood="dark", hold=1.6)
 
 # ---------------------------------------------------------------- 4
 chapter_card(4, "GOVERNOR OF LAGOS", "warm")
@@ -221,9 +249,10 @@ scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to T
 # ---------------------------------------------------------------- 8
 chapter_card(8, "\"IT'S MY TURN\"", "epic")
 scene("emilokan", "\"IT'S MY TURN\"", "quote_emilokan", "Abeokuta, Ogun State", "June 2022",
-      "By twenty twenty-two, Tinubu was ready to claim the prize. In a now famous speech in Abeokuta, he declared, in Yoruba: "
+      "That was Tinubu in Abeokuta, in June twenty twenty-two, speaking to party delegates in Yoruba. "
       "Emi lo kan. It is my turn. "
-      "He argued that he had helped make others president, and deserved his chance. He then won the APC primary against Vice President Osinbajo and others.",
+      "He reminded them that he had helped make Buhari president, and said he had never begged for anything in return. "
+      "Days later, he won the APC primary, beating Vice President Osinbajo and others.",
       trans="flash", hit=True, slam="Emi lo kan.")
 scene("ticket", "\"IT'S MY TURN\"", "ticket", "The Muslim–Muslim ticket", "Running mate: Kashim Shettima",
       "His choice of running mate, Kashim Shettima, who like Tinubu is a Muslim, broke an unwritten convention of balancing the ticket between Christians and Muslims, "
@@ -266,6 +295,15 @@ scene("record", "THE PRESIDENCY", "ledger", "The record so far", "Reforms and cr
       broll=[('abuja-2024-lammy.jpg', 'State House, Abuja', 'With UK Foreign Secretary David Lammy, 4 November 2024', 'FCDO, CC BY 2.0'), ('blinken-tinubu-2024.jpg', 'State House, Abuja', 'With U.S. Secretary of State Antony Blinken, 23 January 2024', 'U.S. Department of State, public domain')])
 
 # ---------------------------------------------------------------- outro
+scene("rise", "LEGACY", "rise", "How he rose", "From market woman's son to president",
+      "So how did he do it? Step by step. "
+      "A market woman's son who learned the power of networks. "
+      "An accountant who learned how money moves. "
+      "A senator, and then an exile, who earned credibility fighting a dictator. "
+      "A governor who rebuilt Lagos's finances, and with them, a war chest and a machine. "
+      "A kingmaker who made others governor, vice president, and president. "
+      "And finally, a candidate who told his party: it is my turn. "
+      "Every step built the next. That is how Bola Ahmed Tinubu rose to power.", trans="dip", mood="epic", hold=1.4)
 scene("legacy", "LEGACY", "legacy", "", "",
       "So who is Bola Ahmed Tinubu? A democrat who resisted military rule, or a godfather who mastered the system? "
       "A reformer making hard choices, or a leader whose decisions have deepened hardship? "

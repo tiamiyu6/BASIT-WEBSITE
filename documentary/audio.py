@@ -252,6 +252,90 @@ def projector(d, amp=0.03):
     return x * amp * env(n, 0.8, 0.8)[:, None]
 
 
+# ------------------------------------------------------------------ West African percussion & power colours
+BELL_12_8 = (0, 2, 4, 5, 7, 9, 11)  # standard 12/8 bell pattern (x.x.xx.x.x.x)
+
+
+def agogo(high=True, amp=0.06, pan=-0.35):
+    t = T(0.18)
+    f = 1180 if high else 820
+    x = (np.sin(2 * np.pi * f * t) + 0.6 * np.sin(2 * np.pi * f * 2.76 * t)) * np.exp(-t * 32)
+    return stereo(x * amp, pan)
+
+
+def shekere(amp=0.05, pan=0.45):
+    t = T(0.09)
+    x = bp(rng.normal(0, 1, len(t)), 3000, 9000) * np.exp(-t * 45)
+    return stereo(x * amp, pan)
+
+
+def djembe(kind="slap", amp=0.2, pan=0.15):
+    t = T(0.35)
+    if kind == "bass":
+        x = np.sin(2 * np.pi * np.cumsum(70 + 40 * np.exp(-t * 30)) / SR) * np.exp(-t * 9)
+    elif kind == "tone":
+        x = np.sin(2 * np.pi * 330 * t) * np.exp(-t * 18) + lp(rng.normal(0, 1, len(t)), 2000) * np.exp(-t * 60) * 0.3
+    else:
+        x = hp(rng.normal(0, 1, len(t)), 1500) * np.exp(-t * 50) + np.sin(2 * np.pi * 420 * t) * np.exp(-t * 30) * 0.4
+    return stereo(x * amp, pan)
+
+
+def dundun(amp=0.5):
+    t = T(0.9)
+    x = np.sin(2 * np.pi * np.cumsum(48 + 30 * np.exp(-t * 18)) / SR) * np.exp(-t * 4.5)
+    x += lp(rng.normal(0, 1, len(t)), 500) * np.exp(-t * 25) * 0.4
+    return stereo(x * amp)
+
+
+def brass(notes, d=0.9, amp=0.09):
+    t = T(d)
+    out = np.zeros((len(t), 2))
+    for n in notes:
+        for det, pan in ((-0.06, -0.5), (0.07, 0.5)):
+            f = hz(n + det)
+            saw = 2 * ((f * t) % 1) - 1
+            out += stereo(saw, pan)
+    cutoff_env = np.exp(-t * 3)
+    x = lp(out, 2400) * (0.35 + 0.65 * cutoff_env)[:, None]
+    return x * amp / len(notes) * env(len(t), 0.02, 0.35)[:, None]
+
+
+def choir(notes, d, amp=0.06):
+    t = T(d)
+    src = np.zeros(len(t))
+    for n in notes:
+        for det in (-0.08, 0.08):
+            f = hz(n + det)
+            src += 2 * ((f * t) % 1) - 1
+    v = bp(src, 600, 900) + 0.6 * bp(src, 1000, 1300) + 0.3 * bp(src, 2400, 2800)  # "aah" formants
+    vib = 1 + 0.02 * np.sin(2 * np.pi * 5 * t)
+    return stereo(v * vib * amp / len(notes)) * env(len(t), 0.8, 0.8)[:, None]
+
+
+def afro_layer(out, t0, bar, mood, b, ch):
+    u = bar / 12  # triplet eighth
+    if mood in ("warm", "epic", "intro", "outro"):
+        for i in BELL_12_8:
+            add(out, agogo(high=(i % 2 == 0), amp=0.045 if mood in ("intro", "outro") else 0.06), t0 + i * u)
+    if mood in ("warm", "epic"):
+        for i in range(12):
+            add(out, shekere(0.035 if i % 3 else 0.055), t0 + i * u)
+        for i, kind in ((0, "bass"), (3, "slap"), (5, "tone"), (6, "bass"), (8, "slap"), (10, "tone"), (11, "slap")):
+            add(out, djembe(kind, 0.16), t0 + i * u)
+    if mood == "epic":
+        add(out, dundun(0.55), t0)
+        add(out, dundun(0.4), t0 + 6 * u)
+        if b % 2 == 0:
+            add(out, brass([ch[1] + 12, ch[2] + 12, ch[3] + 12], 0.8, 0.10), t0)
+        add(out, choir([ch[1] + 12, ch[2] + 12, ch[3] + 12], bar + 0.6, 0.05), t0)
+    if mood == "tension":
+        add(out, dundun(0.35), t0)
+        for i in (0, 3, 6, 9):
+            add(out, djembe("slap", 0.07, -0.3), t0 + i * u)
+    if mood == "outro" and b % 2 == 0:
+        add(out, choir([ch[1] + 12, ch[2] + 12], bar * 2, 0.04), t0)
+
+
 # ------------------------------------------------------------------ score
 BEAT = 0.75  # 80 bpm
 PROG = {
@@ -277,6 +361,7 @@ def score_section(mood, d, seed):
         bright = {"intro": 900, "warm": 1600, "tension": 700, "epic": 2400, "dark": 500, "outro": 1200}[mood]
         add(out, pad(ch, bar + 1.2, bright, 0.09 if mood != "epic" else 0.11), t0)
         add(out, stereo(np.sin(2 * np.pi * hz(ch[0] - 12) * T(bar)) * env(int(bar * SR), 0.3, 0.6) * 0.12), t0)
+        afro_layer(out, t0, bar, mood, b, ch)
         if mood == "warm":
             arp = [ch[1] + 12, ch[2] + 12, ch[3] + 12, ch[2] + 12]
             for k in range(8):

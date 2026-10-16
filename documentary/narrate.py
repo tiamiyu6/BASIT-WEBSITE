@@ -11,7 +11,7 @@ from pedalboard import (Pedalboard, HighpassFilter, LowShelfFilter, PeakFilter, 
 from script import S
 
 MODELS, BUILD = sys.argv[1], sys.argv[2]
-VOICE, SPEED, SR = "bm_george", 0.92, 24000
+VOICE, SPEED, SR = "bm_george", 0.97, 24000
 # phonetic respellings so the narrator pronounces Nigerian names properly (display text is unchanged)
 SAY = {"#EndSARS": "End SARS", "#EndBadGovernance": "End Bad Governance", "Emi lo kan": "Emmy law kahn",
        "Sanwo-Olu": "Sanwo Olu", "Lagos–Calabar": "Lagos Calabar", "Shettima": "Shetteema",
@@ -87,7 +87,7 @@ def main():
                 du = d * len(p) / total
                 subs.append([round(u, 3), round(u + du, 3), p])
                 u += du
-            gap = (0.55 if sent.endswith((".", "?")) else 0.3) * (0.55 if sc.get("speed") else 1.0)
+            gap = (0.42 if sent.endswith((".", "?")) else 0.24) * (0.6 if sc.get("speed") else 1.0)
             pieces += [a, np.zeros(int(gap * SR), np.float32)]
             t += d + gap
         audio = np.concatenate(pieces).astype(np.float32)
