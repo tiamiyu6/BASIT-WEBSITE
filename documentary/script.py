@@ -192,7 +192,8 @@ scene("machine", "THE KINGMAKER", "network", "The Lagos political machine", "Suc
       "After leaving office in two thousand and seven, Tinubu never really left power. He built one of the most formidable political machines in the country. "
       "His successors in Lagos, Babatunde Fashola, Akinwunmi Ambode and Babajide Sanwo-Olu, all emerged with his backing. "
       "Ambode, who fell out of favour, lost his bid for a second term. "
-      "Tinubu carries the traditional title, Jagaban of Borgu. To many, he is simply: the godfather.")
+      "Tinubu carries the traditional title, Jagaban of Borgu. To many, he is simply: the godfather.",
+      broll=[('tinubu-lagos-allies-award.jpg', 'Tinubu with Lagos political allies', 'At a Lagos State event', 'archive photo'), ('tinubu-lagos-allies-retreat.jpg', 'Tinubu with Lagos political allies', 'At a Lagos strategy retreat', 'archive photo')])
 scene("occupy", "THE KINGMAKER", "occupy", "Occupy Nigeria", "Fuel subsidy protests · January 2012",
       "In January twenty twelve, President Goodluck Jonathan removed the fuel subsidy. Petrol prices more than doubled overnight, "
       "from sixty-five to one hundred and forty-one naira a litre. "
@@ -298,10 +299,11 @@ scene("economy", "THE PRESIDENCY", "economy", "Economic shock", "Petrol · excha
 scene("protest", "THE PRESIDENCY", "protest", "#EndBadGovernance protests", "August 2024",
       "Supporters call these painful but necessary reforms, long avoided by previous governments, and welcomed by investors and international lenders. "
       "But for millions of ordinary Nigerians, the cost of living became a crisis. "
-      "In August twenty twenty-four, young people took to the streets again, under the banner: End Bad Governance. Rights groups reported that several protesters were killed. "
+      "In August twenty twenty-four, young people took to the streets again, under the banner: End Bad Governance. Amnesty International later reported that at least twenty-four people were killed, and more than twelve hundred detained. "
       "For a man who began his career in the pro-democracy struggle, and who once stood against subsidy removal alongside the protesters of twenty twelve, "
       "the roles had now been reversed.",
-      mood="dark")
+      mood="dark",
+      broll=[('endbadgovernance-march-2024.jpg', '#EndBadGovernance march', 'August 2024', 'via Amnesty International')])
 scene("record", "THE PRESIDENCY", "ledger", "The record so far", "Reforms and criticisms",
       "His government raised the national minimum wage to seventy thousand naira, launched a student loan scheme, and pushed through sweeping tax reforms. "
       "It also faced criticism over a new presidential jet, the cost of the Lagos–Calabar coastal highway, "
