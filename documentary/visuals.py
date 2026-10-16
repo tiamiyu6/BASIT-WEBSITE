@@ -1236,3 +1236,28 @@ def p_tease():
     text(d, (W / 2, 610), "→  PRESIDENT", F(110, "Black"), GOLD, "mm", spacing=6)
     text(d, (W / 2, 730), "1993  ·  U.S. forfeiture case, no criminal charge        2023  ·  President of Nigeria", F(28, "Medium"), DIM, "mm")
     return img
+
+
+def p_fuelprice():
+    img = bg((12, 10, 8), (2, 2, 2), glow=(70, 30, 14), glow_xy=(0.75, 0.35), seed=46)
+    d = ImageDraw.Draw(img, "RGBA")
+    data = [("1999", 20, "Abubakar /\nObasanjo"), ("2007", 75, "Obasanjo"), ("2007", 65, "Yar'Adua"),
+            ("2012", 97, "Jonathan"), ("2016", 145, "Buhari"), ("Early 2023", 185, "Buhari"),
+            ("Jul 2023", 617, "Tinubu"), ("Late 2024", 1000, "Tinubu")]
+    x0, base, top = 170, 920, 330
+    bw, gap = 150, 70
+    for i, (yr, p, who) in enumerate(data):
+        x = x0 + i * (bw + gap)
+        h = (base - top) * p / 1000
+        tin = who == "Tinubu"
+        col = (230, 80, 60) if tin else (200, 150, 60)
+        d.rounded_rectangle([x, base - h, x + bw, base], radius=10, fill=col + (255,))
+        label = f"₦{p:,}" if p < 1000 else "~₦1,000"
+        text(d, (x + bw / 2, base - h - 34), label, F(36, "Black"), CREAM, "mm")
+        text(d, (x + bw / 2, base + 36), yr, F(26, "Bold"), CREAM, "mm")
+        for j, ln in enumerate(who.split("\n")):
+            text(d, (x + bw / 2, base + 72 + j * 28), ln, F(22, "Medium"), (240, 150, 140) if tin else DIM, "mm")
+    d.line([x0 - 30, base, x0 + len(data) * (bw + gap), base], fill=(120, 110, 90), width=3)
+    text(d, (110, 110), "PRICE AT THE PUMP", SF(96), GOLD)
+    text(d, (114, 230), "Petrol, naira per litre · official / NNPC Lagos pump prices, rounded", F(32, "Medium"), DIM)
+    return img

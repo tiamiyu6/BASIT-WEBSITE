@@ -293,7 +293,8 @@ scene("uturn", "THE PRESIDENCY", "uturn", "Then and now", "Tinubu on fuel subsid
       "His critics call it the ultimate U-turn.", trans="glitch", hit=True, mood="tension")
 scene("economy", "THE PRESIDENCY", "economy", "Economic shock", "Petrol · exchange rate · inflation, 2023 – 2024",
       "Petrol prices nearly tripled almost overnight. Weeks later, his government unified the exchange rates, and the naira lost more than two thirds of its value against the dollar. "
-      "Inflation climbed above thirty percent, its highest level in nearly three decades, with food prices rising even faster.", trans="glitch", mood="tension")
+      "Inflation climbed above thirty percent, its highest level in nearly three decades, with food prices rising even faster.", trans="glitch", mood="tension",
+      broll=[('@fuelprice', 'Price at the pump', 'Petrol per litre, 1999 – 2024', 'chart: official / NNPC pump prices')])
 scene("protest", "THE PRESIDENCY", "protest", "#EndBadGovernance protests", "August 2024",
       "Supporters call these painful but necessary reforms, long avoided by previous governments, and welcomed by investors and international lenders. "
       "But for millions of ordinary Nigerians, the cost of living became a crisis. "
