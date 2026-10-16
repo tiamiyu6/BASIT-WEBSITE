@@ -151,7 +151,8 @@ scene("senate", "DEMOCRACY & EXILE", "senate", "Senator, Lagos West", "Social De
       broll=[('tinubu-early-archive.jpg', 'Bola Tinubu', 'Early political years', 'archive photo')])
 scene("june12", "DEMOCRACY & EXILE", "june12", "12 June 1993", "Presidential election annulled by the military",
       "That transition collapsed. The June twelfth, nineteen ninety-three presidential election, widely seen as won by Moshood Abiola, was annulled by the military. "
-      "Months later, General Sani Abacha seized power, and dissolved the Senate.", trans="flash", hit=True)
+      "Months later, General Sani Abacha seized power, and dissolved the Senate.", trans="flash", hit=True,
+      broll=[('abiola-advert-1993.jpg', 'M.K.O. Abiola', '1993 newspaper advert: “Not by my power, but the strength of your collective support”', 'archive'), ('abiola-victory-1993.jpg', 'Moshood Abiola', 'Widely seen as the winner of 12 June 1993', 'Getty Images, via BBC')])
 scene("abacha", "DEMOCRACY & EXILE", "abacha", "General Sani Abacha", "Military ruler · 1993 – 1998",
       "Abacha's Nigeria was a country of fear. Journalists were jailed, activists disappeared, and in nineteen ninety-five the writer Ken Saro-Wiwa and eight other Ogoni activists were hanged. "
       "Tinubu chose a side. He helped found the National Democratic Coalition, NADECO, demanding that Abiola's mandate be restored.", trans="glitch", mood="dark")
@@ -159,7 +160,8 @@ scene("exile", "DEMOCRACY & EXILE", "exile", "Exile", "NADECO pro-democracy camp
       "In June nineteen ninety-four, Abiola declared himself president, and was arrested. The regime turned on his allies. "
       "Tinubu was detained, and his home in Victoria Island was bombed. "
       "He went into hiding, then slipped across the border into Benin Republic, and on into exile. "
-      "From abroad, NADECO backed Radio Kudirat, a pirate station that broadcast against the junta, and Tinubu helped fund the struggle.")
+      "From abroad, NADECO backed Radio Kudirat, a pirate station that broadcast against the junta, and Tinubu helped fund the struggle.",
+      broll=[('abiola-portrait.jpg', 'Moshood Abiola', 'Arrested in June 1994 after declaring himself president', 'archive photo')])
 scene("kudirat", "DEMOCRACY & EXILE", "kudirat", "Kudirat Abiola", "1951 – 1996",
       "The station was named after a woman. Kudirat Abiola, Moshood Abiola's wife, led the campaign to free her jailed husband. "
       "On the fourth of June, nineteen ninety-six, she was shot dead in her car on a Lagos street. "
