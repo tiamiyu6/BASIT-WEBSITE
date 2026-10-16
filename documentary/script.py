@@ -164,11 +164,12 @@ chapter_card(7, "#ENDSARS", "dark")
 scene("endsars", "#ENDSARS", "endsars", "#EndSARS protests", "Nationwide, October 2020 · against police brutality",
       "In October twenty twenty, young Nigerians filled the streets in the #EndSARS protests, demanding an end to brutality by the police Special Anti-Robbery Squad. "
       "Lagos, Tinubu's political home, became the centre of the movement.", trans="dip",
-      broll=[('endsars-lagos-2020.jpg', '#EndSARS protest, Lagos', '12 October 2020', 'Jerry Jallo / Heinrich Böll Stiftung, CC BY-SA 2.0')])
+      broll=[('endsars-lagos-2020.jpg', '#EndSARS protest, Lagos', '12 October 2020', 'Jerry Jallo / Heinrich Böll Stiftung, CC BY-SA 2.0'), ('endsars-protest-2020.jpg', '#EndSARS protesters', '“#WeSayNoToPoliceBrutality”, October 2020', 'via Al Jazeera')])
 scene("lekki", "#ENDSARS", "lekki", "Lekki Toll Gate, Lagos", "Night of 20 October 2020",
       "On the night of the twentieth of October, soldiers opened fire on protesters gathered at the Lekki toll gate. "
       "A judicial panel set up by the Lagos State government later described it as a massacre. "
-      "The army and the federal government rejected that finding, and the exact number of victims is still disputed.", trans="flash", hit=True)
+      "The army and the federal government rejected that finding, and the exact number of victims is still disputed.", trans="flash", hit=True,
+      broll=[('lekki-toll-gate-protest-2020.jpg', 'Protesters at the Lekki toll gate', 'Lagos, October 2020', 'via Foreign Policy')])
 scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to Tinubu set ablaze",
       "In the chaos that followed, the TVC television station and The Nation newspaper, both linked to Tinubu, were set on fire. "
       "Protesters had seen him as a symbol of the Lagos establishment. Tinubu denied owning the Lekki toll gate, and called for calm. "

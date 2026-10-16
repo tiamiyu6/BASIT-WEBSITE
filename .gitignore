@@ -1,2 +1,5 @@
 documentary/.build/
 __pycache__/
+# news-agency photos supplied by the user for personal use; not redistributed in the repo
+documentary/photos/broll/lekki-toll-gate-protest-2020.jpg
+documentary/photos/broll/endsars-protest-2020.jpg
