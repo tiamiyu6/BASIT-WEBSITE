@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jagaban — The Story of Bola Ahmed Tinubu</title>
+  <meta name="description" content="A documentary on the life, rise and controversies of Bola Ahmed Tinubu.">
+  <style>
+    :root { --bg:#08080a; --panel:#121216; --gold:#e2b254; --cream:#f3ebdd; --dim:#9a958c; --line:#26262c; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--cream); font-family:Georgia, 'Times New Roman', serif; line-height:1.6; }
+    a { color:var(--gold); }
+    nav { display:flex; justify-content:space-between; align-items:center; padding:18px 24px; border-bottom:1px solid var(--line);
+          font-family:'Franklin Gothic Medium', Arial, sans-serif; letter-spacing:.08em; font-size:14px; }
+    nav a { color:var(--cream); text-decoration:none; margin-left:20px; }
+    nav a:hover { color:var(--gold); }
+    header { text-align:center; padding:56px 16px 28px; }
+    header h1 { font-size:clamp(44px, 9vw, 96px); letter-spacing:.14em; color:var(--gold); font-weight:700; }
+    header p { font-family:Arial, sans-serif; letter-spacing:.3em; font-size:clamp(11px, 2.4vw, 15px); color:var(--cream); margin-top:6px; }
+    main { max-width:1100px; margin:0 auto; padding:0 16px 64px; }
+    video { width:100%; aspect-ratio:16/9; background:#000; border-radius:10px; border:1px solid var(--line); display:block; }
+    .grid { display:grid; grid-template-columns:1fr; gap:24px; margin-top:28px; }
+    @media (min-width:820px) { .grid { grid-template-columns:320px 1fr; } }
+    .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:22px; }
+    .panel h2 { font-family:Arial, sans-serif; font-size:13px; letter-spacing:.25em; color:var(--gold); margin-bottom:14px; }
+    ol { list-style:none; }
+    ol li button { all:unset; cursor:pointer; display:flex; gap:12px; width:100%; padding:9px 6px; border-radius:6px;
+                   font-family:Arial, sans-serif; font-size:15px; }
+    ol li button:hover, ol li button:focus-visible { background:#1d1d23; color:var(--gold); }
+    ol li span.t { color:var(--dim); min-width:44px; font-variant-numeric:tabular-nums; }
+    p + p { margin-top:12px; }
+    .note { font-family:Arial, sans-serif; font-size:13px; color:var(--dim); }
+    footer { text-align:center; padding:24px; font-family:Arial, sans-serif; font-size:12px; color:var(--dim); border-top:1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>BASIT</strong>
+    <div><a href="index.html">HOME</a><a href="home.html">ABOUT</a><a href="documentary.html">DOCUMENTARY</a></div>
+  </nav>
+  <header>
+    <h1>JAGABAN</h1>
+    <p>THE STORY OF BOLA AHMED TINUBU</p>
+  </header>
+  <main>
+    <video id="film" controls preload="metadata" poster="documentary/poster.jpg">
+      <source src="documentary/jagaban.mp4" type="video/mp4">
+      Your browser can't play this video. <a href="documentary/jagaban.mp4">Download it instead.</a>
+    </video>
+    <div class="grid">
+      <section class="panel">
+        <h2>CHAPTERS</h2>
+        <ol id="chapters"></ol>
+      </section>
+      <section class="panel">
+        <h2>ABOUT THIS FILM</h2>
+        <p>From a Lagos childhood and Chicago accounting degree to the pro-democracy struggle, eight years as Governor of Lagos,
+          the making of the APC and the 2023 presidency: this documentary traces the rise of Bola Ahmed Tinubu and the questions
+          that have followed him, including the 1993 U.S. forfeiture case, the certificate dispute, #EndSARS, his opposition to fuel
+          subsidy removal in 2012 and his own removal of it in 2023.</p>
+        <p class="note">Allegations are reported as allegations. Tinubu has denied wrongdoing in each case, and none of the
+          controversies described has led to a criminal conviction. Illustrations are artistic reconstructions, not photographs.
+          Narration is an AI voice. Sources: INEC, NBS, CBN, the Supreme Court of Nigeria judgment (October 2023), the Lagos State
+          #EndSARS Judicial Panel report (2021) and contemporaneous news reporting.</p>
+      </section>
+    </div>
+  </main>
+  <footer>Produced for basit-website</footer>
+  <script>
+    const film = document.getElementById('film');
+    const list = document.getElementById('chapters');
+    const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    fetch('documentary/chapters.json').then(r => r.json()).then(chs => {
+      chs.forEach(c => {
+        const li = document.createElement('li');
+        const b = document.createElement('button');
+        b.innerHTML = `<span class="t">${fmt(c.t)}</span><span></span>`;
+        b.lastChild.textContent = c.name;
+        b.onclick = () => { film.currentTime = c.t; film.play(); };
+        li.appendChild(b);
+        list.appendChild(li);
+      });
+    }).catch(() => { list.innerHTML = '<li class="note">Chapters unavailable.</li>'; });
+  </script>
+</body>
+</html>
