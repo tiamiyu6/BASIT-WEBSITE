@@ -155,7 +155,8 @@ scene("june12", "DEMOCRACY & EXILE", "june12", "12 June 1993", "Presidential ele
       broll=[('abiola-advert-1993.jpg', 'M.K.O. Abiola', '1993 newspaper advert: “Not by my power, but the strength of your collective support”', 'archive'), ('abiola-victory-1993.jpg', 'Moshood Abiola', 'Widely seen as the winner of 12 June 1993', 'Getty Images, via BBC')])
 scene("abacha", "DEMOCRACY & EXILE", "abacha", "General Sani Abacha", "Military ruler · 1993 – 1998",
       "Abacha's Nigeria was a country of fear. Journalists were jailed, activists disappeared, and in nineteen ninety-five the writer Ken Saro-Wiwa and eight other Ogoni activists were hanged. "
-      "Tinubu chose a side. He helped found the National Democratic Coalition, NADECO, demanding that Abiola's mandate be restored.", trans="glitch", mood="dark")
+      "Tinubu chose a side. He helped found the National Democratic Coalition, NADECO, demanding that Abiola's mandate be restored.", trans="glitch", mood="dark",
+      broll=[('abacha-portrait.jpg', 'General Sani Abacha', 'Head of state, November 1993 – June 1998', 'archive photo'), ('abacha-glasses.jpg', 'General Sani Abacha', 'His trademark dark glasses', 'archive photo')])
 scene("exile", "DEMOCRACY & EXILE", "exile", "Exile", "NADECO pro-democracy campaign · 1994 – 1998",
       "In June nineteen ninety-four, Abiola declared himself president, and was arrested. The regime turned on his allies. "
       "Tinubu was detained, and his home in Victoria Island was bombed. "
