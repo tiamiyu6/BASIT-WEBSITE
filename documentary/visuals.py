@@ -1224,3 +1224,15 @@ def p_rise():
     text(d, (110, 130), "THE RISE", SF(130), GOLD)
     text(d, (114, 270), "How Bola Ahmed Tinubu rose to power", F(40, "SemiBold"), CREAM)
     return img
+
+
+def p_tease():
+    img = Image.new("RGB", (W, H), (0, 0, 0))
+
+    def fn(d):
+        d.text((W / 2, 420), "$460,000", font=F(230, "Black"), fill=(240, 90, 80, 255), anchor="mm")
+    img = glow_layer(img, fn, 30, 2)
+    d = ImageDraw.Draw(img, "RGBA")
+    text(d, (W / 2, 610), "→  PRESIDENT", F(110, "Black"), GOLD, "mm", spacing=6)
+    text(d, (W / 2, 730), "1993  ·  U.S. forfeiture case, no criminal charge        2023  ·  President of Nigeria", F(28, "Medium"), DIM, "mm")
+    return img

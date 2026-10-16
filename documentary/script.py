@@ -19,10 +19,10 @@ S = []
 
 
 def scene(id, chapter, plate, title, sub, text="", trans="fade", mood=None, hit=False, hold=1.0, slam=None, broll=(),
-          speed=None, lead=None, broll_frac=None):
+          speed=None, lead=None, broll_frac=None, clip_slam=None):
     S.append(dict(id=id, chapter=chapter, plate=plate, title=title, sub=sub, text=text,
                   trans=trans, mood=mood, hit=hit, hold=hold, slam=slam, broll=list(broll),
-                  speed=speed, lead=lead, broll_frac=broll_frac))
+                  speed=speed, lead=lead, broll_frac=broll_frac, clip_slam=clip_slam))
 
 
 def chapter_card(num, name, mood):
@@ -32,6 +32,13 @@ def chapter_card(num, name, mood):
 # ---------------------------------------------------------------- cold open
 # Starts on his portrait and pushes into his eye; the story "begins" inside it.
 # Real photo: documentary/photos/portrait.jpg (+ optional photos/portrait.json {"eye": [x, y]} in 0..1 coords)
+# Very first seconds: his real voice, then the shock line and the promise.
+scene("tease", "", "tease", "", "",
+      "In nineteen ninety-three, he forfeited four hundred and sixty thousand dollars in a US case over alleged drug money, without ever being charged. "
+      "Thirty years later, he became president of Nigeria. "
+      "How? "
+      "Stay to the end, and you'll know exactly how he did it.",
+      trans="fade", mood="tension", hit=True, speed=1.04, lead=0.1, hold=0.4, clip_slam="EMI LO KAN")
 # Cold open: rapid-fire real photos cut on the narrator's words, each with a slam word + impact.
 # broll item: (file or @plate, title, sub, credit, SLAM TEXT, (sentence index, fraction into sentence))
 scene("hook", "", "open", "", "",
@@ -47,7 +54,7 @@ scene("hook", "", "open", "", "",
       "To his critics, the ultimate godfather. "
       "This is his story. "
       "And the story of the people who live with his choices.",
-      trans="fade", mood="epic", hold=0.8, speed=1.04, lead=0.25, broll_frac=1.0,
+      trans="flash", mood="epic", hold=0.8, speed=1.04, lead=0.25, broll_frac=1.0,
       broll=[("chatham-house-2011.jpg", "", "", "Chatham House, CC BY 2.0", "THE GODFATHER", (0, 0.0)),
              ("eagle-square-2015.jpg", "", "", "U.S. Dept. of State", "THE KINGMAKER", (1, 0.0)),
              ("victoria-island-2014.jpg", "", "", "OpenUpEd, CC BY 2.0", "JAGABAN", (2, 0.0)),

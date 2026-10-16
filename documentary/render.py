@@ -310,6 +310,17 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
             f = f * (1 - w) + kenburns(e, lt, extra_zoom, shake) * w
         else:
             blend(f, tag_img(), 28, 26, smooth(lt / 0.4))
+            if e.get("clip_slam"):
+                if lt < 0.25:
+                    f = f + (255 - f) * math.exp(-lt * 14) * 0.6
+                si = slam_img(e["clip_slam"])
+                sc = 1.0 + 0.35 * math.exp(-lt * 18)
+                h, w_ = si.shape[:2]
+                if sc > 1.01:
+                    im = Image.fromarray((si * 255).astype(np.uint8)).resize((int(w_ * sc), int(h * sc)), Image.BILINEAR)
+                    si = np.asarray(im).astype(np.float32) / 255
+                    h, w_ = si.shape[:2]
+                blend(f, si, OW / 2 - w_ / 2, OH * 0.40 - h / 2, smooth(lt / 0.06))
         t = e["start"] + lt
         for a0, a1, s in e["subs"]:
             if a0 - 0.12 <= t <= a1 + 0.25:
