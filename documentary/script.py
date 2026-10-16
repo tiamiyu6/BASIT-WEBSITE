@@ -34,11 +34,11 @@ def chapter_card(num, name, mood):
 # Real photo: documentary/photos/portrait.jpg (+ optional photos/portrait.json {"eye": [x, y]} in 0..1 coords)
 # Cold open: rapid-fire real photos cut on the narrator's words, each with a slam word + impact.
 # broll item: (file or @plate, title, sub, credit, SLAM TEXT, (sentence index, fraction into sentence))
-scene("hook", "", "chapter", "", "",
+scene("hook", "", "open", "", "",
       "He has been called the godfather of Lagos. "
       "The kingmaker. "
       "The Jagaban. "
-      "He survived exile, a U.S. money case, and questions about his past. "
+      "He survived exile, a US money case, and questions about his past. "
       "When young Nigerians rose against police brutality, the bullets came at night. "
       "Then he declared: "
       "It is my turn. "
@@ -47,7 +47,7 @@ scene("hook", "", "chapter", "", "",
       "To his critics, the ultimate godfather. "
       "This is his story. "
       "And the story of the people who live with his choices.",
-      trans="dip", mood="epic", hold=0.8, speed=1.0, lead=0.25, broll_frac=1.0,
+      trans="fade", mood="epic", hold=0.8, speed=1.0, lead=0.25, broll_frac=1.0,
       broll=[("chatham-house-2011.jpg", "", "", "Chatham House, CC BY 2.0", "THE GODFATHER", (0, 0.0)),
              ("eagle-square-2015.jpg", "", "", "U.S. Dept. of State", "THE KINGMAKER", (1, 0.0)),
              ("victoria-island-2014.jpg", "", "", "OpenUpEd, CC BY 2.0", "JAGABAN", (2, 0.0)),
