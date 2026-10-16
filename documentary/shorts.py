@@ -115,6 +115,58 @@ SHORTS = {
                       ("@uturn", "", "", "", "U-TURN", (13, 0.0)),
                       ("occupy-nigeria-nyc-2012.jpg", "", "", "Michael Fleshman, CC BY-SA 2.0", "", (14, 0.0))]),  # = opening
         ]),
+    # ------------------------------------------------------------------ WhatsApp Status cuts (<30 s, tight loops)
+    "wa_turn": dict(
+        headline=("IT WAS", "HIS TURN"),
+        scenes=lambda: [
+            sc("tease", "quote_emilokan", trans="fade", lead=0.0, clip_slam="EMI LO KAN", hold=0.2),
+            sc("wa_turn", "open",
+               "He made governors. "
+               "He made a president. "
+               "Then he took the crown himself. "
+               "And on day one, he said: "
+               "Fuel subsidy is gone. "
+               "It all started when he told his party",
+               speed=1.08, hold=0.05,
+               broll=[("tinubu-lagos-allies-award.jpg", "", "", "archive photo", "KINGMAKER", (0, 0.0)),
+                      ("tinubu-buhari-hands-raised.jpg", "", "", "archive photo", "BUHARI", (1, 0.0)),
+                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "PRESIDENT", (2, 0.0)),
+                      ("@quote_subsidy", "", "", "", "", (3, 0.5)),
+                      ("abeokuta-podium.jpg", "", "", "", "", (5, 0.3))]),
+        ]),
+    "wa_lekki": dict(
+        headline=("NEVER", "FORGET"),
+        scenes=lambda: [
+            sc("wa_lekki", "memorial",
+               "The lights went off at the Lekki toll gate. "
+               "Then the shooting started. "
+               "A Lagos panel called it a massacre. "
+               "The army denied it. "
+               "And every October, Nigerians still remember the night",
+               trans="fade", mood="dark", lead=0.05, hold=0.05, speed=1.06,
+               broll=[("@lekki", "", "", "", "LIGHTS OUT", (0, 0.0)),
+                      ("lekki-night-injured-2020.jpg", "", "", "Adetona Omokanye / Getty", "20 · 10 · 2020", (1, 0.0)),
+                      ("nigeria-is-bleeding-2020.jpg", "", "", "via Marie Claire UK", "“MASSACRE”", (2, 0.0)),
+                      ("end-sars-now-flag.jpg", "", "", "Pius Utomi Ekpei / AFP / Getty", "DENIED", (3, 0.0)),
+                      ("@lekki", "", "", "", "", (4, 0.4))]),
+        ]),
+    "wa_sea": dict(
+        headline=("THE MIDNIGHT", "SEA"),
+        scenes=lambda: [
+            sc("wa_sea", "uturn",
+               "He said it would toss Nigerians into the depths of the midnight sea. "
+               "Then he did it himself. "
+               "Petrol went from one hundred and eighty-five naira, to six hundred and seventeen, to about a thousand. "
+               "His critics call it a U-turn. "
+               "Because back in twenty twelve,",
+               trans="fade", mood="tension", lead=0.05, hold=0.05, speed=1.08,
+               broll=[("occupy-nigeria-nyc-2012.jpg", "", "", "Michael Fleshman, CC BY-SA 2.0", "“MIDNIGHT SEA”", (0, 0.0)),
+                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "THEN HE DID IT", (1, 0.0)),
+                      ("@fuelprice", "", "", "", "₦185 → ₦617", (2, 0.0)),
+                      ("@fuelprice", "", "", "", "~₦1,000", (3, 0.0)),
+                      ("@uturn", "", "", "", "U-TURN", (4, 0.0)),
+                      ("occupy-nigeria-nyc-2012.jpg", "", "", "Michael Fleshman, CC BY-SA 2.0", "", (5, 0.0))]),
+        ]),
 }
 
 
