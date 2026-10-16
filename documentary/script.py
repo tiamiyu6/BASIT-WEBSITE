@@ -173,7 +173,8 @@ scene("lekki", "#ENDSARS", "lekki", "Lekki Toll Gate, Lagos", "Night of 20 Octob
 scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to Tinubu set ablaze",
       "In the chaos that followed, the TVC television station and The Nation newspaper, both linked to Tinubu, were set on fire. "
       "Protesters had seen him as a symbol of the Lagos establishment. Tinubu denied owning the Lekki toll gate, and called for calm. "
-      "For many young Nigerians, the events of that night still shape how they see the political class.", hold=1.6)
+      "For many young Nigerians, the events of that night still shape how they see the political class.", hold=1.6,
+      broll=[('nigeria-is-bleeding-2020.jpg', '“Nigeria is bleeding”', '#EndSARS protest, October 2020', 'via Marie Claire UK')])
 
 # ---------------------------------------------------------------- 8
 chapter_card(8, "\"IT'S MY TURN\"", "epic")
