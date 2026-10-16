@@ -3,7 +3,7 @@
 Everything is synthesised here: pads, plucked arpeggios, taiko-style drums, talking drum,
 risers, whooshes, impacts, glitches and crowd ambience. Music is side-chain ducked under the voice.
 """
-import json, sys
+import json, os, sys
 import numpy as np, soundfile as sf
 from scipy.signal import butter, sosfilt, fftconvolve, resample_poly
 from timeline import build
@@ -314,6 +314,10 @@ def choir(notes, d, amp=0.06):
 
 def afro_layer(out, t0, bar, mood, b, ch):
     u = bar / 12  # triplet eighth
+    _add = add
+
+    def add(buf, x, at):  # percussion sits back in the mix
+        _add(buf, x * 0.65, at)
     if mood in ("warm", "epic", "intro", "outro"):
         for i in BELL_12_8:
             add(out, agogo(high=(i % 2 == 0), amp=0.045 if mood in ("intro", "outro") else 0.06), t0 + i * u)
@@ -458,7 +462,7 @@ def main():
             continue
         v, sr = sf.read(f"{BUILD}/voice/{e['id']}.wav")
         v = resample_poly(v, SR, sr)
-        add(voice, stereo(v) * 1.25, e["voice_at"])
+        add(voice, stereo(v) * 1.4, e["voice_at"])
     voice = reverb(voice, 0.6, 0.06)
 
     # --- sound design per scene / transition
@@ -527,7 +531,7 @@ def main():
     idx = np.arange(len(venv))
     lo, hi = np.clip(idx - k // 2, 0, len(venv)), np.clip(idx + k // 2, 0, len(venv))
     venv = (cs[hi] - cs[lo]) / np.maximum(hi - lo, 1)
-    duck = 1 - 0.62 * np.clip(venv * 1.4, 0, 1)
+    duck = 1 - 0.82 * np.clip(venv * 1.8, 0, 1)  # music sits ~15 dB under the narrator
     for e in tl:
         if e["slam_at"] is not None:
             g = np.ones(N)
@@ -539,7 +543,12 @@ def main():
             duck *= g
         if e["plate"] == "portrait":  # score enters after the eye push-in
             duck[: int(e["end"] * SR)] *= 0.35
-    mix = music * duck[:, None] * 0.95 + sfx * (1 - 0.35 * np.clip(venv, 0, 1))[:, None] + voice
+    sfx_duck = 1 - 0.6 * np.clip(venv * 1.8, 0, 1)
+    bed = music * duck[:, None] * 0.9 + sfx * sfx_duck[:, None]
+    mix = bed + voice
+    if os.environ.get("STEMS"):
+        sf.write(f"{BUILD}/stem_voice.wav", voice.astype(np.float32), SR, subtype="FLOAT")
+        sf.write(f"{BUILD}/stem_bed.wav", bed.astype(np.float32), SR, subtype="FLOAT")
     mix = np.tanh(mix * 1.1) / 1.1
     sf.write(f"{BUILD}/mix.wav", mix.astype(np.float32), SR, subtype="FLOAT")
     print("audio", round(total, 1), "s")
