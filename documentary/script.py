@@ -53,7 +53,10 @@ scene("eko", "THE LAND OF MANY PEOPLES", "eko", "Eko — Lagos", "From Awori set
       "Tinubu's Lagos has its own deep story. Its people call it Eko. "
       "It grew from a settlement of the Awori, a Yoruba people, into a kingdom whose royal line is tied to the great Kingdom of Benin. "
       "By the nineteenth century, it was one of West Africa's busiest ports, a trade that tragically included enslaved people. "
-      "In eighteen sixty-one, Britain annexed Lagos as a colony.", trans="zoom")
+      "In eighteen sixty-one, Britain annexed Lagos as a colony. "
+      "One of the city's best-known squares still carries the name Tinubu, after Madam Efunroye Tinubu, "
+      "a powerful nineteenth-century merchant and political figure in Lagos and Abeokuta.", trans="zoom",
+      broll=[('lagos-lagoon-dawn.jpg', 'The Lagos Lagoon at dawn', 'Fishermen below the Third Mainland Bridge', 'dotun55 / Flickr, CC BY-SA 2.0'), ('tinubu-square-lagos.jpg', 'Tinubu Square, Lagos Island', 'Named after 19th-century merchant Efunroye Tinubu', 'Jeremy Weate / Flickr, CC BY 2.0')])
 scene("amalgamation", "THE LAND OF MANY PEOPLES", "amalgamation", "Amalgamation, 1914", "Northern and Southern Protectorates joined",
       "In nineteen fourteen, the British merged their Northern and Southern Protectorates into one colony, called Nigeria, "
       "a name first suggested by the journalist Flora Shaw. "
@@ -103,11 +106,13 @@ scene("exile", "DEMOCRACY & EXILE", "exile", "Exile", "NADECO pro-democracy camp
 chapter_card(4, "GOVERNOR OF LAGOS", "warm")
 scene("gov", "GOVERNOR OF LAGOS", "lagos", "Governor of Lagos State", "Alliance for Democracy · 1999 – 2007",
       "In nineteen ninety-nine, as Nigeria returned to civilian rule, he was elected Governor of Lagos State on the platform of the Alliance for Democracy. "
-      "He was re-elected in two thousand and three.", trans="zoom", hit=True)
+      "He was re-elected in two thousand and three.", trans="zoom", hit=True,
+      broll=[('victoria-island-2014.jpg', 'Lagos', 'Victoria Island and the lagoon, 2014', 'OpenUpEd / Flickr, CC BY 2.0')])
 scene("revenue", "GOVERNOR OF LAGOS", "revenue", "Revenue & transport reforms", "Tax overhaul · LAMATA transport authority (2002)",
       "His supporters point to a revenue revolution. His administration overhauled tax collection, and Lagos's internally generated revenue grew many times over, "
       "giving the state a financial independence few others could match. "
-      "He also created the Lagos Metropolitan Area Transport Authority, the body behind the city's later bus rapid transit system.")
+      "He also created the Lagos Metropolitan Area Transport Authority, the body behind the city's later bus rapid transit system.",
+      broll=[('brt-third-mainland-2012.jpg', 'Lagos BRT bus', 'On the Third Mainland Bridge, 2012', 'dotun55 / Flickr, CC BY-SA 2.0')])
 scene("lcda", "GOVERNOR OF LAGOS", "lcda", "Lagos vs. the Federal Government", "Dispute over 37 new council areas · Supreme Court, 2004",
       "He was not afraid of confrontation. When Lagos created thirty-seven new local council development areas, "
       "President Olusegun Obasanjo's government withheld the state's local government funds. "
@@ -126,13 +131,14 @@ scene("occupy", "THE KINGMAKER", "occupy", "Occupy Nigeria", "Fuel subsidy prote
       "Lagos ground to a halt as the Occupy Nigeria protests and a nationwide strike filled the streets. "
       "Tinubu and his party stood against the removal. In an article, he accused Jonathan of breaking the social contract, "
       "writing that the government had tossed the people into the depths of the midnight sea. "
-      "After more than a week of protests, the price was cut back to ninety-seven naira.", trans="glitch", hit=True)
+      "After more than a week of protests, the price was cut back to ninety-seven naira.", trans="glitch", hit=True,
+      broll=[('occupy-nigeria-nyc-2012.jpg', 'Occupy Nigeria', 'Solidarity protest, New York, 10 January 2012', 'Michael Fleshman / Flickr, CC BY-SA 2.0')])
 scene("apc", "THE KINGMAKER", "merger", "Birth of the APC", "2013 merger · 2015 opposition victory",
       "In two thousand and thirteen, he helped engineer one of the most important mergers in Nigerian history. "
       "His Action Congress of Nigeria joined Muhammadu Buhari's party and others to form the All Progressives Congress. "
       "In two thousand and fifteen, the APC did what no opposition had done before: it defeated a sitting president at the ballot box. "
       "Tinubu's former Attorney General in Lagos, Yemi Osinbajo, became Vice President.", trans="flash", hit=True,
-      broll=[('chatham-house-2011.jpg', 'Tinubu at Chatham House, London', '“Democracy in Nigeria and the Rebirth of Opposition”, 18 July 2011', 'Chatham House, CC BY 2.0')])
+      broll=[('chatham-house-2011.jpg', 'Tinubu at Chatham House, London', '“Democracy in Nigeria and the Rebirth of Opposition”, 18 July 2011', 'Chatham House, CC BY 2.0'), ('eagle-square-2015.jpg', 'Eagle Square, Abuja, 29 May 2015', 'Goodluck Jonathan hands over to Muhammadu Buhari', 'U.S. Department of State, public domain')])
 
 # ---------------------------------------------------------------- 6
 chapter_card(6, "THE CONTROVERSIES", "tension")
@@ -157,7 +163,8 @@ scene("bullion", "THE CONTROVERSIES", "bullion", "Bullion vans at his Lagos resi
 chapter_card(7, "#ENDSARS", "dark")
 scene("endsars", "#ENDSARS", "endsars", "#EndSARS protests", "Nationwide, October 2020 · against police brutality",
       "In October twenty twenty, young Nigerians filled the streets in the #EndSARS protests, demanding an end to brutality by the police Special Anti-Robbery Squad. "
-      "Lagos, Tinubu's political home, became the centre of the movement.", trans="dip")
+      "Lagos, Tinubu's political home, became the centre of the movement.", trans="dip",
+      broll=[('endsars-lagos-2020.jpg', '#EndSARS protest, Lagos', '12 October 2020', 'Jerry Jallo / Heinrich Böll Stiftung, CC BY-SA 2.0')])
 scene("lekki", "#ENDSARS", "lekki", "Lekki Toll Gate, Lagos", "Night of 20 October 2020",
       "On the night of the twentieth of October, soldiers opened fire on protesters gathered at the Lekki toll gate. "
       "A judicial panel set up by the Lagos State government later described it as a massacre. "
@@ -211,7 +218,7 @@ scene("record", "THE PRESIDENCY", "ledger", "The record so far", "Reforms and cr
       "His government raised the national minimum wage to seventy thousand naira, launched a student loan scheme, and pushed through sweeping tax reforms. "
       "It also faced criticism over a new presidential jet, the cost of the Lagos–Calabar coastal highway, "
       "and, in March twenty twenty-five, a state of emergency in Rivers State that suspended an elected governor.", mood="warm",
-      broll=[('abuja-2024-lammy.jpg', 'State House, Abuja', 'With UK Foreign Secretary David Lammy, 4 November 2024', 'FCDO, CC BY 2.0')])
+      broll=[('abuja-2024-lammy.jpg', 'State House, Abuja', 'With UK Foreign Secretary David Lammy, 4 November 2024', 'FCDO, CC BY 2.0'), ('blinken-tinubu-2024.jpg', 'State House, Abuja', 'With U.S. Secretary of State Antony Blinken, 23 January 2024', 'U.S. Department of State, public domain')])
 
 # ---------------------------------------------------------------- outro
 scene("legacy", "LEGACY", "legacy", "", "",

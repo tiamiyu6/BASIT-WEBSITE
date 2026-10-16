@@ -30,7 +30,8 @@ def plate(e):
     if k not in _cache:
         p = f"{BUILD}/plates/{k[1]}.png"
         if not os.path.exists(p):
-            V.plate(e).resize((1440, 810), Image.LANCZOS).save(p)
+            V.plate(e).resize((1440, 810), Image.LANCZOS).save(p + ".tmp.png")
+            os.replace(p + ".tmp.png", p)
         _cache[k] = Image.open(p).convert("RGB")
     return _cache[k]
 
@@ -148,7 +149,8 @@ def broll_img(name):
             lum = a @ np.array([0.299, 0.587, 0.114], np.float32)
             a = a * 0.85 + lum[..., None] * 0.15
             a = (a - 128) * 1.06 + 124
-            Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).save(p)
+            Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).save(p + ".tmp.png")
+            os.replace(p + ".tmp.png", p)  # atomic: never read a half-written file
         _cache[k] = Image.open(p).convert("RGB")
     return _cache[k]
 
@@ -436,6 +438,8 @@ def main():
     for e in TL:
         if e["plate"] != "portrait":
             plate(e)
+        for b in e.get("broll") or []:
+            broll_img(b[0])
         if e["clip"]:
             d = f"{BUILD}/clips/{e['id']}"
             os.makedirs(d, exist_ok=True)

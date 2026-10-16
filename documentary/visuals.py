@@ -746,21 +746,33 @@ def p_legacy():
 
 
 def p_credits():
+    from script import S as SCENES
     img = bg((6, 6, 8), (0, 0, 0), seed=27)
     d = ImageDraw.Draw(img, "RGBA")
-    text(d, (W / 2, 200), "JAGABAN", SF(110), GOLD, "mm", spacing=14)
-    lines = [("Written & produced for", DIM), ("Basit Tiamiyu", CREAM),
-             ("Narration: AI voice (Kokoro TTS)  ·  Score & sound design: original, generated", DIM),
-             ("Photos via Wikimedia Commons: official portrait by Nosa Asemota (CC BY-SA 4.0);", DIM),
-             ("Chatham House, 2011 (CC BY 2.0); FCDO, Abuja 2024 (CC BY 2.0). Other visuals are illustrations.", DIM),
-             ("Allegations are reported as allegations. Tinubu has denied wrongdoing in each case,", DIM),
-             ("and none of the controversies described has led to a criminal conviction.", DIM),
-             ("Sources: INEC, NBS, CBN, Supreme Court of Nigeria judgment (Oct 2023),", DIM),
-             ("Lagos State #EndSARS Judicial Panel report (2021), contemporaneous news reporting.", DIM)]
-    y = 360
-    for s, c in lines:
-        text(d, (W / 2, y), s, F(44 if c == CREAM else 32, "Bold" if c == CREAM else "Medium"), c, "mm")
-        y += 62
+    text(d, (W / 2, 120), "JAGABAN", SF(96), GOLD, "mm", spacing=14)
+    text(d, (W / 2, 210), "Written & produced for Basit Tiamiyu", F(36, "Bold"), CREAM, "mm")
+    notes = ["Narration: AI voice (Kokoro TTS)  ·  Score & sound design: original",
+             "Allegations are reported as allegations. Tinubu has denied wrongdoing in each case,",
+             "and none of the controversies described has led to a criminal conviction.",
+             "Sources: INEC, NBS, CBN, Supreme Court of Nigeria (Oct 2023), Lagos #EndSARS Judicial Panel (2021), news reporting."]
+    y = 290
+    for s in notes:
+        text(d, (W / 2, y), s, F(28, "Medium"), DIM, "mm")
+        y += 46
+    credits = ["Opening portrait: Nosa Asemota, CC BY-SA 4.0 (Wikimedia Commons)"]
+    for sc in SCENES:
+        for b in sc.get("broll") or []:
+            c = f"{b[1]}: {b[3]}"
+            if c not in credits:
+                credits.append(c)
+    text(d, (W / 2, y + 40), "PHOTOGRAPHS", F(28, "Black"), GOLD, "mm", spacing=6)
+    y += 100
+    half = (len(credits) + 1) // 2
+    for i, c in enumerate(credits):
+        x = W / 4 + 20 if i < half else 3 * W / 4 - 20
+        yy = y + (i % half) * 40
+        text(d, (x, yy), c, F(22, "Medium"), (190, 184, 172), "mm")
+    text(d, (W / 2, 1040), "Other visuals are illustrations and infographics made for this film.", F(24, "Medium"), DIM, "mm")
     return img
 
 
