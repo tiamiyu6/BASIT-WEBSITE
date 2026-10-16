@@ -91,7 +91,16 @@ def compose(fr, i):
     d = ImageDraw.Draw(canvas)
     d.line([0, y0 - 3, VW, y0 - 3], fill=V.GOLD + (255,), width=4)
     d.line([0, y0 + vid.height + 2, VW, y0 + vid.height + 2], fill=V.GOLD + (255,), width=4)
-    canvas = Image.alpha_composite(canvas, HEADL)
+    if t < 0.5:  # headline punches in on the first frames
+        sc = 1.0 + 0.45 * np.exp(-t * 11)
+        top = HEADL.crop((0, 0, VW, 440))
+        big = top.resize((int(VW * sc), int(440 * sc)), Image.BILINEAR)
+        layer = Image.new("RGBA", (VW, VH), (0, 0, 0, 0))
+        layer.alpha_composite(big, (int(VW / 2 - big.width / 2), int(220 - big.height / 2)))
+        layer.alpha_composite(HEADL.crop((0, 440, VW, VH)), (0, 440))
+        canvas = Image.alpha_composite(canvas, layer)
+    else:
+        canvas = Image.alpha_composite(canvas, HEADL)
     cap = caption(t)
     if cap is not None:
         canvas.alpha_composite(cap, (0, y0 + vid.height + 40))

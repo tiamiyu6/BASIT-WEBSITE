@@ -1,9 +1,10 @@
 """Vertical short-form cuts (Facebook Reels / Shorts / TikTok) built from the same engine.
 
-Each short opens on a hook in the first second, cuts on every sentence with a slam word,
-and ends on a line that runs straight back into the opening line so the video loops.
+Each short opens on a hook in the first second, cuts on every sentence with a slam word, and
+ends on a half-sentence over the SAME picture it opened on, so the last line runs straight into
+the first and the video loops seamlessly.
 
-Build:  SHORT=who ./documentary/build_shorts.sh   (who | lekki | uturn)
+Build:  ./documentary/build_shorts.sh who lekki uturn
 """
 
 
@@ -16,6 +17,7 @@ def sc(id, plate, text="", trans="flash", mood="epic", hold=0.3, broll=(), speed
 
 SHORTS = {
     # 1 ------------------------------------------------------------------ WHO IS TINUBU, REALLY?
+    # loop: "...when he stood before his party and said" -> [his real voice] "Even then, it is my turn!"
     "who": dict(
         headline=("WHO IS", "TINUBU REALLY?"),
         scenes=lambda: [
@@ -28,13 +30,11 @@ SHORTS = {
                "As governor, he rebuilt the finances of Lagos, and built a political machine. "
                "He made governors. "
                "He helped make a president. "
-               "Then he told his party: "
-               "It is my turn. "
                "In twenty twenty-three, he won with thirty-seven percent of the vote. "
-               "The lowest winning share of the Fourth Republic. "
                "And on day one, he said: "
                "Fuel subsidy is gone. "
-               "So who is Bola Tinubu, really?",
+               "But it all started in Abeokuta, when he stood before his party and said",
+               hold=0.05,
                broll=[("chatham-house-2011.jpg", "", "", "Chatham House, CC BY 2.0", "THE GODFATHER", (0, 0.0)),
                       ("mogaji-with-son.jpg", "", "", "archive photo", "IYALOJA'S SON", (1, 0.0)),
                       ("tinubu-young-sepia.jpg", "", "", "archive photo", "CHICAGO", (2, 0.0)),
@@ -43,14 +43,13 @@ SHORTS = {
                       ("tinubu-lagos-allies-award.jpg", "", "", "archive photo", "THE MACHINE", (4, 0.55)),
                       ("tinubu-lagos-allies-retreat.jpg", "", "", "archive photo", "KINGMAKER", (5, 0.0)),
                       ("tinubu-buhari-hands-raised.jpg", "", "", "archive photo", "BUHARI", (6, 0.0)),
-                      ("@quote_emilokan", "", "", "", "", (7, 0.0)),
-                      ("@results", "", "", "", "36.6%", (9, 0.0)),
-                      ("@results", "", "", "", "LOWEST EVER", (10, 0.0)),
-                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "DAY ONE", (11, 0.0)),
-                      ("@quote_subsidy", "", "", "", "", (12, 0.0)),
-                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "WHO IS HE?", (13, 0.0))]),
+                      ("@results", "", "", "", "36.6%", (7, 0.0)),
+                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "DAY ONE", (8, 0.0)),
+                      ("@quote_subsidy", "", "", "", "", (9, 0.0)),
+                      ("abeokuta-podium.jpg", "", "", "", "", (10, 0.3))]),  # = first frame of the opening clip
         ]),
     # 2 ------------------------------------------------------------------ LEKKI 20.10.2020
+    # loop: "...Nigerians remember the night" -> "The lights went off at the Lekki toll gate."
     "lekki": dict(
         headline=("WHAT HAPPENED", "AT LEKKI?"),
         scenes=lambda: [
@@ -67,7 +66,7 @@ SHORTS = {
                "When they got to the toll gate, he said, they immediately started shooting. "
                "Two years later, the man many saw as the face of the establishment became president. "
                "And every October, Nigerians remember the night",
-               trans="fade", mood="dark", lead=0.1,
+               trans="fade", mood="dark", lead=0.05, hold=0.05,
                broll=[("@lekki", "", "", "", "LIGHTS OUT", (0, 0.0)),
                       ("lekki-night-injured-2020.jpg", "", "", "Adetona Omokanye / Getty", "20 · 10 · 2020", (1, 0.0)),
                       ("endsars-lagos-2020.jpg", "", "", "Jerry Jallo / Böll Stiftung, CC BY-SA 2.0", "#ENDSARS", (2, 0.0)),
@@ -78,15 +77,17 @@ SHORTS = {
                       ("agbeze-ifeanyi-matthew.jpg", "", "", "Handout, via The Guardian", "SHOT", (7, 0.0)),
                       ("@witness", "", "", "", "", (9, 0.0)),
                       ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "PRESIDENT", (10, 0.0)),
-                      ("@memorial", "", "", "", "", (11, 0.0))]),
+                      ("@lekki", "", "", "", "", (11, 0.4))]),  # = opening picture
         ]),
     # 3 ------------------------------------------------------------------ THE U-TURN
+    # loop: "...Because back in twenty twelve," -> "He said it would toss Nigerians into the depths of the midnight sea."
     "uturn": dict(
-        headline=("HE SAID THIS", "IN 2012…"),
+        headline=("HE CALLED IT", "THE MIDNIGHT SEA"),
         scenes=lambda: [
             sc("uturn_short", "uturn",
+               "He said it would toss Nigerians into the depths of the midnight sea. "
+               "Then he did it himself. "
                "In twenty twelve, he opposed removing the fuel subsidy. "
-               "He said it tossed Nigerians into the depths of the midnight sea. "
                "Eleven years later, in his first speech as president, he declared: "
                "Fuel subsidy is gone. "
                "Petrol nearly tripled almost overnight. "
@@ -97,21 +98,22 @@ SHORTS = {
                "Amnesty International says at least twenty-four were killed. "
                "His supporters call it brave, necessary reform. "
                "His critics call it the ultimate U-turn. "
-               "And it all goes back to what he said",
-               trans="fade", mood="tension", lead=0.1,
-               broll=[("occupy-nigeria-nyc-2012.jpg", "", "", "Michael Fleshman, CC BY-SA 2.0", "2012", (0, 0.0)),
-                      ("@uturn", "", "", "", "", (1, 0.0)),
-                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "2023", (2, 0.0)),
-                      ("@quote_subsidy", "", "", "", "", (3, 0.0)),
-                      ("@fuelprice", "", "", "", "₦185 → ₦617", (4, 0.0)),
-                      ("@fuelprice", "", "", "", "~₦1,000", (5, 0.0)),
-                      ("@economy", "", "", "", "NAIRA −⅔", (6, 0.0)),
-                      ("@economy", "", "", "", "34% INFLATION", (7, 0.0)),
-                      ("endbadgovernance-march-2024.jpg", "", "", "via Amnesty International", "#ENDBADGOVERNANCE", (8, 0.0)),
-                      ("@protest", "", "", "", "24 KILLED", (10, 0.0)),
-                      ("tinubu-shettima-2027.jpg", "", "", "via Arise News", "REFORM?", (11, 0.0)),
-                      ("@uturn", "", "", "", "U-TURN", (12, 0.0)),
-                      ("@uturn", "", "", "", "", (13, 0.0))]),
+               "Because back in twenty twelve,",
+               trans="fade", mood="tension", lead=0.05, hold=0.05,
+               broll=[("occupy-nigeria-nyc-2012.jpg", "", "", "Michael Fleshman, CC BY-SA 2.0", "“MIDNIGHT SEA”", (0, 0.0)),
+                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "THEN HE DID IT", (1, 0.0)),
+                      ("@uturn", "", "", "", "2012", (2, 0.0)),
+                      ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "2023", (3, 0.0)),
+                      ("@quote_subsidy", "", "", "", "", (4, 0.0)),
+                      ("@fuelprice", "", "", "", "₦185 → ₦617", (5, 0.0)),
+                      ("@fuelprice", "", "", "", "~₦1,000", (6, 0.0)),
+                      ("@economy", "", "", "", "NAIRA −⅔", (7, 0.0)),
+                      ("@economy", "", "", "", "34% INFLATION", (8, 0.0)),
+                      ("endbadgovernance-march-2024.jpg", "", "", "via Amnesty International", "#ENDBADGOVERNANCE", (9, 0.0)),
+                      ("@protest", "", "", "", "24 KILLED", (11, 0.0)),
+                      ("tinubu-shettima-2027.jpg", "", "", "via Arise News", "REFORM?", (12, 0.0)),
+                      ("@uturn", "", "", "", "U-TURN", (13, 0.0)),
+                      ("occupy-nigeria-nyc-2012.jpg", "", "", "Michael Fleshman, CC BY-SA 2.0", "", (14, 0.0))]),  # = opening
         ]),
 }
 

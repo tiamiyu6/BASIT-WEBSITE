@@ -415,6 +415,58 @@ def shutter(amp=0.25):
     return stereo(x * amp, -0.2)
 
 
+def film_pop(amp=0.2):
+    t = T(0.12)
+    x = hp(rng.normal(0, 1, len(t)), 1800) * np.exp(-t * 90) + np.sin(2 * np.pi * 95 * t) * np.exp(-t * 40) * 0.6
+    return stereo(x * amp, 0.1)
+
+
+def flick(amp=0.15):  # a photo / paper flick
+    t = T(0.22)
+    flutter = (np.sin(2 * np.pi * 38 * t) > 0).astype(float) * 0.6 + 0.4
+    x = bp(rng.normal(0, 1, len(t)), 1500, 6000) * flutter * np.exp(-t * 18)
+    return stereo(x * amp, -0.3)
+
+
+def shimmer(amp=0.05):
+    t = T(1.6)
+    x = sum(np.sin(2 * np.pi * f * t) * np.exp(-t * (2.2 + k)) for k, f in enumerate((1318.5, 1975.5, 2637.0, 3520.0)))
+    return np.stack([x, np.roll(x, 400)], 1) * amp * env(len(t), 0.01, 0.4)[:, None]
+
+
+def soft_thud(amp=0.3):
+    t = T(0.5)
+    x = np.sin(2 * np.pi * np.cumsum(55 + 35 * np.exp(-t * 25)) / SR) * np.exp(-t * 9)
+    return stereo(lp(x, 400) * amp)
+
+
+def gong(amp=0.22):
+    t = T(4.0)
+    x = sum(np.sin(2 * np.pi * f * t) * np.exp(-t * d) * g for f, d, g in
+            ((96, 0.8, 1.0), (151, 1.1, 0.6), (233, 1.6, 0.4), (347, 2.2, 0.25), (512, 3.0, 0.15)))
+    x *= 1 + 0.15 * np.sin(2 * np.pi * 3.5 * t)
+    return np.stack([x, np.roll(x, 600)], 1) * amp * env(len(t), 0.005, 1.0)[:, None]
+
+
+def string_stab(amp=0.16):
+    return brass([50, 57, 62], 1.1, amp) + stereo(np.sin(2 * np.pi * hz(38) * T(1.1)) * np.exp(-T(1.1) * 3) * amp * 0.8)
+
+
+def talking_phrase(amp=0.22):
+    out = np.zeros((int(1.4 * SR), 2))
+    for k, (shape, at) in enumerate((((130, 200, 140), 0.0), ((150, 230, 120), 0.22), ((120, 170, 100), 0.44),
+                                     ((160, 250, 110), 0.7))):
+        add(out, talking_drum(shape, amp * (1.0 if k < 3 else 1.2)), at)
+    return out
+
+
+def shekere_roll(amp=0.06):
+    out = np.zeros((int(0.5 * SR), 2))
+    for k in range(4):
+        add(out, shekere(amp * (0.6 + 0.15 * k)), k * 0.08)
+    return out
+
+
 def reverb(x, secs=2.6, wet=0.25):
     n = int(secs * SR)
     t = np.arange(n) / SR
@@ -441,7 +493,10 @@ def main():
     for i, r in enumerate(runs):
         a, b = max(0, r["start"] - 1.5), min(total, r["end"] + 1.5)
         seg = score_section(r["mood"], b - a, i)
-        seg *= env(len(seg), 1.5, 1.5)[:, None]
+        loop = bool(os.environ.get("SHORT"))  # reels loop: no fade at the very start or end
+        fade_in = 0.02 if (loop and a == 0) else 1.5
+        fade_out = 0.02 if (loop and b >= total - 0.01) else 1.5
+        seg *= env(len(seg), fade_in, fade_out)[:, None]
         add(music, seg, a)
     music = reverb(music, 2.8, 0.35)
 
@@ -466,19 +521,40 @@ def main():
     voice = reverb(voice, 0.6, 0.06)
 
     # --- sound design per scene / transition
+    # Varied, sparse transitions: most cuts are silent, light sounds rotate so nothing repeats
+    # back-to-back, and the big boom is kept for the title, chapter cards and slam lines.
+    placed = []
+
+    def place(x, at, gap=1.4, force=False):
+        if not force and any(abs(at - p) < gap for p in placed):
+            return
+        add(sfx, x, at)
+        placed.append(at)
+
+    soft_pool = [lambda: film_pop(0.16), lambda: flick(0.14), lambda: shimmer(0.045),
+                 lambda: soft_thud(0.22), lambda: reverse_swell(0.7, 0.1), lambda: talking_drum((150, 210, 140), 0.12)]
+    stingers = [lambda: talking_phrase(0.24), lambda: gong(0.22), lambda: string_stab(0.16), lambda: dundun(0.45)]
+    n_fade = n_ch = 0
     for e in tl:
         s, tr = e["start"], e["trans"]
-        if tr in ("fade", "zoom"):
-            add(sfx, whoosh(1.1, 0.22 if tr == "fade" else 0.35), s - 0.45 + e["ov"] / 2)
-        if tr == "glitch":
-            add(sfx, glitch_sfx(0.55, 0.2), s)
-            add(sfx, whoosh(0.6, 0.18), s - 0.1)
-        if tr == "flash":
-            add(sfx, riser(1.6, 0.16), s - 1.6)
-        if tr == "dip" and e["plate"] == "chapter":
-            add(sfx, riser(2.2, 0.2), s - 1.8)
-        if e["hit"]:
-            add(sfx, impact(0.75 if e["plate"] in ("chapter", "title") else 0.55), s + (0.25 if tr == "dip" else 0.0))
+        if e["plate"] == "chapter":
+            place(stingers[n_ch % len(stingers)](), s + 0.25, force=True)
+            n_ch += 1
+        elif e["plate"] == "title":
+            place(riser(1.6, 0.14), s - 1.6, force=True)
+            place(impact(0.7), s, force=True)
+        elif tr == "fade":
+            if n_fade % 3 != 2:  # every third crossfade stays silent
+                place(soft_pool[n_fade % len(soft_pool)](), s + e["ov"] * 0.4)
+            n_fade += 1
+        elif tr == "zoom":
+            place(reverse_swell(0.8, 0.16), s - 0.6)
+        elif tr == "glitch":
+            place(glitch_sfx(0.4, 0.11), s)
+        elif tr == "flash":
+            place(film_pop(0.26), s)
+        if e["hit"] and e["plate"] not in ("chapter", "title") and e["slam_at"] is None:
+            place(soft_thud(0.32) if n_fade % 2 else dundun(0.3), s + (0.25 if tr == "dip" else 0.02), gap=0.8)
         if e["plate"] in ("endsars", "protest"):
             add(sfx, crowd_amb(e["dur"] + 1, 0.07), s)
         if e["plate"] == "lekki":
@@ -488,16 +564,19 @@ def main():
         if e["plate"] in ("exile", "legacy", "open"):
             add(sfx, wind(e["dur"] + 1, 0.035), s)
         hook = any(len(b) >= 5 and b[4] is not None for b in (e.get("broll") or []))
-        for k, b in enumerate(e.get("broll") or []):  # shutter on each real photo; impact + whoosh on hook cuts
+        light = [lambda: talking_drum((140, 210, 150), 0.16), lambda: shekere_roll(0.06), lambda: agogo(True, 0.07),
+                 lambda: soft_thud(0.26), lambda: talking_drum((170, 240, 120), 0.15), lambda: shimmer(0.04)]
+        for k, b in enumerate(e.get("broll") or []):
             at = e["start"] + e["broll_times"][k]
-            if hook:
-                add(sfx, whoosh(0.35, 0.2), at - 0.3)
-                add(sfx, impact(0.42 if b[4] else 0.25), at)
-                add(sfx, taiko(0.35, 1.0 + 0.1 * (k % 3)), at)
-            else:
-                add(sfx, shutter(0.3), at)
-        if e.get("broll") and not hook:
-            add(sfx, whoosh(1.0, 0.18), e["start"] + e["broll_end"] - 0.3)
+            if hook:  # fast montage: alternate light percussion, a weightier hit every fourth cut
+                if k == 0:
+                    place(impact(0.45), at, gap=0.3, force=True)
+                elif k % 4 == 3:
+                    place(dundun(0.42), at, gap=0.3)
+                else:
+                    place(light[k % len(light)](), at, gap=0.3)
+            elif k == 0:
+                place(flick(0.13), at)
         if e["plate"] in ARCHIVAL:
             add(sfx, projector(e["dur"] + 0.5), e["start"])
         if e["plate"] == "portrait":
