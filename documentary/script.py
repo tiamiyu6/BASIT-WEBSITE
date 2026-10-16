@@ -117,7 +117,8 @@ scene("mother", "ORIGINS", "mother", "Alhaja Abibatu Mogaji", "Iyaloja of Lagos 
       "To understand his power, start with his mother. Alhaja Abibatu Mogaji was a trader who rose to lead the market women of Lagos as their Iyaloja, "
       "and later headed the Association of Nigerian Market Women and Men. "
       "In a city where markets are run by women, she commanded thousands of traders, and the votes and networks that came with them. "
-      "She lived to ninety-six. Her son learned early that real power is built on the ground, one market stall at a time.")
+      "She lived to ninety-six. Her son learned early that real power is built on the ground, one market stall at a time.",
+      broll=[('mogaji-with-son.jpg', 'Tinubu with his mother', 'Alhaja Abibatu Mogaji, Iyaloja of Lagos', 'archive photo'), ('mogaji-blessing.jpg', "A mother's blessing", 'Alhaja Abibatu Mogaji prays over her son', 'archive photo')])
 scene("roots", "ORIGINS", "roots", "Where is Tinubu from?", "Lagos (official) · Iragbiji, Osun State (ancestral claim)",
       "But where exactly is Tinubu from? Officially, Lagos. "
       "Yet his roots have long been debated. Allies, including a traditional chief of Iragbiji in Osun State, say his ancestral home is Iragbiji. "
@@ -128,7 +129,8 @@ scene("chicago", "ORIGINS", "chicago", "Chicago, United States", "Studied accoun
       "In the mid nineteen-seventies he travelled to the United States. "
       "He studied at Richard J. Daley College, then at Chicago State University, graduating in nineteen seventy-nine with a degree in accounting. "
       "He worked for firms including Arthur Andersen and Deloitte, before returning home to join Mobil Oil Nigeria, where he rose to become a senior finance executive. "
-      "But the records from these years would come back to haunt him, decades later.")
+      "But the records from these years would come back to haunt him, decades later.",
+      broll=[('tinubu-young-sepia.jpg', 'Young Bola Tinubu', 'The accountant years', 'archive photo')])
 scene("family", "ORIGINS", "family", "The Tinubu family", "Wife, children and the market-women dynasty",
       "Family has stayed close to the centre of his power. "
       "His wife, Oluremi Tinubu, a pastor in the Redeemed Christian Church of God, served three terms as senator for Lagos Central, and became First Lady in twenty twenty-three. "
@@ -145,7 +147,8 @@ scene("questions", "ORIGINS", "questions", "Disputed records", "Age, early schoo
 chapter_card(3, "DEMOCRACY & EXILE", "tension")
 scene("senate", "DEMOCRACY & EXILE", "senate", "Senator, Lagos West", "Social Democratic Party (SDP) · 1992",
       "His political career began in nineteen ninety-two, when he won a Senate seat for Lagos West under the Social Democratic Party, "
-      "during General Ibrahim Babangida's promised transition to civilian rule.")
+      "during General Ibrahim Babangida's promised transition to civilian rule.",
+      broll=[('tinubu-early-archive.jpg', 'Bola Tinubu', 'Early political years', 'archive photo')])
 scene("june12", "DEMOCRACY & EXILE", "june12", "12 June 1993", "Presidential election annulled by the military",
       "That transition collapsed. The June twelfth, nineteen ninety-three presidential election, widely seen as won by Moshood Abiola, was annulled by the military. "
       "Months later, General Sani Abacha seized power, and dissolved the Senate.", trans="flash", hit=True)
@@ -169,7 +172,7 @@ chapter_card(4, "GOVERNOR OF LAGOS", "warm")
 scene("gov", "GOVERNOR OF LAGOS", "lagos", "Governor of Lagos State", "Alliance for Democracy · 1999 – 2007",
       "In nineteen ninety-nine, as Nigeria returned to civilian rule, he was elected Governor of Lagos State on the platform of the Alliance for Democracy. "
       "He was re-elected in two thousand and three.", trans="zoom", hit=True,
-      broll=[('victoria-island-2014.jpg', 'Lagos', 'Victoria Island and the lagoon, 2014', 'OpenUpEd / Flickr, CC BY 2.0')])
+      broll=[('tinubu-governor-archive.jpg', 'Bola Tinubu', 'Governorship era', 'archive photo'), ('victoria-island-2014.jpg', 'Lagos', 'Victoria Island and the lagoon, 2014', 'OpenUpEd / Flickr, CC BY 2.0')])
 scene("revenue", "GOVERNOR OF LAGOS", "revenue", "Revenue & transport reforms", "Tax overhaul · LAMATA transport authority (2002)",
       "His supporters point to a revenue revolution. His administration overhauled tax collection, and Lagos's internally generated revenue grew many times over, "
       "giving the state a financial independence few others could match. "
