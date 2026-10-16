@@ -751,7 +751,7 @@ def p_credits():
     text(d, (W / 2, 200), "JAGABAN", SF(110), GOLD, "mm", spacing=14)
     lines = [("Written & produced for", DIM), ("Basit Tiamiyu", CREAM),
              ("Narration: AI voice (Kokoro TTS)  ·  Score & sound design: original, generated", DIM),
-             ("Photos via Wikimedia Commons: official portrait (Presidency of Nigeria, CC BY-SA 4.0);", DIM),
+             ("Photos via Wikimedia Commons: official portrait by Nosa Asemota (CC BY-SA 4.0);", DIM),
              ("Chatham House, 2011 (CC BY 2.0); FCDO, Abuja 2024 (CC BY 2.0). Other visuals are illustrations.", DIM),
              ("Allegations are reported as allegations. Tinubu has denied wrongdoing in each case,", DIM),
              ("and none of the controversies described has led to a criminal conviction.", DIM),

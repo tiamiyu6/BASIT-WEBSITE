@@ -159,7 +159,7 @@ scene("sworn", "THE PRESIDENCY", "quote_subsidy", "Eagle Square, Abuja", "Inaugu
       "On May twenty-ninth, twenty twenty-three, Tinubu was sworn in as Nigeria's sixteenth president. "
       "In his inaugural speech, he made a declaration that shook the economy: Fuel subsidy is gone.", trans="flash", hit=True,
       hold=3.0, slam="Fuel subsidy is gone.",
-      broll=[('official-portrait-2023.jpg', 'President Bola Ahmed Tinubu', 'Official presidential portrait, 2023', 'Presidency of Nigeria, CC BY-SA 4.0')])
+      broll=[('official-portrait-2023.jpg', 'President Bola Ahmed Tinubu', 'Official pre-inauguration portrait, May 2023', 'Nosa Asemota, CC BY-SA 4.0')])
 scene("uturn", "THE PRESIDENCY", "uturn", "Then and now", "Tinubu on fuel subsidy removal · 2012 vs 2023",
       "For many Nigerians, the irony was impossible to miss. "
       "Eleven years earlier, the same man had condemned the very same policy, when it was Goodluck Jonathan's. "
