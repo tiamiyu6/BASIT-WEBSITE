@@ -5,13 +5,14 @@ usage: python3 render.py BUILD_DIR OUT.mp4 [start_sec end_sec]
 import math, os, subprocess, sys, zlib
 from multiprocessing import Pool
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageOps
 import visuals as V
 from timeline import build, FPS
 
 OW, OH = 1280, 720
 BUILD = sys.argv[1]
 TL, TOTAL = build(f"{BUILD}/timing.json")
+TLMAP = {e["id"]: e for e in TL}
 CH_NUM = {e["chapter"]: e["title"].split()[-1] for e in TL if e["plate"] == "chapter"}
 
 _cache = {}
@@ -40,7 +41,7 @@ def static_fx():
         d = np.sqrt(((xx - OW / 2) / (OW / 2)) ** 2 + ((yy - OH / 2) / (OH / 2)) ** 2)
         vig = np.clip(1 - 0.42 * np.clip(d - 0.45, 0, None) ** 1.6, 0, 1)[..., None].astype(np.float32)
         rng = np.random.default_rng(3)
-        grain = [rng.normal(0, 6.5, (OH, OW, 1)).astype(np.float32) for _ in range(8)]
+        grain = [rng.normal(0, 3.0, (OH, OW, 1)).astype(np.float32) for _ in range(6)]
         leak = np.zeros((OH * 2, OW * 2, 3), np.float32)
         for cx, cy, r, col in [(0.3, 0.4, 0.5, (255, 120, 30)), (1.4, 0.9, 0.6, (255, 60, 40)),
                                (0.9, 1.5, 0.45, (255, 190, 90)), (1.7, 0.2, 0.4, (255, 140, 60))]:
@@ -128,9 +129,38 @@ def blend(frame, ov, x, y, alpha=1.0):
 
 
 # ------------------------------------------------------------------ per-scene picture
-def kenburns(e, lt, extra_zoom=1.0, shake=(0, 0)):
-    img = plate(e)
-    h = zlib.crc32(e["id"].encode())
+def broll_img(name):
+    k = ("broll", name)
+    if k not in _cache:
+        p = f"{BUILD}/plates/broll_{name}.png"
+        if not os.path.exists(p):
+            src = Image.open(os.path.join(V.HERE, "photos", "broll", name)).convert("RGB")
+            W2, H2 = 1440, 810
+            if src.width / src.height >= 1.5:
+                im = ImageOps.fit(src, (W2, H2), Image.LANCZOS, centering=(0.5, 0.4))
+            else:  # portrait-orientation photo: blurred backdrop + full photo
+                im = ImageOps.fit(src, (W2, H2), Image.LANCZOS).filter(ImageFilter.GaussianBlur(40))
+                im = Image.blend(im, Image.new("RGB", im.size, (0, 0, 0)), 0.5)
+                fw = int(src.width * H2 / src.height)
+                im.paste(src.resize((fw, H2), Image.LANCZOS), ((W2 - fw) // 2, 0))
+            # gentle documentary grade
+            a = np.asarray(im).astype(np.float32)
+            lum = a @ np.array([0.299, 0.587, 0.114], np.float32)
+            a = a * 0.85 + lum[..., None] * 0.15
+            a = (a - 128) * 1.06 + 124
+            Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).save(p)
+        _cache[k] = Image.open(p).convert("RGB")
+    return _cache[k]
+
+
+def broll_caption(e, b):
+    fake = dict(e, id=e["id"] + "#" + b[0], title=b[1], sub=f"{b[2]}  ·  Photo: {b[3]}" if b[2] else f"Photo: {b[3]}")
+    return caption_img(fake)
+
+
+def kenburns(e, lt, extra_zoom=1.0, shake=(0, 0), img=None, key=None):
+    img = img or plate(e)
+    h = zlib.crc32((key or e["id"]).encode())
     zin = (h % 2 == 0) or e["plate"] in ("title", "open", "quote_emilokan", "quote_subsidy", "legacy")
     p = smooth(lt / max(e["dur"], 0.1)) * 0.6 + (lt / max(e["dur"], 0.1)) * 0.4
     z0, z1 = (1.0, 1.085) if zin else (1.085, 1.0)
@@ -183,11 +213,12 @@ def portrait_frame(e, lt):
     img, (ex, ey) = _cache["portrait"]
     BW, BH = img.size
     hold = 1.6
+    ZMAX = 28 if os.path.exists(os.path.join(V.HERE, "photos", "portrait.jpg")) else 45
     if lt < hold:
         z, q = 1.0 + 0.05 * lt / hold, 0.0
     else:
         q = min(1.0, (lt - hold) / (e["dur"] - hold))
-        z = 1.05 * math.exp(math.log(45 / 1.05) * q ** 2.3)
+        z = 1.05 * math.exp(math.log(ZMAX / 1.05) * q ** 2.3)
     k = smooth(min(1.0, q * 1.4))
     cx, cy = BW / 2 + (ex - BW / 2) * k, BH / 2 + (ey - BH / 2) * k
     acc = None
@@ -253,6 +284,33 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
         return f
     if e["plate"] == "portrait":
         return portrait_frame(e, lt)
+    br = e.get("broll") or []
+    bs = e.get("broll_secs", 0)
+    if br and lt < bs * len(br) + 0.8:
+        XF = 0.8
+        k = min(int(lt // bs), len(br) - 1)
+        lk = lt - k * bs
+        sub_e = dict(e, dur=bs + XF)
+        f = kenburns(sub_e, lk, extra_zoom, shake, img=broll_img(br[k][0]), key=br[k][0])
+        if k > 0 and lk < XF:  # dissolve from previous photo
+            pf = kenburns(sub_e, lk + bs, extra_zoom, shake, img=broll_img(br[k - 1][0]), key=br[k - 1][0])
+            f = pf * (1 - smooth(lk / XF)) + f * smooth(lk / XF)
+        snap = math.exp(-lk * 14) if lk < 0.4 and (k > 0 or lt < 0.4) else 0
+        if lt > bs * len(br):  # dissolve into the scene's graphic
+            w = smooth((lt - bs * len(br)) / XF)
+            g = scene_frame(dict(e, broll=[]), lt, extra_zoom, shake)
+            return f * (1 - w) + g * w
+        f = f + (255 - f) * snap * 0.35
+        cap = broll_caption(e, br[k])
+        a = smooth((lk - 0.3) / 0.6) * (1 - smooth((lk - bs + 0.5) / 0.4))
+        blend(f, cap, 28 - 40 * (1 - smooth((lk - 0.3) / 0.6)), 26, a)
+        t = e["start"] + lt
+        for a0, a1, s in e["subs"]:
+            if a0 - 0.12 <= t <= a1 + 0.25:
+                si = sub_img(s)
+                al = smooth((t - a0 + 0.12) / 0.15) * (1 - smooth((t - a1) / 0.25))
+                blend(f, si, OW / 2 - si.shape[1] / 2, OH - si.shape[0] - 30, al)
+        return f
     if e["plate"] == "chapter":
         f = chapter_frame(e, lt)
     elif e["plate"] == "title":
@@ -263,9 +321,12 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
     if e["plate"] in ARCHIVAL:
         f = archival(f, int(t * FPS), t)
     cap = caption_img(e)
+    lt_cap = lt
+    if e.get("broll_secs") and not e.get("broll"):  # called from the b-roll dissolve
+        lt_cap = lt - e["broll_secs"] * len([b for b in TLMAP[e["id"]]["broll"]])
     if cap is not None:
-        a = smooth((lt - 0.5) / 0.7) * (1 - smooth((lt - e["dur"] + 0.6) / 0.5))
-        slide = 40 * (1 - smooth((lt - 0.5) / 0.7))
+        a = smooth((lt_cap - 0.5) / 0.7) * (1 - smooth((lt - e["dur"] + 0.6) / 0.5))
+        slide = 40 * (1 - smooth((lt_cap - 0.5) / 0.7))
         blend(f, cap, OW - cap.shape[1] - 28 + slide, 26, a)
     for a0, a1, s in e["subs"]:
         if a0 - 0.12 <= t <= a1 + 0.25:
@@ -357,8 +418,7 @@ def frame_at(i):
     f = f + leak[oy:oy + OH, ox:ox + OW] * leak_amt
     # film look: contrast curve, vignette, grain, bars of soft darkness top/bottom
     f = f * vig
-    f = 255 * (f / 255) ** 1.04
-    f = f + grain[i % len(grain)]
+    f = f + grain[(i // 5) % len(grain)]
     return np.clip(f, 0, 255).astype(np.uint8).tobytes()
 
 
@@ -369,7 +429,7 @@ def main():
     os.makedirs(f"{BUILD}/plates", exist_ok=True)
     frames = range(int(a * FPS), int(b * FPS))
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{OW}x{OH}",
-           "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-tune", "film",
+           "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "22", "-maxrate", "1800k", "-bufsize", "3600k",
            "-pix_fmt", "yuv420p", out]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     # warm the plate cache once so workers just read PNGs

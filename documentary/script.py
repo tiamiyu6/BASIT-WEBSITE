@@ -10,15 +10,17 @@ Each scene has:
   mood      - music cue for this scene
   hit       - True = impact sound + camera shake when the scene lands
   hold      - extra seconds after narration
+  broll     - real photos shown at the start of the scene before the graphic:
+              [(file in photos/broll/, caption title, caption sub, photo credit), ...]
   slam      - a narration sentence that lands with a big sound-design hit, flash and shake
 """
 
 S = []
 
 
-def scene(id, chapter, plate, title, sub, text="", trans="fade", mood=None, hit=False, hold=1.0, slam=None):
+def scene(id, chapter, plate, title, sub, text="", trans="fade", mood=None, hit=False, hold=1.0, slam=None, broll=()):
     S.append(dict(id=id, chapter=chapter, plate=plate, title=title, sub=sub, text=text,
-                  trans=trans, mood=mood, hit=hit, hold=hold, slam=slam))
+                  trans=trans, mood=mood, hit=hit, hold=hold, slam=slam, broll=list(broll)))
 
 
 def chapter_card(num, name, mood):
@@ -97,7 +99,8 @@ scene("apc", "THE KINGMAKER", "merger", "Birth of the APC", "2013 merger · 2015
       "In two thousand and thirteen, he helped engineer one of the most important mergers in Nigerian history. "
       "His Action Congress of Nigeria joined Muhammadu Buhari's party and others to form the All Progressives Congress. "
       "In two thousand and fifteen, the APC did what no opposition had done before: it defeated a sitting president at the ballot box. "
-      "Tinubu's former Attorney General in Lagos, Yemi Osinbajo, became Vice President.", trans="flash", hit=True)
+      "Tinubu's former Attorney General in Lagos, Yemi Osinbajo, became Vice President.", trans="flash", hit=True,
+      broll=[('chatham-house-2011.jpg', 'Tinubu at Chatham House, London', '“Democracy in Nigeria and the Rebirth of Opposition”, 18 July 2011', 'Chatham House, CC BY 2.0')])
 
 # ---------------------------------------------------------------- 5
 chapter_card(5, "THE CONTROVERSIES", "tension")
@@ -155,7 +158,8 @@ chapter_card(8, "THE PRESIDENCY", "epic")
 scene("sworn", "THE PRESIDENCY", "quote_subsidy", "Eagle Square, Abuja", "Inauguration · 29 May 2023",
       "On May twenty-ninth, twenty twenty-three, Tinubu was sworn in as Nigeria's sixteenth president. "
       "In his inaugural speech, he made a declaration that shook the economy: Fuel subsidy is gone.", trans="flash", hit=True,
-      hold=3.0, slam="Fuel subsidy is gone.")
+      hold=3.0, slam="Fuel subsidy is gone.",
+      broll=[('official-portrait-2023.jpg', 'President Bola Ahmed Tinubu', 'Official presidential portrait, 2023', 'Presidency of Nigeria, CC BY-SA 4.0')])
 scene("uturn", "THE PRESIDENCY", "uturn", "Then and now", "Tinubu on fuel subsidy removal · 2012 vs 2023",
       "For many Nigerians, the irony was impossible to miss. "
       "Eleven years earlier, the same man had condemned the very same policy, when it was Goodluck Jonathan's. "
@@ -174,7 +178,8 @@ scene("protest", "THE PRESIDENCY", "protest", "#EndBadGovernance protests", "Aug
 scene("record", "THE PRESIDENCY", "ledger", "The record so far", "Reforms and criticisms",
       "His government raised the national minimum wage to seventy thousand naira, launched a student loan scheme, and pushed through sweeping tax reforms. "
       "It also faced criticism over a new presidential jet, the cost of the Lagos–Calabar coastal highway, "
-      "and, in March twenty twenty-five, a state of emergency in Rivers State that suspended an elected governor.", mood="warm")
+      "and, in March twenty twenty-five, a state of emergency in Rivers State that suspended an elected governor.", mood="warm",
+      broll=[('abuja-2024-lammy.jpg', 'State House, Abuja', 'With UK Foreign Secretary David Lammy, 4 November 2024', 'FCDO, CC BY 2.0')])
 
 # ---------------------------------------------------------------- outro
 scene("legacy", "LEGACY", "legacy", "", "",

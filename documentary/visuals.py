@@ -749,9 +749,10 @@ def p_credits():
     img = bg((6, 6, 8), (0, 0, 0), seed=27)
     d = ImageDraw.Draw(img, "RGBA")
     text(d, (W / 2, 200), "JAGABAN", SF(110), GOLD, "mm", spacing=14)
-    lines = [("Written & produced for", DIM), ("Basit Tiamiyu", CREAM), ("", DIM),
+    lines = [("Written & produced for", DIM), ("Basit Tiamiyu", CREAM),
              ("Narration: AI voice (Kokoro TTS)  ·  Score & sound design: original, generated", DIM),
-             ("Illustrations are artistic reconstructions, not photographs.", DIM),
+             ("Photos via Wikimedia Commons: official portrait (Presidency of Nigeria, CC BY-SA 4.0);", DIM),
+             ("Chatham House, 2011 (CC BY 2.0); FCDO, Abuja 2024 (CC BY 2.0). Other visuals are illustrations.", DIM),
              ("Allegations are reported as allegations. Tinubu has denied wrongdoing in each case,", DIM),
              ("and none of the controversies described has led to a criminal conviction.", DIM),
              ("Sources: INEC, NBS, CBN, Supreme Court of Nigeria judgment (Oct 2023),", DIM),
@@ -784,10 +785,25 @@ def portrait():
     photo = os.path.join(HERE, "photos", "portrait.jpg")
     if os.path.exists(photo):
         import json
-        im = ImageOps.fit(Image.open(photo).convert("RGB"), (BW, BH), Image.LANCZOS)
+        src = Image.open(photo).convert("RGB")
         meta = os.path.join(HERE, "photos", "portrait.json")
         ex, ey = json.load(open(meta))["eye"] if os.path.exists(meta) else (0.47, 0.38)
-        return im, (ex * BW, ey * BH)
+        # 16:9 canvas: blurred, darkened copy behind; the full portrait in front, eye kept on the canvas
+        back = ImageOps.fit(src, (BW, BH), Image.LANCZOS).filter(ImageFilter.GaussianBlur(60))
+        back = Image.blend(back, Image.new("RGB", back.size, (0, 0, 0)), 0.55)
+        fh = BH
+        fw = int(src.width * fh / src.height)
+        front = src.resize((fw, fh), Image.LANCZOS)
+        x0 = (BW - fw) // 2
+        back.paste(front, (x0, 0))
+        # soft edge where the portrait meets the backdrop
+        edge = Image.new("L", (BW, BH), 0)
+        ImageDraw.Draw(edge).rectangle([x0 + 40, 0, x0 + fw - 40, BH], fill=255)
+        edge = edge.filter(ImageFilter.GaussianBlur(40))
+        blurred = ImageOps.fit(src, (BW, BH), Image.LANCZOS).filter(ImageFilter.GaussianBlur(60))
+        blurred = Image.blend(blurred, Image.new("RGB", blurred.size, (0, 0, 0)), 0.55)
+        im = Image.composite(back, blurred, edge)
+        return im, (x0 + ex * fw, ey * fh)
     # stylised silhouette in his trademark fila cap, rim-lit, with a glowing golden iris
     S = 2
     img = Image.new("RGB", (BW, BH), (4, 4, 6))

@@ -42,6 +42,8 @@ def build(timing_path):
             e["dur"] = max(e["dur"], lead + 0.5)
             e["end"] = start + e["dur"]
         e["clip"] = clip
+        nb = len(sc.get("broll") or [])
+        e["broll_secs"] = min(6.0, e["dur"] * 0.55 / nb) if nb else 0.0
         e["slam_at"] = e["slam_end"] = None
         for a, b, s in e["subs"]:
             if sc.get("slam") and s.strip() == sc["slam"]:

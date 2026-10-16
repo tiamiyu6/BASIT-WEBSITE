@@ -316,6 +316,16 @@ def score_section(mood, d, seed):
     return out[:n]
 
 
+def shutter(amp=0.25):
+    t = T(0.25)
+    x = np.zeros(len(t))
+    for at, g in ((0.0, 1.0), (0.07, 0.7)):
+        i = int(at * SR)
+        n = int(0.03 * SR)
+        x[i:i + n] += hp(rng.normal(0, 1, n), 2500) * np.exp(-np.arange(n) / (0.006 * SR)) * g
+    return stereo(x * amp, -0.2)
+
+
 def reverb(x, secs=2.6, wet=0.25):
     n = int(secs * SR)
     t = np.arange(n) / SR
@@ -388,6 +398,10 @@ def main():
             add(sfx, fire_amb(e["dur"] + 1, 0.11), s)
         if e["plate"] in ("exile", "legacy", "open"):
             add(sfx, wind(e["dur"] + 1, 0.035), s)
+        for k in range(len(e.get("broll") or [])):  # camera shutter on each real photo, whoosh into the graphic
+            add(sfx, shutter(0.3), e["start"] + k * e["broll_secs"])
+        if e.get("broll"):
+            add(sfx, whoosh(1.0, 0.18), e["start"] + len(e["broll"]) * e["broll_secs"] - 0.3)
         if e["plate"] in ARCHIVAL:
             add(sfx, projector(e["dur"] + 0.5), e["start"])
         if e["plate"] == "portrait":
