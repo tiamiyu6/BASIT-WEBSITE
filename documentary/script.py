@@ -342,3 +342,9 @@ scene("people", "", "people", "", "",
              ('endsars-lagos-2020.jpg', '#EndSARS, Lagos', '12 October 2020', 'Jerry Jallo / Heinrich Böll Stiftung, CC BY-SA 2.0'),
              ('lekki-toll-gate-protest-2020.jpg', 'Lekki toll gate', 'October 2020', 'via Foreign Policy')])
 scene("credits", "", "credits", "", "", trans="dip", mood="outro", hold=9.0)
+
+# Vertical shorts reuse this whole engine with their own scene lists (see shorts.py).
+import os as _os
+if _os.environ.get("SHORT"):
+    from shorts import build_short
+    S = build_short(_os.environ["SHORT"])

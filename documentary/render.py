@@ -118,6 +118,9 @@ def tag_img():
     return _cache["tag"]
 
 
+NOSUBS = bool(os.environ.get("NOSUBS"))
+
+
 def blend(frame, ov, x, y, alpha=1.0):
     h, w = ov.shape[:2]
     x, y = int(x), int(y)
@@ -161,8 +164,11 @@ def broll_img(name):
 def slam_img(s):
     k = ("slam", s)
     if k not in _cache:
-        f = V.F(104, "Black")
         tmp = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+        size = 104
+        while size > 50 and tmp.textlength(s, font=V.F(size, "Black")) > 860:  # fits a 4:3 crop
+            size -= 4
+        f = V.F(size, "Black")
         w = int(tmp.textlength(s, font=f)) + 80
         im = Image.new("RGBA", (w, 170), (0, 0, 0, 0))
         d = ImageDraw.Draw(im)
@@ -323,7 +329,7 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
                 blend(f, si, OW / 2 - w_ / 2, OH * 0.40 - h / 2, smooth(lt / 0.06))
         t = e["start"] + lt
         for a0, a1, s in e["subs"]:
-            if a0 - 0.12 <= t <= a1 + 0.25:
+            if not NOSUBS and a0 - 0.12 <= t <= a1 + 0.25:
                 si = sub_img(s)
                 blend(f, si, OW / 2 - si.shape[1] / 2, OH - si.shape[0] - 30, 1.0)
         return f
@@ -363,7 +369,10 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
                 blend(f, si, OW / 2 - w_ / 2, OH * 0.42 - h / 2, smooth(lk / 0.08))
             if br[k][3]:
                 ci = credit_img(br[k][3])
-                blend(f, ci, OW - ci.shape[1] - 20, 20, 0.85)
+                if NOSUBS:  # vertical reels crop to 4:3, keep the credit inside it
+                    blend(f, ci, OW / 2 - ci.shape[1] / 2, OH - ci.shape[0] - 14, 0.85)
+                else:
+                    blend(f, ci, OW - ci.shape[1] - 20, 20, 0.85)
         else:
             snap = math.exp(-lk * 14) if lk < 0.4 and (k > 0 or lt < 0.4) else 0
             f = f + (255 - f) * snap * 0.35
@@ -372,7 +381,7 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
             blend(f, cap, 28 - 40 * (1 - smooth((lk - 0.3) / 0.6)), 26, a)
         t = e["start"] + lt
         for a0, a1, s in e["subs"]:
-            if a0 - 0.12 <= t <= a1 + 0.25:
+            if not NOSUBS and a0 - 0.12 <= t <= a1 + 0.25:
                 si = sub_img(s)
                 al = smooth((t - a0 + 0.12) / 0.15) * (1 - smooth((t - a1) / 0.25))
                 blend(f, si, OW / 2 - si.shape[1] / 2, OH - si.shape[0] - 30, al)
@@ -395,7 +404,7 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
         slide = 40 * (1 - smooth((lt_cap - 0.5) / 0.7))
         blend(f, cap, OW - cap.shape[1] - 28 + slide, 26, a)
     for a0, a1, s in e["subs"]:
-        if a0 - 0.12 <= t <= a1 + 0.25:
+        if not NOSUBS and a0 - 0.12 <= t <= a1 + 0.25:
             si = sub_img(s)
             al = smooth((t - a0 + 0.12) / 0.15) * (1 - smooth((t - a1) / 0.25))
             blend(f, si, OW / 2 - si.shape[1] / 2, OH - si.shape[0] - 30, al)
