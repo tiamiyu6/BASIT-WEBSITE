@@ -170,6 +170,12 @@ scene("lekki", "#ENDSARS", "lekki", "Lekki Toll Gate, Lagos", "Night of 20 Octob
       "A judicial panel set up by the Lagos State government later described it as a massacre. "
       "The army and the federal government rejected that finding, and the exact number of victims is still disputed.", trans="flash", hit=True,
       broll=[('lekki-tollgate-afp-2020.jpg', 'Lekki toll gate, Lagos', 'About 2,000 protesters blocked one of the main roads into Lagos', 'Pius Utomi Ekpei / AFP / Getty'), ('lekki-toll-gate-protest-2020.jpg', 'Protesters at the Lekki toll gate', 'Lagos, October 2020', 'via Foreign Policy'), ('lekki-night-injured-2020.jpg', 'Lekki toll gate, night of 20 October 2020', 'People try to help a man injured when security forces opened fire', 'Adetona Omokanye / Getty')])
+scene("witness", "#ENDSARS", "witness", "A survivor's account", "Agbeze Ifeanyi Matthew, 35, from Ondo State",
+      "Agbeze Ifeanyi Matthew, a thirty-five-year-old from Ondo State, was at the toll gate that night. "
+      "He later told The Guardian: "
+      "What happened was the worst memory I can never forget. When they got to the toll gate, they immediately started shooting. "
+      "He was shot in the chest, and survived.", trans="dip", mood="dark", hold=1.8,
+      broll=[('agbeze-ifeanyi-matthew.jpg', 'Agbeze Ifeanyi Matthew', 'Shot in the chest at Lekki toll gate, 20 October 2020', 'Handout, via The Guardian')])
 scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to Tinubu set ablaze",
       "In the chaos that followed, the TVC television station and The Nation newspaper, both linked to Tinubu, were set on fire. "
       "Protesters had seen him as a symbol of the Lagos establishment. Tinubu denied owning the Lekki toll gate, and called for calm. "

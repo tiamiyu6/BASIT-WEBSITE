@@ -19,7 +19,7 @@ SAY = {"#EndSARS": "End SARS", "#EndBadGovernance": "End Bad Governance", "Emi l
        "Osinbajo": "Oh-sin-bah-joe", "Fashola": "Fah-show-lah", "Ambode": "Am-bo-day", "Akinwunmi": "Akin-woon-mi",
        "Babajide": "Bah-bah-jee-day", "Moshood": "Mo-shood", "Abiola": "Ah-bee-oh-lah", "Kwankwaso": "Kwan-kwah-so",
        "Fubara": "Foo-bah-rah", "Borgu": "Bor-goo", "Babatunde": "Bah-bah-toon-day", "Mogaji": "Mo-gah-jee",
-       "naira": "nyra", "Eko": "Eh-koh", "Awori": "Ah-wo-ree", "Oyo": "Oh-yo", "Ife": "Ee-feh",
+       "naira": "nyra", "Agbeze": "Ag-beh-zeh", "Ifeanyi": "Ee-feh-ahn-yee", "Ondo": "On-doh", "Eko": "Eh-koh", "Awori": "Ah-wo-ree", "Oyo": "Oh-yo", "Ife": "Ee-feh",
        "Kanuri": "Kah-noo-ree", "Ibibio": "Ee-bee-bee-oh", "Kanem-Bornu": "Kah-nem Bor-noo", "Nupe": "Noo-peh",
        "Biafra": "Bee-ah-fra", "Sokoto": "So-ko-toe", "NADECO": "Nah-deh-co", "Atiku": "Ah-tee-koo"}
 

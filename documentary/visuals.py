@@ -1041,3 +1041,16 @@ def p_military():
     text(d, (W / 2, 160), "THE SOLDIERS' YEARS", SF(96), GOLD, "mm", spacing=6)
     text(d, (W / 2, 270), "Military rule for 29 of Nigeria's first 39 years of independence", F(36, "Medium"), CREAM, "mm")
     return img
+
+
+def p_witness():
+    img = bg((10, 6, 6), (0, 0, 0), glow=(60, 14, 12), glow_r=0.6, seed=34)
+    d = ImageDraw.Draw(img, "RGBA")
+    text(d, (W / 2 - 640, 230), "“", SF(260), RED + (140,), "mm", shadow=False)
+    lines = ["What happened was the worst", "memory I can never forget.", "When they got to the tollgate,",
+             "they immediately started shooting."]
+    for i, ln in enumerate(lines):
+        text(d, (W / 2, 360 + i * 108), ln, SF(84, "Italic"), CREAM, "mm")
+    d.line([W / 2 - 220, 840, W / 2 + 220, 840], fill=RED, width=3)
+    text(d, (W / 2, 900), "— Agbeze Ifeanyi Matthew, Lekki toll gate survivor, to The Guardian (2021)", F(34, "Medium"), DIM, "mm")
+    return img
