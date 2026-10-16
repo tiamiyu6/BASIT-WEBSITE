@@ -169,12 +169,12 @@ scene("lekki", "#ENDSARS", "lekki", "Lekki Toll Gate, Lagos", "Night of 20 Octob
       "On the night of the twentieth of October, soldiers opened fire on protesters gathered at the Lekki toll gate. "
       "A judicial panel set up by the Lagos State government later described it as a massacre. "
       "The army and the federal government rejected that finding, and the exact number of victims is still disputed.", trans="flash", hit=True,
-      broll=[('lekki-toll-gate-protest-2020.jpg', 'Protesters at the Lekki toll gate', 'Lagos, October 2020', 'via Foreign Policy')])
+      broll=[('lekki-tollgate-afp-2020.jpg', 'Lekki toll gate, Lagos', 'About 2,000 protesters blocked one of the main roads into Lagos', 'Pius Utomi Ekpei / AFP / Getty'), ('lekki-toll-gate-protest-2020.jpg', 'Protesters at the Lekki toll gate', 'Lagos, October 2020', 'via Foreign Policy'), ('lekki-night-injured-2020.jpg', 'Lekki toll gate, night of 20 October 2020', 'People try to help a man injured when security forces opened fire', 'Adetona Omokanye / Getty')])
 scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to Tinubu set ablaze",
       "In the chaos that followed, the TVC television station and The Nation newspaper, both linked to Tinubu, were set on fire. "
       "Protesters had seen him as a symbol of the Lagos establishment. Tinubu denied owning the Lekki toll gate, and called for calm. "
       "For many young Nigerians, the events of that night still shape how they see the political class.", hold=1.6,
-      broll=[('nigeria-is-bleeding-2020.jpg', '“Nigeria is bleeding”', '#EndSARS protest, October 2020', 'via Marie Claire UK'), ('end-sars-now-flag.jpg', '“End SARS Now”', '#EndSARS protest', 'via The Guardian')])
+      broll=[('nigeria-is-bleeding-2020.jpg', '“Nigeria is bleeding”', '#EndSARS protest, October 2020', 'via Marie Claire UK'), ('end-sars-now-flag.jpg', '“End SARS Now”', 'A protester with a Nigerian flag, Lagos, 2020', 'Pius Utomi Ekpei / AFP / Getty')])
 
 # ---------------------------------------------------------------- 8
 chapter_card(8, "\"IT'S MY TURN\"", "epic")
