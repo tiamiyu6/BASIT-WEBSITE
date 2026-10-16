@@ -67,7 +67,8 @@ def main():
         if not sc["text"]:
             continue
         meta = f"{BUILD}/voice/{sc['id']}.json"
-        key = [sc["text"], VOICE, SPEED, 2]
+        speed = sc.get("speed") or SPEED
+        key = [sc["text"], VOICE, speed, 2]
         if os.path.exists(meta) and json.load(open(meta))["key"] == key:
             timing[sc["id"]] = json.load(open(meta))["timing"]
             continue
@@ -76,7 +77,7 @@ def main():
             spoken = sent
             for a, b in SAY.items():
                 spoken = spoken.replace(a, b)
-            a, _ = k.create(spoken, voice=VOICE, speed=SPEED, lang="en-gb")
+            a, _ = k.create(spoken, voice=VOICE, speed=speed, lang="en-gb")
             a = trim(a)
             d = len(a) / SR
             parts = sub_split(sent)
@@ -86,7 +87,7 @@ def main():
                 du = d * len(p) / total
                 subs.append([round(u, 3), round(u + du, 3), p])
                 u += du
-            gap = 0.55 if sent.endswith((".", "?")) else 0.3
+            gap = (0.55 if sent.endswith((".", "?")) else 0.3) * (0.55 if sc.get("speed") else 1.0)
             pieces += [a, np.zeros(int(gap * SR), np.float32)]
             t += d + gap
         audio = np.concatenate(pieces).astype(np.float32)

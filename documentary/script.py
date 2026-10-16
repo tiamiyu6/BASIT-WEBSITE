@@ -18,9 +18,11 @@ Each scene has:
 S = []
 
 
-def scene(id, chapter, plate, title, sub, text="", trans="fade", mood=None, hit=False, hold=1.0, slam=None, broll=()):
+def scene(id, chapter, plate, title, sub, text="", trans="fade", mood=None, hit=False, hold=1.0, slam=None, broll=(),
+          speed=None, lead=None, broll_frac=None):
     S.append(dict(id=id, chapter=chapter, plate=plate, title=title, sub=sub, text=text,
-                  trans=trans, mood=mood, hit=hit, hold=hold, slam=slam, broll=list(broll)))
+                  trans=trans, mood=mood, hit=hit, hold=hold, slam=slam, broll=list(broll),
+                  speed=speed, lead=lead, broll_frac=broll_frac))
 
 
 def chapter_card(num, name, mood):
@@ -30,13 +32,37 @@ def chapter_card(num, name, mood):
 # ---------------------------------------------------------------- cold open
 # Starts on his portrait and pushes into his eye; the story "begins" inside it.
 # Real photo: documentary/photos/portrait.jpg (+ optional photos/portrait.json {"eye": [x, y]} in 0..1 coords)
-scene("portrait", "", "portrait", "", "", trans="dip", mood="intro", hold=7.0)
-scene("open", "", "open", "", "",
-      "In Nigerian politics, few names carry as much weight, or as many questions, as Bola Ahmed Tinubu. "
-      "To his supporters, he is a master builder: the architect of modern Lagos, and the kingmaker who finally claimed the crown. "
-      "To his critics, he is the ultimate political godfather, whose wealth and past have never been fully explained. "
-      "This is his story.",
-      trans="flash", mood="intro", hold=0.6)
+# Cold open: rapid-fire real photos cut on the narrator's words, each with a slam word + impact.
+# broll item: (file or @plate, title, sub, credit, SLAM TEXT, (sentence index, fraction into sentence))
+scene("hook", "", "chapter", "", "",
+      "He has been called the godfather of Lagos. "
+      "The kingmaker. "
+      "The Jagaban. "
+      "He survived exile, a U.S. money case, and questions about his past. "
+      "When young Nigerians rose against police brutality, the bullets came at night. "
+      "Then he declared: "
+      "It is my turn. "
+      "On his first day in power, he made a decision that shook every home in Nigeria. "
+      "To his supporters, a master builder. "
+      "To his critics, the ultimate godfather. "
+      "This is his story. "
+      "And the story of the people who live with his choices.",
+      trans="dip", mood="epic", hold=0.8, speed=1.0, lead=0.25, broll_frac=1.0,
+      broll=[("chatham-house-2011.jpg", "", "", "Chatham House, CC BY 2.0", "THE GODFATHER", (0, 0.0)),
+             ("eagle-square-2015.jpg", "", "", "U.S. Dept. of State", "THE KINGMAKER", (1, 0.0)),
+             ("victoria-island-2014.jpg", "", "", "OpenUpEd, CC BY 2.0", "JAGABAN", (2, 0.0)),
+             ("@case1993", "", "", "", "$460,000", (3, 0.0)),
+             ("@certificate", "", "", "", "THE CERTIFICATES", (3, 0.55)),
+             ("endsars-lagos-2020.jpg", "", "", "Jerry Jallo / Böll Stiftung, CC BY-SA 2.0", "#ENDSARS", (4, 0.0)),
+             ("lekki-night-injured-2020.jpg", "", "", "Adetona Omokanye / Getty", "20 · 10 · 2020", (4, 0.55)),
+             ("@quote_emilokan", "", "", "", "", (5, 0.0)),
+             ("official-portrait-2023.jpg", "", "", "Nosa Asemota, CC BY-SA 4.0", "PRESIDENT", (7, 0.0)),
+             ("@quote_subsidy", "", "", "", "", (7, 0.6)),
+             ("brt-third-mainland-2012.jpg", "", "", "dotun55, CC BY-SA 2.0", "MASTER BUILDER", (8, 0.0)),
+             ("@bullion", "", "", "", "GODFATHER?", (9, 0.0)),
+             ("lagos-lagoon-dawn.jpg", "", "", "dotun55, CC BY-SA 2.0", "", (10, 0.0)),
+             ("lekki-toll-gate-protest-2020.jpg", "", "", "via Foreign Policy", "THE PEOPLE", (11, 0.0))])
+scene("portrait", "", "portrait", "", "", trans="flash", mood="intro", hold=5.5)
 scene("title", "", "title", "", "", trans="flash", mood="intro", hit=True, hold=5.5)
 
 # ---------------------------------------------------------------- 1  (the land and its peoples)
@@ -83,7 +109,8 @@ scene("born", "ORIGINS", "map_lagos", "Lagos, Nigeria", "Official birth date: 29
 scene("chicago", "ORIGINS", "chicago", "Chicago, United States", "Studied accounting · graduated Chicago State University, 1979",
       "In the mid nineteen-seventies he travelled to the United States. "
       "He studied at Richard J. Daley College, then at Chicago State University, graduating in nineteen seventy-nine with a degree in accounting. "
-      "He worked for firms including Arthur Andersen and Deloitte, before returning home to join Mobil Oil Nigeria, where he rose to become a senior finance executive.")
+      "He worked for firms including Arthur Andersen and Deloitte, before returning home to join Mobil Oil Nigeria, where he rose to become a senior finance executive. "
+      "But the records from these years would come back to haunt him, decades later.")
 scene("questions", "ORIGINS", "questions", "Disputed records", "Age, early schooling and documents questioned by critics",
       "Yet even these early chapters are contested. "
       "Over the years, critics have questioned his age, his schooling in Nigeria, and documents he submitted to electoral authorities. "
@@ -137,7 +164,8 @@ scene("apc", "THE KINGMAKER", "merger", "Birth of the APC", "2013 merger · 2015
       "In two thousand and thirteen, he helped engineer one of the most important mergers in Nigerian history. "
       "His Action Congress of Nigeria joined Muhammadu Buhari's party and others to form the All Progressives Congress. "
       "In two thousand and fifteen, the APC did what no opposition had done before: it defeated a sitting president at the ballot box. "
-      "Tinubu's former Attorney General in Lagos, Yemi Osinbajo, became Vice President.", trans="flash", hit=True,
+      "Tinubu's former Attorney General in Lagos, Yemi Osinbajo, became Vice President. "
+      "But before his own turn came, the questions about his money would only grow louder.", trans="flash", hit=True,
       broll=[('chatham-house-2011.jpg', 'Tinubu at Chatham House, London', '“Democracy in Nigeria and the Rebirth of Opposition”, 18 July 2011', 'Chatham House, CC BY 2.0'), ('eagle-square-2015.jpg', 'Eagle Square, Abuja, 29 May 2015', 'Goodluck Jonathan hands over to Muhammadu Buhari', 'U.S. Department of State, public domain')])
 
 # ---------------------------------------------------------------- 6
@@ -186,7 +214,8 @@ scene("memorial", "#ENDSARS", "memorial", "", "", trans="dip", mood="outro", hol
 scene("tvc", "#ENDSARS", "fire", "Aftermath in Lagos", "Media houses linked to Tinubu set ablaze",
       "In the chaos that followed, the TVC television station and The Nation newspaper, both linked to Tinubu, were set on fire. "
       "Protesters had seen him as a symbol of the Lagos establishment. Tinubu denied owning the Lekki toll gate, and called for calm. "
-      "For many young Nigerians, the events of that night still shape how they see the political class.", hold=1.6,
+      "For many young Nigerians, the events of that night still shape how they see the political class. "
+      "And two years later, the man many protesters saw as the face of the establishment would be on the ballot.", hold=1.6,
       broll=[('nigeria-is-bleeding-2020.jpg', '“Nigeria is bleeding”', '#EndSARS protest, October 2020', 'via Marie Claire UK'), ('end-sars-now-flag.jpg', '“End SARS Now”', 'A protester with a Nigerian flag, Lagos, 2020', 'Pius Utomi Ekpei / AFP / Getty')])
 
 # ---------------------------------------------------------------- 8
@@ -205,7 +234,8 @@ scene("results", "\"IT'S MY TURN\"", "results", "2023 presidential election", "O
       "He even lost his own stronghold, Lagos, to Peter Obi.", trans="zoom", hit=True)
 scene("court", "\"IT'S MY TURN\"", "court", "Supreme Court, Abuja", "26 October 2023 · victory upheld",
       "His rivals alleged rigging and failures in the electronic transmission of results. The tribunal dismissed their petitions, "
-      "and on October twenty-sixth, twenty twenty-three, the Supreme Court upheld his victory.")
+      "and on October twenty-sixth, twenty twenty-three, the Supreme Court upheld his victory. "
+      "But by then, his first day in office had already delivered one sentence that would change everything.")
 
 # ---------------------------------------------------------------- 9
 chapter_card(9, "THE PRESIDENCY", "epic")

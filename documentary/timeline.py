@@ -28,7 +28,7 @@ def build(timing_path):
     for i, sc in enumerate(S):
         ov = OVERLAP[sc["trans"]] if i else 0.0
         start = max(0.0, t - ov)
-        lead = LEAD.get(sc["trans"], 0.8)
+        lead = sc["lead"] if sc.get("lead") is not None else LEAD.get(sc["trans"], 0.8)
         clip = clip_info(sc["id"])
         if clip:  # real footage plays first (with its own sound), then the narrator comes in
             lead += clip[1] + 0.3
@@ -43,7 +43,18 @@ def build(timing_path):
             e["end"] = start + e["dur"]
         e["clip"] = clip
         nb = len(sc.get("broll") or [])
-        e["broll_secs"] = min(6.0, e["dur"] * 0.55 / nb) if nb else 0.0
+        if sc.get("broll_frac"):
+            e["broll_secs"] = e["dur"] * sc["broll_frac"] / nb if nb else 0.0
+        else:
+            e["broll_secs"] = min(6.0, e["dur"] * 0.55 / nb) if nb else 0.0
+        times = [k * e["broll_secs"] for k in range(nb)]
+        for k, b in enumerate(sc.get("broll") or []):
+            if len(b) >= 6 and voice:  # cut on the narrator's words: (sentence index, fraction)
+                si, fr = b[5]
+                a0, a1, _ = e["subs"][min(si, len(e["subs"]) - 1)]
+                times[k] = 0.0 if k == 0 else (a0 - start) + fr * (a1 - a0) - 0.08
+        e["broll_times"] = times
+        e["broll_end"] = (e["dur"] + 1.0) if sc.get("broll_frac") else nb * e["broll_secs"]
         e["slam_at"] = e["slam_end"] = None
         for a, b, s in e["subs"]:
             if sc.get("slam") and s.strip() == sc["slam"]:

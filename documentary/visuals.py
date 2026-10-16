@@ -891,19 +891,19 @@ def p_uturn():
     left[:, : W // 2] = np.array([70, 52, 30])
     img = Image.fromarray(np.clip(a + left * 0.6, 0, 255).astype(np.uint8))
     d = ImageDraw.Draw(img, "RGBA")
-    d.line([W / 2, 120, W / 2, 960], fill=GOLD, width=3)
-    text(d, (W / 4, 190), "2012", SF(150), (235, 210, 170), "mm")
-    text(d, (W / 4, 300), "Tinubu, opposing Jonathan's removal", F(34, "Medium"), (210, 190, 160), "mm")
+    d.line([W / 2, 230, W / 2, 720], fill=GOLD, width=3)
+    text(d, (W / 4, 300), "2012", SF(150), (235, 210, 170), "mm")
+    text(d, (W / 4, 405), "Tinubu, opposing Jonathan's removal", F(34, "Medium"), (210, 190, 160), "mm")
     for i, ln in enumerate(["“The government has", "tossed the people into", "the depths of the", "midnight sea.”"]):
-        text(d, (W / 4, 470 + i * 92), ln, SF(70, "Italic"), (245, 232, 210), "mm")
-    text(d, (3 * W / 4, 190), "2023", SF(150), GOLD, "mm")
-    text(d, (3 * W / 4, 300), "President Tinubu, inaugural address", F(34, "Medium"), DIM, "mm")
-    text(d, (3 * W / 4, 600), "“Fuel subsidy", SF(96), CREAM, "mm")
-    text(d, (3 * W / 4, 710), "is gone.”", SF(96), CREAM, "mm")
+        text(d, (W / 4, 545 + i * 88), ln, SF(70, "Italic"), (245, 232, 210), "mm")
+    text(d, (3 * W / 4, 300), "2023", SF(150), GOLD, "mm")
+    text(d, (3 * W / 4, 405), "President Tinubu, inaugural address", F(34, "Medium"), DIM, "mm")
+    text(d, (3 * W / 4, 620), "“Fuel subsidy", SF(96), CREAM, "mm")
+    text(d, (3 * W / 4, 730), "is gone.”", SF(96), CREAM, "mm")
 
     def fn(dd):
-        dd.ellipse([W / 2 - 120, 880, W / 2 + 120, 1040], fill=(30, 8, 8, 255), outline=RED + (255,), width=6)
-        dd.text((W / 2, 960), "U-TURN", font=F(50, "Black"), fill=RED + (255,), anchor="mm")
+        dd.ellipse([W / 2 - 120, 735, W / 2 + 120, 875], fill=(30, 8, 8, 255), outline=RED + (255,), width=6)
+        dd.text((W / 2, 805), "U-TURN", font=F(50, "Black"), fill=RED + (255,), anchor="mm")
     return glow_layer(img, fn, 18, 2)
 
 

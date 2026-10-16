@@ -135,7 +135,10 @@ def broll_img(name):
     if k not in _cache:
         p = f"{BUILD}/plates/broll_{name}.png"
         if not os.path.exists(p):
-            src = Image.open(os.path.join(V.HERE, "photos", "broll", name)).convert("RGB")
+            if name.startswith("@"):
+                src = V.plate(dict(id=name[1:], plate=name[1:])).convert("RGB")
+            else:
+                src = Image.open(os.path.join(V.HERE, "photos", "broll", name)).convert("RGB")
             W2, H2 = 1440, 810
             if src.width / src.height >= 1.5:
                 im = ImageOps.fit(src, (W2, H2), Image.LANCZOS, centering=(0.5, 0.4))
@@ -152,6 +155,35 @@ def broll_img(name):
             Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).save(p + ".tmp.png")
             os.replace(p + ".tmp.png", p)  # atomic: never read a half-written file
         _cache[k] = Image.open(p).convert("RGB")
+    return _cache[k]
+
+
+def slam_img(s):
+    k = ("slam", s)
+    if k not in _cache:
+        f = V.F(104, "Black")
+        tmp = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+        w = int(tmp.textlength(s, font=f)) + 80
+        im = Image.new("RGBA", (w, 170), (0, 0, 0, 0))
+        d = ImageDraw.Draw(im)
+        d.text((w / 2 + 5, 90), s, font=f, fill=(0, 0, 0, 200), anchor="mm")
+        g = im.filter(ImageFilter.GaussianBlur(10))
+        d2 = ImageDraw.Draw(g)
+        d2.text((w / 2, 85), s, font=f, fill=(255, 255, 255, 255), anchor="mm")
+        d2.rectangle([w / 2 - 60, 150, w / 2 + 60, 156], fill=V.GOLD + (255,))
+        _cache[k] = np.asarray(g).astype(np.float32) / 255
+    return _cache[k]
+
+
+def credit_img(s):
+    k = ("credit", s)
+    if k not in _cache:
+        f = V.F(14, "Medium")
+        tmp = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+        w = int(tmp.textlength("Photo: " + s, font=f)) + 16
+        im = Image.new("RGBA", (w, 24), (0, 0, 0, 120))
+        ImageDraw.Draw(im).text((8, 12), "Photo: " + s, font=f, fill=(230, 225, 215, 255), anchor="lm")
+        _cache[k] = np.asarray(im).astype(np.float32) / 255
     return _cache[k]
 
 
@@ -287,25 +319,46 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
     if e["plate"] == "portrait":
         return portrait_frame(e, lt)
     br = e.get("broll") or []
-    bs = e.get("broll_secs", 0)
-    if br and lt < bs * len(br) + 0.8:
-        XF = 0.8
-        k = min(int(lt // bs), len(br) - 1)
-        lk = lt - k * bs
-        sub_e = dict(e, dur=bs + XF)
+    if br and lt < e["broll_end"] + 0.8:
+        times = e["broll_times"]
+        hook = any(len(b) >= 5 and b[4] is not None for b in br)
+        XF = 0.12 if hook else 0.8
+        k = max(i for i in range(len(br)) if times[i] <= lt or i == 0)
+        lk = lt - times[k]
+        seg = (times[k + 1] if k + 1 < len(br) else e["broll_end"]) - times[k]
+        sub_e = dict(e, dur=seg + XF)
         f = kenburns(sub_e, lk, extra_zoom, shake, img=broll_img(br[k][0]), key=br[k][0])
-        if k > 0 and lk < XF:  # dissolve from previous photo
-            pf = kenburns(sub_e, lk + bs, extra_zoom, shake, img=broll_img(br[k - 1][0]), key=br[k - 1][0])
+        if k > 0 and lk < XF:  # dissolve (or quick cut) from the previous photo
+            pseg = times[k] - times[k - 1]
+            pf = kenburns(dict(e, dur=pseg + XF), lk + pseg, extra_zoom, shake, img=broll_img(br[k - 1][0]), key=br[k - 1][0])
             f = pf * (1 - smooth(lk / XF)) + f * smooth(lk / XF)
-        snap = math.exp(-lk * 14) if lk < 0.4 and (k > 0 or lt < 0.4) else 0
-        if lt > bs * len(br):  # dissolve into the scene's graphic
-            w = smooth((lt - bs * len(br)) / XF)
+        if lt > e["broll_end"]:  # dissolve into the scene's graphic
+            w = smooth((lt - e["broll_end"]) / XF)
             g = scene_frame(dict(e, broll=[]), lt, extra_zoom, shake)
             return f * (1 - w) + g * w
-        f = f + (255 - f) * snap * 0.35
-        cap = broll_caption(e, br[k])
-        a = smooth((lk - 0.3) / 0.6) * (1 - smooth((lk - bs + 0.5) / 0.4))
-        blend(f, cap, 28 - 40 * (1 - smooth((lk - 0.3) / 0.6)), 26, a)
+        if hook:
+            fl = math.exp(-lk * 16) if lk < 0.3 else 0
+            f = f * 0.78 + (255 - f * 0.78) * fl * 0.7  # darken for legibility, flash on the cut
+            if lk < 0.1:
+                f = glitch(f, 1 - lk / 0.1, int(lt * 1000))
+            if len(br[k]) >= 5 and br[k][4]:
+                si = slam_img(br[k][4])
+                sc = 1.0 + 0.35 * math.exp(-lk * 18)
+                h, w_ = si.shape[:2]
+                if sc > 1.01:
+                    im = Image.fromarray((si * 255).astype(np.uint8)).resize((int(w_ * sc), int(h * sc)), Image.BILINEAR)
+                    si = np.asarray(im).astype(np.float32) / 255
+                    h, w_ = si.shape[:2]
+                blend(f, si, OW / 2 - w_ / 2, OH * 0.42 - h / 2, smooth(lk / 0.08))
+            if br[k][3]:
+                ci = credit_img(br[k][3])
+                blend(f, ci, OW - ci.shape[1] - 20, 20, 0.85)
+        else:
+            snap = math.exp(-lk * 14) if lk < 0.4 and (k > 0 or lt < 0.4) else 0
+            f = f + (255 - f) * snap * 0.35
+            cap = broll_caption(e, br[k])
+            a = smooth((lk - 0.3) / 0.6) * (1 - smooth((lk - seg + 0.5) / 0.4))
+            blend(f, cap, 28 - 40 * (1 - smooth((lk - 0.3) / 0.6)), 26, a)
         t = e["start"] + lt
         for a0, a1, s in e["subs"]:
             if a0 - 0.12 <= t <= a1 + 0.25:
@@ -325,7 +378,7 @@ def scene_frame(e, lt, extra_zoom=1.0, shake=(0, 0)):
     cap = caption_img(e)
     lt_cap = lt
     if e.get("broll_secs") and not e.get("broll"):  # called from the b-roll dissolve
-        lt_cap = lt - e["broll_secs"] * len([b for b in TLMAP[e["id"]]["broll"]])
+        lt_cap = lt - TLMAP[e["id"]]["broll_end"]
     if cap is not None:
         a = smooth((lt_cap - 0.5) / 0.7) * (1 - smooth((lt - e["dur"] + 0.6) / 0.5))
         slide = 40 * (1 - smooth((lt_cap - 0.5) / 0.7))

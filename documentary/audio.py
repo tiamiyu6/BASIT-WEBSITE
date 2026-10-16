@@ -398,10 +398,17 @@ def main():
             add(sfx, fire_amb(e["dur"] + 1, 0.11), s)
         if e["plate"] in ("exile", "legacy", "open"):
             add(sfx, wind(e["dur"] + 1, 0.035), s)
-        for k in range(len(e.get("broll") or [])):  # camera shutter on each real photo, whoosh into the graphic
-            add(sfx, shutter(0.3), e["start"] + k * e["broll_secs"])
-        if e.get("broll"):
-            add(sfx, whoosh(1.0, 0.18), e["start"] + len(e["broll"]) * e["broll_secs"] - 0.3)
+        hook = any(len(b) >= 5 and b[4] is not None for b in (e.get("broll") or []))
+        for k, b in enumerate(e.get("broll") or []):  # shutter on each real photo; impact + whoosh on hook cuts
+            at = e["start"] + e["broll_times"][k]
+            if hook:
+                add(sfx, whoosh(0.35, 0.2), at - 0.3)
+                add(sfx, impact(0.42 if b[4] else 0.25), at)
+                add(sfx, taiko(0.35, 1.0 + 0.1 * (k % 3)), at)
+            else:
+                add(sfx, shutter(0.3), at)
+        if e.get("broll") and not hook:
+            add(sfx, whoosh(1.0, 0.18), e["start"] + e["broll_end"] - 0.3)
         if e["plate"] in ARCHIVAL:
             add(sfx, projector(e["dur"] + 0.5), e["start"])
         if e["plate"] == "portrait":
