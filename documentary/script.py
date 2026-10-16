@@ -208,7 +208,7 @@ scene("apc", "THE KINGMAKER", "merger", "Birth of the APC", "2013 merger · 2015
       "In two thousand and fifteen, the APC did what no opposition had done before: it defeated a sitting president at the ballot box. "
       "Tinubu's former Attorney General in Lagos, Yemi Osinbajo, became Vice President. "
       "But before his own turn came, the questions about his money would only grow louder.", trans="flash", hit=True,
-      broll=[('chatham-house-2011.jpg', 'Tinubu at Chatham House, London', '“Democracy in Nigeria and the Rebirth of Opposition”, 18 July 2011', 'Chatham House, CC BY 2.0'), ('eagle-square-2015.jpg', 'Eagle Square, Abuja, 29 May 2015', 'Goodluck Jonathan hands over to Muhammadu Buhari', 'U.S. Department of State, public domain')])
+      broll=[('chatham-house-2011.jpg', 'Tinubu at Chatham House, London', '“Democracy in Nigeria and the Rebirth of Opposition”, 18 July 2011', 'Chatham House, CC BY 2.0'), ('tinubu-buhari-alliance.jpg', 'Tinubu and Buhari', 'The alliance behind the APC', 'via Daily Post Nigeria'), ('eagle-square-2015.jpg', 'Eagle Square, Abuja, 29 May 2015', 'Goodluck Jonathan hands over to Muhammadu Buhari', 'U.S. Department of State, public domain'), ('tinubu-buhari-hands-raised.jpg', 'Tinubu and Buhari', 'Hands raised at an APC rally', 'archive photo')])
 
 # ---------------------------------------------------------------- 6
 chapter_card(6, "THE CONTROVERSIES", "tension")
