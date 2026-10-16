@@ -108,14 +108,14 @@ def compose(fr, i):
     d.line([0, y0 + vid.height + 2, VW, y0 + vid.height + 2], fill=V.GOLD + (255,), width=4)
     if t_out < 0.5:  # headline punches in on the first frames
         sc = 1.0 + 0.45 * np.exp(-t_out * 11)
-        top = HEADL.crop((0, 0, VW, 440))
-        big = top.resize((int(VW * sc), int(440 * sc)), Image.BILINEAR)
+        top = HEADL.crop((0, 0, VW, 540))
+        big = top.resize((int(VW * sc), int(540 * sc)), Image.BILINEAR)
         layer = Image.new("RGBA", (VW, VH), (0, 0, 0, 0))
         cy = HEAD_Y + 57
         big = big.crop((max(0, (big.width - VW) // 2), max(0, int(cy * sc - cy)), max(0, (big.width - VW) // 2) + VW,
-                        max(0, int(cy * sc - cy)) + 440))
+                        max(0, int(cy * sc - cy)) + 540))
         layer.alpha_composite(big, (0, 0))
-        layer.alpha_composite(HEADL.crop((0, 440, VW, VH)), (0, 440))
+        layer.alpha_composite(HEADL.crop((0, 540, VW, VH)), (0, 540))
         canvas = Image.alpha_composite(canvas, layer)
     else:
         canvas = Image.alpha_composite(canvas, HEADL)
