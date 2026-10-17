@@ -95,47 +95,51 @@ def hum(notes, d, amp=0.06):
 BEAT = 0.75
 
 
+MUSIC = os.environ.get("J12_MUSIC", os.path.join(os.path.dirname(BUILD.rstrip("/")), "music"))
+# real recorded score (Kevin MacLeod, incompetech.com, CC BY 4.0): mood -> [(track, start offset s)]
+TRACKS = {
+    "cold": [("Lightless Dawn", 40)], "tension": [("Hiding Your Reality", 0), ("Impact Prelude", 30)],
+    "home": [("Dreamer", 0)], "rise": [("Healing", 60)], "build": [("Rising Tide", 0)], "hope": [("Sovereign", 20)],
+    "dark": [("Ossuary 6 - Air", 20), ("Long Note Four", 120)], "resolve": [("Impact Prelude", 0)],
+    "lament": [("Despair and Triumph", 0), ("Long Note Four", 0)], "dawn": [("Lasting Hope", 0)],
+    "anthem": [("Long Road Ahead", 40)],
+}
+_trk = {}
+
+
+def track(name):
+    if name not in _trk:
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-i", os.path.join(MUSIC, name + ".mp3"), "-ac", "2", "-ar", str(SR),
+                              "-f", "f32le", "-"], capture_output=True).stdout
+        x = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
+        # loudness-match every track to the same body level (ignore silences)
+        r = np.sqrt((x ** 2).mean(1))
+        body = np.sqrt(np.mean(r[r > np.percentile(r, 40)] ** 2)) + 1e-9
+        _trk[name] = x * (0.12 / body)
+    return _trk[name]
+
+
 def section(mood, d, seed):
-    """mood -> stereo buffer of length d."""
-    r = np.random.default_rng(seed)
+    """mood -> stereo buffer of length d from the real score, looped with long crossfades if needed."""
     n = int(d * SR)
-    out = np.zeros((n + SR * 6, 2))
-    bar = BEAT * 4
-    nb = int(np.ceil(d / bar))
-    base = {"cold": "dark", "tension": "tension", "home": "warm", "rise": "warm", "build": "warm",
-            "hope": "outro", "dark": "dark", "resolve": "dark", "lament": "dark", "dawn": "outro"}[mood]
-    if mood in ("cold", "dark", "tension", "lament", "resolve"):
-        x = A.score_section(base, d, seed)
-        out[:len(x)] += x * (0.75 if mood == "lament" else 0.9)
-    else:
-        x = A.score_section(base, d, seed)
-        out[:len(x)] += x * 0.85
-    prog = A.PROG[base]
-    for b in range(nb):
-        t0 = b * bar
-        ch = prog[b % 4]
-        if mood in ("rise", "build", "hope"):
-            # log drum, amapiano-style syncopation, kept low under the narration
-            for k, (pos, dn) in enumerate(((0, 0), (1.5, 0), (2.5, 7), (3.25, 5))):
-                add(out, log_drum(ch[0] + dn - 12 + 24, 0.16 if mood != "hope" else 0.12), t0 + pos * BEAT)
-            for k in range(8):
-                add(out, A.shaker(0.03), t0 + (k + 0.5) * BEAT / 2)
-        if mood == "home" and b % 2 == 0:
-            add(out, A.talking_phrase(0.16), t0 + 2 * BEAT)
-        if mood == "hope" and b % 4 == 0:
-            add(out, A.choir([ch[1] + 12, ch[2] + 12, ch[3] + 12], bar * 2, 0.045), t0)
-        if mood == "lament" and b % 3 == 0:
-            line = [ch[2] + 12, ch[3] + 12, ch[2] + 12, ch[1] + 12]
-            add(out, hum(line, bar * 2.6, 0.07), t0 + 0.5)
-        if mood == "resolve" and b % 2 == 0:
-            add(out, A.dundun(0.3), t0)
-        if mood == "dawn":
-            if b % 2 == 0:
-                add(out, A.brass([ch[1] + 12, ch[2] + 12, ch[3] + 12], 1.4, 0.06), t0)
-            if b % 4 == 2:
-                add(out, A.talking_phrase(0.14), t0 + BEAT)
-    out = out[:n]
-    out *= env(n, 1.5, 2.0)[:, None]
+    opts = TRACKS[mood]
+    name, off = opts[seed % len(opts)]
+    x = track(name)
+    i0 = min(int(off * SR), max(0, len(x) - SR * 20))
+    out = np.zeros((n, 2))
+    seg, pos, xf, first = x[i0:], 0, int(4 * SR), True
+    while pos < n:
+        start = pos if first else pos - xf          # each loop overlaps the previous tail by 4 s
+        take = min(len(seg), n - start)
+        piece = seg[:take].copy()
+        if not first:
+            k = min(xf, take)
+            piece[:k] *= np.sqrt(np.linspace(0, 1, k))[:, None]
+            out[start:start + k] *= np.sqrt(np.linspace(1, 0, k))[:, None]
+        out[start:start + take] += piece
+        pos, first = start + take, False
+        seg = x[int(10 * SR):]
+    out *= env(n, 2.5, 3.0)[:, None]
     return out
 
 
@@ -161,6 +165,9 @@ def clip_audio(file, a, b):
     x = A.hp(x, 90)
     peak = np.percentile(np.abs(x), 99.5) + 1e-9
     return x * (0.5 / peak)
+
+
+MUS_GAIN = float(os.environ.get("MUS_GAIN", "1.9"))
 
 
 def main():
@@ -190,7 +197,7 @@ def main():
         groups.append(cur)
     for k, (m, a, b) in enumerate(groups):
         d = b - a + 2.0
-        add(music, section(m, d, 100 + k) * 0.9, a - 0.5)
+        add(music, section(m, d, k), a - 0.5)
         print("music", m, round(a, 1), round(d, 1), flush=True)
 
     for e in TL:
@@ -224,11 +231,11 @@ def main():
         for k, sh in enumerate(e["shots"]):
             t0 = s0 + sh["t0"]
             if sh["kind"] == "paper":
-                add(sfx, paper_drop(0.3), t0 - 0.02)
+                add(sfx, paper_drop(0.2), t0 + 0.7)            # lands as the glide settles
             elif sh["kind"] == "typed":
                 for ln in sh["tl"]:
                     if ln["stamp"]:
-                        add(sfx, stamp_hit(0.5), s0 + ln["t"])
+                        add(sfx, stamp_hit(0.38), s0 + ln["t"])
                         continue
                     for c in range(len(ln["text"])):
                         if ln["text"][c] != " ":
@@ -274,15 +281,23 @@ def main():
         m = (c[k:] - c[:-k]) / k
         return np.concatenate([m, np.full(len(p) - len(m), m[-1] if len(m) else 0)])
     venv = envelope(voice)
-    duck = 1 - 0.8 * np.clip(venv * 9, 0, 1)
+    duck = 1 - 0.68 * np.clip(venv * 9, 0, 1)
     duck = movavg(duck, int(0.12 * SR))
     de = movavg(duck_extra, int(0.3 * SR))
     music *= (duck * de)[:, None]
     sfx *= (1 - 0.35 * np.clip(venv * 9, 0, 1))[:, None]
-    music = A.reverb(music, 2.2, 0.18)
-    mix = music * 0.55 + sfx * 0.9 + voice * 1.5 + archive * 1.25
-    peak = np.abs(mix).max() + 1e-9
-    mix = mix / peak * 0.95
+    mix = music * MUS_GAIN + sfx * 0.9 + voice * 1.5 + archive * 1.25
+    from pedalboard import Pedalboard, Compressor, Limiter, Gain
+    r = np.sqrt((voice ** 2).mean(1))
+    vlev = np.sqrt(np.mean(r[r > np.percentile(r, 70)] ** 2)) + 1e-9
+    on = r > np.percentile(r, 70)
+    mus_under = np.sqrt(np.mean(((music * MUS_GAIN) ** 2).mean(1)[on])) + 1e-9
+    mus_free = np.sqrt(np.mean(((music * MUS_GAIN) ** 2).mean(1)[r < 1e-4])) + 1e-9
+    print("music under voice %.1f dB, music in pauses %.1f dB (relative to voice)"
+          % (20 * np.log10(mus_under / (vlev * 1.5)), 20 * np.log10(mus_free / (vlev * 1.5))), flush=True)
+    mix = mix * (0.12 / vlev)                                  # narration body at about -18 dBFS RMS
+    bus = Pedalboard([Limiter(threshold_db=-1.5, release_ms=120)])
+    mix = bus(mix.T.astype(np.float32), SR).T
     sf.write(f"{BUILD}/mix.wav", mix.astype(np.float32), SR, subtype="PCM_16")
     print("mix done", round(len(mix) / SR, 1), flush=True)
 

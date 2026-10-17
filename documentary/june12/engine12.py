@@ -14,7 +14,7 @@ from script12 import S
 
 OW, OH, FPS = 1280, 720, 30
 BW, BH = 1600, 900            # working canvas for every shot (room for camera moves)
-XF_SHOT, XF_SCENE = 0.55, 0.7
+XF_SHOT, XF_SCENE = 1.0, 1.2
 LEAD = 0.55
 TEX = os.path.join(HERE, "textures")
 FONTS = os.path.join(HERE, "fonts")
@@ -84,7 +84,7 @@ def build(timing_path):
         e = dict(sc)
         if sc.get("clip"):
             e["dur"] = sc["clip"][2] - sc["clip"][1]
-            xf = 0.35
+            xf = 0.8
         elif sc.get("logo"):
             e["dur"], xf = 6.2, XF_SCENE
         elif sc.get("card"):
@@ -295,7 +295,7 @@ def type_layer(sh, lt, scene_id):
             continue
         st = stamp_img(ln["text"], seed + i)
         k = lt - ln["t"]
-        sc = 1.0 + 0.35 * math.exp(-k * 22)
+        sc = 1.0 + 0.18 * math.exp(-k * 14)
         if sc > 1.01:
             st = st.resize((int(st.width * sc), int(st.height * sc)), Image.BILINEAR)
         y = y0 + i * lh
@@ -525,14 +525,14 @@ def shot_frame(build, e, sh, k, lt):
         meta = focus_of(build, sh, seed)
         bg = cached(build, key, lambda: None)
         obj = cached(build, "paperobj" + key, lambda: None)
-        drop = 0.42
+        drop = 1.1
         if lt < drop + 0.05:
-            q = ease_out(lt / drop)
+            q = smooth(lt / drop)
             canvas = bg.convert("RGBA")
-            sc = 1.12 - 0.12 * q
-            o = obj.resize((int(obj.width * sc), int(obj.height * sc)), Image.BILINEAR).rotate(6 * (1 - q), resample=Image.BILINEAR)
+            sc = 1.04 - 0.04 * q
+            o = obj.resize((int(obj.width * sc), int(obj.height * sc)), Image.BILINEAR).rotate(2.5 * (1 - q), resample=Image.BILINEAR)
             x = meta["pos"][0] + (obj.width - o.width) / 2
-            y = meta["pos"][1] + (obj.height - o.height) / 2 - 420 * (1 - q)
+            y = meta["pos"][1] + (obj.height - o.height) / 2 - 140 * (1 - q)
             canvas.alpha_composite(o, (int(x), int(y)))
             return camera(canvas.convert("RGB"), 1.0, BW / 2, BH / 2)
         if "pcomp" + key not in _cache:
@@ -541,7 +541,7 @@ def shot_frame(build, e, sh, k, lt):
             _cache["pcomp" + key] = c.convert("RGB")
         q = smooth((lt - drop) / max(dur - drop, 0.5))
         fx, fy = meta["focus"]
-        z = 1.0 + 0.42 * q
+        z = 1.0 + 0.32 * q
         return camera(_cache["pcomp" + key], z, BW / 2 + (fx - BW / 2) * q, BH / 2 + (fy - BH / 2) * q)
     if kind == "typed":
         img = type_layer_abs(sh, lt, e)
@@ -612,7 +612,7 @@ SHOW = [("nineteen thirty-seven", "1937"), ("nineteen eighty-five", "1985"), ("n
         ("nineteen ninety-six", "1996"), ("nineteen ninety-seven", "1997"), ("nineteen ninety-eight", "1998"),
         ("nineteen ninety-nine", "1999"), ("nineteen-eighties", "1980s"), ("twenty twelve", "2012"),
         ("twenty thirteen", "2013"), ("twenty eighteen", "2018"), ("twenty twenty-five", "2025"),
-        ("Fourteen million", "14 million"), ("twenty-third", "23rd"), ("twenty-two", "22"), ("twenty-three", "23"),
+        ("Fourteen million", "14 million"), ("fourteen million", "14 million"), ("twenty-third", "23rd"), ("twenty-two", "22"), ("twenty-three", "23"),
         ("nineteen of thirty", "19 of 30"), ("thirty-two", "32"), ("twenty-five", "25"), ("fifty-four", "54"),
         ("sixty", "60")]
 
@@ -705,7 +705,7 @@ def scene_frame(e, lt):
     k = max([i for i, s in enumerate(shots) if s["t0"] <= lt] or [0])
     sh = shots[k]
     f = shot_frame(BUILD, e, sh, k, lt - sh["t0"])
-    if k > 0 and lt - sh["t0"] < XF_SHOT and sh["kind"] != "paper":
+    if k > 0 and lt - sh["t0"] < XF_SHOT:
         pv = shots[k - 1]
         w = smooth((lt - sh["t0"]) / XF_SHOT)
         f = shot_frame(BUILD, e, pv, k - 1, lt - pv["t0"]) * (1 - w) + f * w

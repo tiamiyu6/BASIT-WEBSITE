@@ -92,15 +92,49 @@ S = [
        [photo(PH + "mko-laughing-bw.jpg", 0, focus=(0.35, 0.3)),
         paper(PH + "national-concord-1982.jpg", 2, focus=(0.3, 0.12), label="National Concord, founded by Abiola in 1980"),
         photo(BR + "abiola-portrait.jpg", 7, focus=(0.5, 0.35))], "KASHIMAWO", mood="rise"),
-    sc("c1_give", "And he gave it away, in public. Schools, mosques and churches. Scholarships. Football clubs. "
+    sc("c1_give", "And he gave it away, in public. "
                   "In nineteen eighty-eight, he was crowned Aare Ona Kakanfo of Yorubaland, its highest war title.",
        [photo(BR + "abiola-advert-1993.jpg", 0, focus=(0.5, 0.3)),
-        typed(["AARE ONA KAKANFO", "OF YORUBALAND", "", "1988"], 4, big=True)], "KASHIMAWO", mood="rise"),
-    sc("c1_end", "Money can buy many things in Nigeria. In nineteen ninety-three, MKO Abiola wanted the one thing it cannot buy. A mandate.",
-       [photo(BR + "abiola-victory-1993.jpg", 0, focus=(0.5, 0.35), move="in")], "KASHIMAWO", mood="rise", hold=0.5),
+        typed(["AARE ONA KAKANFO", "OF YORUBALAND", "", "1988"], 1, big=True)], "KASHIMAWO", mood="rise"),
 
-    # ------------------------------------------------------------------ 2
-    chapter(2, "TWO PARTIES BUILT BY SOLDIERS"),
+    # ------------------------------------------------------------------ 2: the man and his beliefs
+    chapter(2, "THE MAN BEHIND THE NAME"),
+    sc("c2_faith", "He was a devout Muslim. But his giving never stopped at the mosque door. "
+                   "By the government's own record, his money built sixty-three secondary schools, forty-one libraries, "
+                   "twenty-one water projects, and a hundred and twenty-one mosques and churches, across twenty-four states.",
+       [photo(BR + "abiola-portrait.jpg", 0, focus=(0.5, 0.35)),
+        typed([("FUNDED BY CHIEF M.K.O. ABIOLA", 2), ("", 2), ("63  secondary schools", 2), ("41  libraries", 2),
+               ("21  water projects", 2), ("121 mosques and churches", 2), ("", 2), ("across 24 states", 2)], 2)],
+       "THE MAN", mood="home"),
+    sc("c2_sport", "He loved football. He owned clubs, including the famous Abiola Babes, and he backed athletes across the continent. "
+                   "In nineteen eighty, Africa's sports journalists named him the Pillar of Sports in Africa.",
+       [photo(PH + "mko-laughing-bw.jpg", 0, focus=(0.35, 0.3)),
+        typed(["PILLAR OF SPORTS", "IN AFRICA", "", "1980"], 2, big=True)], "THE MAN", mood="home"),
+    sc("c2_reparations", "And he believed the world owed Africa a debt. He campaigned for reparations for slavery and colonialism, "
+                         "and paid for international conferences in Lagos and Abuja. "
+                         "In nineteen ninety-two, the Organisation of African Unity made him chairman of its Group of Eminent Persons on reparations.",
+       [photo(BR + "abiola-victory-1993.jpg", 0, focus=(0.5, 0.35), move="out"),
+        typed([("ORGANISATION OF AFRICAN UNITY", 2), ("GROUP OF EMINENT PERSONS", 2), ("ON REPARATIONS, 1992", 2), ("", 2),
+               ("CHAIRMAN:", 2), ("CHIEF M.K.O. ABIOLA", 2)], 2)], "THE MAN", mood="home"),
+    sc("c2_family", "At home, he was the head of a large family, with several wives and many children. "
+                    "One of those wives, Kudirat, would one day carry his fight on her own shoulders.",
+       [photo(PH + "young-mko-portrait.jpg", 0, focus=(0.5, 0.3), move="out"),
+        photo(PH + "kudirat-portrait.jpg", 1, focus=(0.5, 0.4), label="Alhaja Kudirat Abiola")], "THE MAN", mood="home"),
+    sc("c2_npn", "Politics had already broken his heart once. In the early nineteen-eighties, he was a leading figure and financier "
+                 "of the ruling National Party of Nigeria, and he wanted its presidential ticket. The party's chieftains shut him out. "
+                 "One of them reportedly told him that the presidency was not for sale. He walked away.",
+       [paper(PH + "national-concord-1982.jpg", 0, focus=(0.3, 0.12), label="National Concord, 1982"),
+        typed([("NATIONAL PARTY OF NIGERIA", 1), ("1983 PRESIDENTIAL TICKET", 1), ("", 1), ("!DENIED", 2)], 1)],
+       "THE MAN", mood="tension"),
+    sc("c2_saying", "His family remembers a warning he loved to repeat. You cannot shave a man's head in his absence. "
+                    "Ten years later, he came back. And he made sure that this time, he was in the room.",
+       [typed(["“You cannot shave a man’s head", "in his absence.”", "", "— a saying the Abiola family remembers"], 0),
+        photo(PH + "mko-laughing-bw.jpg", 2, focus=(0.4, 0.3), move="in")], "THE MAN", mood="rise"),
+    sc("c1_end", "Money can buy many things in Nigeria. In nineteen ninety-three, MKO Abiola wanted the one thing it cannot buy. A mandate.",
+       [photo(BR + "abiola-victory-1993.jpg", 0, focus=(0.5, 0.35), move="in")], "THE MAN", mood="rise", hold=0.5),
+
+    # ------------------------------------------------------------------ 3
+    chapter(3, "TWO PARTIES BUILT BY SOLDIERS"),
     sc("c2_ibb", "General Ibrahim Babangida took power in a coup in nineteen eighty-five. He promised to hand over to civilians. "
                  "Then he moved the date. Then he moved it again.",
        [photo(PH + "ibb-broadcast-1993.jpg", 0, focus=(0.55, 0.45), label="General Ibrahim Babangida, military president 1985–1993"),
@@ -132,7 +166,7 @@ S = [
        [photo(PH + "tofa-portrait.jpg", 0, focus=(0.5, 0.4), label="Bashir Tofa (1947–2022), NRC candidate")], "TWO PARTIES", mood="build"),
 
     # ------------------------------------------------------------------ 3
-    chapter(3, "12 JUNE 1993"),
+    chapter(4, "12 JUNE 1993"),
     sc("c3_court", "Two nights before the vote, a group called the Association for Better Nigeria went to court, late at night, "
                    "and got an order to stop the election.",
        [paper(PH + "paper-court-stops-election-1993.jpg", 0, focus=(0.3, 0.3))], "12 JUNE 1993", mood="tension"),
@@ -155,7 +189,7 @@ S = [
        "12 JUNE 1993", mood="cold", hold=1.4),
 
     # ------------------------------------------------------------------ 4
-    chapter(4, "BAD FAITH"),
+    chapter(5, "BAD FAITH"),
     sc("c4_annul", "On the twenty-third of June, nineteen ninety-three, the military government annulled the election. All of it.",
        [typed([("23 JUNE 1993", 0), ("PRESIDENTIAL ELECTION OF 12 JUNE", 0), ("", 0), ("!ANNULLED", 0)], 0)],
        "BAD FAITH", mood="dark"),
@@ -178,7 +212,7 @@ S = [
        "BAD FAITH", mood="dark", hold=1.6),
 
     # ------------------------------------------------------------------ 5
-    chapter(5, "EPETEDO"),
+    chapter(6, "EPETEDO"),
     sc("c5_decl", "One year after the vote, on the eleventh of June, nineteen ninety-four, at Epetedo on Lagos Island, "
                   "Abiola stood before his supporters, and declared himself President of Nigeria.",
        [typed(["11 JUNE 1994", "EPETEDO, LAGOS ISLAND"], 0, big=True),
@@ -205,7 +239,7 @@ S = [
        [photo(PH + "soyinka-portrait.jpg", 0, focus=(0.5, 0.35), label="Wole Soyinka, Nobel laureate")], "EPETEDO", mood="resolve"),
 
     # ------------------------------------------------------------------ 6
-    chapter(6, "KUDIRAT"),
+    chapter(7, "KUDIRAT"),
     sc("c6_fight", "With her husband in a cell, Kudirat Abiola took up the fight. She supported the strikers. "
                    "She spoke to foreign journalists. She refused to be quiet.",
        [photo(PH + "kudirat-portrait.jpg", 0, focus=(0.5, 0.4), label="Alhaja Kudirat Abiola")], "KUDIRAT", mood="lament"),
@@ -224,7 +258,7 @@ S = [
        [photo(PH + "kudirat-portrait.jpg", 0, focus=(0.47, 0.42), move="in")], "KUDIRAT", mood="lament", hold=1.8),
 
     # ------------------------------------------------------------------ 7
-    chapter(7, "JULY 1998"),
+    chapter(8, "JULY 1998"),
     sc("c7_abacha", "On the eighth of June, nineteen ninety-eight, Sani Abacha died suddenly, inside Aso Rock. "
                     "He was fifty-four. Officially, it was a heart attack.",
        [paper(PH + "paper-abacha-dies-1998.jpg", 0, focus=(0.5, 0.12), label="The Guardian, 9 June 1998"),
@@ -244,7 +278,7 @@ S = [
     clip("c7_burial", "mko_burial_1998.mp4", 0.8, 25.4, "BBC-style news report on Abiola's burial, July 1998", "JULY 1998"),
 
     # ------------------------------------------------------------------ 8
-    chapter(8, "VINDICATION"),
+    chapter(9, "VINDICATION"),
     sc("c8_return", "The exiles came home. In nineteen ninety-nine, the soldiers finally handed power back to civilians.",
        [photo(PH + "soyinka-welcome-home-1998.jpg", 0, focus=(0.5, 0.4), label="“Welcome Home Kongi”: Soyinka returns, 1998")],
        "VINDICATION", mood="dawn"),
@@ -269,6 +303,16 @@ S = [
         photo(PH + "open-ballot-queue-1993.jpg", 2, focus=(0.5, 0.45), move="out")], "VINDICATION", mood="dawn"),
     sc("c8_final", "Kashimawo. Let us wait and see. Nigeria is still waiting.",
        [photo(PH + "young-mko-portrait.jpg", 0, focus=(0.5, 0.3), move="in")], "VINDICATION", mood="dawn", hold=2.0),
+    sc("c9_hope", "But waiting is not the same as giving up. The power of June 12 was never just one man. "
+                  "It was fourteen million ordinary people, who stood in the open, in the sun, and were not afraid to be counted. "
+                  "Their courage is still the greatest opportunity this country has. "
+                  "And today, a new generation of Nigerians has found its voice. "
+                  "So the question June 12 leaves us is simple. When it is your turn to stand in that line, will you?",
+       [photo(PH + "open-ballot-queue-1993.jpg", 0, focus=(0.5, 0.45), move="in"),
+        photo(PH + "mko-votes-june12.jpg", 2, focus=(0.6, 0.3)),
+        photo(BR + "endsars-lagos-2020.jpg", 3, focus=(0.5, 0.4), label="A new generation finds its voice, Lagos 2020"),
+        typed(["WHEN IT IS YOUR TURN", "TO STAND IN THAT LINE,", "", "WILL YOU?"], 5, big=True)],
+       "VINDICATION", mood="anthem", hold=2.2),
     sc("c8_cta", "Was June 12 the closest Nigeria ever came? Tell me what you think in the comments. "
                  "And if you haven't seen it yet, watch our documentary on Bola Tinubu. Jagaban.",
        [dict(kind="endcard", at=0)], "", mood="dawn", hold=4.0),
