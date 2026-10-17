@@ -638,6 +638,8 @@ def sub_ov(s):
     W, H = 1180, 46 * len(lines) + 24
 
     def dr(d, im):
+        bw = max(tmp.textlength(l, font=fnt) for l in lines) + 44
+        d.rounded_rectangle([W / 2 - bw / 2, 4, W / 2 + bw / 2, H - 4], radius=10, fill=(0, 0, 0, 135))
         for i, l in enumerate(lines):
             y = 22 + i * 46 + 12
             for dx, dy in ((2, 2), (0, 2), (2, 0), (-1, 1)):
