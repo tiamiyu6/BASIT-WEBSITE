@@ -67,6 +67,31 @@ SHORTS = {
     ),
 }
 
+SHORTS["uturn"] = dict(
+    # hook: "Fuel subsidy is gone."  ->  loops back into "Four words."
+    headline=("2012: HE FOUGHT IT.", "2023: HE DID IT."),
+    scenes=[
+        sc("u1", "Four words, on his very first day as president, in May 2023. Within days, petrol jumped from about 185 naira a litre, to more than 500.",
+           [photo(BR + "official-portrait-2023.jpg", 0, focus=(0.5, 0.3), move="out"),
+            typed([("MAY 2023 · PETROL, PER LITRE", 1), ("", 1), ("~N185", 1), ("N500+", 1)], 1, big=True)], mood="tension", hold=0.2),
+        sc("u2", "By October 2024, it cost over a thousand naira in Lagos. Food followed. Transport followed. Everything followed.",
+           [typed([("OCTOBER 2024 · LAGOS", 0), ("", 0), ("N1,025 / LITRE", 0)], 0, big=True),
+            photo(BR + "endbadgovernance-march-2024.jpg", 1, focus=(0.5, 0.4), label="#EndBadGovernance protest, 2024")], mood="tension", hold=0.2),
+        sc("u3", "But here is what many Nigerians forgot. In January 2012, President Jonathan removed the same subsidy. Petrol went from 65 naira to 141.",
+           [photo(BR + "occupy-nigeria-nyc-2012.jpg", 0, focus=(0.5, 0.45)),
+            typed([("JANUARY 2012", 2), ("", 2), ("~N65", 2), ("N141", 2)], 2, big=True)], mood="tension", hold=0.2),
+        sc("u4", "Nigerians shut the country down. Occupy Nigeria. And one of the loudest voices against it, was the opposition leader from Lagos.",
+           [photo(BR + "occupy-nigeria-nyc-2012.jpg", 0, focus=(0.3, 0.4), move="left", label="Occupy Nigeria, January 2012"),
+            photo(BR + "tinubu-governor-archive.jpg", 2, focus=(0.5, 0.35), grade="bw")], mood="tension", hold=0.2),
+        sc("u5", "He called it the Jonathan tax. He reportedly said the government had tossed the people into the depths of the midnight sea.",
+           [typed(["“JONATHAN TAX”", "", "“...tossed the people into the depths", "of the midnight sea.”"], 0)], mood="tension", hold=0.2),
+        sc("u6", "Eleven years later, that same man stood before the nation, and said four words.",
+           [photo(BR + "tinubu-buhari-hands-raised.jpg", 0, focus=(0.5, 0.35), move="in")], mood="tension", hold=0.1),
+        sc("hook", "Fuel subsidy is gone.",
+           [photo(BR + "official-portrait-2023.jpg", 0, focus=(0.5, 0.3), move="in")], mood="tension", hold=0.35, xf=0.15),
+    ],
+)
+
 NAME = os.environ.get("SHORT12", "tea")
 S = SHORTS[NAME]["scenes"]
 HEADLINE = SHORTS[NAME]["headline"]

@@ -13,7 +13,7 @@ import importlib
 S = importlib.import_module(os.environ.get("J12_SCRIPT", "script12")).S
 
 MODELS, BUILD = sys.argv[1], sys.argv[2]
-VOICE, SPEED, SR = N.VOICE, 0.95, N.SR
+VOICE, SPEED, SR = N.VOICE, float(os.environ.get("J12_SPEED", "0.95")), N.SR
 SAY = dict(N.SAY)
 SAY.update({
     "June 12": "June twelve", "Kashimawo": "Kah-shee-mah-woe", "Olawale": "Oh-lah-wah-leh", "ITT": "I T T",
