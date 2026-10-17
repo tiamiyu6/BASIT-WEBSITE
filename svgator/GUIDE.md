@@ -98,3 +98,9 @@ Select the element, set its transform origin, then add keyframes. **Do the main 
 > #SVGator #Contra #MotionDesign #Lagos #SmallBusiness
 
 Attach `proof_video.mp4`. Post it in the evening (7–9 pm WAT) and ask friends to like and comment in the first hour.
+
+## Submission status
+- Template (public link): https://app.svgator.com/editor#/615395b232f04ccb9604477f1c5cbe73 (Public link: available to everyone with the link)
+- Proof video: export kitchen version (MP4), then the Ankara swap, stitch both
+- Story: section 5
+- Post: section 6 (tag @SVGatorApp)
