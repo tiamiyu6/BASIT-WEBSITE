@@ -17,9 +17,9 @@ YELLOW, INK, GLASS = "#F7C100", "#1D1D22", "#2B3A55"
 
 SETS = {
     "kitchen": dict(brand="#E4572E", name="MAMA'S KITCHEN", headline="NOW DELIVERING",
-                    sub="Hot jollof, straight to your door", cta="ORDER NOW", products=["jollof", "puffpuff", "zobo"]),
+                    sub="Hot jollof, straight to your door", cta="ORDER NOW", bubble="Food don land!", products=["jollof", "puffpuff", "zobo"]),
     "ankara": dict(brand="#1F7A8C", name="ANKARA THREADS", headline="NEW DROP IS HERE",
-                   sub="Fresh prints, delivered across Lagos", cta="SHOP NOW", products=["shirt", "sneaker", "tote"]),
+                   sub="Fresh prints, delivered across Lagos", cta="SHOP NOW", bubble="Oya, come see!", products=["shirt", "sneaker", "tote"]),
 }
 
 
@@ -82,90 +82,255 @@ def product_png(kind, brand, path):
 
 
 # ------------------------------------------------------------------ the scene
-def skyline():
-    blocks = [(40, 520, 90), (140, 470, 70), (215, 560, 110), (330, 430, 80), (420, 500, 120),
-              (560, 450, 70), (640, 540, 100), (750, 410, 90), (850, 520, 110), (965, 470, 90)]
+SKIN, SHIRT, PANTS = "#6B3E26", "#3E8E5E", "#2E3A59"
+IMG_POS = ((340, 392), (540, 372), (740, 392))
+WHEELS = (("wheel-back", 300), ("wheel-front", 830))
+WHEEL_Y, WHEEL_R = 800, 58
+
+
+def skyline_far():
     out = []
-    for x, top, w in blocks:
-        out.append(f'<rect x="{x}" y="{top}" width="{w}" height="{820 - top}" fill="#F1CF97"/>')
-        for wy in range(top + 20, 790, 36):
-            for wx in range(x + 12, x + w - 16, 26):
-                out.append(f'<rect x="{wx}" y="{wy}" width="12" height="16" fill="#F8E2BB"/>')
+    for x, top, w in [(0, 560, 80), (70, 470, 60), (140, 520, 90), (250, 430, 70), (330, 500, 100), (450, 455, 60),
+                      (520, 540, 90), (620, 410, 66), (700, 490, 110), (820, 450, 80), (910, 520, 70), (990, 430, 90)]:
+        out.append(f'<rect x="{x}" y="{top}" width="{w}" height="{820 - top}" fill="#E8A07E"/>')
+    out.append('<rect x="650" y="370" width="6" height="42" fill="#E8A07E"/>')          # antenna on the tallest tower
     return "".join(out)
 
 
+def skyline_near():
+    import random
+    r = random.Random(7)
+    out = []
+    for x, top, w in [(-10, 610, 120), (120, 650, 90), (220, 590, 130), (365, 640, 100), (480, 600, 120),
+                      (615, 660, 90), (720, 580, 140), (875, 630, 100), (985, 600, 110)]:
+        out.append(f'<rect x="{x}" y="{top}" width="{w}" height="{820 - top}" fill="#C46E57"/>'
+                   f'<rect x="{x}" y="{top}" width="{w}" height="8" fill="#B25F4A"/>')
+        for wy in range(top + 22, 800, 34):
+            for wx in range(x + 14, x + w - 18, 26):
+                out.append(f'<rect x="{wx}" y="{wy}" width="12" height="16" rx="2" fill="{"#FFD98A" if r.random() < 0.35 else "#A9563F"}"/>')
+    return "".join(out)
+
+
+def palm(id, x, y, flip=1):
+    fronds = ""
+    for ang, ln, c in ((-160, 120, "#2E6B4F"), (-130, 110, "#3D8360"), (-95, 80, "#2E6B4F"), (-55, 110, "#3D8360"), (-20, 120, "#2E6B4F"),
+                       (170, 95, "#3D8360"), (10, 95, "#3D8360")):
+        a = math.radians(ang if flip == 1 else 180 - ang)
+        ex, ey = x + ln * math.cos(a), y + ln * math.sin(a) + 55          # leaf tip droops below the crown
+        mx, my = x + ln * 0.55 * math.cos(a), y + ln * 0.55 * math.sin(a) - 22
+        fronds += (f'<path d="M{x} {y} Q{mx:.0f} {my - 14:.0f} {ex:.0f} {ey:.0f} Q{mx:.0f} {my + 16:.0f} {x} {y + 6} Z" fill="{c}"/>'
+                   f'<path d="M{x} {y + 2} Q{mx:.0f} {my:.0f} {ex:.0f} {ey:.0f}" stroke="#1F4D38" stroke-width="2" fill="none"/>')
+    trunk = f'<path d="M{x - 9} 830 Q{x - 30 * flip} {(830 + y) / 2:.0f} {x - 4} {y} L{x + 6} {y} Q{x - 18 * flip} {(830 + y) / 2:.0f} {x + 9} 830 Z" fill="#7A5134"/>'
+    rings = "".join(f'<path d="M{x - 12 - flip * 12 * math.sin(k / 8 * math.pi):.0f} {830 - k * (830 - y) / 9:.0f} h18" stroke="#5E3D27" stroke-width="3"/>' for k in range(1, 9))
+    return f'<g id="{id}">{trunk}{rings}{fronds}<circle cx="{x}" cy="{y + 6}" r="9" fill="#5E3D27"/></g>'
+
+
+def cloud(id, x, y, s=1.0):
+    blobs = "".join(f'<circle cx="{x + dx * s:.0f}" cy="{y + dy * s:.0f}" r="{rr * s:.0f}" fill="#FFF6EA"/>'
+                    for dx, dy, rr in ((0, 0, 34), (40, -18, 42), (86, 0, 32), (44, 12, 36)))
+    return f'<g id="{id}" opacity="0.85">{blobs}</g>'
+
+
 def wheel(id, cx, cy, ang=0):
-    spokes = "".join(f'<line x1="{cx}" y1="{cy}" x2="{cx + 26 * math.cos(math.radians(a))}" y2="{cy + 26 * math.sin(math.radians(a))}" '
-                     f'stroke="#8A8F98" stroke-width="6" stroke-linecap="round"/>' for a in range(0, 360, 72))
-    return (f'<g id="{id}" transform="rotate({ang:.1f} {cx} {cy})"><circle cx="{cx}" cy="{cy}" r="56" fill="#222226"/>'
-            f'<circle cx="{cx}" cy="{cy}" r="32" fill="#D6D9DE"/>{spokes}<circle cx="{cx}" cy="{cy}" r="10" fill="#55595F"/></g>')
+    spokes = "".join(f'<path d="M{cx} {cy} L{cx + 27 * math.cos(math.radians(a)):.1f} {cy + 27 * math.sin(math.radians(a)):.1f}" '
+                     f'stroke="#9AA0A8" stroke-width="7" stroke-linecap="round"/>' for a in range(0, 360, 60))
+    tread = "".join(f'<path d="M{cx + 52 * math.cos(math.radians(a)):.1f} {cy + 52 * math.sin(math.radians(a)):.1f} '
+                    f'L{cx + 58 * math.cos(math.radians(a)):.1f} {cy + 58 * math.sin(math.radians(a)):.1f}" stroke="#3A3A40" stroke-width="5"/>'
+                    for a in range(0, 360, 20))
+    return (f'<g id="{id}" transform="rotate({ang:.1f} {cx} {cy})"><circle cx="{cx}" cy="{cy}" r="{WHEEL_R}" fill="#1E1E22"/>{tread}'
+            f'<circle cx="{cx}" cy="{cy}" r="34" fill="url(#chrome)"/>{spokes}<circle cx="{cx}" cy="{cy}" r="11" fill="#4A4E55"/>'
+            f'<circle cx="{cx - 4}" cy="{cy - 4}" r="4" fill="#FFFFFF" opacity="0.6"/></g>')
+
+
+def ghana_must_go(x, y, w, h):
+    lines = "".join(f'<path d="M{x + i} {y} V{y + h}" stroke="{c}" stroke-width="5"/>' for i, c in zip(range(8, w, 16), ["#C8303A", "#2F5FA8"] * 20))
+    lines += "".join(f'<path d="M{x} {y + j} H{x + w}" stroke="{c}" stroke-width="5" opacity="0.8"/>' for j, c in zip(range(8, h, 14), ["#2F5FA8", "#C8303A"] * 10))
+    return (f'<clipPath id="gmg"><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7"/></clipPath>'
+            f'<g clip-path="url(#gmg)"><rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#F4F1EA"/>{lines}</g>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" fill="none" stroke="#2A2A30" stroke-width="3"/>'
+            f'<path d="M{x + 6} {y + h / 2} H{x + w - 6}" stroke="#2A2A30" stroke-width="3" stroke-dasharray="2 4"/>')
 
 
 def scene(s, imgs, tf=None):
-    """tf: optional per-layer transforms (only used to render the motion preview)."""
+    """tf: optional per-layer transforms / opacities (only used to render the motion preview)."""
     tf = tf or {}
-    t = lambda k: f' transform="{tf[k]}"' if k in tf else ""
-    op = lambda k: f' opacity="{tf[k + "_op"]:.3f}"' if k + "_op" in tf else ""
+
+    def G(id, body, extra=""):
+        a = f' transform="{tf[id]}"' if id in tf else ""
+        hidden = id.startswith(("sparkle-", "dust-", "speed-lines"))   # effects start invisible; the animation reveals them
+        o = f' opacity="{tf[id + "_op"]:.3f}"' if id + "_op" in tf else (' opacity="0"' if hidden else "")
+        return f'<g id="{id}"{a}{o}{extra}>{body}</g>'
+
     b = s["brand"]
-    img_layers = []
-    for i, (cx, cy) in enumerate(((340, 420), (540, 398), (740, 420)), 1):
-        img_layers.append(
-            f'<g id="image-{i}"{t(f"image-{i}")}{op(f"image-{i}")}>'
-            f'<circle cx="{cx}" cy="{cy}" r="92" fill="#FFFFFF"/><circle cx="{cx}" cy="{cy}" r="86" fill="{b}" class="brand-colour"/>'
-            f'<clipPath id="clip-{i}"><circle cx="{cx}" cy="{cy}" r="80"/></clipPath>'
-            f'<image id="photo-{i}" x="{cx - 80}" y="{cy - 80}" width="160" height="160" clip-path="url(#clip-{i})" '
-            f'href="{imgs[i - 1]}" xlink:href="{imgs[i - 1]}" preserveAspectRatio="xMidYMid slice"/></g>')
-    wa, wb = tf.get("wheel_angle", 0), tf.get("wheel_angle", 0)
+    BC = f'fill="{b}" class="brand-colour"'
+
+    # ---- background
+    rays = "".join(f'<path d="M860 470 L{860 + 330 * math.cos(math.radians(a - 4)):.0f} {470 + 330 * math.sin(math.radians(a - 4)):.0f} '
+                   f'L{860 + 330 * math.cos(math.radians(a + 4)):.0f} {470 + 330 * math.sin(math.radians(a + 4)):.0f} Z" fill="#FFF1C9" opacity="0.28"/>'
+                   for a in range(0, 360, 30))
+    road_marks = "".join(f'<rect x="{x}" y="902" width="74" height="10" rx="5" fill="#ECE7DF"/>' for x in range(-90, 1170, 130))
+    kerb = "".join(f'<rect x="{x}" y="816" width="65" height="14" fill="{"#F2F0EA" if (x // 65) % 2 else "#2A2A30"}"/>' for x in range(0, 1080, 65))
+    background = (
+        f'<rect id="sky" width="{W}" height="{H}" fill="url(#sky)"/>'
+        + G("sun-rays", rays) +
+        '<circle cx="860" cy="470" r="190" fill="url(#glow)"/><circle id="sun" cx="860" cy="470" r="76" fill="#FFD35C"/>'
+        + G("cloud-1", cloud("c1", 70, 360, 1.0)) + G("cloud-2", cloud("c2", 930, 250, 0.8)) + G("cloud-3", cloud("c3", 600, 330, 0.6))
+        + G("skyline-far", skyline_far()) + G("beacon", '<circle cx="653" cy="368" r="6" fill="#FF3B3B"/>')
+        + G("skyline-near", skyline_near())
+        + G("palm-1", palm("p1", 70, 650, 1)) + G("palm-2", palm("p2", 1010, 640, -1))
+        + f'<rect id="road" x="0" y="820" width="{W}" height="260" fill="url(#asphalt)"/>{kerb}'
+        + G("road-lines", road_marks)
+    )
+
+    # ---- signboard with marquee bulbs
+    bulbs = [(x, y) for y in (88, 282) for x in range(232, 860, 52)]
+    bulbs_a = "".join(f'<circle cx="{x}" cy="{y}" r="7" fill="#FFE27A" stroke="#E0A800" stroke-width="2"/>' for i, (x, y) in enumerate(bulbs) if i % 2 == 0)
+    bulbs_b = "".join(f'<circle cx="{x}" cy="{y}" r="7" fill="#FFE27A" stroke="#E0A800" stroke-width="2"/>' for i, (x, y) in enumerate(bulbs) if i % 2)
+    signboard = (
+        f'<path d="M300 0 V74 M780 0 V74" stroke="{INK}" stroke-width="6"/>'
+        f'<circle cx="300" cy="74" r="9" fill="{INK}"/><circle cx="780" cy="74" r="9" fill="{INK}"/>'
+        f'<rect x="196" y="78" width="700" height="230" rx="26" fill="#000000" opacity="0.18"/>'
+        f'<rect x="190" y="70" width="700" height="230" rx="26" {BC}/>'
+        f'<rect x="204" y="84" width="672" height="202" rx="16" fill="#FFFFFF"/>'
+        + G("bulbs-a", bulbs_a) + G("bulbs-b", bulbs_b) +
+        f'<text id="text-headline" x="540" y="186" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="62" fill="{INK}">{s["headline"]}</text>'
+        f'<text id="text-subline" x="540" y="244" text-anchor="middle" font-family="{FONT}" font-weight="600" font-size="31" fill="#5B5B66">{s["sub"]}</text>'
+    )
+
+    # ---- product images with sparkle bursts
+    images = ""
+    for i, (cx, cy) in enumerate(IMG_POS, 1):
+        sp = "".join(f'<path d="M{cx + 104 * math.cos(math.radians(a)):.0f} {cy + 104 * math.sin(math.radians(a)):.0f} '
+                     f'L{cx + 128 * math.cos(math.radians(a)):.0f} {cy + 128 * math.sin(math.radians(a)):.0f}" '
+                     f'stroke="{"#FFD23F" if k % 2 else "#FFFFFF"}" stroke-width="7" stroke-linecap="round"/>' for k, a in enumerate(range(0, 360, 36)))
+        images += G(f"sparkle-{i}", sp)
+        images += G(f"image-{i}",
+                    f'<circle cx="{cx + 5}" cy="{cy + 9}" r="92" fill="#000000" opacity="0.2"/>'
+                    f'<circle cx="{cx}" cy="{cy}" r="92" fill="#FFFFFF"/><circle cx="{cx}" cy="{cy}" r="86" {BC}/>'
+                    f'<clipPath id="clip-{i}"><circle cx="{cx}" cy="{cy}" r="79"/></clipPath>'
+                    f'<image id="photo-{i}" x="{cx - 79}" y="{cy - 79}" width="158" height="158" clip-path="url(#clip-{i})" '
+                    f'href="{imgs[i - 1]}" xlink:href="{imgs[i - 1]}" preserveAspectRatio="xMidYMid slice"/>'
+                    f'<path d="M{cx - 58} {cy - 50} A78 78 0 0 1 {cx + 10} {cy - 78}" stroke="#FFFFFF" stroke-width="6" fill="none" opacity="0.55" stroke-linecap="round"/>')
+
+    # ---- the danfo
+    windows = ""
+    heads = {0: [(222, 0)], 1: [(318, 1), (356, 0)], 2: [(452, 1)], 3: [(545, 0), (585, 1)]}
+    for k, x in enumerate((172, 286, 400, 514)):
+        windows += f'<rect x="{x}" y="548" width="100" height="88" rx="10" fill="url(#glass)" stroke="{INK}" stroke-width="5"/>'
+        for hx, big in heads[k]:
+            windows += (f'<circle cx="{hx}" cy="{596 - 4 * big}" r="{15 + 2 * big}" fill="#151B2B"/>'
+                        f'<path d="M{hx - 26} 636 Q{hx - 24} {612 - 4 * big} {hx} {612 - 4 * big} Q{hx + 24} {612 - 4 * big} {hx + 26} 636 Z" fill="#151B2B"/>')
+        windows += f'<path d="M{x + 18} 552 L{x + 44} 552 L{x + 14} 632 L{x + 4} 632 L{x + 4} 586 Z" fill="#FFFFFF" opacity="0.16"/>'
+    conductor = (
+        f'<path d="M682 788 L690 704 L716 704 L722 788 Z" fill="{PANTS}"/>'
+        f'<path d="M676 788 h26 v-8 h-20 z M708 788 h26 v-8 h-20 z" fill="#1A1A1E"/>'
+        f'<path d="M684 708 Q688 664 712 630 L756 644 Q746 684 720 710 Z" fill="{SHIRT}"/>'
+        f'<path d="M698 690 l10 -40 M714 700 l14 -50 M730 702 l12 -44" stroke="#FFFFFF" stroke-width="4" opacity="0.35"/>'
+        f'<path d="M718 640 L700 604" stroke="{SKIN}" stroke-width="13" stroke-linecap="round"/>'
+        f'<rect x="732" y="616" width="16" height="16" fill="{SKIN}"/>'
+        f'<circle cx="752" cy="598" r="23" fill="{SKIN}"/>'
+        f'<path d="M729 594 Q731 570 754 570 Q777 570 777 592 Z" {BC}/><rect x="768" y="586" width="26" height="7" rx="3" {BC}/>'
+        f'<circle cx="762" cy="596" r="3" fill="#1A1A1E"/><path d="M754 609 Q762 616 770 608" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>'
+        + G("conductor-arm", f'<path d="M748 642 L790 616" stroke="{SHIRT}" stroke-width="16" stroke-linecap="round"/>'
+                             f'<path d="M790 616 L802 566" stroke="{SKIN}" stroke-width="13" stroke-linecap="round"/>'
+                             f'<circle cx="803" cy="558" r="11" fill="{SKIN}"/>')
+    )
+    body = (
+        f'<path d="M190 500 H840 M200 500 V520 M380 500 V520 M560 500 V520 M760 500 V520" stroke="{INK}" stroke-width="7" stroke-linecap="round"/>'
+        + G("luggage", ghana_must_go(232, 458, 140, 42)
+            + '<rect x="404" y="474" width="128" height="26" rx="13" fill="#D9A55B"/>'
+            + "".join(f'<path d="M{x} 476 v22" stroke="#B07D3A" stroke-width="4"/>' for x in range(420, 530, 18))
+            + '<path d="M566 500 L576 466 L650 466 L660 500 Z" fill="#B5793A"/>'
+            + "".join(f'<path d="M{x} 468 l-6 30" stroke="#8C5A26" stroke-width="3"/>' for x in range(586, 656, 14))) +
+        '<path id="body" d="M178 520 H846 Q884 520 898 548 L944 640 Q956 662 956 690 V790 Q956 800 946 800 H160 Q150 800 150 790 V548 Q150 520 178 520 Z" fill="url(#bodygrad)"/>'
+        '<rect x="168" y="526" width="676" height="7" rx="3" fill="#FFFFFF" opacity="0.4"/>'
+        + windows +
+        '<path id="windscreen" d="M776 548 H880 L926 636 H776 Z" fill="url(#glass)" stroke="#1D1D22" stroke-width="5" stroke-linejoin="round"/>'
+        '<path d="M800 552 L826 552 L790 632 L780 632 Z" fill="#FFFFFF" opacity="0.18"/>'
+        '<path d="M896 600 L934 588 M930 578 h16 v22 h-16 z" stroke="#1D1D22" stroke-width="5" fill="#1D1D22"/>'
+        f'<rect id="doorway" x="632" y="548" width="128" height="242" rx="8" fill="#26262C"/>'
+        '<rect x="636" y="760" width="120" height="14" fill="#55555E"/>'
+        f'<path d="M700 556 V700" stroke="#9AA0A8" stroke-width="6"/>'
+        + G("conductor", conductor) +
+        f'<rect id="stripe-top" x="150" y="648" width="482" height="11" fill="{INK}"/><rect x="760" y="648" width="196" height="11" fill="{INK}"/>'
+        f'<rect id="stripe-bottom" x="150" y="756" width="482" height="11" fill="{INK}"/><rect x="760" y="756" width="196" height="11" fill="{INK}"/>'
+        f'<rect id="brand-panel" x="176" y="668" width="440" height="78" rx="12" {BC}/>'
+        f'<rect x="184" y="674" width="424" height="10" rx="5" fill="#FFFFFF" opacity="0.18"/>'
+        f'<text id="text-brand" x="396" y="720" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="38" fill="#FFFFFF">{s["name"]}</text>'
+        f'<text id="text-slogan" x="490" y="783" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="15" fill="{INK}" letter-spacing="1">NO FOOD FOR LAZY MAN</text>'
+        '<circle cx="610" cy="700" r="6" fill="#B78A00"/><circle cx="240" cy="784" r="5" fill="#B78A00"/>'
+        + G("headlight-beam", '<path d="M950 700 L1080 650 L1080 760 Z" fill="url(#beam)"/>') +
+        '<circle id="headlight" cx="944" cy="702" r="14" fill="#FFF7CF" stroke="#1D1D22" stroke-width="4"/>'
+        '<rect x="938" y="728" width="14" height="10" rx="3" fill="#FF9A1F"/>'
+        '<rect x="150" y="684" width="10" height="44" rx="3" fill="#E23B2E"/>'
+        '<path d="M250 800 A60 60 0 0 1 350 800 Z M780 800 A60 60 0 0 1 880 800 Z" fill="#1E1E22"/>'
+        '<rect id="bumper" x="138" y="786" width="832" height="20" rx="10" fill="url(#chrome)"/>'
+        '<rect x="118" y="792" width="34" height="9" rx="4" fill="#55555E"/>'
+    )
+    puffs = "".join(G(f"puff-{i}", f'<circle cx="104" cy="796" r="16" fill="#D8D4CC"/>') for i in range(3))
+    dust = "".join(G(f"dust-{i}", f'<circle cx="{c}" cy="852" r="18" fill="#C9B9A1"/>') for i, c in enumerate((900, 870, 250)))
+    speed = G("speed-lines", "".join(f'<rect x="{x}" y="{y}" width="{w}" height="9" rx="4" fill="#FFFFFF" opacity="0.7"/>'
+                                     for x, y, w in ((40, 590, 80), (10, 660, 100), (50, 730, 70))))
+    danfo = (
+        '<ellipse id="shadow" cx="555" cy="858" rx="430" ry="24" fill="url(#shade)"/>'
+        + speed + G("exhaust", puffs) + G("danfo-body", body)
+        + "".join(wheel(n, x, WHEEL_Y, tf.get(n + "_ang", 0)) for n, x in WHEELS)
+    )
+
+    bubble = (
+        '<path d="M864 514 L816 556 L892 520 Z" fill="#FFFFFF"/>'
+        '<rect x="842" y="452" width="226" height="66" rx="33" fill="#FFFFFF" stroke="#1D1D22" stroke-width="4"/>'
+        '<path d="M866 516 L822 552 L890 518" fill="#FFFFFF" stroke="#1D1D22" stroke-width="4" stroke-linejoin="round"/>'
+        '<rect x="862" y="508" width="34" height="8" fill="#FFFFFF"/>'
+        f'<text id="text-bubble" x="955" y="494" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="24" fill="{INK}">{s["bubble"]}</text>'
+    )
+    cta = (
+        G("cta-ripple", f'<rect x="350" y="936" width="380" height="86" rx="43" fill="none" stroke="{b}" stroke-width="6" class="brand-colour"/>')
+        + '<rect x="356" y="946" width="380" height="86" rx="43" fill="#000000" opacity="0.25"/>'
+        + f'<rect x="350" y="936" width="380" height="86" rx="43" {BC}/>'
+        + '<rect x="372" y="944" width="290" height="12" rx="6" fill="#FFFFFF" opacity="0.2"/>'
+        + f'<text id="text-cta" x="510" y="993" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="38" fill="#FFFFFF">{s["cta"]}</text>'
+        + G("cta-arrow", f'<circle cx="684" cy="979" r="30" fill="#FFFFFF"/><path d="M670 979 H696 M686 967 L698 979 L686 991" stroke="{b}" '
+                         f'stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" class="brand-colour"/>')
+    )
+
     return f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
-<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE3B0"/><stop offset="1" stop-color="#FFF5E1"/></linearGradient></defs>
-<g id="background">
-  <rect width="{W}" height="{H}" fill="url(#sky)"/>
-  <circle id="sun" cx="900" cy="170" r="78" fill="#FFC94A"/>
-  <g id="skyline">{skyline()}</g>
-  <rect id="road" x="0" y="820" width="{W}" height="260" fill="#3B3B44"/>
-  <g id="road-lines">{"".join(f'<rect x="{x}" y="900" width="70" height="10" rx="5" fill="#F2F2F2"/>' for x in range(20, 1080, 130))}</g>
-</g>
-<g id="signboard"{t("signboard")}{op("signboard")}>
-  <line x1="300" y1="0" x2="300" y2="80" stroke="{INK}" stroke-width="6"/><line x1="780" y1="0" x2="780" y2="80" stroke="{INK}" stroke-width="6"/>
-  <rect x="190" y="70" width="700" height="230" rx="26" fill="#FFFFFF" stroke="{b}" stroke-width="10" class="brand-colour"/>
-  <text id="text-headline" x="540" y="172" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="64" fill="{INK}">{s["headline"]}</text>
-  <text id="text-subline" x="540" y="240" text-anchor="middle" font-family="{FONT}" font-weight="600" font-size="32" fill="#5B5B66">{s["sub"]}</text>
-</g>
-{"".join(img_layers)}
-<g id="danfo"{t("danfo")}>
-  <ellipse id="shadow" cx="545" cy="852" rx="420" ry="22" fill="#000000" opacity="0.25"/>
-  <rect x="200" y="508" width="600" height="14" rx="5" fill="{INK}"/>
-  {"".join(f'<rect x="{x}" y="508" width="10" height="30" fill="{INK}"/>' for x in (230, 400, 570, 760))}
-  <path id="body" d="M178 536 H880 Q912 536 924 566 L948 690 Q952 708 952 728 V796 H178 Q150 796 150 768 V564 Q150 536 178 536 Z" fill="{YELLOW}"/>
-  <path id="windscreen" d="M884 566 L926 664 L884 664 Z" fill="{GLASS}"/>
-  {"".join(f'<rect x="{x}" y="562" width="112" height="86" rx="10" fill="{GLASS}" stroke="{INK}" stroke-width="5"/>' for x in (182, 312, 442, 572))}
-  <rect id="door" x="708" y="562" width="160" height="214" rx="10" fill="none" stroke="{INK}" stroke-width="5"/>
-  <rect x="716" y="570" width="144" height="78" rx="8" fill="{GLASS}"/>
-  <rect id="stripe-top" x="150" y="656" width="802" height="12" fill="{INK}"/>
-  <rect id="stripe-bottom" x="150" y="754" width="802" height="12" fill="{INK}"/>
-  <rect id="brand-panel" x="182" y="676" width="510" height="70" rx="12" fill="{b}" class="brand-colour"/>
-  <text id="text-brand" x="437" y="726" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="40" fill="#FFFFFF">{s["name"]}</text>
-  <circle id="headlight" cx="936" cy="716" r="13" fill="#FFF4C2" stroke="{INK}" stroke-width="4"/>
-  <rect id="bumper" x="140" y="790" width="824" height="18" rx="9" fill="#33333A"/>
-  <path d="M250 796 A70 70 0 0 1 390 796 Z M690 796 A70 70 0 0 1 830 796 Z" fill="#26262B"/>
-  {wheel("wheel-back", 320, 806, wa)}
-  {wheel("wheel-front", 760, 806, wb)}
-</g>
-<g id="cta"{t("cta")}{op("cta")}>
-  <rect x="370" y="930" width="340" height="88" rx="44" fill="{b}" class="brand-colour"/>
-  <text id="text-cta" x="540" y="988" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="40" fill="#FFFFFF">{s["cta"]}</text>
-</g>
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8F5E"/><stop offset="0.45" stop-color="#FFC27A"/><stop offset="0.75" stop-color="#FFE3B5"/></linearGradient>
+<radialGradient id="glow"><stop offset="0.3" stop-color="#FFE9A8" stop-opacity="0.9"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient>
+<linearGradient id="asphalt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D3B45"/><stop offset="1" stop-color="#26252B"/></linearGradient>
+<linearGradient id="bodygrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD43D"/><stop offset="0.55" stop-color="{YELLOW}"/><stop offset="1" stop-color="#DDA300"/></linearGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A6087"/><stop offset="1" stop-color="#22304A"/></linearGradient>
+<linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF0F3"/><stop offset="1" stop-color="#8E949C"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF7CF" stop-opacity="0.75"/><stop offset="1" stop-color="#FFF7CF" stop-opacity="0"/></linearGradient>
+<radialGradient id="shade"><stop offset="0" stop-color="#000000" stop-opacity="0.45"/><stop offset="1" stop-color="#000000" stop-opacity="0"/></radialGradient>
+</defs>
+{G("background", background)}
+{G("signboard", signboard)}
+{images}
+{G("danfo", danfo)}
+{G("dust", dust)}
+{G("bubble", bubble)}
+{G("cta", cta)}
 </svg>'''
 
 
 # ------------------------------------------------------------------ motion preview (reference for the SVGator timeline)
-def ease_out_back(x, k=1.5):
-    x = min(max(x, 0), 1)
+def clamp(x):
+    return min(max(x, 0.0), 1.0)
+
+
+def ease_out_back(x, k=1.70158):
+    x = clamp(x)
     return 1 + (k + 1) * (x - 1) ** 3 + k * (x - 1) ** 2
 
 
+def ease_out_cubic(x):
+    return 1 - (1 - clamp(x)) ** 3
+
+
 def ease_out_bounce(x):
-    x = min(max(x, 0), 1)
+    x = clamp(x)
     n, d = 7.5625, 2.75
     if x < 1 / d:
         return n * x * x
@@ -176,37 +341,83 @@ def ease_out_bounce(x):
     x -= 2.625 / d; return n * x * x + 0.984375
 
 
-DUR = 6.4
+DUR = 6.8
+ABOUT = lambda cx, cy, sc=1.0, rot=0.0, dx=0.0, dy=0.0: f"translate({cx + dx:.1f} {cy + dy:.1f}) rotate({rot:.2f}) scale({max(sc, 0.0001):.3f}) translate({-cx} {-cy})"
 
 
 def transforms(t):
     tf = {}
-    if t < 1.2:
-        dx = -1150 * (1 - ease_out_back(t / 1.2, 1.2))
-        tf["wheel_angle"] = 900 * (t / 1.2) ** 0.6
-    elif t < 5.2:
-        dx = 0
-        tf["wheel_angle"] = 900
+    # danfo: drive in (0-1.3), brake, idle, drive out (5.6-6.8). Wheels roll by the distance travelled.
+    if t < 1.3:
+        dx = -1250 * (1 - ease_out_cubic(t / 1.3))
+    elif t < 5.6:
+        dx = 0.0
     else:
-        q = (t - 5.2) / 1.0
-        dx = 1300 * q ** 2.2
-        tf["wheel_angle"] = 900 + 900 * q ** 2
-    dy = 7 * math.sin(math.pi * (t - 1.2) / 0.35) * math.exp(-(t - 1.2) * 5) if 1.2 <= t < 2.0 else 0
-    tf["danfo"] = f"translate({dx:.1f} {dy:.1f})"
-    sy = -430 * (1 - ease_out_bounce((t - 1.25) / 0.7)) if t < 1.95 else 0
-    tf["signboard"] = f"translate(0 {sy:.1f})"
-    for i, (cx, cy) in enumerate(((340, 420), (540, 398), (740, 420)), 1):
-        p = ease_out_back((t - 1.9 - 0.18 * (i - 1)) / 0.45, 2.2)
-        p = max(p, 0.0001)
-        lift = 60 * (1 - min(max((t - 1.9 - 0.18 * (i - 1)) / 0.45, 0), 1))
-        tf[f"image-{i}"] = f"translate({cx} {cy + lift:.1f}) scale({p:.3f}) translate({-cx} {-cy})"
-    c = ease_out_back((t - 2.6) / 0.4, 2.0)
-    pulse = 1 + 0.05 * math.sin(2 * math.pi * (t - 3.0) / 0.9) if t > 3.0 else 1
-    s = max(c * pulse, 0.0001)
-    tf["cta"] = f"translate(540 974) scale({s:.3f}) translate(-540 -974)"
-    fade = 1 - min(max((t - 5.0) / 0.4, 0), 1)
-    for k in ("signboard", "image-1", "image-2", "image-3", "cta"):
+        dx = 1350 * clamp((t - 5.6) / 1.2) ** 2.2
+    for n, _ in WHEELS:
+        tf[n + "_ang"] = (dx + 1250 if t < 5.6 else 1250 + dx) / WHEEL_R * 180 / math.pi
+    tf["danfo"] = f"translate({dx:.1f} 0)"
+    tilt = 2.2 * math.sin(math.pi * (t - 1.3) / 0.3) * math.exp(-(t - 1.3) * 4.5) if 1.3 <= t < 2.6 else 0
+    if 5.6 <= t < 6.0:
+        tilt = -1.4 * math.sin(math.pi * (t - 5.6) / 0.4)
+    idle = 1.2 * math.sin(2 * math.pi * t * 9) if 1.6 < t < 5.6 else 0
+    tf["danfo-body"] = ABOUT(830, 858, rot=tilt, dy=idle)
+    moving = 1 - clamp((t - 0.9) / 0.4) if t < 1.3 else clamp((t - 5.7) / 0.3)
+    tf["speed-lines_op"] = moving
+    tf["speed-lines"] = f"translate({-30 * (t % 0.3) / 0.3:.1f} 0)"
+    for i in range(3):   # exhaust puffs cycle every 0.9 s
+        q = ((t + i * 0.3) % 0.9) / 0.9
+        tf[f"puff-{i}"] = ABOUT(104, 796, sc=0.5 + 1.2 * q, dx=-70 * q, dy=-26 * q)
+        tf[f"puff-{i}_op"] = 0.7 * (1 - q)
+    for i in range(3):   # brake dust
+        q = clamp((t - 1.25 - 0.05 * i) / 0.6)
+        tf[f"dust-{i}"] = ABOUT((900, 870, 250)[i], 852, sc=0.4 + 1.6 * q, dx=(-50, 40, -40)[i] * q, dy=-30 * q)
+        tf[f"dust-{i}_op"] = 0.8 * (1 - q) if 0 < q < 1 else 0
+    tf["headlight-beam_op"] = 1.0 if (1.3 < t < 1.42 or 1.52 < t < 1.64) else (0.35 if t < 5.6 else 0.6)
+    # conductor leans out and waves
+    lean = -18 * (1 - ease_out_back((t - 1.45) / 0.45, 2.2))
+    tf["conductor"] = ABOUT(700, 788, rot=lean)
+    tf["conductor-arm"] = ABOUT(748, 642, rot=16 * math.sin(2 * math.pi * (t - 1.9) * 1.8) if t > 1.9 else -40 * (1 - clamp((t - 1.5) / 0.4)))
+    # signboard drops, bounces, then swings to rest; marquee bulbs chase
+    sy = -440 * (1 - ease_out_bounce((t - 1.5) / 0.75))
+    swing = 3.0 * math.sin(2 * math.pi * (t - 2.25) / 1.1) * math.exp(-(t - 2.25) * 1.3) if t > 2.25 else 0
+    tf["signboard"] = ABOUT(540, 0, rot=swing, dy=sy)
+    on = int(t / 0.22) % 2
+    tf["bulbs-a_op"] = 1.0 if t < 2.2 else (1.0 if on else 0.25)
+    tf["bulbs-b_op"] = 1.0 if t < 2.2 else (0.25 if on else 1.0)
+    # products pop out of the luggage, sparkle, then float
+    for i, (cx, cy) in enumerate(IMG_POS, 1):
+        t0 = 2.3 + 0.16 * (i - 1)
+        p = ease_out_back((t - t0) / 0.5, 2.4)
+        lift = 90 * (1 - ease_out_cubic((t - t0) / 0.5))
+        float_y = 6 * math.sin(2 * math.pi * (t - t0) / 1.6 + i) if t > t0 + 0.5 else 0
+        tf[f"image-{i}"] = ABOUT(cx, cy, sc=p, dy=lift + float_y)
+        q = clamp((t - t0 - 0.12) / 0.5)
+        tf[f"sparkle-{i}"] = ABOUT(cx, cy, sc=0.6 + 0.6 * q)
+        tf[f"sparkle-{i}_op"] = (1 - q) if 0 < q < 1 else 0
+    # speech bubble
+    tf["bubble"] = ABOUT(820, 552, sc=ease_out_back((t - 2.0) / 0.4, 2.5))
+    # CTA pops, then ripples and nudges its arrow
+    tf["cta"] = ABOUT(540, 979, sc=ease_out_back((t - 3.0) / 0.45, 2.2))
+    if t > 3.4:
+        q = ((t - 3.4) % 1.0) / 1.0
+        tf["cta-ripple"] = ABOUT(540, 979, sc=1 + 0.22 * q)
+        tf["cta-ripple_op"] = 0.8 * (1 - q)
+    else:
+        tf["cta-ripple_op"] = 0
+    tf["cta-arrow"] = f"translate({5 * max(0, math.sin(2 * math.pi * t * 1.6)):.1f} 0)"
+    # everything but the bus fades before it drives away
+    fade = 1 - clamp((t - 5.2) / 0.4)
+    for k in ("signboard", "image-1", "image-2", "image-3", "bubble", "cta"):
         tf[k + "_op"] = fade
+    # ambient life: loops cleanly every DUR seconds
+    ph = 2 * math.pi * t / DUR
+    tf["sun-rays"] = f"rotate({30 * t / DUR:.2f} 860 470)"
+    for i, a in enumerate((26, 18, 14), 1):
+        tf[f"cloud-{i}"] = f"translate({a * math.sin(ph + i):.1f} 0)"
+    tf["palm-1"] = f"rotate({2 * math.sin(ph * 3):.2f} 70 830)"
+    tf["palm-2"] = f"rotate({-2 * math.sin(ph * 3 + 1):.2f} 1010 830)"
+    tf["beacon_op"] = 1.0 if (t % 1.0) < 0.5 else 0.2
     return tf
 
 
@@ -223,7 +434,7 @@ def main():
                                     "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", os.path.join(out, f"preview_{name}.mp4")],
                                    stdin=subprocess.PIPE)
             for f in range(int(DUR * fps)):
-                enc.stdin.write(cairosvg.svg2png(bytestring=scene(s, imgs, transforms(f / fps)).encode(), output_width=720))
+                enc.stdin.write(cairosvg.svg2png(bytestring=scene(s, imgs, transforms(f / fps)).encode(), output_width=1080))
             enc.stdin.close()
             enc.wait()
         print("done", name, flush=True)
