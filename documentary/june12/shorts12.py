@@ -68,27 +68,26 @@ SHORTS = {
 }
 
 SHORTS["uturn"] = dict(
-    # hook: "Fuel subsidy is gone."  ->  loops back into "Four words."
+    # hook states the whole U-turn in the first seconds; the ending question loops back into it
     headline=("2012: HE FOUGHT IT.", "2023: HE DID IT."),
     scenes=[
-        sc("u1", "Four words, on his very first day as president, in May 2023. Within days, petrol jumped from about 185 naira a litre, to more than 500.",
-           [photo(BR + "official-portrait-2023.jpg", 0, focus=(0.5, 0.3), move="out"),
-            typed([("MAY 2023 · PETROL, PER LITRE", 1), ("", 1), ("~N185", 1), ("N500+", 1)], 1, big=True)], mood="tension", hold=0.2),
-        sc("u2", "By October 2024, it cost over a thousand naira in Lagos. Food followed. Transport followed. Everything followed.",
-           [typed([("OCTOBER 2024 · LAGOS", 0), ("", 0), ("N1,025 / LITRE", 0)], 0, big=True),
-            photo(BR + "endbadgovernance-march-2024.jpg", 1, focus=(0.5, 0.4), label="#EndBadGovernance protest, 2024")], mood="tension", hold=0.2),
-        sc("u3", "But here is what many Nigerians forgot. In January 2012, President Jonathan removed the same subsidy. Petrol went from 65 naira to 141.",
-           [photo(BR + "occupy-nigeria-nyc-2012.jpg", 0, focus=(0.5, 0.45)),
-            typed([("JANUARY 2012", 2), ("", 2), ("~N65", 2), ("N141", 2)], 2, big=True)], mood="tension", hold=0.2),
-        sc("u4", "Nigerians shut the country down. Occupy Nigeria. And one of the loudest voices against it, was the opposition leader from Lagos.",
-           [photo(BR + "occupy-nigeria-nyc-2012.jpg", 0, focus=(0.3, 0.4), move="left", label="Occupy Nigeria, January 2012"),
-            photo(BR + "tinubu-governor-archive.jpg", 2, focus=(0.5, 0.35), grade="bw")], mood="tension", hold=0.2),
-        sc("u5", "He called it the Jonathan tax. He reportedly said the government had tossed the people into the depths of the midnight sea.",
-           [typed(["“JONATHAN TAX”", "", "“...tossed the people into the depths", "of the midnight sea.”"], 0)], mood="tension", hold=0.2),
-        sc("u6", "Eleven years later, that same man stood before the nation, and said four words.",
-           [photo(BR + "tinubu-buhari-hands-raised.jpg", 0, focus=(0.5, 0.35), move="in")], mood="tension", hold=0.1),
-        sc("hook", "Fuel subsidy is gone.",
-           [photo(BR + "official-portrait-2023.jpg", 0, focus=(0.5, 0.3), move="in")], mood="tension", hold=0.35, xf=0.15),
+        sc("u1", "January 2012. President Jonathan removed the subsidy. Petrol jumped from 65 naira to 141, and Nigerians poured into the streets.",
+           [typed([("JANUARY 2012 \u00b7 PETROL / LITRE", 0), ("", 0), ("~N65", 1), ("N141", 1)], 0, big=True),
+            photo(BR + "occupy-nigeria-nyc-2012.jpg", 2, focus=(0.5, 0.45), label="Occupy Nigeria, 2012")], mood="tension", hold=0.1),
+        sc("u2", "The opposition leader from Lagos called it the Jonathan tax.",
+           [photo(BR + "tinubu-governor-archive.jpg", 0, focus=(0.5, 0.35), grade="bw"),
+            typed(["\u201cTHE JONATHAN TAX\u201d"], (0, 0.45), big=True)], mood="tension", hold=0.1),
+        sc("u3", "May 2023. His first day as president. Four words. Fuel subsidy is gone.",
+           [photo(BR + "official-portrait-2023.jpg", 0, focus=(0.5, 0.3), move="in"),
+            typed(["\u201cFUEL SUBSIDY", "IS GONE.\u201d"], 3, big=True)], mood="tension", hold=0.1),
+        sc("u4", "Petrol went from 185 naira to over 500 in days. By late 2024, it passed a thousand.",
+           [typed([("2023 - 2024 \u00b7 PETROL / LITRE", 0), ("", 0), ("~N185", 0), ("~N500", 1), ("N1,025", 1)], 0, big=True)],
+           mood="tension", hold=0.1),
+        sc("u5", "Same policy. Same man. Opposite side. So, what changed?",
+           [photo(BR + "endbadgovernance-march-2024.jpg", 0, focus=(0.5, 0.4), label="#EndBadGovernance, 2024")], mood="tension", hold=0.15),
+        sc("hook", "In 2012, he fought fuel subsidy removal. In 2023, he did it himself, on his first day.",
+           [photo(BR + "tinubu-governor-archive.jpg", 0, focus=(0.5, 0.35), grade="bw", move="in"),
+            photo(BR + "official-portrait-2023.jpg", 1, focus=(0.5, 0.3), move="in")], mood="tension", hold=0.3, xf=0.15),
     ],
 )
 
