@@ -87,13 +87,13 @@ Select the element, set its transform origin, then add keyframes. **Do the main 
 ## 5. The story (paste into the submission)
 > Danfo Delivers is a 6-second looping promo for small businesses, built around the yellow Lagos danfo bus that everyone in Nigeria knows, with the conductor's Pidgin call, the Ghana-must-go bag on the roof and the slogan painted on the side. A food vendor, fashion seller or any shop owner can swap one colour, four lines of text and three product photos and have a ready-to-post WhatsApp status, Instagram post or ad in five minutes. The art, the bus and the motion stay fixed, so every rebrand still looks finished.
 
-## 6. Post for the 100-likes bonus (X / Instagram / LinkedIn)
+## 6. The post (REQUIRED: public post on X, Instagram or LinkedIn tagging @SVGatorApp, linked in the submission; 100 likes = bonus)
 > I built an animated template for small businesses in Nigeria 🇳🇬🚌
 >
 > The danfo drives in, your offer drops, your products pop out, and it loops.
 > Swap 1 colour, 4 texts and 3 photos and you have a new brand in 5 minutes.
 >
-> Made for the @SVGator × @contra challenge. Which business should ride the danfo next? 👇
+> Made for the @SVGatorApp × @contra challenge. Which business should ride the danfo next? 👇
 >
 > #SVGator #Contra #MotionDesign #Lagos #SmallBusiness
 
