@@ -12,7 +12,7 @@ Rebranding takes **1 colour + 4 texts + 3 images**, about 5 minutes.
 | `out/proof_video.mp4` | Motion reference: set 1, then "same template", then set 2 |
 | `danfo.py` | Script that draws everything (all art is original, made in code) |
 
-Font: **Poppins** (Google Fonts, Open Font License, so it can be redistributed). All text stays live `<text>` and is never outlined.
+Font: **Poppins** (Google Fonts, Open Font License, free to redistribute). It is embedded inside each SVG, so the text looks right in any browser or viewer. All text stays live `<text>` and is never outlined. In SVGator, if the text shows another font, select it → Font → Google Fonts → Poppins.
 
 ---
 

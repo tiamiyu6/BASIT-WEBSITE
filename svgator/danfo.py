@@ -12,7 +12,28 @@ import cairosvg
 from PIL import Image
 
 W = H = 1080
-FONT = "Poppins"
+FONT = "Poppins, 'Arial Black', Arial, Helvetica, sans-serif"
+FONT_DIR = os.path.expanduser("~/.fonts")
+
+
+def font_css():
+    """@font-face rules with Poppins (OFL) subset to Latin and embedded as base64 WOFF2."""
+    from fontTools import subset
+    from fontTools.ttLib import TTFont
+    css = ""
+    for weight, f in ((600, "Poppins-SemiBold.ttf"), (800, "Poppins-ExtraBold.ttf")):
+        font = TTFont(os.path.join(FONT_DIR, f))
+        opts = subset.Options(); opts.flavor = "woff2"; opts.layout_features = ["kern", "liga"]
+        sub = subset.Subsetter(opts)
+        sub.populate(unicodes=list(range(0x20, 0x7F)) + list(range(0xA0, 0x100)) + [0x2018, 0x2019, 0x201C, 0x201D, 0x2013, 0x2014, 0x2022, 0x20A6])
+        sub.subset(font)
+        buf = io.BytesIO(); font.flavor = "woff2"; font.save(buf)
+        css += (f"@font-face{{font-family:'Poppins';font-weight:{weight};font-style:normal;"
+                f"src:url(data:font/woff2;base64,{base64.b64encode(buf.getvalue()).decode()}) format('woff2');}}")
+    return css
+
+
+FONT_CSS = None
 YELLOW, INK, GLASS = "#F7C100", "#1D1D22", "#2B3A55"
 
 SETS = {
@@ -25,54 +46,113 @@ SETS = {
 
 # ------------------------------------------------------------------ product illustrations (original artwork)
 def product_svg(kind, brand):
-    bg = '<circle cx="180" cy="180" r="180" fill="#FFF3DF"/>'
+    defs = ('<defs><radialGradient id="bgp" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="#FFF8EC"/><stop offset="1" stop-color="#FBE3C4"/></radialGradient>'
+            '<radialGradient id="drop"><stop offset="0" stop-color="#7A4A20" stop-opacity="0.35"/><stop offset="1" stop-color="#7A4A20" stop-opacity="0"/></radialGradient>'
+            '<linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.45"/><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>'
+            '<linearGradient id="shadeR" x1="0" y1="0" x2="1" y2="0"><stop offset="0.55" stop-color="#000000" stop-opacity="0"/><stop offset="1" stop-color="#000000" stop-opacity="0.22"/></linearGradient></defs>')
+    bg = '<circle cx="180" cy="180" r="180" fill="url(#bgp)"/>'
+    shadow = lambda y, rx: f'<ellipse cx="180" cy="{y}" rx="{rx}" ry="{rx * 0.16:.0f}" fill="url(#drop)"/>'
+    steam = lambda x0: "".join(f'<path d="M{x} 70 q-14 -18 0 -36 q14 -18 0 -36" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.8"/>'
+                               for x in x0)
+    import random
+    r = random.Random(1)
     if kind == "jollof":
-        import random
-        r = random.Random(1)
-        rice = "".join(f'<ellipse cx="{180 + r.uniform(-95, 95):.0f}" cy="{180 + r.uniform(-70, 75):.0f}" rx="9" ry="4.5" '
-                       f'transform="rotate({r.randint(0, 180)} {180} {180})" fill="{r.choice(["#E8742B", "#F08A3C", "#D9601F"])}"/>' for _ in range(260))
-        peas = "".join(f'<circle cx="{180 + r.uniform(-80, 80):.0f}" cy="{180 + r.uniform(-60, 70):.0f}" r="7" fill="#5DA34A"/>' for _ in range(14))
-        art = (f'<ellipse cx="180" cy="196" rx="150" ry="140" fill="#E9E2D6"/><ellipse cx="180" cy="188" rx="150" ry="140" fill="#FFFFFF"/>'
-               f'<ellipse cx="180" cy="188" rx="118" ry="108" fill="#F4EEE4"/>{rice}{peas}'
-               '<g transform="rotate(-25 230 150)"><ellipse cx="230" cy="150" rx="52" ry="36" fill="#9C4F1F"/>'
-               '<ellipse cx="222" cy="142" rx="40" ry="24" fill="#B8642A"/><rect x="270" y="143" width="40" height="14" rx="7" fill="#F3E9D8"/>'
-               '<circle cx="312" cy="143" r="11" fill="#F3E9D8"/><circle cx="312" cy="157" r="11" fill="#F3E9D8"/></g>'
-               '<circle cx="118" cy="232" r="24" fill="#D93A2B"/><circle cx="118" cy="232" r="16" fill="#F26B5B"/>')
+        rice = "".join(f'<ellipse cx="{180 + r.uniform(-92, 92):.0f}" cy="{196 + r.uniform(-66, 70):.0f}" rx="9" ry="4.5" '
+                       f'transform="rotate({r.randint(0, 180)} 180 196)" fill="{r.choice(["#E8742B", "#F08A3C", "#D9601F", "#F29A4A"])}"/>' for _ in range(320))
+        peas = "".join(f'<circle cx="{180 + r.uniform(-80, 80):.0f}" cy="{196 + r.uniform(-56, 66):.0f}" r="6.5" fill="#5DA34A"/>'
+                       f'<circle cx="{180 + r.uniform(-80, 80):.0f}" cy="{196 + r.uniform(-56, 66):.0f}" r="5" fill="#F2C14E"/>' for _ in range(12))
+        art = (shadow(330, 150) + '<ellipse cx="180" cy="206" rx="152" ry="132" fill="#D8CFC1"/><ellipse cx="180" cy="196" rx="152" ry="132" fill="#FFFFFF"/>'
+               '<ellipse cx="180" cy="196" rx="124" ry="106" fill="#F1EADF"/>' + rice + peas +
+               # fried plantain (dodo)
+               "".join(f'<ellipse cx="{x}" cy="{y}" rx="22" ry="13" transform="rotate({a} {x} {y})" fill="#E9A23B"/>'
+                       f'<ellipse cx="{x}" cy="{y}" rx="15" ry="7" transform="rotate({a} {x} {y})" fill="#F7C96B"/>' for x, y, a in ((104, 238, -20), (128, 262, 15), (98, 206, 35)))
+               + '<g transform="rotate(-25 238 158)"><ellipse cx="238" cy="160" rx="54" ry="38" fill="#8A4318"/>'
+               '<ellipse cx="230" cy="150" rx="42" ry="25" fill="#B5612A"/><ellipse cx="220" cy="144" rx="18" ry="8" fill="#D88A4E" opacity="0.8"/>'
+               '<rect x="280" y="152" width="40" height="14" rx="7" fill="#F3E9D8"/><circle cx="322" cy="152" r="11" fill="#F3E9D8"/><circle cx="322" cy="166" r="11" fill="#F3E9D8"/></g>'
+               '<path d="M70 150 Q90 96 160 76" stroke="#FFFFFF" stroke-width="8" fill="none" opacity="0.7" stroke-linecap="round"/>'
+               + steam((150, 200)))
     elif kind == "puffpuff":
-        balls = [(120, 170), (180, 150), (240, 170), (150, 215), (210, 215), (180, 185)]
-        art = ('<defs><radialGradient id="pp" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#F8C66A"/>'
-               '<stop offset="1" stop-color="#B9701F"/></radialGradient></defs>'
-               '<ellipse cx="180" cy="250" rx="150" ry="60" fill="#2F6690"/><ellipse cx="180" cy="232" rx="150" ry="44" fill="#3A7CA5"/>'
-               + "".join(f'<circle cx="{x}" cy="{y}" r="48" fill="url(#pp)"/>' for x, y in balls)
-               + "".join(f'<circle cx="{x + dx}" cy="{y + dy}" r="3" fill="#FFF8E7"/>' for x, y in balls for dx, dy in ((-14, -18), (10, -22), (-4, -8)))
-               + '<path d="M30 232 Q180 330 330 232 L330 250 Q180 350 30 250 Z" fill="#2F6690"/>')
+        balls = [(118, 176), (180, 156), (242, 176), (148, 220), (212, 220), (180, 188)]
+        sugar = "".join(f'<circle cx="{x + r.uniform(-30, 30):.0f}" cy="{y + r.uniform(-34, 0):.0f}" r="{r.choice((2, 2.5, 3))}" fill="#FFFBF0"/>'
+                        for x, y in balls for _ in range(9))
+        art = (shadow(312, 160) +
+               '<defs><radialGradient id="pp" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#F9D27E"/><stop offset="0.6" stop-color="#D88A2E"/>'
+               '<stop offset="1" stop-color="#9E5A17"/></radialGradient></defs>'
+               '<ellipse cx="180" cy="262" rx="156" ry="56" fill="#1F4E73"/><ellipse cx="180" cy="244" rx="156" ry="46" fill="#2F6E9C"/>'
+               '<ellipse cx="180" cy="244" rx="126" ry="32" fill="#3A80B3"/>'
+               + "".join(f'<circle cx="{x}" cy="{y}" r="50" fill="url(#pp)"/><ellipse cx="{x - 16}" cy="{y - 20}" rx="16" ry="9" fill="#FFFFFF" opacity="0.35"/>' for x, y in balls)
+               + sugar + steam((140, 220)))
     elif kind == "zobo":
-        art = ('<path d="M115 70 L245 70 L228 300 Q180 318 132 300 Z" fill="#E7EEF3" opacity="0.9"/>'
-               '<path d="M122 120 L238 120 L226 292 Q180 308 134 292 Z" fill="#8E1B3A"/>'
-               '<path d="M122 120 L238 120 L236 140 L124 140 Z" fill="#B3264E"/>'
-               '<rect x="140" y="150" width="34" height="34" rx="6" fill="#FFFFFF" opacity="0.55" transform="rotate(12 157 167)"/>'
-               '<rect x="186" y="176" width="30" height="30" rx="6" fill="#FFFFFF" opacity="0.5" transform="rotate(-10 201 191)"/>'
-               '<rect x="205" y="30" width="10" height="150" rx="5" fill="#F4B942" transform="rotate(18 210 105)"/>'
-               '<circle cx="250" cy="82" r="30" fill="#8BC34A"/><circle cx="250" cy="82" r="22" fill="#C5E1A5"/>'
-               '<path d="M250 60 V104 M228 82 H272 M235 67 L265 97 M265 67 L235 97" stroke="#8BC34A" stroke-width="3"/>')
+        drops = "".join(f'<ellipse cx="{r.uniform(128, 232):.0f}" cy="{r.uniform(150, 290):.0f}" rx="3.5" ry="5" fill="#FFFFFF" opacity="0.55"/>' for _ in range(16))
+        art = (shadow(320, 110) +
+               '<path d="M112 66 L248 66 L230 304 Q180 322 130 304 Z" fill="#E7EEF3" opacity="0.85"/>'
+               '<path d="M120 118 L240 118 L228 296 Q180 312 132 296 Z" fill="#7E1533"/>'
+               '<path d="M120 118 L240 118 L238 140 L122 140 Z" fill="#A82450"/>'
+               '<path d="M196 130 L224 130 L214 290 L198 292 Z" fill="#000000" opacity="0.15"/>'
+               '<rect x="140" y="152" width="36" height="36" rx="7" fill="#FFFFFF" opacity="0.55" transform="rotate(12 158 170)"/>'
+               '<rect x="184" y="178" width="32" height="32" rx="7" fill="#FFFFFF" opacity="0.5" transform="rotate(-10 200 194)"/>'
+               + "".join(f'<circle cx="{x}" cy="{y}" r="3" fill="#FFFFFF" opacity="0.6"/>' for x, y in ((150, 250), (170, 270), (205, 240), (190, 280), (160, 220)))
+               + drops +
+               '<path d="M124 76 L134 290" stroke="#FFFFFF" stroke-width="7" opacity="0.6" stroke-linecap="round"/>'
+               '<rect x="204" y="26" width="11" height="156" rx="5" fill="#F4B942" transform="rotate(18 210 104)"/>'
+               '<path d="M206 40 l10 0" stroke="#E2453C" stroke-width="10" transform="rotate(18 210 104)"/>'
+               '<circle cx="252" cy="80" r="32" fill="#7CB342"/><circle cx="252" cy="80" r="25" fill="#C5E1A5"/>'
+               '<path d="M252 56 V104 M228 80 H276 M235 63 L269 97 M269 63 L235 97" stroke="#9CCC65" stroke-width="3"/>'
+               '<path d="M86 106 q8 -14 16 0 q8 14 16 0" stroke="#5DA34A" stroke-width="6" fill="none"/>'
+               '<path d="M84 98 l10 -18 l10 18 z" fill="#C2185B"/>')
     elif kind == "shirt":
-        pat = "".join(f'<circle cx="{x}" cy="{y}" r="14" fill="#F4A259"/><circle cx="{x}" cy="{y}" r="7" fill="{brand}"/>'
-                      for x in range(70, 300, 46) for y in range(90, 320, 46))
-        art = ('<defs><clipPath id="sh"><path d="M120 60 L150 50 Q180 80 210 50 L240 60 L310 110 L280 160 L250 140 L250 310 L110 310 L110 140 L80 160 L50 110 Z"/></clipPath></defs>'
-               f'<g clip-path="url(#sh)"><rect width="360" height="360" fill="#FCE8C8"/>{pat}</g>'
-               '<path d="M150 50 Q180 80 210 50" fill="none" stroke="#7A3E1D" stroke-width="5"/>')
+        pat = "".join(f'<circle cx="{x}" cy="{y}" r="15" fill="#F4A259"/><circle cx="{x}" cy="{y}" r="8" fill="{brand}"/>'
+                      f'<path d="M{x + 23} {y + 9} l9 -9 l9 9 l-9 9 z" fill="{brand}" opacity="0.8"/>'
+                      for x in range(52, 320, 46) for y in range(86, 340, 46))
+        shirt = "M118 76 L150 62 Q180 92 210 62 L242 76 L314 124 L284 182 L256 164 L256 318 Q180 330 104 318 L104 164 L76 182 L46 124 Z"
+        art = (shadow(336, 110) +
+               '<path d="M180 30 q-12 0 -12 12 q0 10 12 14" stroke="#8A8F98" stroke-width="5" fill="none"/>'
+               '<path d="M180 56 L82 104 L278 104 Z" fill="none" stroke="#8A8F98" stroke-width="6" stroke-linejoin="round"/>'
+               f'<clipPath id="sh"><path d="{shirt}"/></clipPath>'
+               f'<g clip-path="url(#sh)"><rect width="360" height="360" fill="#FCE8C8"/>{pat}'
+               '<rect width="360" height="360" fill="url(#shadeR)"/>'
+               '<path d="M104 164 L132 200 L132 320 L104 320 Z M256 164 L228 200 L228 320 L256 320 Z" fill="#000000" opacity="0.12"/>'
+               '<path d="M150 62 Q180 120 210 62" fill="#000000" opacity="0.12"/></g>'
+               f'<path d="{shirt}" fill="none" stroke="#6E3B1C" stroke-width="4" stroke-linejoin="round"/>'
+               '<path d="M150 62 Q180 96 210 62 L200 58 Q180 80 160 58 Z" fill="#6E3B1C"/>'
+               '<path d="M180 92 V318" stroke="#6E3B1C" stroke-width="3" stroke-dasharray="1 0"/>'
+               + "".join(f'<circle cx="188" cy="{y}" r="5" fill="#FFF3DF" stroke="#6E3B1C" stroke-width="2"/>' for y in (120, 160, 200, 240, 280)))
     elif kind == "sneaker":
-        art = ('<path d="M45 230 Q50 160 110 150 L170 140 Q210 120 240 150 Q290 170 315 200 Q330 222 318 240 L52 248 Z" fill="#FFFFFF" stroke="#2A2A2A" stroke-width="5"/>'
-               f'<path d="M110 205 Q190 170 290 205" fill="none" stroke="{brand}" stroke-width="16" stroke-linecap="round"/>'
-               '<path d="M40 248 L325 240 Q330 262 310 268 L52 272 Q36 268 40 248 Z" fill="#F4A259"/>'
-               + "".join(f'<line x1="{150 + i * 16}" y1="{150 - i * 3}" x2="{162 + i * 16}" y2="{170 - i * 3}" stroke="#2A2A2A" stroke-width="4"/>' for i in range(4)))
+        laces = "".join(f'<path d="M{150 + i * 24} {150 - i * 5} L{176 + i * 24} {182 - i * 5} M{176 + i * 24} {150 - i * 5} L{150 + i * 24} {182 - i * 5}" '
+                        f'stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>' for i in range(4))
+        eyelets = "".join(f'<circle cx="{148 + i * 24}" cy="{148 - i * 5}" r="4" fill="#2A2A2A"/><circle cx="{178 + i * 24}" cy="{184 - i * 5}" r="4" fill="#2A2A2A"/>' for i in range(4))
+        art = (shadow(300, 160) +
+               # outsole, midsole
+               '<path d="M34 248 L330 236 Q344 262 320 276 L56 284 Q30 278 34 248 Z" fill="#E07A2F"/>'
+               + "".join(f'<path d="M{x} 280 l8 -10" stroke="#B85E1E" stroke-width="4"/>' for x in range(60, 320, 20)) +
+               '<path d="M36 234 L330 222 Q338 238 330 248 L36 260 Q28 248 36 234 Z" fill="#FFFFFF" stroke="#2A2A2A" stroke-width="4"/>'
+               # upper
+               '<path d="M40 236 Q40 166 104 152 L140 144 Q160 108 210 116 Q262 132 300 174 Q334 200 330 224 L40 238 Z" fill="#FAFAFA" stroke="#2A2A2A" stroke-width="5" stroke-linejoin="round"/>'
+               '<path d="M250 140 Q300 168 330 224 L270 226 Q262 176 236 150 Z" fill="#ECECEC"/>'
+               '<path d="M40 236 Q44 190 82 172 L96 236 Z" fill="#E6E6E6"/>'
+               f'<path d="M86 214 Q170 170 300 198" fill="none" stroke="{brand}" stroke-width="20" stroke-linecap="round"/>'
+               f'<path d="M48 168 Q58 146 92 150 L98 176 Q70 172 56 186 Z" fill="{brand}"/>'
+               '<path d="M140 144 Q180 128 222 132 L230 196 L146 196 Z" fill="#F2F2F2" stroke="#2A2A2A" stroke-width="3"/>'
+               + eyelets + laces +
+               '<path d="M128 112 Q150 96 176 104 L170 130 Q150 124 136 134 Z" fill="#FFFFFF" stroke="#2A2A2A" stroke-width="4"/>'
+               '<path d="M60 230 Q150 222 320 214" stroke="#2A2A2A" stroke-width="2" stroke-dasharray="6 6" fill="none"/>'
+               '<path d="M70 178 Q90 160 120 158" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.9"/>')
     else:  # tote
-        pat = "".join(f'<path d="M{x} {y} l18 -18 l18 18 l-18 18 z" fill="{brand}"/><circle cx="{x + 18}" cy="{y}" r="5" fill="#FCE8C8"/>'
-                      for x in range(80, 290, 42) for y in range(150, 320, 42))
-        art = ('<path d="M130 130 Q130 60 180 60 Q230 60 230 130" fill="none" stroke="#7A3E1D" stroke-width="12"/>'
-               '<defs><clipPath id="tb"><path d="M80 125 L280 125 L300 320 L60 320 Z"/></clipPath></defs>'
-               f'<g clip-path="url(#tb)"><rect width="360" height="360" fill="#F4A259"/>{pat}</g>')
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360">{bg}{art}</svg>'
+        pat = "".join(f'<path d="M{x} {y} l20 -20 l20 20 l-20 20 z" fill="{brand}"/><circle cx="{x + 20}" cy="{y}" r="6" fill="#FCE8C8"/>'
+                      f'<circle cx="{x + 41}" cy="{y + 21}" r="4" fill="#7A3E1D"/>'
+                      for x in range(64, 300, 42) for y in range(150, 330, 42))
+        bag = "M78 126 L282 126 L304 318 Q180 330 56 318 Z"
+        art = (shadow(330, 140) +
+               '<path d="M122 132 Q118 52 180 52 Q242 52 238 132" fill="none" stroke="#5E2F14" stroke-width="16" stroke-linecap="round"/>'
+               '<path d="M122 132 Q118 52 180 52 Q242 52 238 132" fill="none" stroke="#8A4A24" stroke-width="8" stroke-linecap="round"/>'
+               f'<clipPath id="tb"><path d="{bag}"/></clipPath>'
+               f'<g clip-path="url(#tb)"><rect width="360" height="360" fill="#F4A259"/>{pat}<rect width="360" height="360" fill="url(#shadeR)"/>'
+               '<rect width="360" height="360" fill="url(#shine)"/><rect x="0" y="126" width="360" height="26" fill="#7A3E1D"/></g>'
+               f'<path d="{bag}" fill="none" stroke="#5E2F14" stroke-width="4" stroke-linejoin="round"/>'
+               '<path d="M86 160 L272 160 M68 300 Q180 312 292 300" stroke="#FCE8C8" stroke-width="3" stroke-dasharray="7 6" fill="none"/>'
+               '<rect x="112" y="122" width="22" height="34" rx="4" fill="#5E2F14"/><rect x="226" y="122" width="22" height="34" rx="4" fill="#5E2F14"/>'
+               '<path d="M286 150 l26 30 l-6 22 l-24 -8 z" fill="#FFF3DF" stroke="#5E2F14" stroke-width="3"/><circle cx="300" cy="166" r="3" fill="#5E2F14"/>')
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360">{defs}{bg}{art}</svg>'
 
 
 def product_png(kind, brand, path):
@@ -296,6 +376,7 @@ def scene(s, imgs, tf=None):
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
 <defs>
+<style>{FONT_CSS}</style>
 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8F5E"/><stop offset="0.45" stop-color="#FFC27A"/><stop offset="0.75" stop-color="#FFE3B5"/></linearGradient>
 <radialGradient id="glow"><stop offset="0.3" stop-color="#FFE9A8" stop-opacity="0.9"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient>
 <linearGradient id="asphalt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D3B45"/><stop offset="1" stop-color="#26252B"/></linearGradient>
@@ -422,6 +503,8 @@ def transforms(t):
 
 
 def main():
+    global FONT_CSS
+    FONT_CSS = font_css()
     out = sys.argv[1]
     os.makedirs(os.path.join(out, "products"), exist_ok=True)
     for name, s in SETS.items():
