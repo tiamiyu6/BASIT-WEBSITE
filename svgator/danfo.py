@@ -34,6 +34,12 @@ def font_css():
 
 
 FONT_CSS = None
+
+
+def left_x(cx, text, size, weight, spacing=0.0):
+    from PIL import ImageFont
+    f = ImageFont.truetype(os.path.join(FONT_DIR, "Poppins-ExtraBold.ttf" if weight >= 700 else "Poppins-SemiBold.ttf"), size)
+    return round(cx - (f.getlength(text) + spacing * max(len(text) - 1, 0)) / 2, 1)
 YELLOW, INK, GLASS = "#F7C100", "#1D1D22", "#2B3A55"
 
 SETS = {
@@ -273,8 +279,8 @@ def scene(s, imgs, tf=None):
         f'<rect x="190" y="70" width="700" height="230" rx="26" {BC}/>'
         f'<rect x="204" y="84" width="672" height="202" rx="16" fill="#FFFFFF"/>'
         + G("bulbs-a", bulbs_a) + G("bulbs-b", bulbs_b) +
-        f'<text id="text-headline" x="540" y="186" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="62" fill="{INK}">{s["headline"]}</text>'
-        f'<text id="text-subline" x="540" y="244" text-anchor="middle" font-family="{FONT}" font-weight="600" font-size="31" fill="#5B5B66">{s["sub"]}</text>'
+        f'<text id="text-headline" x="{left_x(540, s["headline"], 62, 800, 0.0)}" y="186" font-family="{FONT}" font-weight="800" font-size="62" fill="{INK}">{s["headline"]}</text>'
+        f'<text id="text-subline" x="{left_x(540, s["sub"], 31, 600, 0.0)}" y="244" font-family="{FONT}" font-weight="600" font-size="31" fill="#5B5B66">{s["sub"]}</text>'
     )
 
     # ---- product images with sparkle bursts
@@ -336,8 +342,8 @@ def scene(s, imgs, tf=None):
         f'<rect id="stripe-bottom" x="150" y="756" width="482" height="11" fill="{INK}"/><rect x="760" y="756" width="196" height="11" fill="{INK}"/>'
         f'<rect id="brand-panel" x="176" y="668" width="440" height="78" rx="12" {BC}/>'
         f'<rect x="184" y="674" width="424" height="10" rx="5" fill="#FFFFFF" opacity="0.18"/>'
-        f'<text id="text-brand" x="396" y="720" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="38" fill="#FFFFFF">{s["name"]}</text>'
-        f'<text id="text-slogan" x="490" y="783" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="15" fill="{INK}" letter-spacing="1">NO FOOD FOR LAZY MAN</text>'
+        f'<text id="text-brand" x="{left_x(396, s["name"], 38, 800, 0.0)}" y="720" font-family="{FONT}" font-weight="800" font-size="38" fill="#FFFFFF">{s["name"]}</text>'
+        f'<text id="text-slogan" x="{left_x(490, 'NO FOOD FOR LAZY MAN', 15, 800, 1.0)}" y="783" font-family="{FONT}" font-weight="800" font-size="15" fill="{INK}" letter-spacing="1">NO FOOD FOR LAZY MAN</text>'
         '<circle cx="610" cy="700" r="6" fill="#B78A00"/><circle cx="240" cy="784" r="5" fill="#B78A00"/>'
         + G("headlight-beam", '<path d="M950 700 L1080 650 L1080 760 Z" fill="url(#beam)"/>') +
         '<circle id="headlight" cx="944" cy="702" r="14" fill="#FFF7CF" stroke="#1D1D22" stroke-width="4"/>'
@@ -362,14 +368,14 @@ def scene(s, imgs, tf=None):
         '<rect x="842" y="452" width="226" height="66" rx="33" fill="#FFFFFF" stroke="#1D1D22" stroke-width="4"/>'
         '<path d="M866 516 L822 552 L890 518" fill="#FFFFFF" stroke="#1D1D22" stroke-width="4" stroke-linejoin="round"/>'
         '<rect x="862" y="508" width="34" height="8" fill="#FFFFFF"/>'
-        f'<text id="text-bubble" x="955" y="494" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="24" fill="{INK}">{s["bubble"]}</text>'
+        f'<text id="text-bubble" x="{left_x(955, s["bubble"], 24, 800, 0.0)}" y="494" font-family="{FONT}" font-weight="800" font-size="24" fill="{INK}">{s["bubble"]}</text>'
     )
     cta = (
         G("cta-ripple", f'<rect x="350" y="936" width="380" height="86" rx="43" fill="none" stroke="{b}" stroke-width="6" class="brand-colour"/>')
         + '<rect x="356" y="946" width="380" height="86" rx="43" fill="#000000" opacity="0.25"/>'
         + f'<rect x="350" y="936" width="380" height="86" rx="43" {BC}/>'
         + '<rect x="372" y="944" width="290" height="12" rx="6" fill="#FFFFFF" opacity="0.2"/>'
-        + f'<text id="text-cta" x="510" y="993" text-anchor="middle" font-family="{FONT}" font-weight="800" font-size="38" fill="#FFFFFF">{s["cta"]}</text>'
+        + f'<text id="text-cta" x="{left_x(510, s["cta"], 38, 800, 0.0)}" y="993" font-family="{FONT}" font-weight="800" font-size="38" fill="#FFFFFF">{s["cta"]}</text>'
         + G("cta-arrow", f'<circle cx="684" cy="979" r="30" fill="#FFFFFF"/><path d="M670 979 H696 M686 967 L698 979 L686 991" stroke="{b}" '
                          f'stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" class="brand-colour"/>')
     )
