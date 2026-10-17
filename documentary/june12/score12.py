@@ -139,7 +139,8 @@ def section(mood, d, seed):
         out[start:start + take] += piece
         pos, first = start + take, False
         seg = x[int(10 * SR):]
-    out *= env(n, 2.5, 3.0)[:, None]
+    if not os.environ.get("SHORT12"):
+        out *= env(n, 2.5, 3.0)[:, None]
     return out
 
 
@@ -184,7 +185,7 @@ def main():
     for e in TL:
         m = e.get("mood")
         if e.get("clip"):
-            m = None
+            m = cur[0] if (cur and os.environ.get("SHORT12")) else None
         if e.get("card"):
             m = cur[0] if cur else None
         if cur and m == cur[0]:
@@ -250,6 +251,8 @@ def main():
                 if len(e["sents"]) > 3:
                     add(sfx, stamp_hit(0.45), s0 + e["sents"][3][0])
         # story moments
+        if e.get("teacup"):
+            add(sfx, teacup(0.2), s0 + e["sents"][-1][1] + 0.05)
         if e["id"] == "c3_wait":
             for q in range(int((e["dur"] + 1.5) / 1.0)):
                 add(sfx, clock_tick(0.14), s0 + 0.3 + q * 1.0)

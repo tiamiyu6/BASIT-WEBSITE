@@ -10,7 +10,10 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps, ImageEnhance
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from script12 import S
+import importlib
+S = importlib.import_module(os.environ.get("J12_SCRIPT", "script12")).S
+NOSUBS = bool(os.environ.get("NOSUBS"))
+SHORT = bool(os.environ.get("SHORT12"))
 
 OW, OH, FPS = 1280, 720, 30
 BW, BH = 1600, 900            # working canvas for every shot (room for camera moves)
@@ -96,7 +99,7 @@ def build(timing_path):
             e["voice_at"] = LEAD
             e["subs"] = [[LEAD + a, LEAD + b, s] for a, b, s in (v["subs"] if v else [])]
             e["sents"] = [[LEAD + a, LEAD + b] for a, b in (v["sents"] if v else [[0, vd]])]
-            xf = XF_SCENE
+            xf = sc.get("xf", XF_SCENE)
         e["start"] = max(0.0, t - (xf if out else 0.0))
         e["xf"] = xf if out else 0.0
         e["end"] = e["start"] + e["dur"]
@@ -744,7 +747,7 @@ def frame_at(i):
     if cur.get("logo") and lt < 0.6:
         pass
     # subtitles (current scene, or the outgoing one during a dissolve)
-    for e in act:
+    for e in ([] if NOSUBS else act):
         el = t - e["start"]
         for a0, a1, s in e.get("subs") or []:
             if a0 - 0.08 <= el <= a1 + 0.02:
@@ -754,7 +757,8 @@ def frame_at(i):
     g, vig = grain()
     f = f * vig + g[(i // 2) % len(g)]
     # fade in at the very start, out at the very end
-    f *= smooth(t / 0.8) * smooth((TOTAL - t) / 1.5)
+    if not SHORT:
+        f *= smooth(t / 0.8) * smooth((TOTAL - t) / 1.5)
     return np.clip(f, 0, 255).astype(np.uint8).tobytes()
 
 

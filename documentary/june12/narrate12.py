@@ -9,7 +9,8 @@ from kokoro_onnx import Kokoro
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import narrate as N  # voice chain, respellings, trimming and subtitle splitting from JAGABAN
-from script12 import S
+import importlib
+S = importlib.import_module(os.environ.get("J12_SCRIPT", "script12")).S
 
 MODELS, BUILD = sys.argv[1], sys.argv[2]
 VOICE, SPEED, SR = N.VOICE, 0.95, N.SR

@@ -46,8 +46,8 @@ def clip(id, file, a, b, label, chapter=""):
     return dict(id=id, chapter=chapter, clip=(CL + file, a, b), label=label, text="", shots=[])
 
 
-def sc(id, text, shots, chapter="", hold=0.9, mood=None):
-    return dict(id=id, chapter=chapter, text=text, shots=shots, hold=hold, mood=mood)
+def sc(id, text, shots, chapter="", hold=0.9, mood=None, **kw):
+    return dict(id=id, chapter=chapter, text=text, shots=shots, hold=hold, mood=mood, **kw)
 
 
 S = [
