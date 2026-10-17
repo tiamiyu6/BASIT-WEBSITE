@@ -19,7 +19,7 @@ NAME = os.environ["SHORT"]
 VW, VH = 1080, 1920
 IW, IH = 1280, 720
 TL, TOTAL = build(f"{BUILD}/timing.json")
-HEAD = SHORTS[NAME]["headline"]
+HEAD = tuple(os.environ["HEADLINE"].split("|")) if os.environ.get("HEADLINE") else SHORTS[NAME]["headline"]
 TIKTOK = os.environ.get("PLATFORM") == "tiktok"
 HEAD_Y = 290 if TIKTOK else 215          # TikTok's Following / For You tabs sit at the top
 CAP_CX = 500 if TIKTOK else VW / 2      # keep captions left of TikTok's like / share column
@@ -59,7 +59,10 @@ def headline_layer():
     d = ImageDraw.Draw(im)
     for i, (txt, col) in enumerate(((HEAD[0], (255, 255, 255)), (HEAD[1], (255, 214, 64)))):
         y = HEAD_Y + i * 115
-        d.text((VW / 2, y), txt, font=F_HEAD, fill=col + (255,), anchor="mm", stroke_width=6, stroke_fill=(0, 0, 0, 255))
+        size = 92
+        while size > 56 and d.textlength(txt, font=V.F(size, "Black")) > 900:   # keep a safe margin at both edges
+            size -= 4
+        d.text((VW / 2, y), txt, font=V.F(size, "Black"), fill=col + (255,), anchor="mm", stroke_width=6, stroke_fill=(0, 0, 0, 255))
     if not TIKTOK:  # TikTok covers the bottom with its own caption / username
         d.text((VW / 2, 1810), "JAGABAN  ·  FULL DOCUMENTARY", font=F_TAG, fill=(230, 220, 200, 200), anchor="mm")
     return im
