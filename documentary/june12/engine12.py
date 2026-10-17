@@ -614,7 +614,8 @@ SHOW = [("nineteen thirty-seven", "1937"), ("nineteen eighty-five", "1985"), ("n
         ("twenty thirteen", "2013"), ("twenty eighteen", "2018"), ("twenty twenty-five", "2025"),
         ("Fourteen million", "14 million"), ("fourteen million", "14 million"), ("twenty-third", "23rd"), ("twenty-two", "22"), ("twenty-three", "23"),
         ("nineteen of thirty", "19 of 30"), ("thirty-two", "32"), ("twenty-five", "25"), ("fifty-four", "54"),
-        ("sixty", "60")]
+        ("sixty-three", "63"), ("forty-one", "41"), ("a hundred and twenty-one", "121"), ("twenty-one", "21"),
+        ("twenty-four", "24"), ("nineteen eighty", "1980"), ("sixty", "60")]
 
 
 def show(s):
@@ -746,9 +747,9 @@ def frame_at(i):
     for e in act:
         el = t - e["start"]
         for a0, a1, s in e.get("subs") or []:
-            if a0 - 0.1 <= el <= a1 + 0.2:
+            if a0 - 0.08 <= el <= a1 + 0.02:
                 so = sub_ov(s)
-                al = smooth((el - a0 + 0.1) / 0.15) * (1 - smooth((el - a1) / 0.2))
+                al = smooth((el - a0 + 0.08) / 0.1) * (1 - smooth((el - a1 + 0.08) / 0.1))
                 blend(f, so, OW / 2 - so.shape[1] / 2, OH - so.shape[0] - 26, al)
     g, vig = grain()
     f = f * vig + g[(i // 2) % len(g)]
