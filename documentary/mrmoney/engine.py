@@ -918,14 +918,13 @@ def main():
     parts, step = [], 300
     for a in range(n0, n1, step):
         parts.append((a, min(a + step, n1), os.path.join(BUILD, f"part_{a:06d}.mp4")))
+    todo = [x for x in parts if not (os.path.exists(x[2]) and os.path.getsize(x[2]) > 1000 and x[1] - x[0] == 300)]
     with Pool(int(os.environ.get("JOBS", "4"))) as p:
-        for i, _ in enumerate(p.imap(render_range, parts)):
+        for i, _ in enumerate(p.imap(render_range, todo)):
             print(f"\r{i + 1}/{len(parts)}", end="", flush=True)
     lst = os.path.join(BUILD, "parts.txt")
     open(lst, "w").write("".join(f"file '{os.path.abspath(x[2])}'\n" for x in parts))
     subprocess.check_call(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", out])
-    for x in parts:
-        os.remove(x[2])
     print("\npicture done", round(TOTAL, 1), "s")
 
 
