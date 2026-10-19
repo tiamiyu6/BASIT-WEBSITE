@@ -75,7 +75,7 @@ S = [
         kin([("MR MONEY", 1)], style="big")], mood="groove"),
     sc("a3", "The name the world knows him by is Asake. To most Nigerians, that is a woman's name. Many reports say he took it from his mother.",
        [kin([("ASAKE", 0)], style="name1"), photo(ASK2, at=2, focus=(0.5, 0.35), grade="bw", strip=True, credit=CR_ASK)], mood="groove"),
-    sc("a4", "He trained as a performer, a dancer and an actor. And from very early, the people around him noticed one thing about him.",
+    sc("a4", "He trained as a performer, a dancer and an actor. And from very early, the people around him noticed one thing about him. A thing that would one day cost him his home.",
        [photo(ASK4, focus=(0.5, 0.4), grade="bw", strip=True, credit=CR_ASK, move="out")], mood="groove", hold=0.4),
 
     # ---------------------------------------------------------------- 2 GIRAN
@@ -88,7 +88,7 @@ S = [
        [quote("The father who gave birth to me is more stubborn than I am.", "ASAKE  ·  Flow With Korty, 2026 (translated)", at=1)], mood="fuji"),
     sc("g4", "His mother had a different plan. She gathered money, and got him an international passport, to study in the United Kingdom.",
        [kin([("£", 1), ("PASSPORT", 1), ("UNITED KINGDOM", 1)], style="stack")], mood="fuji"),
-    sc("g5", "He said no. He wanted to stay in Nigeria. It took the Yoruba actor Lala to convince her to let him go to Obafemi Awolowo University instead.",
+    sc("g5", "He said no. He wanted to stay in Nigeria. It took the Yoruba actor Lala to convince her to let him go to Obafemi Awolowo University instead. That one stubborn choice would set everything else in motion.",
        [kin([("NO.", 0)], style="big"),
         photo(P + "oau_gate.jpg", at=2, focus=(0.5, 0.5), grade="warm", tag="Obafemi Awolowo University  ·  Ile-Ife", credit="jollofandmalt / CC BY 2.0")], mood="fuji"),
 
@@ -103,7 +103,7 @@ S = [
        [kin([("2020", 0), ("MR MONEY", (0, 0.8))], style="promise")], mood="night", hold=0.9),
     sc("i4", "That same year, he started sending messages to the one man he believed could change his life. Olamide, the boss of YBNL.",
        [kin([("OLAMIDE", 1), ("BOSS OF YBNL", 1)], style="name")], mood="night"),
-    sc("i5", "By Asake's own account, he texted, and he begged, for help. And for a long time, there was no reply.",
+    sc("i5", "By Asake's own account, he texted, and he begged, for help. And for a long time, there was no reply. Until one song changed everything.",
        [phone([("out", None, "2020", 0), ("out", None, "2020", (0, 0.5)), ("out", None, "2021", 1), ("out", None, "2021", (1, 0.4))])],
        mood="night", hold=1.2),
 
@@ -153,7 +153,7 @@ S = [
     sc("w4", "A month later, in New York, he became the first African artist to headline and sell out the Barclays Center.",
        [photo(P + "barclays_ext.jpg", focus=(0.5, 0.5), grade="gold", tag="Barclays Center  ·  Brooklyn, New York", credit="LunchboxLarry / CC BY 2.0"),
         kin([("FIRST AFRICAN", (0, 0.6)), ("TO HEADLINE & SELL OUT", (0, 0.6))], style="stack")], mood="rise"),
-    sc("w5", "The boy who refused to leave Nigeria was now filling the biggest rooms in the world.",
+    sc("w5", "The boy who refused to leave Nigeria was now filling the biggest rooms in the world. But the hardest test for a stubborn man was still ahead. Leaving the house that made him.",
        [photo(ASK1, focus=(0.5, 0.35), grade="gold", strip=True, credit=CR_ASK, move="in")], mood="rise", hold=0.6),
 
     # ---------------------------------------------------------------- 7 LUNGU BOY
@@ -180,7 +180,7 @@ S = [
 
     # ---------------------------------------------------------------- 9 M$NEY
     card("c9", "M$NEY", "2026", mood="rise"),
-    sc("m1", "In January 2026, he and Wizkid released Real, Volume One, together. It went straight to number one in Nigeria.",
+    sc("m1", "And the stubborn bet paid off. In January 2026, he and Wizkid released Real, Volume One, together. It went straight to number one in Nigeria.",
        [kin(["REAL", "VOL. 1"], style="album"), kin([("#1", 1)], style="big")], mood="rise"),
     sc("m2", "Then, on the first of May, 2026, came his fourth album. M$NEY.",
        [kin(["M$NEY"], style="album")], mood="rise", hold=0.8),

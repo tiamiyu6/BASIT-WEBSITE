@@ -363,8 +363,8 @@ def main():
     for m, a, b in secs:
         d = b - a + XF
         cue = CUES[m](d)
-        cue = cue / (rms(cue) + 1e-9) * {"night": 0.05, "build": 0.05, "groove": 0.07, "fuji": 0.07, "rise": 0.075,
-                                          "tender": 0.05, "anthem": 0.08, "lament": 0.06}[m]
+        cue = cue / (rms(cue) + 1e-9) * {"night": 0.020, "build": 0.022, "groove": 0.026, "fuji": 0.026, "rise": 0.028,
+                                          "tender": 0.020, "anthem": 0.030, "lament": 0.024}[m]
         fade = np.ones(len(cue))
         k = int(XF * SR)
         fade[:k] = np.linspace(0, 1, k) ** 0.8
@@ -407,19 +407,24 @@ def main():
     c = np.cumsum(np.concatenate([[0], ve]))
     sm = (c[k:] - c[:-k]) / k
     sm = np.concatenate([np.zeros(k // 2), sm, np.zeros(len(ve) - len(sm) - k // 2)])
-    duck = 1 - 0.45 * np.clip(sm / (np.percentile(sm[sm > 0], 90) + 1e-9), 0, 1)
+    duck = 1 - 0.5 * np.clip(sm / (np.percentile(sm[sm > 0], 90) + 1e-9), 0, 1)
     v_r = rms(voice[voice != 0]) if np.any(voice) else 0.1
     mus_gain = float(os.environ.get("MUS_GAIN", "1.0"))
     music = music * duck * mus_gain * (v_r / 0.1)
-    sfx = sfx * (v_r / 0.1) * 0.8
+    sfx = sfx * (v_r / 0.1) * 0.3
     # ---- stereo: music gets reverb width, voice centred
     board = Pedalboard([HighpassFilter(40), Reverb(room_size=0.35, wet_level=0.12, dry_level=0.9, width=1.0)])
     ms = board(np.stack([music, np.roll(music, 9)]).astype(np.float32), SR)
     fx = Pedalboard([Reverb(room_size=0.5, wet_level=0.18, dry_level=0.85)])(np.stack([sfx, sfx]).astype(np.float32), SR)
+    fx *= min(1.0, (v_r * 2.2) / (np.abs(fx).max() + 1e-9))      # sound effects never louder than the voice peaks
     vv = np.stack([voice, voice]).astype(np.float32)
     mix = vv + ms[:, :vv.shape[1]] + fx[:, :vv.shape[1]]
     mix = Pedalboard([Limiter(threshold_db=-1.5, release_ms=120)])(mix.astype(np.float32), SR)
     sf.write(os.path.join(BUILD, "mix.wav"), mix.T, SR)
+    if os.environ.get("STEMS"):
+        sf.write(os.path.join(BUILD, "stem_voice.wav"), vv[0], SR)
+        sf.write(os.path.join(BUILD, "stem_music.wav"), ms[0, :vv.shape[1]], SR)
+        sf.write(os.path.join(BUILD, "stem_sfx.wav"), fx[0, :vv.shape[1]], SR)
     print("mix done", round(TOTAL, 1), "s; music sections:", [(m, round(a), round(b)) for m, a, b in secs])
 
 
