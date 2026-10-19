@@ -100,7 +100,7 @@ S = [
     sc("i2", "In 2018, he signed with a small label called TFT Records, and released songs like Kanipe. Almost nobody noticed.",
        [kin([("2018", 0), ("TFT RECORDS", 0), ("KANIPE", 0), ("· · ·", 1)], style="stack")], mood="night"),
     sc("i3", "Then, in 2020, he put out a song with a title that sounded more like a promise than a fact. Mr Money.",
-       [kin([("2020", 0), ("MR MONEY", (0, 0.8))], style="promise")], mood="night", hold=0.9),
+       [kin([("2020", 0), ("MR MONEY", (0, 0.5))], style="promise")], mood="night", hold=0.9),
     sc("i4", "That same year, he started sending messages to the one man he believed could change his life. Olamide, the boss of YBNL.",
        [kin([("OLAMIDE", 1), ("BOSS OF YBNL", 1)], style="name")], mood="night"),
     sc("i5", "By Asake's own account, he texted, and he begged, for help. And for a long time, there was no reply. Until one song changed everything.",

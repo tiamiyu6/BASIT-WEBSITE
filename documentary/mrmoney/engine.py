@@ -92,7 +92,11 @@ def build(timing_path):
         e["end"] = e["start"] + e["dur"]
         shots = []
         for k, sh in enumerate(sc.get("shots") or []):
-            s0 = 0.0 if k == 0 else max(0.0, at_time(sh["at"], e["sents"]) - 0.15)
+            at = sh["at"]
+            if k > 0 and sh["kind"] == "kin" and at == 0:      # a later word block starts when its first word does
+                ws = [w[1] for w in sh["words"] if isinstance(w, tuple)]
+                at = min(ws, key=lambda x: at_time(x, e["sents"])) if ws else at
+            s0 = 0.0 if k == 0 else max(0.0, at_time(at, e["sents"]) - 0.15)
             shots.append(dict(sh, t0=s0))
         for k, sh in enumerate(shots):
             sh["t1"] = shots[k + 1]["t0"] if k + 1 < len(shots) else e["dur"]
@@ -163,7 +167,7 @@ def grade(img, mode):
         lum = a.mean(axis=2, keepdims=True)
         tone = np.array([1.08, 0.94, 0.70])
         a = a * 0.55 + lum * 0.45
-        a = np.clip(a * tone, 0, 1) ** 1.08
+        a = np.clip(a * tone * 1.18, 0, 1) ** 0.95
         img = Image.fromarray((a * 255).astype(np.uint8))
         img = ImageEnhance.Contrast(img).enhance(1.15)
     elif mode == "night":
@@ -900,7 +904,7 @@ def frame_at(i):
 def render_range(args):
     a, b, path = args
     enc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{OW}x{OH}",
-                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p", path],
+                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", path],
                            stdin=subprocess.PIPE)
     for i in range(a, b):
         enc.stdin.write(frame_at(i))
