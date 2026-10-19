@@ -401,6 +401,19 @@ def main():
             if sh["kind"] == "phone":
                 for side, _, _, ta in sh["tl"]:
                     add(sfx, pop(1500 if side == "out" else 900), s + ta, 0.5 if side == "out" else 0.8)
+    # ---- "song moments": the beat drops out as the big moment lands, then slams back in
+    for e in TL:
+        if e.get("drop"):
+            a0, a1 = e["start"] + 0.2, e["start"] + e.get("voice_at", 0.5) + 2.2
+            i0, i1 = int(a0 * SR), int(a1 * SR)
+            f = int(0.35 * SR)
+            g = np.ones(len(music))
+            g[i0:i1] = 0.12
+            g[i0 - f:i0] = np.linspace(1, 0.12, f)
+            g[i1:i1 + f] = np.linspace(0.12, 1, f)
+            music *= g
+            add(sfx, riser(1.8), a1 - 1.8, 0.6)
+            add(sfx, sub_boom(2.0), a1, 0.9)
     # ---- duck music under the voice
     ve = np.abs(voice)
     k = int(0.25 * SR)
