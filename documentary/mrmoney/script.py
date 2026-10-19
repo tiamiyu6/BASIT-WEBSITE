@@ -109,7 +109,7 @@ S = [
     # ---------------------------------------------------------------- 3 ILE-IFE
     card("c3", "ILE-IFE", "Theatre & Performing Arts", mood="night"),
     sc("i1", "At OAU, he studied Theatre and Performing Arts. He learned the stage, long before the stage knew his name.",
-       [photo(P + "oau_oduduwa.jpg", focus=(0.5, 0.5), grade="warm", tag="OAU campus  ·  Ile-Ife", credit="jollofandmalt / CC BY 2.0"),
+       [photo(P + "oau_campus.jpg", focus=(0.5, 0.5), grade="warm", tag="OAU campus  ·  Ile-Ife", credit="jollofandmalt / CC BY 2.0"),
         clip("spot", at=1)], mood="night"),
     sc("i2", "In 2018, he signed with a small label called TFT Records, and released songs like Kanipe. Almost nobody noticed.",
        [photo(P + "lagos_street2.jpg", grade="night", credit="oneVillage Initiative / CC BY-SA 2.0"), kin([("2018", 0), ("TFT RECORDS", 0), ("KANIPE", 0), ("· · ·", 1)], style="stack")], mood="night"),
