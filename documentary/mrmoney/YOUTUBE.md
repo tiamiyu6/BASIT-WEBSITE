@@ -48,6 +48,7 @@ asake_toronto_*.png    Mensah Memories, "Asake Live In Concert Toronto, Canada" 
 oau_*.jpg              jollofandmalt, Obafemi Awolowo University, Ile-Ife (Flickr) CC BY 2.0
 naira_*.jpg            Shardayyy, Nigerian Naira (Flickr) CC BY 2.0
 lagos_traffic.jpg      dolapo, "traffic" Lagos (Flickr) CC BY-SA 2.0
+victoria-island-2014.jpg  OpenUpEd, Victoria Island Lagos (Flickr) CC BY 2.0
 
 #Asake #MrMoney #Documentary #Afrobeats #NaijaUntold #Giran #YBNL
 
