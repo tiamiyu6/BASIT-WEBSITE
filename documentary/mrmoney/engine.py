@@ -1159,6 +1159,8 @@ def frame_at(i):
         p = act[-2]
         img = Image.blend(scene_frame(p, t - p["start"]).convert("RGBA"), img.convert("RGBA"), smooth((t - e["start"]) / e["xf"]))
     img = nostalgia(img, e, t, i)
+    if e.get("archive") and e.get("who"):
+        put(img, tag_layer(e["who"]), 70, 14, appear(t - e["start"], 0.4, 0.6))
     if not NOSUBS:
         for a0, a1, s in e.get("subs") or []:
             if a0 - 0.05 <= t - e["start"] < a1 + 0.02:
