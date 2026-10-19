@@ -1,7 +1,7 @@
 #!/bin/bash
 # render every 3D shot (resumable). usage: three/run_all.sh OUT_ROOT   (from documentary/mrmoney)
 R=$1
-go() { n=$1; d=$2; shift 2; t=$(date +%s); python3 three/shots.py $n $R/$d "$@" > $R/$d.log 2>&1; echo "$d $(ls $R/$d | wc -l) frames $(( $(date +%s)-t ))s"; }
+go() { n="$1"; d="$2"; shift 2; t=$(date +%s); python3 three/shots.py "$n" "$R/$d" "$@" > "$R/$d.log" 2>&1; echo "$d $(ls "$R/$d" | wc -l) frames $(( $(date +%s)-t ))s"; }
 go mm mm
 go phone phone
 go slips slips
