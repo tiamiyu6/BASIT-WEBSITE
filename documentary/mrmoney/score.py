@@ -7,6 +7,8 @@ import json, os, sys
 import numpy as np
 import soundfile as sf
 from pedalboard import Pedalboard, Reverb, Limiter, HighpassFilter, LowpassFilter, Compressor
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sfx as X
 
 SR = 44100
 BUILD = sys.argv[1]
@@ -371,36 +373,118 @@ def main():
         fade[-k:] *= np.linspace(1, 0, k) ** 0.8
         add(music, cue * fade, a - (XF / 2 if a > 0 else 0))
     # ---- sound design
-    for e in TL:
-        s = e["start"]
+    arch = np.zeros(n)
+    NOST = {"night", "build", "tender", "lament", "anthem"}
+    for e, m in zip(TL, moods):
+        s, d = e["start"], e["end"] - e["start"]
+        if m in NOST or e.get("archive"):                      # nostalgia beds
+            add(sfx, X.crackle(d + 0.6, 7), s - 0.3, 0.55)
+            add(sfx, X.tape_hiss(d), s, 0.5)
         if e.get("card"):
-            add(sfx, whoosh(0.7, True), s - 0.45, 0.5)
-            add(sfx, sub_boom(2.2), s + 0.12, 0.7)
-            add(sfx, thud(), s + 0.12, 0.6)
+            add(sfx, X.whoosh_big(1.0), s - 0.6, 0.8)
+            add(sfx, X.impact(), s + 0.1, 1.0)
+            add(sfx, X.typewriter(len(e["card"]["sub"]), 0.9 / max(1, len(e["card"]["sub"]))), s + 1.1, 0.7)
         if e.get("logo"):
             add(sfx, riser(3.0), s - 2.8, 0.8)
-            add(sfx, sub_boom(3.5), s + 0.25, 1.0)
+            add(sfx, X.reverse_swell(1.6), s - 1.5, 0.8)
+            add(sfx, X.impact(), s + 0.2, 1.3)
             add(sfx, choir(AM[1:4], 4.5), s + 0.25, 1.8)
+            add(sfx, X.coins(4.0, 24), s + 0.3, 0.8)
+        if e.get("archive"):
+            w = os.path.join(BUILD, "clips", e["archive"] + ".wav")
+            if os.path.exists(w):
+                a_, sr_ = sf.read(w)
+                a_ = a_.mean(1) if a_.ndim > 1 else a_
+                if sr_ != SR:
+                    from scipy.signal import resample_poly
+                    from math import gcd
+                    g = gcd(SR, sr_)
+                    a_ = resample_poly(a_, SR // g, sr_ // g)
+                add(arch, a_, s + 0.35)
+            add(sfx, X.projector(d), s, 0.35)
+            add(sfx, X.slide_click(), s - 0.05, 0.9)
+        if e.get("id") == "w3" and e.get("sents"):
+            add(sfx, X.helicopter(6.0), s + e["sents"][min(2, len(e["sents"]) - 1)][0] - 1.5, 0.9)
+        if e.get("id") in ("b1", "b2"):
+            add(sfx, X.heartbeat(d + 0.5), s, 0.9)
+        if e.get("id") == "b1":
+            add(sfx, X.siren_far(6.0), s + 1.0, 1.0)
         for sh in e.get("shots", []):
             t0 = s + sh["t0"]
-            if sh["kind"] == "kin" and sh["style"] == "stamp":
+            k = sh["kind"]
+            if k == "three":
+                nm = sh["name"]
+                if nm == "phone":
+                    add(sfx, X.fan(sh["t1"] - sh["t0"] + 0.5), t0, 0.7)
+                    add(sfx, X.clock(sh["t1"] - sh["t0"]), t0, 0.35)
+                    if sh.get("start", 0) == 0:
+                        add(sfx, X.phone_buzz(2), t0 + 1.0, 0.9)
+                        add(sfx, X.ping(), t0 + 2.4, 0.6)
+                elif nm == "slips":
+                    add(sfx, X.paper_flutter(1.2), t0 - 0.1, 1.0)
+                    add(sfx, X.paper_slap(), t0 + 1.1, 1.0)
+                    add(sfx, X.paper_flutter(1.0), t0 + 0.45, 0.8)
+                    add(sfx, X.paper_slap(), t0 + 1.65, 0.9)
+                elif nm == "passport":
+                    add(sfx, X.paper_slap(), t0 + 0.2, 0.6)
+                    for j in range(4):
+                        add(sfx, X.coin(), t0 + 0.5 + j * 0.13, 0.5)
+                elif nm == "vinyl":
+                    add(sfx, X.needle_drop(), t0 + 0.25, 1.0)
+                    add(sfx, X.crackle(sh["t1"] - sh["t0"], 14, 0.2), t0 + 0.3, 0.9)
+                elif nm == "mic":
+                    add(sfx, X.mic_tap(), t0 + 0.5, 0.8)
+                    add(sfx, X.crowd(sh["t1"] - sh["t0"] + 1, 0.35, False), t0, 0.5)
+            if k == "clip":
+                d_ = sh["t1"] - sh["t0"] + 0.4
+                if sh.get("mode") == "tv":
+                    add(sfx, X.crt_on(), t0 - 0.05, 0.8)
+                else:
+                    add(sfx, X.slide_click(), t0 - 0.05, 0.6)
+                if sh["name"] in ("fireworks", "stage", "spot"):
+                    add(sfx, X.crowd(d_, 1.0), t0, 0.6)
+                elif sh["name"] in ("convoy",):
+                    add(sfx, X.crowd(d_, 0.6), t0, 0.8)
+                elif sh["name"] in ("dance", "rehearsal", "band"):
+                    add(sfx, X.room_tone(d_), t0, 0.6)
+            if k == "photo" and sh["t0"] > 0:
+                add(sfx, X.shutter(), t0, 0.5)
+            if k == "names":
+                add(sfx, X.match_strike(), t0 + 0.2, 0.9)
+            if sh.get("fx") == "naira":
+                add(sfx, X.cash_flutter(min(4.0, sh["t1"] - sh["t0"])), t0, 0.9)
+                add(sfx, X.coins(2.0, 6), t0 + 0.2, 0.5)
+            if k == "kin" and sh["style"] == "stamp":
                 for _, ta in sh["tl"]:
-                    add(sfx, thud(), s + ta, 0.8)
-            if sh["kind"] == "kin" and sh["style"] in ("big", "define", "promise", "name", "name1", "final", "reveal"):
+                    add(sfx, X.impact(), s + ta, 1.0)
+                    add(sfx, X.crowd(4.0, 1.2), s + ta, 0.8)
+            if k == "kin" and sh["style"] in ("big", "define", "promise", "name", "name1", "final", "reveal"):
                 for _, ta in sh["tl"][:1]:
-                    add(sfx, whoosh(0.5, False), s + ta - 0.1, 0.35)
-            if sh["kind"] == "kin" and sh["style"] in ("tick", "list", "stack", "recipe"):
+                    add(sfx, X.whoosh_big(0.6), s + ta - 0.35, 0.7)
+                    add(sfx, thud(), s + ta, 0.9)
+            if k == "kin" and sh["style"] in ("tick", "list", "stack", "recipe"):
                 for _, ta in sh["tl"]:
-                    add(sfx, pop(700), s + ta, 0.35)
-            if sh["kind"] == "kin" and sh["style"] == "album":
-                add(sfx, whoosh(0.9, True), t0, 0.45)
-            if sh["kind"] == "stat" and sh.get("count", True):
-                for k in range(22):
-                    add(sfx, tick(), t0 + 0.15 + 2.2 * (1 - (1 - k / 22) ** 0.25), 1.0)
-                add(sfx, pop(1200), t0 + 2.4, 0.5)
-            if sh["kind"] == "phone":
+                    add(sfx, pop(700), s + ta, 0.7)
+                    add(sfx, thud(), s + ta, 0.4)
+            if k == "kin" and sh["style"] == "album":
+                add(sfx, X.whoosh_big(1.0), t0 - 0.2, 0.8)
+                add(sfx, X.impact(), t0 + 0.6, 0.8)
+            if k == "kin" and sh["style"] == "award":
+                add(sfx, X.reverse_swell(1.2), t0 - 0.9, 0.7)
+                add(sfx, X.coin(5200), t0 + 0.3, 0.8)
+            if k in ("stat",) and sh.get("count", True):
+                for j in range(22):
+                    add(sfx, tick(), t0 + 0.15 + 2.2 * (1 - (1 - j / 22) ** 0.25), 2.0)
+                add(sfx, X.impact(), t0 + 2.4, 0.7)
+            if k == "chart":
+                add(sfx, X.whoosh_big(0.7), t0, 0.6)
+            if k == "quote":
+                add(sfx, X.typewriter(18, 0.05), t0 + 0.3, 0.5)
+            if k == "phone":
                 for side, _, _, ta in sh["tl"]:
-                    add(sfx, pop(1500 if side == "out" else 900), s + ta, 0.5 if side == "out" else 0.8)
+                    add(sfx, pop(1500 if side == "out" else 900), s + ta, 0.9)
+                    if side == "in":
+                        add(sfx, X.phone_buzz(1), s + ta - 0.05, 0.6)
     # ---- "song moments": the beat drops out as the big moment lands, then slams back in
     for e in TL:
         if e.get("drop"):
@@ -414,8 +498,11 @@ def main():
             music *= g
             add(sfx, riser(1.8), a1 - 1.8, 0.6)
             add(sfx, sub_boom(2.0), a1, 0.9)
-    # ---- duck music under the voice
-    ve = np.abs(voice)
+    # ---- archive voices sit at the narration's level
+    if np.any(arch) and np.any(voice):
+        arch *= rms(voice[voice != 0]) / (rms(arch[np.abs(arch) > 1e-4]) + 1e-9) * 0.95
+    # ---- duck music under the voice (and harder under archive sound)
+    ve = np.abs(voice) + np.abs(arch) * 1.5
     k = int(0.25 * SR)
     c = np.cumsum(np.concatenate([[0], ve]))
     sm = (c[k:] - c[:-k]) / k
@@ -424,13 +511,14 @@ def main():
     v_r = rms(voice[voice != 0]) if np.any(voice) else 0.1
     mus_gain = float(os.environ.get("MUS_GAIN", "1.0"))
     music = music * duck * mus_gain * (v_r / 0.1)
-    sfx = sfx * (v_r / 0.1) * 0.3
+    sfx = sfx * (v_r / 0.1) * float(os.environ.get("SFX_GAIN", "0.55"))
+    sfx = sfx * (1 - 0.35 * np.clip(sm / (np.percentile(sm[sm > 0], 90) + 1e-9), 0, 1))   # make room for words
     # ---- stereo: music gets reverb width, voice centred
     board = Pedalboard([HighpassFilter(40), Reverb(room_size=0.35, wet_level=0.12, dry_level=0.9, width=1.0)])
     ms = board(np.stack([music, np.roll(music, 9)]).astype(np.float32), SR)
     fx = Pedalboard([Reverb(room_size=0.5, wet_level=0.18, dry_level=0.85)])(np.stack([sfx, sfx]).astype(np.float32), SR)
-    fx *= min(1.0, (v_r * 2.2) / (np.abs(fx).max() + 1e-9))      # sound effects never louder than the voice peaks
-    vv = np.stack([voice, voice]).astype(np.float32)
+    fx = Pedalboard([Compressor(threshold_db=-18, ratio=3, attack_ms=3, release_ms=120)])(fx, SR)
+    vv = np.stack([voice + arch, voice + arch]).astype(np.float32)
     mix = vv + ms[:, :vv.shape[1]] + fx[:, :vv.shape[1]]
     mix = Pedalboard([Limiter(threshold_db=-1.5, release_ms=120)])(mix.astype(np.float32), SR)
     sf.write(os.path.join(BUILD, "mix.wav"), mix.T, SR)

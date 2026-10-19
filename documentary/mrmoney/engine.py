@@ -14,12 +14,14 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps, ImageEnhance
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from script import S
+from archive import CLIPS
 
 OW, OH, FPS = 1920, 1080, 30
 PW, PH = 2240, 1260                 # photo plate size (room for camera moves)
 XF_SCENE, XF_SHOT = 0.6, 0.3
 LEAD = 0.5
-CARD_DUR, LOGO_DUR = 3.3, 5.6
+CARD_DUR, LOGO_DUR = 3.2, 5.6
+ARCH_LEAD = 0.35
 F = lambda n: os.path.join(HERE, "fonts", n)
 INTER = "/usr/share/fonts/opentype/inter/Inter-{}.otf"
 GOLD, GOLD2, CREAM, RED, INK, GREY = (232, 184, 74), (255, 214, 120), (245, 238, 224), (214, 48, 49), (10, 10, 12), (150, 146, 140)
@@ -79,6 +81,15 @@ def build(timing_path):
             e["dur"] = CARD_DUR
         elif sc.get("logo"):
             e["dur"] = LOGO_DUR
+        elif sc.get("archive"):
+            c = CLIPS[sc["archive"]]
+            e["dur"] = ARCH_LEAD + (c["t"][1] - c["t"][0]) + 0.5
+            e["subs"] = [[ARCH_LEAD + a, ARCH_LEAD + b, t] for a, b, t in sc["subs"]]
+            e["sents"] = [[0, e["dur"]]]
+            pic = dict(kind="three", name=sc["picture"], at=0, start=0, speed=1.0, tag=None) if sc.get("picture") else \
+                dict(kind="clip", name=sc["archive"], at=0, mode="scope", tag=None, speed=1.0, start=0.0, dark=0.0)
+            e["shots"] = [pic]
+            sc = dict(sc, shots=[pic])
         else:
             v = timing.get(sc["id"])
             vd = v["dur"] if v else 3.0
@@ -251,6 +262,135 @@ def photo_frame(sh, lt):
     return camera(im, z, cx, cy)
 
 
+# ------------------------------------------------------------------ 3D sequences and archive footage
+def seq_files(kind, name):
+    k = ("seq", kind, name)
+    if k not in _cache:
+        d = os.path.join(BUILD, "three" if kind == "three" else "clips", name)
+        _cache[k] = sorted(os.path.join(d, f) for f in os.listdir(d)
+                           if f.endswith((".png", ".jpg")) and os.path.getsize(os.path.join(d, f)) > 0) if os.path.isdir(d) else []
+    return _cache[k]
+
+
+def seq_frame(kind, name, t, pingpong=False):
+    """frame of a sequence at time t (s). Past the end: hold (3D) or bounce (archive)"""
+    fs = seq_files(kind, name)
+    if not fs:
+        return None
+    n = len(fs)
+    i = int(t * FPS)
+    if pingpong and n > 1:
+        i = i % (2 * n - 2)
+        i = i if i < n else 2 * n - 2 - i
+    i = max(0, min(n - 1, i))
+    k = ("img", fs[i])
+    if k not in _cache:
+        if len(_cache) > 400:                       # keep memory bounded in long runs
+            for kk in [x for x in _cache if isinstance(x, tuple) and x[0] == "img"][:200]:
+                _cache.pop(kk, None)
+        try:
+            _cache[k] = Image.open(fs[i]).convert("RGBA" if kind == "three" else "RGB")
+        except OSError:                             # still being written by the 3D render
+            return seq_frame(kind, name, (i - 1) / FPS) if i > 0 else None
+    return _cache[k]
+
+
+def three_frame(sh, lt):
+    tt = sh.get("start", 0) + (lt - sh["t0"]) * sh.get("speed", 1.0)
+    im = seq_frame("three", sh["name"], tt)
+    if im is None:
+        return dark_bg(3).convert("RGBA")
+    n = len(seq_files("three", sh["name"]))
+    over = max(0.0, tt - n / FPS)                   # held last frame: keep a slow push going
+    z = 1.0 + 0.012 * over
+    out = im.convert("RGB").resize((int(OW * z), int(OH * z)), Image.BICUBIC)
+    if im.width < 1200:                             # 960x540 renders: restore edge crispness after the upscale
+        out = out.filter(ImageFilter.UnsharpMask(1.6, 70, 2))
+    if z > 1:
+        out = out.crop(((out.width - OW) // 2, (out.height - OH) // 2, (out.width - OW) // 2 + OW, (out.height - OH) // 2 + OH))
+    return out.convert("RGBA")
+
+
+def tv_set():
+    """an old television in a dark room (for small, vertical archive footage)"""
+    if "tv" not in _cache:
+        base = dark_bg(6, (24, 19, 15)).copy()
+        d = ImageDraw.Draw(base)
+        bx0, by0, bx1, by1 = OW / 2 - 640, OH / 2 - 400, OW / 2 + 640, OH / 2 + 400
+        sh_ = Image.new("L", (OW, OH), 0)
+        ImageDraw.Draw(sh_).rounded_rectangle([bx0 + 30, by0 + 50, bx1 + 30, by1 + 60], 70, fill=200)
+        base.paste((0, 0, 0), (0, 0), sh_.filter(ImageFilter.GaussianBlur(40)))
+        d.rounded_rectangle([bx0, by0, bx1, by1], 70, fill=(38, 30, 24))
+        d.rounded_rectangle([bx0 + 10, by0 + 10, bx1 - 10, by1 - 10], 62, outline=(70, 56, 42), width=3)
+        d.rounded_rectangle([bx0 + 60, by0 + 60, bx1 - 60, by1 - 60], 50, fill=(8, 8, 8))
+        for i in range(3):                          # knobs strip under the screen
+            d.ellipse([OW / 2 + 380 + i * 70, by1 - 48, OW / 2 + 410 + i * 70, by1 - 18], fill=(90, 74, 56))
+        _cache["tv"] = (base, (int(bx0 + 80), int(by0 + 80), int(bx1 - 80), int(by1 - 80)))
+    return _cache["tv"]
+
+
+def scanlines(w, h):
+    k = ("scan", w, h)
+    if k not in _cache:
+        a = np.ones((h, w, 1), np.float32)
+        a[::3] = 0.72
+        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+        r = np.sqrt(((xx - w / 2) / (w * 0.6)) ** 2 + ((yy - h / 2) / (h * 0.6)) ** 2)
+        a *= np.clip(1.15 - 0.55 * r ** 2, 0.3, 1.1)[..., None]
+        _cache[k] = a
+    return _cache[k]
+
+
+def clip_frame(sh, lt):
+    c = CLIPS[sh["name"]]
+    tt = sh.get("start", 0) + (lt - sh["t0"]) * sh.get("speed", 1.0)
+    im = seq_frame("clip", sh["name"], tt, pingpong=True)
+    if im is None:
+        return dark_bg(2).convert("RGBA")
+    p = smooth((lt - sh["t0"]) / max(1.0, sh["t1"] - sh["t0"] + 0.6))
+    if sh.get("mode") == "tv":
+        base, (x0, y0, x1, y1) = tv_set()
+        base = base.copy()
+        w, h = x1 - x0, y1 - y0
+        fr = ImageOps.fit(im, (w, h), Image.LANCZOS)
+        fr = ImageEnhance.Contrast(fr).enhance(1.1)
+        a = np.asarray(fr, np.float32) * scanlines(w, h)
+        a = a + np.random.default_rng(int(lt * 30)).normal(0, 6, (h, w, 1))
+        fr = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+        m = Image.new("L", (w, h), 0)
+        ImageDraw.Draw(m).rounded_rectangle([0, 0, w - 1, h - 1], 40, fill=255)
+        base.paste(fr, (x0, y0), m)
+        glare = Image.new("L", (OW, OH), 0)
+        ImageDraw.Draw(glare).ellipse([x0 - 200, y0 - 300, x0 + w * 0.7, y0 + h * 0.45], fill=26)
+        base.paste((255, 255, 255), (0, 0), glare.filter(ImageFilter.GaussianBlur(60)))
+        glow = Image.new("L", (OW, OH), 0)
+        ImageDraw.Draw(glow).rectangle([x0, y1 + 20, x1, y1 + 140], fill=40)
+        base.paste((120, 140, 170), (0, 0), glow.filter(ImageFilter.GaussianBlur(70)))
+        z = 1.0 + 0.06 * p
+        out = base.resize((int(OW * z), int(OH * z)), Image.BILINEAR)
+        out = out.crop(((out.width - OW) // 2, (out.height - OH) // 2, (out.width - OW) // 2 + OW, (out.height - OH) // 2 + OH))
+    else:
+        h = int(OW * im.height / im.width)
+        z = 1.0 + 0.05 * p
+        fw, fh = int(OW * z), int(h * z)
+        fr = im.resize((fw, fh), Image.LANCZOS).filter(ImageFilter.UnsharpMask(2, 60, 2))
+        out = Image.new("RGB", (OW, OH), (0, 0, 0))
+        out.paste(fr, ((OW - fw) // 2, (OH - fh) // 2))
+        d = ImageDraw.Draw(out)
+        d.rectangle([0, 0, OW, (OH - h) // 2 - 1], fill=(0, 0, 0))
+        d.rectangle([0, (OH + h) // 2, OW, OH], fill=(0, 0, 0))
+    if sh.get("dark"):
+        out = darken(out, sh["dark"])
+    return out.convert("RGBA")
+
+
+def naira_layer(lt):
+    im = seq_frame("three", "naira", lt % (150 / FPS))
+    if im is None:
+        return None
+    return im.resize((OW, OH), Image.BILINEAR)
+
+
 # ------------------------------------------------------------------ text helpers
 def text_layer(key, w, h, draw_fn):
     if key not in _cache:
@@ -332,7 +472,7 @@ def fit_font(maker, txt, maxw, start):
 
 
 def darken(img, amt):
-    return Image.blend(img, Image.new("RGB", img.size, (0, 0, 0)), amt)
+    return Image.blend(img.convert("RGB"), Image.new("RGB", img.size, (0, 0, 0)), amt)
 
 
 # ------------------------------------------------------------------ shot renderers
@@ -342,6 +482,10 @@ def base_for(e, k, lt):
         p = e["shots"][j]
         if p["kind"] == "photo":
             return darken(photo_frame(p, lt), 0.62).convert("RGBA")
+        if p["kind"] == "clip":
+            return darken(clip_frame(p, lt), 0.6).convert("RGBA")
+        if p["kind"] == "three":
+            return darken(three_frame(p, lt), 0.55).convert("RGBA")
     seed = int(hashlib.md5(e["id"].encode()).hexdigest()[:4], 16) % 5
     return dark_bg(seed).convert("RGBA")
 
@@ -699,6 +843,14 @@ def phone_frame(e, sh, k, lt):
 
 
 def names_frame(e, sh, k, lt):
+    if sh.get("bg3d") and seq_files("three", sh["bg3d"]):
+        base = darken(three_frame(dict(name=sh["bg3d"], t0=0, start=0, speed=0.8), lt).convert("RGB"), 0.25).convert("RGBA")
+        for i, (nm, age) in enumerate(sh["names"]):
+            a = appear(lt, 0.8 + i * 2.2, 1.2)
+            center_word(base, nm, SERIF(92), CREAM, 150 + i * 170, alpha=a)
+            center_word(base, age, MONO(32), GREY, 225 + i * 170, alpha=a)
+        center_word(base, "Rest in peace.", SERIFI(52), GOLD, OH - 150, alpha=appear(lt, 6.0, 1.5))
+        return base
     base = Image.new("RGBA", (OW, OH), (6, 6, 7, 255))
     # candle glow
     t = lt
@@ -732,6 +884,18 @@ def end_frame(e, sh, k, lt):
 # ------------------------------------------------------------------ scene-level cards
 def card_frame(e, lt):
     c = e["card"]
+    if seq_files("three", "ch_" + c["word"]):
+        base = three_frame(dict(name="ch_" + c["word"], t0=0, start=0, speed=1.0), lt)
+        col = {"gold": GOLD, "red": RED, "white": CREAM}[c["color"]]
+        num = [x["id"] for x in TL if x.get("card")].index(e["id"]) + 1
+        center_word(base, f"CHAPTER {num:02d}", MONOB(34), CREAM, 110, alpha=appear(lt, 0.5), spacing=6)
+        d = ImageDraw.Draw(base)
+        lw = 420 * ease_out((lt - 0.9) / 0.8)
+        d.rectangle([OW / 2 - lw / 2, OH - 205, OW / 2 + lw / 2, OH - 202], fill=col)
+        sub = c["sub"]
+        nch = int(len(sub) * clamp((lt - 1.1) / 0.9))
+        center_word(base, sub[:nch] if nch else " ", MONO(42), CREAM, OH - 150, alpha=1.0)
+        return base
     base = dark_bg(7, (20, 18, 17)).convert("RGBA")
     col = {"gold": GOLD, "red": RED, "white": CREAM}[c["color"]]
     word = c["word"]
@@ -752,6 +916,13 @@ def card_frame(e, lt):
 
 
 def logo_frame(e, lt):
+    if seq_files("three", "mm"):
+        base = three_frame(dict(name="mm", t0=0, start=0, speed=1.0), lt)
+        a2 = appear(lt, 2.0, 0.9)
+        center_word(base, "MR MONEY", ANTON(150), CREAM, OH - 250, alpha=a2, spacing=int(40 * (1 - a2)) + 14, distress=93)
+        center_word(base, "THE ASAKE STORY", MONOB(44), GOLD, OH - 140, alpha=appear(lt, 2.8))
+        center_word(base, "A NAIJA UNTOLD DOCUMENTARY", MONO(26), GREY, OH - 70, alpha=appear(lt, 3.4))
+        return base
     base = dark_bg(9, (18, 15, 12)).convert("RGBA")
     a = appear(lt, 0.3, 1.0)
     # MM monogram
@@ -843,6 +1014,93 @@ def grain(i):
     return _cache[k]
 
 
+# ------------------------------------------------------------------ nostalgia: light leaks, film burns, weave, dust
+NOSTALGIC = {"night", "build", "tender", "lament", "anthem"}
+
+
+def leak(t, seed, amt):
+    """warm light leak drifting across the frame (additive)"""
+    r = np.random.default_rng(seed)
+    w, h = 96, 54
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    out = np.zeros((h, w, 3), np.float32)
+    for j in range(3):
+        cx = (r.random() * 1.4 - 0.2 + 0.05 * t * (1 if j % 2 else -1)) * w
+        cy = (r.random() * 1.2 - 0.1) * h
+        rad = (0.25 + 0.35 * r.random()) * w
+        col = np.array([[255, 120, 40], [255, 70, 30], [255, 190, 110]][j], np.float32)
+        pulse = 0.6 + 0.4 * math.sin(t * (0.7 + j * 0.3) + seed)
+        out += np.exp(-(((xx - cx) ** 2 + (yy - cy) ** 2) / (rad ** 2)))[..., None] * col * pulse
+    big = np.asarray(Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)).resize((OW, OH), Image.BILINEAR), np.float32)
+    return big * amt
+
+
+def burn(p):
+    """film burn: a hot orange-white flare that blooms and clears (p: 0..1)"""
+    w, h = 96, 54
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    k = math.sin(math.pi * clamp(p))
+    cx = w * (1.05 - 0.6 * p)
+    m = np.exp(-(((xx - cx) / (w * (0.25 + 0.6 * k))) ** 2 + ((yy - h * 0.5) / (h * 0.9)) ** 2))
+    col = np.stack([m * 255, m * (120 + 120 * m), m * (40 + 200 * m ** 3)], -1) * (1.6 * k)
+    return np.asarray(Image.fromarray(np.clip(col, 0, 255).astype(np.uint8)).resize((OW, OH), Image.BILINEAR), np.float32)
+
+
+def dust_layer(i):
+    r = np.random.default_rng(5000 + i)
+    lay = Image.new("L", (OW // 2, OH // 2), 0)
+    d = ImageDraw.Draw(lay)
+    for _ in range(r.integers(2, 9)):
+        x, y = r.random() * OW / 2, r.random() * OH / 2
+        s_ = r.random() * 2.5 + 0.6
+        d.ellipse([x, y, x + s_, y + s_ * (0.5 + r.random())], fill=int(120 + 120 * r.random()))
+    if r.random() < 0.18:                           # a hair or scratch
+        x = r.random() * OW / 2
+        d.line([(x, 0), (x + r.normal(0, 6), OH / 2)], fill=90, width=1)
+    return np.asarray(lay.resize((OW, OH), Image.BILINEAR), np.float32)[..., None]
+
+
+def glow(a):
+    """soft halation around bright areas"""
+    im = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).resize((OW // 4, OH // 4), Image.BILINEAR)
+    b = np.asarray(im.filter(ImageFilter.GaussianBlur(10)).resize((OW, OH), Image.BILINEAR), np.float32)
+    return np.clip(b - 150, 0, None) * np.array([0.55, 0.32, 0.16], np.float32)
+
+
+def stamp_cam(text):
+    key = ("camstamp", text)
+    if key not in _cache:
+        f = MONOB(44)
+        lay = Image.new("RGBA", (900, 120), (0, 0, 0, 0))
+        d = ImageDraw.Draw(lay)
+        d.text((22, 30), text, font=f, fill=(255, 150, 40, 255))
+        g = lay.filter(ImageFilter.GaussianBlur(6))
+        lay = Image.alpha_composite(g, lay)
+        _cache[key] = lay
+    return _cache[key]
+
+
+def nostalgia(img, e, t, i):
+    lt = t - e["start"]
+    mood = e.get("mood") or "groove"
+    nost = mood in NOSTALGIC or e.get("archive") or e.get("logo")
+    a = np.asarray(img.convert("RGB"), np.float32)
+    if e.get("card") and lt < 0.7:
+        a = a + burn(lt / 0.7)
+    if nost:
+        a = a + leak(t, int(hashlib.md5(e["id"].encode()).hexdigest()[:4], 16) % 997, 0.16)
+        a = a + glow(a)
+        a = a + dust_layer(i) * 0.5
+        dy = int(round(math.sin(i * 1.7) * 1.2 + math.sin(i * 0.31)))
+        if dy:
+            a = np.roll(a, dy, axis=0)
+    out = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).convert("RGBA")
+    if e.get("stamp"):
+        blink = 1.0 if int(t * 2) % 2 == 0 or lt > 3 else 0.0
+        put(out, stamp_cam("▶ PLAY   " + e["stamp"]), 60, OH - 260, 0.85 * blink + 0.0)
+    return out
+
+
 # ------------------------------------------------------------------ frame assembly
 RENDER = {"kin": kin_frame, "quote": quote_frame, "stat": stat_frame, "chart": chart_frame, "phone": phone_frame,
           "names": names_frame, "end": end_frame}
@@ -859,7 +1117,21 @@ def shot_frame(e, k, lt):
             cl = credit_layer(sh["credit"])
             put(im, cl, OW - cl.width - 24, OH - 40, 1.0)
         return im
-    return RENDER[sh["kind"]](e, sh, k, lt)
+    if sh["kind"] in ("clip", "three"):
+        im = clip_frame(sh, lt) if sh["kind"] == "clip" else three_frame(sh, lt)
+        if sh.get("tag"):
+            a = appear(lt, sh["t0"] + 0.5, 0.6) * (1 - appear(lt, sh["t1"] - 0.6, 0.5))
+            put(im, tag_layer(sh["tag"]), 70, OH - 280 if sh["kind"] == "clip" else 70, a)
+        if sh["kind"] == "clip":
+            cl = credit_layer("Archive: " + CLIPS[sh["name"]]["credit"])
+            put(im, cl, OW - cl.width - 24, OH - 40, 1.0)
+        return im
+    im = RENDER[sh["kind"]](e, sh, k, lt)
+    if sh.get("fx") == "naira":
+        lay = naira_layer(lt - sh["t0"])
+        if lay is not None:
+            im.alpha_composite(lay)
+    return im
 
 
 def scene_frame(e, lt):
@@ -872,7 +1144,7 @@ def scene_frame(e, lt):
     cur = shot_frame(e, k, lt)
     if k > 0 and lt - shots[k]["t0"] < XF_SHOT:
         prev = shot_frame(e, k - 1, lt)
-        cur = Image.blend(prev, cur, smooth((lt - shots[k]["t0"]) / XF_SHOT))
+        cur = Image.blend(prev.convert("RGBA"), cur.convert("RGBA"), smooth((lt - shots[k]["t0"]) / XF_SHOT))
     return cur
 
 
@@ -885,8 +1157,8 @@ def frame_at(i):
     img = scene_frame(e, t - e["start"])
     if len(act) > 1 and t - e["start"] < e["xf"]:
         p = act[-2]
-        img = Image.blend(scene_frame(p, t - p["start"]), img, smooth((t - e["start"]) / e["xf"]))
-    img = img.convert("RGBA")
+        img = Image.blend(scene_frame(p, t - p["start"]).convert("RGBA"), img.convert("RGBA"), smooth((t - e["start"]) / e["xf"]))
+    img = nostalgia(img, e, t, i)
     if not NOSUBS:
         for a0, a1, s in e.get("subs") or []:
             if a0 - 0.05 <= t - e["start"] < a1 + 0.02:
