@@ -11,7 +11,10 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import narrate as N  # voice chain, respellings, trimming and subtitle splitting from JAGABAN
 import importlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-S = importlib.import_module("script").S
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location("mm_script", os.path.join(os.path.dirname(os.path.abspath(__file__)), "script.py"))
+_m = _iu.module_from_spec(_sp); _sp.loader.exec_module(_m)
+S = _m.S
 
 MODELS, BUILD = sys.argv[1], sys.argv[2]
 VOICE, SPEED, SR = N.VOICE, float(os.environ.get("J12_SPEED", "0.95")), N.SR

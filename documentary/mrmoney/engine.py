@@ -195,7 +195,7 @@ def photo_plate(sh):
         ar = src.width / src.height
         strip = sh.get("strip")
         if strip is None:
-            strip = ar < 1.3 or src.width < 1300
+            strip = ar < 1.3
         if strip:
             bg = ImageOps.fit(src, (PW, PH), Image.LANCZOS, centering=sh.get("focus", (0.5, 0.5)))
             bg = bg.resize((PW // 8, PH // 8), Image.BILINEAR).filter(ImageFilter.GaussianBlur(6)).resize((PW, PH), Image.BICUBIC)
@@ -353,7 +353,7 @@ def kin_frame(e, sh, k, lt):
     vis = [(t, ta) for t, ta in tl]
     n = len(vis)
     if st in ("tick", "stack", "list", "recipe"):
-        size = {"tick": 120, "stack": 104, "list": 92, "recipe": 120}[st]
+        size = {"tick": 150, "stack": 124, "list": 100, "recipe": 140}[st]
         if st == "list" and n > 4:
             size = 78
         lh = size * 1.22
@@ -567,7 +567,7 @@ def quote_frame(e, sh, k, lt):
     base.alpha_composite(ov)
     ta = sh["qt"]
     words = sh["text"].split()
-    font = SERIF(84)
+    font = SERIF(100)
     d0 = ImageDraw.Draw(Image.new("L", (1, 1)))
     lines, cur = [], ""
     for w in words:
@@ -578,7 +578,7 @@ def quote_frame(e, sh, k, lt):
         else:
             cur = test
     lines.append(cur)
-    lh = 104
+    lh = 124
     y0 = OH / 2 - len(lines) * lh / 2 - 30
     a = appear(lt, ta - 0.2, 0.6)
     center_word(base, "“", SERIF(260), GOLD, y0 - 40, alpha=a, shadow=False)
@@ -636,14 +636,14 @@ def chart_frame(e, sh, k, lt):
         lay, pad = word_img("#" + str(shown), ANTON(260), GOLD)
         put(base, lay, cx - lay.width / 2, OH / 2 - 210 - pad + 40, a)
         lay2, pad2 = word_img(name, MONOB(44), CREAM)
-        put(base, lay2, cx - lay2.width / 2, OH / 2 + 130 - pad2, a)
+        put(base, lay2, cx - lay2.width / 2, OH / 2 + 160 - pad2, a)
         # ladder: ticks from 200 down to position
         d = ImageDraw.Draw(base)
         x0, x1 = cx - 260, cx + 260
-        d.rectangle([x0, OH / 2 + 230, x1, OH / 2 + 234], fill=(80, 74, 66))
+        d.rectangle([x0, OH / 2 + 250, x1, OH / 2 + 254], fill=(80, 74, 66))
         mx = x1 - (x1 - x0) * (1 - shown / 200)
-        d.rectangle([x0, OH / 2 + 230, mx, OH / 2 + 234], fill=GOLD)
-        d.ellipse([mx - 10, OH / 2 + 222, mx + 10, OH / 2 + 242], fill=GOLD)
+        d.rectangle([x0, OH / 2 + 250, mx, OH / 2 + 254], fill=GOLD)
+        d.ellipse([mx - 10, OH / 2 + 242, mx + 10, OH / 2 + 262], fill=GOLD)
     return base
 
 
@@ -772,7 +772,7 @@ def logo_frame(e, lt):
 def tag_layer(text):
     key = ("tag", text)
     if key not in _cache:
-        f = MONO(30)
+        f = MONO(34)
         d0 = ImageDraw.Draw(Image.new("L", (1, 1)))
         tw = int(d0.textlength(text, font=f))
         lay = Image.new("RGBA", (tw + 80, 90), (0, 0, 0, 0))
