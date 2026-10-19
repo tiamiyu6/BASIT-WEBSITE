@@ -1,157 +1,160 @@
-# MR MONEY: voice-over script (read this)
+# MR MONEY: voice-over script v3 (the addictive cut)
 
-## How to record (5 minutes of setup, then about 12 minutes of reading)
-1. **A quiet small room:** a bedroom with curtains, or inside a wardrobe full of clothes (it kills the echo). Fans and AC off, door closed.
-2. **Phone voice recorder** (Voice Memos, or the Samsung recorder) at its highest quality. Hold the phone about **one hand-span (20 cm) from your mouth**, slightly to the side so your breath doesn't hit it.
-3. **Read each numbered line, then pause 2 seconds** before the next one. If you mess up, pause, then say the line again from the start. I'll keep your best take.
-4. **Your normal voice, a bit slower and lower than talking to friends.** Calm, like you're telling your younger brother a true story at night. Smile on the hopeful lines.
-5. Lines **1–3, 28, 53 and 54 are YOUR story** (the boy on the parlour floor is you). That's the heart of the film.
-6. You can record it in **parts** (e.g. 1–20, 21–40, 41–end). Send the original audio files (as documents on WhatsApp/Telegram, or on Google Drive) so they aren't compressed.
+**Read only the numbered lines.** The notes in *[brackets]* are for you, not to be read out.
+Every line is checked against real reports and interviews. Don't add numbers or claims while reading.
 
-Yoruba names: say them the way you normally would. You know them better than any machine.
-
-When you send it, I'll cut your voice to every scene, re-time all the pictures to your pace, clean the audio (noise removal, EQ, compression) and rebuild the film.
+## How to record
+1. **A quiet small room:** a bedroom with curtains, or inside a wardrobe full of clothes (it kills the echo). Fan and AC off, door closed.
+2. **Phone voice recorder at its highest quality,** about one hand-span (20 cm) from your mouth, slightly to the side.
+3. **Read a line, then pause 2 seconds.** Messed up? Pause, then say the whole line again. I keep your best take.
+4. **Your real voice: calm, a bit slow, a bit low,** like telling your younger brother a true story at night.
+   - **Hooks** *[HOOK]*: slow down and drop your voice. Let the last words land.
+   - **Numbers:** say them with pride, like you're announcing them.
+   - **Lines 1–4, 28, 53 and 54 are YOUR story.** That boy is you. Mean every word.
+5. **Send the original files** as documents on WhatsApp/Telegram, or on Google Drive. Recording it in parts is fine (e.g. 1–20, 21–40, 41–56).
 
 ---
 
-**1.** September 2022. Somewhere in Lagos, a boy is lying on the floor of his father's parlour.  _(~9s)_
+### COLD OPEN *[the first 30 seconds decide everything: no rushing]*
 
-**2.** WAEC is finished. JAMB is finished. And he has no idea what comes next.  _(~7s)_
+**1.** September 2022. Lagos. A boy is lying on the floor of his father's parlour, staring at the ceiling fan.
 
-**3.** Then a song comes on. And for the first time in a long time, he feels something. Hope.  _(~8s)_
+**2.** WAEC: done. JAMB: done. And nobody can tell him what comes next. Not even him.
 
-**4.** The album is called Mr Money with the Vibe. The man who made it was once told no, by his own father.  _(~8s)_
+**3.** Then a song comes on. And for the first time in months, something in his chest moves. Hope.
 
-**5.** This is the story of how a stubborn boy from Lagos became Mr Money. And why millions of people, like that boy on the floor, feel lifted by his music.  _(~11s)_
+**4.** The album is called Mr Money with the Vibe. And the man who made it? His own father once told him no.
 
+**5.** *[HOOK]* His father said no. Olamide didn't reply for almost two years. A crowd crush nearly ended everything. And he still became one of the biggest voices in Afrobeats. This is how.
 
-### OLOLADE
+### CHAPTER 1: OLOLADE
 
-**6.** He was born Ahmed Ololade, on the thirteenth of January, 1995, in Lagos.  _(~8s)_
+**6.** His name is Ahmed Ololade. Born on the thirteenth of January, 1995, in Lagos.
 
-**7.** In Yoruba, Ololade means wealth has arrived. Long before anyone called him Mr Money, his own name was already saying it.  _(~10s)_
+**7.** And here's the crazy part. In Yoruba, Ololade means wealth has arrived. Long before anyone called him Mr Money, his own name was already saying it.
 
-**8.** The name the world knows him by is Asake. To most Nigerians, that is a woman's name. Many reports say he took it from his mother.  _(~11s)_
+**8.** The world calls him Asake. To most Nigerians, that's a woman's name. Many reports say it came from his mother.
 
-**9.** He trained as a performer, a dancer and an actor. And from very early, the people around him noticed one thing about him. A thing that would one day cost him his home.  _(~13s)_
+**9.** *[HOOK]* He grew up a performer: a dancer, an actor. But the people around him noticed something else about him. Something that would one day cost him his home.
 
+### CHAPTER 2: GIRAN
 
-### GIRAN
+**10.** They called him Giran. In Yoruba, it means stubborn.
 
-**10.** They called him Giran. In Yoruba, it means stubborn.  _(~5s)_
+**11.** At fifteen, he wanted music. His father said no. So the boy left home.
 
-**11.** At fifteen, he wanted music. His father did not. So he left home.  _(~7s)_
+**12.** Years later, he would laugh about it. The father who gave birth to me, he said, is more stubborn than I am.
 
-**12.** Years later, he would laugh about it. The father who gave birth to me, he said, is more stubborn than I am.  _(~8s)_
+**13.** His mother tried another way. She gathered money. She got him an international passport. A way out, to study in the United Kingdom.
 
-**13.** His mother had a different plan. She gathered money, and got him an international passport, to study in the United Kingdom.  _(~9s)_
+**14.** *[HOOK]* Most people would take it. He said no. He wanted Nigeria. It took the Yoruba actor Lala to convince his mother to let him study at Obafemi Awolowo University instead. Remember that no. It changes everything.
 
-**14.** He said no. He wanted to stay in Nigeria. It took the Yoruba actor Lala to convince her to let him go to Obafemi Awolowo University instead. That one stubborn choice would set everything else in motion.  _(~18s)_
+### CHAPTER 3: ILE-IFE
 
+**15.** At OAU, he studied Theatre and Performing Arts. He learned the stage long before the stage learned his name.
 
-### ILE-IFE
+**16.** In 2018, he signed to a small label called TFT Records. He put out songs like Kanipe. And almost nobody noticed.
 
-**15.** At OAU, he studied Theatre and Performing Arts. He learned the stage, long before the stage knew his name.  _(~8s)_
+**17.** Then, in 2020, he released a song with a title that sounded like a joke. Or a prophecy. Mr Money.
 
-**16.** In 2018, he signed with a small label called TFT Records, and released songs like Kanipe. Almost nobody noticed.  _(~11s)_
+**18.** That same year, he started texting one man. The one man he believed could change his life. Olamide. The boss of YBNL.
 
-**17.** Then, in 2020, he put out a song with a title that sounded more like a promise than a fact. Mr Money.  _(~9s)_
+**19.** *[HOOK]* By Asake's own account, he texted. He begged. And for a long, long time, nothing came back. Until one song did what all those messages could not.
 
-**18.** That same year, he started sending messages to the one man he believed could change his life. Olamide, the boss of YBNL.  _(~10s)_
+### CHAPTER 4: 2022
 
-**19.** By Asake's own account, he texted, and he begged, for help. And for a long time, there was no reply. Until one song changed everything.  _(~12s)_
+**20.** That song was Omo Ope. Olamide heard it before it came out, and jumped on it with a verse of his own.
 
+**21.** And then, as Asake tells it, the reply finally landed. Asake, we have to see.
 
-### 2022
+**22.** February 2022. Olamide told the world. Welcome to YBNL.
 
-**20.** Then he made a song called Omo Ope. Olamide heard it before it came out, and jumped on it with a verse of his own.  _(~9s)_
+*[archive moment: his team speaks]*
 
-**21.** And, as Asake tells it, the text finally came back. Asake, we have to see.  _(~7s)_
+**23.** What happened next wasn't a rise. It was a takeover.
 
-**22.** In February 2022, Olamide told the world. Welcome to YBNL.  _(~8s)_
+**24.** Omo Ope. Sungba. A Sungba remix with Burna Boy. Peace Be Unto You. Terminator. Within months, his voice was everywhere, from the danfos of Lagos to the clubs of London.
 
-**23.** What happened next was not a rise. It was a takeover.  _(~5s)_
+**25.** On the eighth of September, 2022, the debut album landed. Mr Money with the Vibe.
 
-**24.** Omo Ope. Sungba. Then a Sungba remix with Burna Boy. Peace Be Unto You. Terminator. Within months, his songs were everywhere, from the buses of Lagos to the clubs of London.  _(~17s)_
+**26.** At the time, it broke the record for the biggest opening day by an African album on Apple Music. And it entered the Billboard 200 at number 66.
 
-**25.** On the eighth of September, 2022, he released his debut album. Mr Money with the Vibe.  _(~9s)_
+**27.** By December, Audiomack named him artiste of the year. 330 million streams.
 
-**26.** At the time, it broke the record for the biggest opening day for an African album on Apple Music. And it entered the Billboard 200 at number 66.  _(~12s)_
+**28.** *[HOOK: your story]* And somewhere in Lagos, on a parlour floor, a boy with no plan pressed play. Remember him. He comes back.
 
-**27.** By December, Audiomack named him artiste of the year, after the album passed 330 million streams.  _(~9s)_
+### CHAPTER 5: BRIXTON *[slow, quiet, respectful]*
 
-**28.** And somewhere in Lagos, on a parlour floor, a boy with no plan pressed play.  _(~6s)_
+**29.** December 2022. London. And the biggest week of his life was about to become the darkest.
 
+**30.** Asake sold out three nights at the O2 Academy Brixton. On the final night, a crowd crush at the venue left several people critically injured.
 
-### BRIXTON
+**31.** Two of them never came home. Rebecca Ikumelo, 33, who came to see him perform. And Gaby Hutchinson, 23, a security guard working that night.
 
-**29.** But that December, his story met its darkest night.  _(~4s)_
+### CHAPTER 6: WORK OF ART
 
-**30.** Asake sold out three nights at the O2 Academy Brixton. On the final night, a crowd crush at the venue left several people critically injured.  _(~11s)_
+*[archive moment: "Before the bright lights…"]*
 
-**31.** Two of them later died. Rebecca Ikumelo, a 33-year-old who came to see him perform. And Gaby Hutchinson, a 23-year-old security guard working that night.  _(~14s)_
+**32.** He kept moving. 2023: Yoga. 2:30. And Amapiano, with Olamide, which earned him his first Grammy nomination.
 
+**33.** His second album, Work of Art, landed on the sixteenth of June, 2023. Number 66 on the Billboard 200, again. Number 20 in the UK.
 
-### WORK OF ART
+*[archive moment: "a relentless perfectionist"]*
 
-**32.** In 2023, he kept moving. Yoga. 2:30. And Amapiano, with Olamide, which earned him his first Grammy nomination.  _(~13s)_
+**34.** That August, he went back to London and sold out the O2 Arena. He opened the night honouring the two who died at Brixton. Then he arrived by helicopter.
 
-**33.** His second album, Work of Art, landed on the sixteenth of June, 2023. It entered the Billboard 200 at number 66 again, and the UK albums chart at number 20.  _(~14s)_
+**35.** A month later, in New York, he became the first African artist to headline and sell out the Barclays Center.
 
-**34.** In August, he came back to London and sold out the O2 Arena. He opened the night with a tribute to the two who died at Brixton. Then he arrived by helicopter.  _(~13s)_
+**36.** *[HOOK]* The boy who refused to leave Nigeria was now filling the biggest rooms in the world. But the hardest test for a stubborn man was still coming. Leaving the house that made him.
 
-**35.** A month later, in New York, he became the first African artist to headline and sell out the Barclays Center.  _(~8s)_
+### CHAPTER 7: LUNGU BOY
 
-**36.** The boy who refused to leave Nigeria was now filling the biggest rooms in the world. But the hardest test for a stubborn man was still ahead. Leaving the house that made him.  _(~13s)_
+**37.** 2024. Album number three, Lungu Boy. Travis Scott. Central Cee. Stormzy. Wizkid. All on board.
 
+**38.** Day one: 9.2 million streams. The biggest opening day for a Nigerian album on Spotify.
 
-### LUNGU BOY
+**39.** His song with Wizkid, MMS, set a new first-day record for a song on Spotify Nigeria. And it brought him a second Grammy nomination.
 
-**37.** In 2024 came his third album, Lungu Boy. Travis Scott, Central Cee, Stormzy and Wizkid all came on board.  _(~10s)_
+### CHAPTER 8: WHY LOVE
 
-**38.** It set a new record for the biggest opening day for a Nigerian album on Spotify. 9.2 million streams.  _(~9s)_
+**40.** And then Giran did what Giran always does. He chose his own road.
 
-**39.** His song with Wizkid, MMS, set a new record for first-day streams of a song on Spotify Nigeria. It brought him a second Grammy nomination.  _(~12s)_
+**41.** The twelfth of February, 2025. A single called Why Love, on his own new label. Giran Republic. The stubborn republic.
 
+**42.** It meant leaving YBNL, the house that first opened the door for him. But the bond held. Olamide later called him his brother for life.
 
-### WHY LOVE
+**43.** And the father who once said no? After years of distance, Asake says the love is still the same.
 
-**40.** Then the stubborn boy did what he had always done. He chose his own road.  _(~6s)_
+*[archive moment: "We work so hard to remain the same"]*
 
-**41.** On the twelfth of February, 2025, he released a single called Why Love, on his own new label. Giran Republic. The stubborn republic.  _(~12s)_
+### CHAPTER 9: M$NEY
 
-**42.** It marked his exit from YBNL, the house that first opened the door for him. But the bond held. Olamide later called him his brother for life.  _(~12s)_
+**44.** Now watch the stubborn bet pay off. January 2026: Real, Volume One, with Wizkid. Straight to number one in Nigeria.
 
-**43.** And with his father, after years of distance, Asake would say that the love is still the same.  _(~7s)_
+**45.** Then, on the first of May, 2026, album number four. M$NEY.
 
+**46.** First week: 42.2 million streams on Spotify Nigeria. A record.
 
-### M$NEY
+**47.** And that July, he stood on the stage of the Theatre Royal, Drury Lane, in London, with a live orchestra and a forty-member choir. The first Afrobeats artist ever to headline it.
 
-**44.** And the stubborn bet paid off. In January 2026, he and Wizkid released Real, Volume One, together. It went straight to number one in Nigeria.  _(~13s)_
+### CHAPTER 10: THE VIBE
 
-**45.** Then, on the first of May, 2026, came his fourth album. M$NEY.  _(~7s)_
+**48.** *[HOOK]* But numbers don't explain why a boy on a floor felt saved. So here's the real question. Why him? Why does Asake hit different?
 
-**46.** In its first week, it did 42.2 million streams on Spotify Nigeria. A record.  _(~8s)_
+**49.** Listen to what he mixes. Fuji, the sound that grew out of the songs that woke Lagos for Ramadan. Amapiano log drums from South Africa. Street pop. And behind it all, a choir.
 
-**47.** That July, he stood on the stage of the Theatre Royal, Drury Lane, in London, with a live orchestra and a forty-member choir. The first Afrobeats artist ever to headline it.  _(~13s)_
+**50.** He sings mostly in Yoruba, with street slang and pidgin. He doesn't translate himself for anybody. And the world comes to him anyway.
 
+**51.** He says very little. He has said that sometimes he just shuts down, and won't talk to anyone. He lets the stage do the talking. A theatre student, still performing.
 
-### THE VIBE
+**52.** Underneath the money, the chains and the helicopters, the story his fans hold on to is a simple one. A stubborn boy who believed in himself before anybody else did.
 
-**48.** So why him? Why does Asake land so differently?  _(~5s)_
+### OUTRO *[your story: slow, from the heart]*
 
-**49.** Listen to what he mixes. Fuji, the sound that grew out of the songs that woke Lagos for Ramadan. Amapiano log drums from South Africa. Street pop. And behind it all, a choir.  _(~16s)_
+**53.** Remember the boy on the parlour floor? 2022. No plan. No idea what came next.
 
-**50.** He sings mostly in Yoruba, with street slang and pidgin. He does not translate himself for anybody. And the world comes to him anyway.  _(~11s)_
+**54.** That boy was me. I made this documentary.
 
-**51.** He says very little. He gives few interviews. He lets the stage do the talking. A theatre student, still performing.  _(~11s)_
+**55.** Ololade. Wealth has arrived. And sometimes, before it arrives in your pocket, it has to arrive in your head. Stay stubborn.
 
-**52.** And underneath the money, the chains and the helicopters, the story his fans hold on to is a simple one. A stubborn boy who believed in himself before anybody else did.  _(~13s)_
-
-**53.** Remember the boy on the parlour floor in 2022? No plan. No idea what came next.  _(~9s)_
-
-**54.** He made this documentary.  _(~3s)_
-
-**55.** Ololade. Wealth has arrived. Sometimes, before it arrives in your pocket, it has to arrive in your head. Stay stubborn.  _(~11s)_
-
-**56.** If this story moved you, subscribe to Naija Untold. And tell us in the comments: which Asake song found you, when you needed it?  _(~10s)_
+**56.** If this story moved you, subscribe to Naija Untold. And tell me in the comments: which Asake song found you when you needed it?
