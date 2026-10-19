@@ -113,10 +113,10 @@ def screen_tex():
         h = 20 + 140 * abs(math.sin(i * 0.53) * math.cos(i * 0.21))
         x = 90 + i * 8
         d.rectangle([x, 210 + (W - 120) / 2 - h / 2, x + 4, 210 + (W - 120) / 2 + h / 2], fill=(232, 184, 74))
-    d.text((W / 2, 760), "Now playing", font=pf("SpaceMono-Regular.ttf", 30), fill=(170, 165, 160), anchor="mm")
     d.rounded_rectangle([70, 850, W - 70, 858], 4, fill=(70, 66, 60))
     d.rounded_rectangle([70, 850, 70 + (W - 140) * 0.37, 858], 4, fill=(232, 184, 74))
-    d.polygon([(W / 2 - 22, 930), (W / 2 - 22, 990), (W / 2 + 30, 960)], fill=(240, 236, 228))
+    d.rectangle([W / 2 - 26, 930, W / 2 - 10, 990], fill=(240, 236, 228))      # pause: reads the same either way up
+    d.rectangle([W / 2 + 10, 930, W / 2 + 26, 990], fill=(240, 236, 228))
     im.rotate(180).save(p)
     return p
 
