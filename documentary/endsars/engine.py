@@ -889,7 +889,7 @@ def card_frame(e, lt):
     c = e["card"]
     if seq_files("three", "ch_" + c["word"]):
         base = three_frame(dict(name="ch_" + c["word"], t0=0, start=0, speed=1.0), lt)
-        col = {"gold": GOLD, "red": RED, "white": CREAM}[c["color"]]
+        col = {"gold": GOLD, "red": RED, "white": CREAM, "green": (40, 170, 90)}[c["color"]]
         num = [x["id"] for x in TL if x.get("card")].index(e["id"]) + 1
         center_word(base, f"CHAPTER {num:02d}", MONOB(34), CREAM, 110, alpha=appear(lt, 0.5), spacing=6)
         d = ImageDraw.Draw(base)
@@ -900,7 +900,7 @@ def card_frame(e, lt):
         center_word(base, sub[:nch] if nch else " ", MONO(42), CREAM, OH - 150, alpha=1.0)
         return base
     base = dark_bg(7, (20, 18, 17)).convert("RGBA")
-    col = {"gold": GOLD, "red": RED, "white": CREAM}[c["color"]]
+    col = {"gold": GOLD, "red": RED, "white": CREAM, "green": (40, 170, 90)}[c["color"]]
     word = c["word"]
     a = appear(lt, 0.15, 0.25)
     flick = 1.0 if lt > 0.6 else (0.3 + 0.7 * (math.sin(lt * 80) > -0.2))
