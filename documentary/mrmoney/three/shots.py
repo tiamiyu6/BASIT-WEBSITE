@@ -69,10 +69,12 @@ def shot_mm():
 
 # ------------------------------------------------------------------ 3D chapter word
 def shot_chapter(word, color="gold"):
-    sc = lib.reset(96, samples=8)
+    sc = lib.reset(int(os.environ.get("CH_FRAMES", "96")), samples=8)
     sc.render.use_motion_blur = False
     lib.world(strength=0.5)
-    if color == "red":
+    if color == "green":                      # Nigerian green, lacquered
+        m = lib.mat("green", (0.0, 0.16, 0.055), metal=0.55, rough=0.24, coat=0.5)
+    elif color == "red":
         m = lib.mat("red", (0.55, 0.02, 0.02), metal=0.4, rough=0.22, coat=1.0)
     elif color == "white":
         m = lib.mat("white", (0.8, 0.78, 0.74), metal=0.0, rough=0.35, coat=0.6)
