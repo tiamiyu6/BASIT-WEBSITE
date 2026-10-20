@@ -1178,12 +1178,13 @@ def frame_at(i):
 def render_range(args):
     a, b, path = args
     enc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{OW}x{OH}",
-                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", path],
+                            "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", path + ".tmp.mp4"],
                            stdin=subprocess.PIPE)
     for i in range(a, b):
         enc.stdin.write(frame_at(i))
     enc.stdin.close()
     enc.wait()
+    os.replace(path + ".tmp.mp4", path)          # only a finished part gets its real name (safe to resume after a crash)
     return path
 
 
