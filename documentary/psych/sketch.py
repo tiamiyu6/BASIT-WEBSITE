@@ -85,10 +85,65 @@ class Sketch:
         lay.putalpha(ImageChops.multiply(lay.getchannel("A"), m))
         self.img.paste(lay, (0, 0), lay)
 
+    def blob(self, polys, color, light=(-0.6, -0.8), width=3.2, shade=0.22, hatch=True, cover=False):
+        """draw several overlapping shapes as ONE silhouette: soft watercolour body, side shading, single pencil outline"""
+        m = Image.new("L", (self.w, self.h), 0)
+        d = ImageDraw.Draw(m)
+        for p in polys:
+            d.polygon([tuple(q) for q in np.asarray(p)], fill=255)
+        x0, y0, x1, y1 = [int(v) for v in m.getbbox() or (0, 0, 1, 1)]
+        pad = 30
+        x0, y0, x1, y1 = max(0, x0 - pad), max(0, y0 - pad), min(self.w, x1 + pad), min(self.h, y1 + pad)
+        mc = m.crop((x0, y0, x1, y1))
+        A = np.asarray(mc.filter(ImageFilter.GaussianBlur(1.6)), np.float32) / 255
+        H, W = A.shape
+        yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+        # pigment: uneven, a little lighter toward the light, darker on the shadow side
+        n = noise(self.w, self.h, int(self.rng.integers(1e6)), 22)[y0:y1, x0:x1]
+        g = noise(self.w, self.h, int(self.rng.integers(1e6)), 3)[y0:y1, x0:x1]
+        side = ((xx / max(W, 1)) - 0.5) * -light[0] + ((yy / max(H, 1)) - 0.5) * -light[1]
+        inner = np.asarray(mc.filter(ImageFilter.GaussianBlur(14)), np.float32) / 255     # far from the edge = 1
+        dens = 0.62 + 0.18 * n + 0.08 * g + shade * np.clip(side, -0.5, 1.0) + 0.10 * (1 - inner)
+        a = A * np.clip(dens, 0, 1)
+        base = np.asarray(self.img.crop((x0, y0, x1, y1)), np.float32)
+        col = np.array(color, np.float32)
+        under = np.array(PAPER, np.float32) if cover else base          # cover: paint over what's beneath (arms in front of a body)
+        out = base * (1 - a[..., None]) + under * (col / 255) * a[..., None]
+        self.img.paste(Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)), (x0, y0))
+        if hatch:      # soft hatching only on the shadow side
+            hm = Image.fromarray((np.clip(side * 1.6 - 0.15, 0, 1) * inner * 255).astype(np.uint8))
+            lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            dd = ImageDraw.Draw(lay)
+            dark = tuple(int(c * 0.5) for c in color)
+            for k in range(-H, W, 9):
+                if self.rng.random() < 0.25:
+                    continue
+                j = self.rng.uniform(-3, 3)
+                dd.line([(k + j, H), (k + H * 0.55, 0)], fill=dark + (int(85 * self.rng.uniform(0.5, 1)),), width=2)
+            lay.putalpha(ImageChops.multiply(lay.getchannel("A"), hm))
+            self.img.paste(lay, (x0, y0), lay)
+        # one pencil contour around the whole silhouette, with grain and slight double line
+        edge = np.asarray(mc.filter(ImageFilter.MaxFilter(5)), np.float32) - np.asarray(mc.filter(ImageFilter.MinFilter(3)), np.float32)
+        grain = 0.55 + 0.45 * noise(self.w, self.h, int(self.rng.integers(1e6)), 2)[y0:y1, x0:x1]
+        e1 = np.clip(edge / 255 * grain * 0.95, 0, 1)
+        e2 = np.roll(np.roll(e1, 1, 0), -1, 1) * 0.35
+        e = np.clip(e1 + e2, 0, 1)
+        base = np.asarray(self.img.crop((x0, y0, x1, y1)), np.float32)
+        lead = np.array(LEAD, np.float32) * 0.8
+        out = base * (1 - e[..., None]) + lead * e[..., None]
+        self.img.paste(Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)), (x0, y0))
+
+    def shadow(self, x, y, w, h=26, alpha=0.18):
+        m = Image.new("L", (self.w, self.h), 0)
+        ImageDraw.Draw(m).ellipse([x - w / 2, y - h / 2, x + w / 2, y + h / 2], fill=int(255 * alpha))
+        m = m.filter(ImageFilter.GaussianBlur(12))
+        self.img.paste((120, 100, 85), (0, 0), m)
+
     def shape(self, poly, fill=None, width=4, closed=True, hatch=True):
         if fill:
-            self.wash(poly, fill, hatch=hatch)
-        self.line(poly, width=width, closed=closed)
+            self.blob([poly], fill, cover=True, hatch=hatch)      # same watercolour + single outline as the people
+        else:
+            self.line(poly, width=width, closed=closed)
 
     def text(self, xy, s, size=90, color=LEAD, angle=0, anchor="mm"):
         f = HAND(size)
@@ -108,67 +163,73 @@ class Sketch:
             self.line([(x, y + 2), (x + 26, y + 2)], width=2, passes=1, alpha=110)
 
     # ---------------------------------------------------------- people
-    def person(self, x, y, h=420, mood="neutral", look=0, arms=("down", "down"), color=SKIN, lean=0.0, item=None, legs="stand", flip=1):
-        """a blob person standing with feet at (x, y). arms: down | up | out | hold | wave | face"""
+    def person(self, x, y, h=420, mood="neutral", look=0, arms=("down", "down"), color=SKIN, lean=0.0, legs="stand", flip=1, shadow=True):
+        """a soft blob person, feet at (x, y). arms: down | out | up | wave | hold | face | chin | hip"""
         s = h / 420
-        cx = x + lean * 40 * s
-        # body: a bean, head and torso in one
-        ts = np.linspace(0, 2 * math.pi, 60, endpoint=False)
-        w_top, w_bot = 78 * s, 104 * s
-        top, bot = y - h, y - 70 * s
-        pts = []
-        for t in ts:
-            u = (1 - math.cos(t)) / 2                       # 0 at top, 1 at bottom
-            r = w_top + (w_bot - w_top) * u ** 1.3
-            px = cx + math.sin(t) * r * (1 - 0.08 * math.sin(3 * t) ** 2)
-            py = top + (bot - top) * u + (14 * s if u > 0.98 else 0)
-            pts.append((px - lean * 60 * s * (1 - u), py))
-        pts = np.array(pts)
-        # legs
-        for side in (-1, 1):
-            lx = cx + side * 42 * s
+        cx = x + lean * 30 * s
+        parts = []
+        top, bot = y - h, y - 58 * s
+        hr = 64 * s                                                     # head
+        hcx, hcy = cx - lean * 60 * s, top + hr
+        parts.append([(hcx + hr * math.cos(t), hcy + hr * 1.02 * math.sin(t)) for t in np.linspace(0, 2 * math.pi, 48, endpoint=False)])
+        body = []                                                       # pear-shaped body, overlapping the head
+        bt = hcy + hr * 0.45
+        for t in np.linspace(0, 2 * math.pi, 64, endpoint=False):
+            u = (1 - math.cos(t)) / 2
+            r = (52 + 58 * u ** 0.8) * s * (1 - 0.18 * u ** 6)
+            body.append((cx - lean * 60 * s * (1 - u) + math.sin(t) * r, bt + (bot + 12 * s - bt) * u))
+        parts.append(body)
+        for side in (-1, 1):                                            # legs
+            lx = cx + side * 36 * s
             if legs == "walk":
-                k = 1 if side * flip > 0 else -1
-                leg = capsule((lx, y - 80 * s), (lx + k * 34 * s, y - 6 * s), 30 * s)
+                k = side * flip
+                parts.append(capsule((lx, bot - 20 * s), (lx + k * 30 * s, y - 14 * s), 24 * s))
             elif legs == "sit":
-                leg = capsule((lx, y - 70 * s), (lx + side * 20 * s + 70 * s * flip, y - 40 * s), 30 * s)
+                parts.append(capsule((lx, bot - 10 * s), (lx + 80 * s * flip, bot + 10 * s), 24 * s))
             else:
-                leg = capsule((lx, y - 80 * s), (lx + side * 6 * s, y - 8 * s), 31 * s)
-            self.shape(leg, color, width=4)
-        self.shape(pts, color, width=4)
-        # arms (shoulder at 45% height)
-        sy = top + (bot - top) * 0.48
-        for side, mode in zip((-1, 1), arms):
-            sx = cx + side * (w_top + 12 * s)
-            ang = {"down": 100, "out": 25, "up": -60, "wave": -75, "hold": 55, "face": -110, "chin": -120}[mode]
-            ln = 150 * s if mode not in ("face", "chin") else 120 * s
-            a = math.radians(ang)
-            ex, ey = sx + side * math.cos(a) * ln, sy + math.sin(a) * ln
+                parts.append(capsule((lx, bot - 20 * s), (lx + side * 4 * s, y - 14 * s), 24 * s))
+        sy = bt + (bot - bt) * 0.18
+        arm_parts, hands = [], []
+        for side, mode in zip((-1, 1), arms):                           # arms start at the shoulder edge
+            sx = cx - lean * 50 * s + side * 58 * s
             if mode in ("face", "chin"):
-                ex, ey = cx + side * 26 * s, top + (bot - top) * (0.30 if mode == "face" else 0.38)
-            self.shape(capsule((sx, sy), (ex, ey), 25 * s), color, width=4)
-        # face
-        hy = top + 120 * s
-        fx = cx + look * 22 * s - lean * 40 * s
+                ex, ey = hcx + side * 22 * s, hcy + (18 if mode == "face" else 52) * s
+            elif mode == "hip":
+                ex, ey = sx + side * 42 * s, sy + 70 * s
+            else:
+                ang = {"down": 78, "out": 25, "up": -55, "wave": -70, "hold": 30}[mode]
+                ln = 125 * s
+                a = math.radians(ang)
+                ex, ey = sx + side * math.cos(a) * ln, sy + math.sin(a) * ln
+            arm_parts.append(capsule((sx, sy), (ex, ey), 18 * s))
+            hands.append((ex, ey))
+        if shadow:
+            self.shadow(cx, y - 6 * s, 230 * s)
+        self.blob(parts, color)
+        for ap in arm_parts:                                            # arms drawn over the body, each with its own outline
+            self.blob([ap], color, cover=True, hatch=False)
+        # face: tiny dot eyes, small mouth, optional brows
+        hy = hcy + 4 * s
+        fx = hcx + look * 18 * s
+        d = ImageDraw.Draw(self.img)
         for side in (-1, 1):
-            ex = fx + side * 26 * s
-            d = ImageDraw.Draw(self.img)
-            d.ellipse([ex - 7 * s, hy - 9 * s, ex + 7 * s, hy + 9 * s], fill=(52, 42, 36))
+            ex = fx + side * 20 * s
+            d.ellipse([ex - 5.5 * s, hy - 7 * s, ex + 5.5 * s, hy + 7 * s], fill=(46, 38, 33))
             if mood in ("sad", "worried"):
-                self.line([(ex - side * 18 * s, hy - 34 * s), (ex + side * 10 * s, hy - 24 * s)], width=3, passes=1)
+                self.line([(ex - side * 14 * s, hy - 26 * s), (ex + side * 7 * s, hy - 19 * s)], width=3, passes=1, amp=0.4)
             if mood == "angry":
-                self.line([(ex - side * 16 * s, hy - 24 * s), (ex + side * 12 * s, hy - 34 * s)], width=3, passes=1)
-        my = hy + 40 * s
+                self.line([(ex - side * 12 * s, hy - 18 * s), (ex + side * 9 * s, hy - 27 * s)], width=3, passes=1, amp=0.4)
+        my = hy + 30 * s
         if mood == "happy":
-            arc = [(fx + 22 * s * math.cos(t), my - 8 * s + 14 * s * math.sin(t)) for t in np.linspace(0.3, 2.8, 12)]
+            arc = [(fx + 15 * s * math.cos(t), my - 6 * s + 10 * s * math.sin(t)) for t in np.linspace(0.4, 2.7, 10)]
         elif mood in ("sad", "worried"):
-            arc = [(fx + 18 * s * math.cos(t), my + 12 * s - 12 * s * math.sin(t)) for t in np.linspace(0.3, 2.8, 12)]
+            arc = [(fx + 13 * s * math.cos(t), my + 9 * s - 8 * s * math.sin(t)) for t in np.linspace(0.4, 2.7, 10)]
         elif mood == "shock":
-            arc = [(fx + 9 * s * math.cos(t), my + 11 * s * math.sin(t)) for t in np.linspace(0, 6.28, 16)]
+            arc = [(fx + 7 * s * math.cos(t), my + 9 * s * math.sin(t)) for t in np.linspace(0, 6.28, 14)]
         else:
-            arc = [(fx - 14 * s, my), (fx + 14 * s, my + 2 * s)]
-        self.line(arc, width=3, passes=1, closed=(mood == "shock"))
-        return dict(cx=cx, top=top, hand_l=None, s=s, sy=sy, w=w_top)
+            arc = [(fx - 10 * s, my), (fx + 10 * s, my + 1.5 * s)]
+        self.line(arc, width=3, passes=1, closed=(mood == "shock"), amp=0.4)
+        return dict(cx=cx, top=top, s=s, hands=hands, head=(fx, hy))
 
     # ---------------------------------------------------------- props
     def phone(self, x, y, s=1.0, glow=(170, 205, 235), angle=0):
