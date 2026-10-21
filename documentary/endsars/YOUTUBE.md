@@ -6,7 +6,7 @@
 3. 20.10.20: How a Hashtag Became a Movement, and Met the Army
 
 ## Description
-Six years ago tonight, hundreds of young Nigerians sat on the road at the Lekki toll gate, waving the flag and singing the national anthem. Then the soldiers arrived.
+Six years ago this week, hundreds of young Nigerians sat on the road at the Lekki toll gate, waving the flag and singing the national anthem. Then the soldiers arrived.
 
 This is the story of #EndSARS: from a police unit created in 1992, to the protests that shook Nigeria in October 2020, to the night at Lekki, the Lagos judicial panel, and the questions that are still unanswered.
 
@@ -56,7 +56,7 @@ endsars-lagos-2020.jpg (in photos/broll)	Jerry Jallo / Heinrich Böll Stiftung /
 Original score, sound design and 3D titles: Naija Untold. Lament cue: "Long Note Four" by Kevin MacLeod (incompetech.com), CC BY 4.0.
 Narration voice is AI-generated.
 
-#EndSARS #LekkiTollGate #Nigeria #2010 #SoroSoke #NaijaUntold #Documentary
+#EndSARS #LekkiTollGate #Nigeria #20October #SoroSoke #NaijaUntold #Documentary
 
 ## Tags
 EndSARS, End SARS documentary, Lekki toll gate, Lekki massacre, October 20 2020, 20.10.20, Soro Soke, SARS Nigeria, police brutality Nigeria, Feminist Coalition, Lagos judicial panel, Naija Untold, Nigerian documentary
