@@ -4,7 +4,8 @@ text   = what he actually says in the chosen take (also the on-screen captions),
 rec    = which phone recording holds the take we use (the last good take in that file is chosen automatically).
 start  = begin the cut at this word (drops a slip before it).   end = stop the cut after this word (drops a slip after it).
 Fact fixes made in the edit: y6 drops the day ("18th" was misread; the album came out on 8 September),
-w1 stops before "first Grammy" (it was a nomination, not a win), m2 stops before "says it".
+w1 stops before "first Grammy" (it was a nomination, not a win), m2 stops before "says it",
+v2 drops the day (the take says "25th of January"; the single came out on 12 February).
 """
 L = {
     "o1": (2, "September 2022. Lagos. A boy in his living room, on the floor of his father's parlour, staring at the ceiling."),
@@ -47,7 +48,7 @@ L = {
     "l2": (6, "Day one: 9.2 million streams. The biggest opening day for a Nigerian album on Spotify."),
     "l3": (6, "His song with Wizkid, MMS, set a new first-day record for a song on Spotify Nigeria. And it brought him a second Grammy nomination."),
     "v1": (6, "And then Giran did what Giran always does. He chose his own road."),
-    "v2": (6, "The twelfth of February, 2025. A single called Why Love, on his own new label. Giran Republic. The stubborn republic."),
+    "v2": (6, "2025. A single called Why Love, on his own new label. Giran Republic. The stubborn republic.", dict(start="2025")),
     "v3": (8, "It meant leaving YBNL, the house that first opened the door for him. But the bond held. Olamide called him his brother for life."),
     "v4": (8, "And the father who once said no? After years of distance, Asake says the love is still the same."),
     "m1": (8, "Now watch the stubborn bet pay off. January 2026: Real, Volume One, with Wizkid. Straight to number one in Nigeria."),
@@ -59,7 +60,7 @@ L = {
     "t3": (7, "He sings mostly in Yoruba, with street slang and pidgin. He doesn't translate himself for anybody. And the world comes to him anyway."),
     "t4": (7, "He says very little. He has said that sometimes he just shuts down, and won't talk to anyone. He lets the stage do the talking. A theatre student, still performing."),
     "t5": (7, "Underneath the money, the chains and the helicopters, the story his fans hold on to is a simple one. A stubborn boy who believed in himself before anybody else did."),
-    "e1": (7, "Remember the boy on the parlour floor? 2022. No plan. No idea what's coming next."),
+    "e1": (7, "Remember the boy on the parlour floor? No plan. No idea. Not knowing what's coming next."),
     "e2": (7, "That boy was me. I made this documentary."),
     "e3": (7, "Ololade. Wealth has arrived. And sometimes, before it arrives in your pocket, it has arrived in your head. Stay stubborn."),
     "e4": (7, "If this story moved you, subscribe to Naija Untold. And tell me in the comments: which Asake song found you when you needed it?"),

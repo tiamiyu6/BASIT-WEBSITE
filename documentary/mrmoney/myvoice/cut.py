@@ -38,7 +38,7 @@ def score(a, b):
     return difflib.SequenceMatcher(None, " ".join(a), " ".join(b), autojunk=False).ratio()
 
 
-def find_take(words, line):
+def find_take(words, line, need=None):
     toks = [norm(w[0]) for w in words]
     want = tokens(line)
     n, best = len(want), []
@@ -49,6 +49,8 @@ def find_take(words, line):
             j = i + ln
             if j > len(toks):
                 break
+            if need and not any(need in t for t in toks[i:j]):
+                continue
             best.append((score(toks[i:j], want), i, j))
     top = max(s for s, _, _ in best)
     good = [c for c in best if c[0] >= top - 0.06]
@@ -68,7 +70,7 @@ def main():
             recs[rec], _ = sf.read(f"{WORK}/clean{rec}.wav", dtype="float32")
             words[rec] = json.load(open(f"{WORK}/words{rec}.json"))
         W = words[rec]
-        sc, i, j = find_take(W, text)
+        sc, i, j = find_take(W, text, opt.get("need"))
         if opt.get("start"):
             i = next(k for k in range(i, j) if opt["start"] in norm(W[k][0]))
         if opt.get("end"):
