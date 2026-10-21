@@ -225,8 +225,8 @@ S = [
     # ---------------------------------------------------------------- OUTRO
     sc("e1", "Remember the boy on the parlour floor in 2022? No plan. No idea what came next.",
        [three("phone", start=0.5)], mood="anthem", hold=0.5, stamp="2022"),
-    sc("e2", "He made this documentary.",
-       [three("phone", start=3.0), kin([("HE MADE THIS", 0), ("DOCUMENTARY.", 0)], style="reveal")], mood="anthem", hold=1.6),
+    sc("e2", "That boy was me. I made this documentary.",
+       [three("phone", start=3.0), kin([("I MADE THIS", 1), ("DOCUMENTARY.", 1)], style="reveal")], mood="anthem", hold=1.6),
     sc("e3", "Ololade. Wealth has arrived. Sometimes, before it arrives in your pocket, it has to arrive in your head. Stay stubborn.",
        [three("mm", start=5.2), kin([("OLOLADE", 0), ("wealth has arrived", 0), ("STAY STUBBORN.", 2)], style="final")], mood="anthem", hold=1.0),
     sc("e4", "If this story moved you, subscribe to Naija Untold. And tell us in the comments: which Asake song found you, when you needed it?",
