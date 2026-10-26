@@ -71,6 +71,8 @@ def main():
             words[rec] = json.load(open(f"{WORK}/words{rec}.json"))
         W = words[rec]
         sc, i, j = find_take(W, text, opt.get("need"))
+        if opt.get("span"):                                            # explicit word range, for takes the matcher can't pick
+            i, j = opt["span"]
         if opt.get("start"):
             i = next(k for k in range(i, j) if opt["start"] in norm(W[k][0]))
         if opt.get("end"):

@@ -4,6 +4,7 @@ text   = what he says in the chosen take (also the on-screen captions), with nam
 rec    = which phone recording holds the take: "n<k>" = second recording session (Rec1, Rec_3, Rec_4, New_rec_5..7, Rec_8),
          "o<k>" = first session (rec2..rec8), used where the second session slipped or left a line out
          (the last good take in the file is chosen automatically).
+span   = exact word range (i, j) of the recording's transcript, when the matcher can't pick the right take.
 start  = begin the cut at this word (drops a slip before it).   end = stop the cut after this word (drops a slip after it).
 Fact fixes made in the edit: y6 drops the day (every take says "18th"; the album came out on 8 September).
 """
@@ -55,11 +56,11 @@ L = {
     "m2": ("n7", "Then, on the first of May, 2026, album number four. M$NEY."),
     "m3": ("o8", "First week: 42.2 million streams on Spotify Nigeria. A record."),
     "m4": ("n8", "And that July, he stood on the stage of the Theatre Royal, Drury Lane, in London, with a live orchestra and a forty-member choir. The first Afrobeats artist ever to headline it."),
-    "t1": ("n8", "But numbers don't explain why a boy on the floor felt saved. So here's the real question. Why him? Why does Asake hit different?"),
-    "t2": ("n8", "Listen to what he mixes. Fuji, the sound that grew out of the songs that woke Lagos for Ramadan. Amapiano log drums from South Africa. Street pop. And behind it all, a choir."),
+    "t1": ("n8", "But numbers don't explain why a boy on the floor felt saved. So here's the real question. Why him? Why does Asake hit different?", dict(span=(33, 57))),
+    "t2": ("n8", "Listen to what he mixes. Fuji, the sound that grew out of the songs that woke Lagos for Ramadan. Amapiano log drums from South Africa. Street pop. And behind it all, a choir.", dict(span=(57, 92))),
     "t3": ("n8", "He sings mostly in Yoruba, with street slang and pidgin. He doesn't translate himself for anybody. And the world comes to him anyway."),
     "t4": ("n8", "He says very little. He has said that sometimes he just shuts down, and won't talk to anyone. He lets the stage do the talking. A theatre student, still performing."),
-    "t5": ("n8", "Underneath the money, the chains and the helicopters, the story his fans hold on to is a simple one. A stubborn boy who believed in himself before anybody else did."),
+    "t5": ("n8", "Underneath the money, the chains and the helicopters, the story his fans hold on to is a simple one. A stubborn boy who believed in himself before anybody else did.", dict(span=(147, 176))),
     "e1": ("n8", "Remember the boy on the parlour floor? 2022. No plan. No idea what's coming next."),
     "e2": ("n8", "That boy was me. I made this documentary."),
     "e3": ("o7", "Ololade. Wealth has arrived. And sometimes, before it arrives in your pocket, it has arrived in your head. Stay stubborn."),
