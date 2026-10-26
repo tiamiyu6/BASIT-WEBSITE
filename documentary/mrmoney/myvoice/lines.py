@@ -11,7 +11,7 @@ Fact fixes made in the edit: y6 drops the day (every take says "18th"; the album
 L = {
     "o1": ("n4", "September 2022. Lagos. A boy is lying on the floor of his father's parlour, staring at the ceiling."),
     "o2": ("n3", "WAEC done. JAMB done. And nobody can tell him what comes next. Not even him."),
-    "o3": ("o2", "Then a song comes on. And for the first time in months, something in his chest moves. Hope."),
+    "o3": ("n1", "Then a song comes on. And for the first time in months, something in his chest moves. Hope.", dict(span=(13, 29))),
     "o4": ("n1", "The album is called Mr Money with the Vibe. And the man who made it? His own father once told him no."),
     "o5": ("n1", "His father said no. Olamide didn't reply for almost two years. A crowd crush nearly ended everything. And he still became one of the biggest voices in Afrobeats. This is how."),
     "a1": ("n5", "His name is Ahmed Ololade. Born on the thirteenth of January, 1995, in Lagos."),
