@@ -14,17 +14,17 @@ Which Asake song found you when you needed it? Tell us in the comments.
 
 **Chapters**
 0:00 A boy on the parlour floor
-0:46 Ololade
-1:24 Giran
-2:04 Ile-Ife
-2:56 2022
-4:21 Brixton
-4:53 Work Of Art
-6:00 Lungu Boy
-6:26 Why Love
-7:09 M$NEY
-7:52 The Vibe
-8:48 That boy was me
+0:43 Ololade
+1:20 Giran
+2:01 Ile-Ife
+2:54 2022
+4:14 Brixton
+4:50 Work Of Art
+5:50 Lungu Boy
+6:18 Why Love
+6:58 M$NEY
+7:36 The Vibe
+8:35 That boy was me
 
 **Sources & credits**
 - Archive excerpts (short, credited, used for commentary and documentary purposes): Asake Unfiltered  ·  Afrobeats Podcast / Adesope Live; I Met Asake, He's Very Stubborn  ·  Korty EO / Flow
