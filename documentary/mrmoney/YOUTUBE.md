@@ -14,17 +14,17 @@ Which Asake song found you when you needed it? Tell us in the comments.
 
 **Chapters**
 0:00 A boy on the parlour floor
-0:49 Ololade
-1:27 Giran
-2:07 Ile-Ife
-2:59 2022
-4:24 Brixton
-4:56 Work Of Art
-6:03 Lungu Boy
-6:29 Why Love
-7:12 M$NEY
-7:55 The Vibe
-8:51 That boy was me
+0:46 Ololade
+1:24 Giran
+2:04 Ile-Ife
+2:56 2022
+4:21 Brixton
+4:53 Work Of Art
+6:00 Lungu Boy
+6:26 Why Love
+7:09 M$NEY
+7:52 The Vibe
+8:48 That boy was me
 
 **Sources & credits**
 - Archive excerpts (short, credited, used for commentary and documentary purposes): Asake Unfiltered  ·  Afrobeats Podcast / Adesope Live; I Met Asake, He's Very Stubborn  ·  Korty EO / Flow
@@ -57,5 +57,5 @@ Asake, Asake documentary, Mr Money, Mr Money with the Vibe, Asake story, Ahmed O
 
 ## Settings
 - Category: Music (or Film & Animation). Made for kids: No. Altered/synthetic content: **No**. The narration is your own real voice.
-- End screen: subscribe button + the best-performing Naija Untold video, from 9:10.
+- End screen: subscribe button + the best-performing Naija Untold video, from 9:00.
 - Pinned comment: "Which Asake song found you when you needed it? 👇"
