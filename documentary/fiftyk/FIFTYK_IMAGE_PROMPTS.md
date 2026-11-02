@@ -20,42 +20,42 @@ Flat 2D hand-cut paper collage illustration, visible paper texture, thick simple
 
 **Picture 07** (lines 13 to 14): A salary envelope splitting the moment it lands: a small slice flies into a golden safe and the rest drops into Amaka's hand; she watches with a calm smile.
 
-**Picture 08** (lines 15 to 17): A calendar with one small coin jar being filled each month: the first jar is small, then a second jar next to it, and so on. Amaka drops a coin into the jar.
+**Picture 08** (lines 15 to 16): A calendar with one small coin jar being filled each month: the first jar is small, then a second jar next to it, and so on. Amaka drops a coin into the jar.
 
-**Picture 09** (lines 18 to 19): Three small jars lined up in a row labelled with dots (one, two, three) growing in size over time, with a calendar behind them showing three years passing.
+**Picture 09** (lines 17 to 18): Three small jars lined up in a row labelled with dots (one, two, three) growing in size over time, with a calendar behind them showing three years passing.
 
-**Picture 10** (lines 20 to 22): Amaka on her phone, tapping an automatic transfer arrow that flows from a salary bubble into a small safe, with a rent house icon beside it and a tiny sapling growing out of the safe.
+**Picture 10** (lines 19 to 20): Amaka on her phone, tapping an automatic transfer arrow that flows from a salary bubble into a small safe, with a rent house icon beside it and a tiny sapling growing out of the safe.
 
-**Picture 11** (lines 23 to 24): Amaka with a magnifying glass over her notebook, circling one leak with a red pencil; a thought bubble shows a small football ticket.
+**Picture 11** (lines 21 to 22): Amaka with a magnifying glass over her notebook, circling one leak with a red pencil; a thought bubble shows a small football ticket.
 
-**Picture 12** (lines 25 to 26): A split scene: on the left a full takeaway tray and a betting slip; on the right the same items cut in half, and Amaka crossing out the other half.
+**Picture 12** (lines 23 to 24): A split scene: on the left a full takeaway tray and a betting slip; on the right the same items cut in half, and Amaka crossing out the other half.
 
-**Picture 13** (lines 27 to 28): A small ladder of tiny steps that she keeps climbing, next to a big steep wall she has failed to climb, with her tired shoes at the base.
+**Picture 13** (lines 25 to 25): A small ladder of tiny steps that she keeps climbing, next to a big steep wall she has failed to climb, with her tired shoes at the base.
 
-**Picture 14** (lines 29 to 29): Amaka drops the money she saved into her own small safe, a wavy arrow showing it does not return to her spending pile.
+**Picture 14** (lines 26 to 26): Amaka drops the money she saved into her own small safe, a wavy arrow showing it does not return to her spending pile.
 
-**Picture 15** (lines 30 to 31): A scale: on one side a tight budget pile, on the other a big growing tree of income; the income side is heavier and Amaka is smiling.
+**Picture 15** (lines 27 to 28): A scale: on one side a tight budget pile, on the other a big growing tree of income; the income side is heavier and Amaka is smiling.
 
-**Picture 16** (lines 32 to 33): Amaka at a laptop learning a skill, with small icons floating around her: a pencil, a camera, a calculator and a tool. A bright window behind.
+**Picture 16** (lines 29 to 29): Amaka at a laptop learning a skill, with small icons floating around her: a pencil, a camera, a calculator and a tool. A bright window behind.
 
-**Picture 17** (lines 34 to 35): Amaka showing her work to a customer at a small stall or on a phone, receiving a small payment with a smile; coins rise like steps.
+**Picture 17** (lines 30 to 31): Amaka showing her work to a customer at a small stall or on a phone, receiving a small payment with a smile; coins rise like steps.
 
-**Picture 18** (lines 36 to 37): A salary slip like a ladder's bottom rung, with a taller ladder rising beyond into the clouds, and Amaka looking up with hope.
+**Picture 18** (lines 32 to 32): A salary slip like a ladder's bottom rung, with a taller ladder rising beyond into the clouds, and Amaka looking up with hope.
 
-**Picture 19** (lines 38 to 39): A calm bank-and-safe scene: Amaka fills a small emergency fund jar next to a safe, with a calendar showing one month, then three.
+**Picture 19** (lines 33 to 34): A calm bank-and-safe scene: Amaka fills a small emergency fund jar next to a safe, with a calendar showing one month, then three.
 
-**Picture 20** (lines 40 to 40): A drawer slightly open but locked with a small padlock and a key hanging on a hook out of easy reach; Amaka looks at it thoughtfully.
+**Picture 20** (lines 35 to 35): A drawer slightly open but locked with a small padlock and a key hanging on a hook out of easy reach; Amaka looks at it thoughtfully.
 
-**Picture 21** (lines 41 to 42): Four doorways with simple symbols: a bank building, a stack of certificates, a group pooling money into a pot, and a seedling. Amaka reads a notebook at the entrance.
+**Picture 21** (lines 36 to 37): Four doorways with simple symbols: a bank building, a stack of certificates, a group pooling money into a pot, and a seedling. Amaka reads a notebook at the entrance.
 
-**Picture 22** (lines 43 to 44): A big red stop sign in front of a shiny trap with a pile of gold on a hook; Amaka shakes her head and holds up a hand.
+**Picture 22** (lines 38 to 38): A big red stop sign in front of a shiny trap with a pile of gold on a hook; Amaka shakes her head and holds up a hand.
 
-**Picture 23** (lines 45 to 45): Amaka checking an official-looking building with a green tick and a magnifying glass, next to an empty building with a red cross; the rent and food bag stay safely beside her.
+**Picture 23** (lines 39 to 39): Amaka checking an official-looking building with a green tick and a magnifying glass, next to an empty building with a red cross; the rent and food bag stay safely beside her.
 
-**Picture 24** (lines 46 to 47): A small seed in the soil with a tiny sun above it and a clock showing time passing; Amaka waters it patiently.
+**Picture 24** (lines 40 to 40): A small seed in the soil with a tiny sun above it and a clock showing time passing; Amaka waters it patiently.
 
-**Picture 25** (lines 48 to 49): Five simple icons floating in a ring around Amaka: a magnifying glass, a safe, a plug, a ladder, a seedling; she is calm and smiling.
+**Picture 25** (lines 41 to 41): Five simple icons floating in a ring around Amaka: a magnifying glass, a safe, a plug, a ladder, a seedling; she is calm and smiling.
 
-**Picture 26** (lines 50 to 51): Amaka opening her banking app on a bright morning, tapping a small transfer, with a coffee cup and a smile.
+**Picture 26** (lines 42 to 43): Amaka opening her banking app on a bright morning, tapping a small transfer, with a coffee cup and a smile.
 
-**Picture 27** (lines 52 to 52): A year-long calendar being flipped, with a jar that is now clearly fuller and a proud Amaka holding it up.
+**Picture 27** (lines 44 to 44): A year-long calendar being flipped, with a jar that is now clearly fuller and a proud Amaka holding it up.
