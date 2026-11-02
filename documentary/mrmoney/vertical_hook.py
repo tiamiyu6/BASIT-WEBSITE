@@ -22,15 +22,13 @@ FOOT = V.F("Anton-Regular.ttf", 40)
 
 def keyword(im, text, k):
     d = ImageDraw.Draw(im)
-    size = 138
+    size = 112
     while size > 60 and d.textlength(text, font=V.F("Anton-Regular.ttf", size)) > 960:
         size -= 6
     f = V.F("Anton-Regular.ttf", size)
-    y = 600 + 364
-    pop = 1.0 if k > 0.2 else 0.0
+    y = 528
     d.text((VW / 2, y), text, font=f, fill=(255, 255, 255), anchor="mm", stroke_width=8, stroke_fill=(0, 0, 0))
     w = d.textlength(text, font=f)
-    d.line([VW / 2 - 55, y + size * 0.62, VW / 2 + 55, y + size * 0.62], fill=V.GOLD, width=7)
 
 
 segs = []
