@@ -1,0 +1,115 @@
+Make 17 illustrations in my ChatGPT account, one at a time, and download each one. Follow these steps in order.
+
+STEP 1: Open ChatGPT (use the open tab). In the left sidebar open Projects and look for a project called "Engine". If it does not exist, create it and paste these into its Instructions box:
+"Flat 2D cartoon illustration with bold dark outlines, bright warm colours (sunny yellow, orange, green, sky blue), simple friendly shapes, clean flat shading, like a kids' explainer cartoon. NOT a photograph, NOT 3D, NOT realistic. No text, no letters, no numbers. Recurring cast: Tunde is a cartoon Nigerian young man with round glasses and a mustard-yellow hoodie. Auntie Ngozi is a cartoon Nigerian woman in a bright green gele head-tie, always shocked or amused. Historical people are drawn as friendly cartoons in the clothes of their time. These are cartoon characters, not portraits of real people. When I send "Grid NN", draw ONE wide 16:9 picture made of a clean 2 by 2 grid of four separate scenes with thin white borders between them, in this order: top-left, top-right, bottom-left, bottom-right. When I send "Thumbnail", draw ONE wide 16:9 picture."
+Then start ONE new chat inside that project and use only that chat.
+
+STEP 2: Send ONE grid per message, written as "Grid NN:" followed by the four scenes (top-left, top-right, bottom-left, bottom-right). Wait until each picture has fully finished.
+
+STEP 3: Check each picture: it must be a flat cartoon with bold outlines (not a photo), wide, with exactly 4 clear panels, and with no text or letters. If wrong, reply: "Redo it as a flat 2D cartoon with bold dark outlines, exactly 4 panels in a 2 by 2 grid, wide 16:9, no text." Never download a wrong picture.
+
+STEP 4: Download the full-size picture with the download button (not a screenshot), one file per grid, in order 01 to 16, then the thumbnail last. Never skip a number.
+
+STEP 5: If asked to log in, solve a CAPTCHA, approve a purchase, or you hit a usage limit, stop and tell me. Do not change any settings and do not open any other tab.
+
+STEP 6: When all 17 are done, move them into a folder on my Desktop called "engine", renamed 01.png to 16.png and thumbnail.png, and tell me it is ready.
+
+THE 16 GRIDS
+Grid 01:
+Top-left: Dawn on a Lagos street: a neighbour's generator roars with a puff of smoke while Tunde yawns at his window.
+Top-right: Tunde plugs his phone into a glowing socket, then kicks the starter of a small motorbike that coughs and hums.
+Bottom-left: A bus, a plane and a ship side by side in one picture, each with a small glowing flame inside; Tunde looks puzzled.
+Bottom-right: A cutaway of a tiny thimble-sized cylinder with tiny controlled explosions flashing inside.
+
+Grid 02:
+Top-left: Tunde pointing at a shiny engine with a big question mark above his head, Auntie Ngozi curious beside him.
+Top-right: A campfire with rising hot-air arrows while Tunde warms his hands.
+Bottom-left: A cutaway cylinder with glowing hot gas pushing a piston, which turns a wheel.
+Bottom-right: A road with icons along it: a muscle arm, a windmill, a waterwheel, a Greek toy and a flooded mine; Tunde steps onto it.
+
+Grid 03:
+Top-left: Ancient farmers with oxen, horses pulling carts and workers carrying heavy loads.
+Top-right: A tired ox lying next to an empty food basket.
+Bottom-left: A sailing ship and a windmill, both with big wind arrows.
+Bottom-right: A watermill beside a river, and next to it a dry riverbed with a sad miller.
+
+Grid 04:
+Top-left: Hero of Alexandria, a bearded ancient Greek inventor in a robe, beside a pot of boiling water with a hollow metal ball with two bent pipes on top.
+Top-right: The ball spinning with steam jets while Hero and Tunde look amazed.
+Bottom-left: The spinning ball on a shelf like a toy, people walking past without interest, a lightbulb floating above Hero.
+Bottom-right: A 1600s scientist holding a glass tube of mercury, with air-pressure arrows pressing down.
+
+Grid 05:
+Top-left: Two huge copper half-spheres joined together, with teams of horses pulling opposite ways and failing.
+Top-right: Air-pressure arrows pushing on one side of a sealed bowl, Tunde pointing at them.
+Bottom-left: Denis Papin sketching a piston in a cylinder: steam rising on one side, cold on the other, arrows showing the push.
+Bottom-right: An unfinished sketch on a desk and a puzzled inventor scratching his head.
+
+Grid 06:
+Top-left: Thomas Savery with a strange steam pump beside a flooded mine.
+Top-right: A friendly miner drawn next to the pump, lifting a bucket of water, with a little sign-picture of a helping hand.
+Bottom-left: The pump leaking steam, miners stepping back nervously.
+Bottom-right: An old British town with few trees and a big pile of black coal.
+
+Grid 07:
+Top-left: A flooded coal mine tunnel with water rising around miners' boots.
+Top-right: Horses walking in a circle to drive a slow pump, a tired groom beside them.
+Bottom-left: Thomas Newcomen, a blacksmith in a leather apron, thinking at an anvil with sketches.
+Bottom-right: A stone castle on a hill with a tall engine house beside a mine, people watching.
+
+Grid 08:
+Top-left: A cutaway of a cylinder with a piston and steam inside.
+Top-right: Cold water spraying into the cylinder, steam collapsing, and big arrows from the air pushing the piston down.
+Bottom-left: A big wooden beam rocking like a seesaw above an engine house, a pump below in the mine shaft.
+Bottom-right: Workers shovelling huge piles of coal into a furnace while a mine owner smiles.
+
+Grid 09:
+Top-left: A map of Britain and Europe dotted with little engine-house icons, Tunde pointing.
+Top-right: Young James Watt in a Glasgow workshop with a small model engine and tools.
+Bottom-left: A cutaway: the cylinder alternately red-hot and ice-cold beside a thermometer, a shrinking coal pile, Watt scratching his head.
+Bottom-right: Watt walking through a park on a Sunday with a lightbulb above his head.
+
+Grid 10:
+Top-left: A hot cylinder joined by a pipe to a separate cold chamber marked with a snowflake icon.
+Top-right: A patent paper with a seal, and Watt looking at his empty pockets.
+Bottom-left: Watt shaking hands with a smiling businessman in a top hat in a workshop.
+Bottom-right: Two engines side by side: one with a huge coal pile, the other with a quarter-size pile.
+
+Grid 11:
+Top-left: Watt's engine turning a big wheel, with belts and gears.
+Top-right: A factory full of machines driven by belts from one steam engine, chimneys smoking.
+Bottom-left: A big heavy engine locked inside a stone building by chains, Watt waving beside it.
+Bottom-right: Richard Trevithick, a tall Cornish engineer, beside a small strong high-pressure engine on a wooden frame.
+
+Grid 12:
+Top-left: A clumsy three-wheeled steam carriage in an old French street bumping into a wall.
+Top-right: A little steam locomotive pulling wagons of iron along a track in a Welsh valley.
+Bottom-left: Steam locomotives and steamships crossing a world map.
+Bottom-right: A boiler bursting with a puff of steam while engineers with notebooks take notes.
+
+Grid 13:
+Top-left: Sadi Carnot, a young Frenchman at a desk with a question mark above his head, a steam engine in the window.
+Top-right: A waterfall with a little wheel at the bottom: a flame icon at the top, a snowflake at the bottom, arrows between.
+Bottom-left: Heat arrows escaping from an engine like a leaking cup, and a glowing science book.
+Bottom-right: An engine with a separate boiler outside and a big steam cloud, next to a smaller engine with a flame inside its cylinder.
+
+Grid 14:
+Top-left: Étienne Lenoir with a small gas engine in a Paris workshop, gas lamps in the window.
+Top-right: Nicolaus Otto beside a cutaway cylinder showing four small panels: suck in, squeeze, burn, push out, using icons only.
+Bottom-left: Rudolf Diesel beside a cutaway cylinder where squeezed air glows red-hot with no spark.
+Bottom-right: A wooden-framed first petrol motorbike with Daimler and Maybach standing proudly beside it.
+
+Grid 15:
+Top-left: Karl Benz in a light three-wheeled motor carriage in a German street, startled horses nearby.
+Top-right: Bertha Benz driving the carriage with two boys along a country road towards a distant town.
+Bottom-left: A collage of a car, a bus, a plane, a ship and a generator behind a Lagos house.
+Bottom-right: A long chain of different inventors, each handing a part to the next.
+
+Grid 16:
+Top-left: Tunde with his ear against a humming generator at dawn, tiny spark explosions inside.
+Top-right: A waterfall of heat from a hot orb to a cold orb, with a small bucket catching some.
+Bottom-left: Tunde and a shocked Auntie Ngozi pointing at a big question mark.
+Bottom-right: A glowing lightbulb with a lightning bolt, Tunde waving and a bell icon at the side.
+
+THE THUMBNAIL
+Thumbnail: Tunde in his mustard hoodie and round glasses crouched over a big shiny chrome engine holding a wrench, looking worried with his tongue out, a cave-like workshop and mountains behind; Auntie Ngozi at the right in a bright green gele, hand on head, mouth open in panic. Bright blue sky. Leave empty space at the top for big text. No text in the picture.
