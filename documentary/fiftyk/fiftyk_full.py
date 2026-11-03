@@ -19,7 +19,7 @@ GREEN = (61, 235, 61)
 CREAM, INK = (244, 232, 208), (40, 30, 25)
 
 # picture number -> script lines it covers (FIFTYK_IMAGE_PROMPTS.md)
-PICS = [(1, [1, 2]), (2, [3, 4]), (3, [5, 6]), "TITLE", 'CH:STEP 1|SEE WHERE IT GOES', (4, [7, 8]), (5, [9, 10, 11]), (6, [12]), 'CH:STEP 2|PAY YOURSELF FIRST', (7, [13, 14]), (8, [15, 16]), (9, [17, 18]), (10, [19, 20]), 'CH:STEP 3|PLUG THE LEAKS', (11, [21, 22]), (12, [23, 24]), (13, [25]), (14, [26]), 'CH:STEP 4|GROW THE INCOME', (15, [27, 28]), (16, [29]), (17, [30, 31]), (18, [32]), 'CH:STEP 5|LET MONEY WORK', (19, [33, 34]), (20, [35]), (21, [36, 37]), (22, [38]), (23, [39]), 'CH:ENDING|', (24, [40]), (25, [41]), (26, [42, 43]), (27, [44]), "END"]
+PICS = [(1, [1, 2]), (2, [3, 4]), (3, [5, 6]), "TITLE", 'CH:STEP 1|SEE WHERE IT GOES', (4, [7, 8]), (5, [9, 10, 11]), (6, [12]), 'CH:STEP 2|PAY YOURSELF FIRST', (7, [13, 14]), (8, [15, 16]), (9, [17, 18]), (10, [19, 20]), 'CH:STEP 3|PLUG THE LEAKS', (11, [21, 22]), (12, [23, 24]), (13, [25]), (14, [26]), 'CH:STEP 4|GROW THE INCOME', (15, [27, 28]), (16, [29, 30, 31]), (18, [32]), 'CH:STEP 5|LET MONEY WORK', (19, [33, 34]), (20, [35]), (21, [36, 37]), (22, [38]), (23, [39]), 'CH:ENDING|', (24, [40]), (25, [41]), (26, [42, 43]), (27, [44]), "END"]
 LABELS = {13: "PAY YOURSELF FIRST", 9: "10% = ₦5,000", 26: "AUTOMATE IT", 40: "CHECK THE SEC REGISTER"}
 SAY = {"naira": "nye-rah"}
 EDIT = {}
