@@ -15,7 +15,7 @@ def t(xy, s, f, fill, st=9):
     d.text((xy[0] + 5, xy[1] + 6), s, font=f, fill=(20, 12, 8), anchor="mm", stroke_width=st, stroke_fill=(20, 12, 8))
     d.text(xy, s, font=f, fill=fill, anchor="mm", stroke_width=st, stroke_fill=(20, 12, 8))
 t((640, 470), "BUILD WEALTH ON", F(96), (255, 255, 255))
-t((640, 595), "₦50,000 A MONTH", F(104), (255, 205, 60))
+t((640, 595), "N50,000 A MONTH", F(104), (255, 205, 60))
 b = Image.new("RGBA", (1280, 720), (0, 0, 0, 0)); bd = ImageDraw.Draw(b)
 bd.rounded_rectangle((20, 20, 420, 92), 18, fill=(244, 232, 208, 235), outline=(40, 30, 25), width=4)
 bd.text((220, 57), "5 SIMPLE STEPS", font=F(46), fill=(40, 30, 25), anchor="mm")
