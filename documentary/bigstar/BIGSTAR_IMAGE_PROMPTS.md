@@ -1,0 +1,33 @@
+# BIGSTAR: picture prompts (14)
+
+```
+Cinematic photorealistic film still, natural skin texture, shallow depth of field, warm golden and cool blue lighting, high detail, wide 16:9, no text, no letters, no numbers, no logos, no brand names. The superstar is a fictional muscular Black Nigerian man in his mid-30s with long dreadlocks and heavy gold chains; he is not a real person and does not resemble any real celebrity.
+```
+
+**Picture 01**: A man's point of view waking up in a huge luxury bedroom: very high ceiling, white silk sheets, floor-to-ceiling windows with a golden sunrise over a city skyline, a phone glowing on the bedside table, his muscular tattooed arm with gold bracelets stretching in the light.
+
+**Picture 02**: A fictional muscular Black superstar in his mid-30s with long dreadlocks and heavy gold chains and rings, sitting on the edge of a huge bed in the morning sun, relaxed, wearing sunglasses, a confident look.
+
+**Picture 03**: A glass penthouse living room high above a glowing city at sunrise, marble floors, gold details, a huge panoramic window, the superstar standing at the window with his back to us, dreadlocks and chains visible.
+
+**Picture 04**: A driver in a clean uniform washing two supercars in a mansion driveway at sunrise, one red and one deep blue, no logos or badges, soap foam, palm trees and a gate behind.
+
+**Picture 05**: A bright villa hallway: the superstar with dreadlocks and gold chains strides ahead while his right hand man in a dark outfit walks beside him talking on the phone and holding a tablet.
+
+**Picture 06**: Extreme close-up of a muscular hand with gold rings holding a smartphone whose screen lights up with a glowing notification, no readable text.
+
+**Picture 07**: A dark night city seen from above with thousands of glowing phone screens in many windows, as if the whole internet is awake, cinematic wide shot.
+
+**Picture 08**: A moody flashback at dusk: a young Nigerian woman standing beside a parked luxury SUV with no logos, arms folded, looking disappointed, warm street lights.
+
+**Picture 09**: A young Nigerian woman at home speaking calmly into her phone with a small ring light in front of her, simple room, composed serious face.
+
+**Picture 10**: A chaotic luxury living room: a manager, a publicist and a lawyer on their phones, gesturing and talking over each other, while the superstar with dreadlocks and chains sits in the middle, calm with arms crossed.
+
+**Picture 11**: The superstar typing on his phone with a cool smirk, dreadlocks falling over one shoulder, gold chains catching the window light, soft side light.
+
+**Picture 12**: A wall of phone screens full of laughing faces and heart reactions with no readable text, warm light, a smiling crowd behind.
+
+**Picture 13**: The superstar on a huge stage at night facing forty thousand fans, dreadlocks and chains glowing under stage lights, phone lights across the crowd like stars, seen from behind.
+
+**Picture 14**: Night concert finale: confetti and fireworks over a huge cheering crowd, the superstar's silhouette with dreadlocks on stage with arms raised.
