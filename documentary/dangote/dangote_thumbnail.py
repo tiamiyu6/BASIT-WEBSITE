@@ -17,7 +17,10 @@ def t(xy, s, f, fill, st=9):
 t((640, 470), "HOW DANGOTE BECAME", F(92), (255, 255, 255))
 t((640, 595), "AFRICA'S RICHEST", F(100), (255, 205, 60))
 b = Image.new("RGBA", (1280, 720), (0, 0, 0, 0)); bd = ImageDraw.Draw(b)
-bd.rounded_rectangle((20, 20, 420, 92), 18, fill=(244, 232, 208, 235), outline=(40, 30, 25), width=4)
-bd.text((220, 57), "EXPLAINED LIKE YOU'RE 5", font=F(46), fill=(40, 30, 25), anchor="mm")
+pill_f = F(40)
+pill_txt = "EXPLAINED LIKE YOU'RE 5"
+pw = int(bd.textlength(pill_txt, font=pill_f)) + 60
+bd.rounded_rectangle((24, 24, 24 + pw, 100), 18, fill=(244, 232, 208, 235), outline=(40, 30, 25), width=4)
+bd.text((24 + pw / 2, 62), pill_txt, font=pill_f, fill=(40, 30, 25), anchor="mm")
 im = Image.alpha_composite(im.convert("RGBA"), b).convert("RGB")
 im.save(OUT, quality=92)
