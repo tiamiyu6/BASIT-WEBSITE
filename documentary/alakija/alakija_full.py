@@ -26,7 +26,7 @@ EDIT = {}
 
 
 # pictures that never arrived: the closest matching picture stays on screen instead
-FALLBACK = {}
+FALLBACK = {6: 5, 7: 8, 18: 15, 19: 20, 22: 21}
 
 
 def pic_path(n):
