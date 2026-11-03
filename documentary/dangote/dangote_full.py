@@ -25,6 +25,15 @@ SAY = {"Dangote": "Dan-go-tay", "Aliko": "Ah-lee-ko", "Kano": "Kah-no", "Dantata
 EDIT = {}
 
 
+# pictures that never arrived: the closest matching picture stays on screen instead
+FALLBACK = {1: 6, 2: 3, 11: 12, 14: 13, 16: 15, 19: 18, 20: 18, 21: 25, 22: 25, 23: 25, 24: 25, 26: 33, 27: 28, 30: 28, 31: 29}
+
+
+def pic_path(n):
+    p = os.path.join(IMGS, f"{n:02d}.png")
+    return p if os.path.exists(p) else os.path.join(IMGS, f"{FALLBACK[n]:02d}.png")
+
+
 def script_lines():
     out = {}
     for m in re.finditer(r"^(\d+)\. \*\*(.*)\*\*\s*$", open(os.path.join(HERE, "DANGOTE_SCRIPT.md")).read(), re.M):
@@ -222,7 +231,7 @@ def main():
     imgs = {}
     for sg in segs:
         if sg["kind"] == "PIC" and sg["pic"] not in imgs:
-            imgs[sg["pic"]] = Image.open(os.path.join(IMGS, f"{sg['pic']:02d}.png")).convert("RGB")
+            imgs[sg["pic"]] = Image.open(pic_path(sg["pic"])).convert("RGB")
     enc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                             "-i", os.path.join(BUILD, "mix.wav"), "-c:v", "libx264", "-crf", "20", "-pix_fmt", "yuv420p",
                             "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", OUT], stdin=subprocess.PIPE)
