@@ -1,0 +1,40 @@
+Make 23 realistic images in my ChatGPT account, one at a time, and download each one. Follow these steps in order.
+
+STEP 1: Open ChatGPT (use the open tab). In the left sidebar open Projects and look for a project called "Superstar". If it does not exist, create it and paste these into its Instructions box:
+"Cinematic photorealistic film still, natural skin texture, shallow depth of field, warm golden and cool blue lighting, high detail, wide 16:9, no text, no letters, no numbers, no logos, no brand names. The superstar is a fictional Nigerian man, age 35, short twists, designer jacket; he is not a real person and does not resemble any real celebrity. When I send "Picture NN: scene", draw exactly that scene."
+Then start ONE new chat inside that project and use only that chat.
+
+STEP 2: Send ONE scene per message. Start every message with this style line, then the scene:
+"Cinematic photorealistic film still, natural skin texture, shallow depth of field, warm golden and cool blue lighting. Wide 16:9, no text, no logos, no brand names. The superstar is a fictional Nigerian man, age 35, short twists, designer jacket. Scene:"
+Wait until each picture has fully finished.
+
+STEP 3: Check each picture before downloading. It must look like a realistic cinematic photo, be wide, and have no readable text, logos or brand names. If anything is wrong, reply: "Redo it as a realistic cinematic photo, wide 16:9, no text, no logos." Never download a wrong picture.
+
+STEP 4: Download the full-size picture with the download button (not a screenshot), one file per scene, in order 01 to 23. Never skip a number.
+
+STEP 5: After every 5 pictures tell me which numbers are done. If asked to log in, solve a CAPTCHA, approve a purchase, or you hit a usage limit, stop and tell me. Do not change any settings and do not open any other tab.
+
+THE 23 SCENES (in order)
+Picture 01: A man's point of view waking up in a huge luxury bedroom: very high ceiling, white silk sheets, floor-to-ceiling windows with a golden sunrise over a city skyline, a phone glowing on the bedside table.
+Picture 02: A fictional Nigerian superstar, age 35, short twists, stylish designer jacket, sitting on the edge of his big bed looking at his phone, soft morning light, calm expression.
+Picture 03: Aerial view of a huge night concert arena packed with tens of thousands of fans holding up phone lights, bright stage lights, huge LED screens with no readable text.
+Picture 04: A manager in a smart suit hands a coffee cup to the superstar in a bright modern living room; through the big window a private jet sits on a runway in the morning light.
+Picture 05: Three sleek luxury supercars in different colours parked in a row on a mansion driveway at sunrise, no logos or brand badges, palm trees and a gate behind them.
+Picture 06: A driver in a clean uniform polishing one of the supercars in the driveway; beside him the superstar's right hand man in a dark outfit talks on the phone, taking notes.
+Picture 07: The superstar standing on a mansion balcony at sunrise, arms spread wide, city skyline behind him, relaxed and proud, cinematic golden light.
+Picture 08: Extreme close-up of a hand holding a smartphone whose screen lights up with a glowing notification, dim bedroom around, the screen shows no readable text.
+Picture 09: The superstar sitting alone on the edge of the bed in a dim room, face lit by his phone, a worried, tense expression as he reads something, early morning blue light.
+Picture 10: A dark night scene showing the glow of thousands of phone screens in many windows across a big city, as if the whole internet is awake, cinematic wide shot.
+Picture 11: A young Nigerian woman at home calmly speaking into her phone with a small ring light in front of her, simple room, serious but composed face.
+Picture 12: A chaotic luxury living room: the manager, a publicist and a lawyer all on their phones at once, gesturing and talking over each other, while the superstar sits in the middle looking overwhelmed.
+Picture 13: The superstar alone at a long glass table with three things in front of him: a laptop, a stack of legal papers and a closed envelope; he looks at them thoughtfully, dramatic side light.
+Picture 14: A warm flashback: an elderly Nigerian mother in a simple kitchen, speaking gently with a kind face, soft golden light, wearing a headwrap.
+Picture 15: The superstar typing on his phone with an honest, slightly smiling face, soft window light, a small genuine smile and tired eyes.
+Picture 16: A phone screen full of heart reactions and smiling faces with no readable text, next to a smiling crowd in the background, warm light.
+Picture 17: A backstage corridor with a glowing stage entrance at the end, bright white light, silhouettes of crew members, the roar of a crowd suggested by shaking lights.
+Picture 18: The superstar alone in a backstage dressing room in front of a mirror, his reflection looking tired, expensive watch and chain on the table, a quiet and thoughtful mood.
+Picture 19: A giant speaker stack with visible sound waves rippling out into a huge crowd of fans, making everything feel loud and enormous, dramatic stage lighting.
+Picture 20: The superstar speaking sincerely into a microphone at a small press table, calm and honest expression, a few cameras in the foreground.
+Picture 21: Silhouette of the superstar walking towards a blinding stage light from the backstage curtain, haze in the air, dramatic and cinematic.
+Picture 22: The superstar seen from behind on a huge stage, looking out at forty thousand fans with their phone lights glowing like stars in the dark.
+Picture 23: Night concert finale: confetti and fireworks over a huge cheering crowd, the superstar's silhouette on stage with arms raised.
