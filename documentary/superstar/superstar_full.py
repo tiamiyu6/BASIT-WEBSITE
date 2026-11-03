@@ -225,7 +225,7 @@ def main():
             imgs[sg["pic"]] = Image.open(os.path.join(IMGS, f"{sg['pic']:02d}.png")).convert("RGB")
     enc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                             "-i", os.path.join(BUILD, "mix.wav"), "-c:v", "libx264", "-crf", "20", "-pix_fmt", "yuv420p",
-                            "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", OUT], stdin=subprocess.PIPE)
+                            "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", "-shortest", "-movflags", "+faststart", OUT], stdin=subprocess.PIPE)
     cache = {}
     for f in range(int(total * FPS)):
         tt = f / FPS

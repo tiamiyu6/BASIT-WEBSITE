@@ -116,7 +116,7 @@ for name, title, a, b in SHORTS:
     out = os.path.join(OUTD, name + ".mp4")
     enc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                             "-i", wav, "-c:v", "libx264", "-crf", "22", "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "4.1",
-                            "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart", out], stdin=subprocess.PIPE)
+                            "-af", "loudnorm=I=-14:TP=-1.5", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2", "-shortest", "-movflags", "+faststart", out], stdin=subprocess.PIPE)
     imgs = {}
     for f in range(int(total * FPS)):
         tt = f / FPS
