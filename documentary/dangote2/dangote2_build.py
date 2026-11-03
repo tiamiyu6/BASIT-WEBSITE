@@ -34,7 +34,12 @@ def main():
     items, vdir = ef.narrate(lines)
     sl = json.load(open(os.path.join(HERE, "scene_lines.json")))
     panels = {}
-    for g in range(1, 20):
+    if os.environ.get('INDIVIDUAL') == '1':                                          # one full-size picture per scene
+        for sc in range(1, 77):
+            q = os.path.join(IMGS, f'{sc:02d}.png')
+            if os.path.exists(q):
+                panels[sc] = Image.open(q).convert('RGB')
+    for g in range(1, 1 if os.environ.get('INDIVIDUAL') == '1' else 20):
         p = os.path.join(IMGS, f"{g:02d}.png")
         if os.path.exists(p):
             for k, pn in enumerate(slice_grid(p)):

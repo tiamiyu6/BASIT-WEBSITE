@@ -1,0 +1,96 @@
+Make 77 separate illustrations in my ChatGPT account, one at a time, and download each one. Follow these steps in order.
+
+STEP 1: Open ChatGPT (use the open tab). In the left sidebar open Projects and look for a project called "Dangote3". If it does not exist, create it and paste these into its Instructions box:
+"Flat 2D cartoon illustration with thick bold black outlines, very sharp clean lines, high contrast, bright warm colours (sunny yellow, orange, green, sky blue), simple friendly shapes, clean flat shading, high resolution, like a kids' explainer cartoon. NOT a photograph, NOT 3D, NOT realistic, NOT blurry. No text, no letters, no numbers. Recurring cast: Tunde is a cartoon Nigerian young man with round glasses and a mustard-yellow hoodie. Auntie Ngozi is a cartoon Nigerian woman in a bright green gele head-tie, always shocked or amused. The businessman in the story is a friendly cartoon character in a white agbada and cap (as a boy, a small boy in a white shirt and cap), always drawn the same way. Historical and ordinary people are friendly cartoons. All are cartoon characters, not portraits of real people.When I send "Picture NN: scene", draw exactly that scene as ONE wide 16:9 picture (a single scene, NOT a grid or comic panels), as sharp and detailed as possible. When I send "Thumbnail", draw ONE wide 16:9 picture."
+Then start ONE new chat inside that project and use only that chat.
+
+STEP 2: Send ONE picture per message, written as "Picture NN:" followed by the scene. Wait until each picture has fully finished.
+
+STEP 3: Check each picture: it must be a flat cartoon with thick bold outlines (not a photo), sharp and clear, wide, ONE single scene, and with no text or letters. If wrong or blurry, reply: "Redo it sharper: flat 2D cartoon with thick bold black outlines, one single scene, wide 16:9, no text." Never download a wrong picture.
+
+STEP 4: Download the full-size picture with the download button (not a screenshot), one file per picture, in order 01 to 76, then the thumbnail last. Never skip a number.
+
+STEP 5: If asked to log in, solve a CAPTCHA, approve a purchase, or you hit a usage limit, stop and tell me which number you reached. Do not change any settings and do not open any other tab.
+
+STEP 6: After every 10 pictures, tell me which numbers are done. When all are finished, move them into a folder on my Desktop called "dangote3", renamed 01.png to 76.png and thumbnail.png.
+
+THE 76 PICTURES (in order)
+Picture 01: A small Nigerian boy in a white shirt and cap sits behind a wooden stall in a sunny Kano street, selling colourful sweets from big jars to smiling children.
+Picture 02: Close-up of the small boy's hands counting a small pile of coins on the stall, a proud grin, sweets jars behind.
+Picture 03: The same person as a tall businessman in a white agbada and cap, standing in front of a giant refinery with towers and glowing flares at sunset.
+Picture 04: A big glowing gold map of Africa with a golden crown above Nigeria, small factory and refinery icons around it, the businessman pointing proudly at it.
+Picture 05: Tunde and Auntie Ngozi at a classroom chalkboard with a big question mark; Tunde scratches his head, Auntie Ngozi looks curious.
+Picture 06: A chalkboard with six simple icons in a row: a sweet, a handshake, a lemon, a factory, an hourglass and a shield; Tunde points at them.
+Picture 07: A winding golden road from a small sweet stall on the left to a huge refinery and cement factories on the right; Tunde steps onto it with a backpack.
+Picture 08: A wide view of old Kano with mud-brick walls, a minaret and bustling streets in warm sunlight.
+Picture 09: A camel caravan arriving at a busy Kano market, traders with sacks, cloth and spices.
+Picture 10: An elderly merchant in white robes sitting among sacks of groundnuts and trade goods, a small boy watching with wide eyes.
+Picture 11: A family sitting around a dinner mat sharing a meal, the grandfather gesturing as he tells trade stories, the small boy listening.
+Picture 12: The small boy buying a big box of sweets from a wholesaler on one side and handing single sweets to children on the other.
+Picture 13: Two boxes joined by a coin: a small box with a down arrow, a larger box with an up arrow, the boy pointing from one to the other. No words.
+Picture 14: A young man with books walking out of the gates of an old university in Cairo, pyramids in the distance.
+Picture 15: The young man boarding an airplane at a sunny airport with a suitcase, a map line pointing toward Nigeria.
+Picture 16: The young man arriving in busy Lagos with a suitcase: yellow buses, tall buildings, markets, bright sun.
+Picture 17: The young man sitting at a table with an older uncle in a living room, explaining his plan with open hands.
+Picture 18: The uncle handing the young man a thick envelope of money with a warm smile while the young man bows his head in thanks.
+Picture 19: A tiny seed in a pot being watered, with a faint glowing outline of a factory growing out of it.
+Picture 20: A Lagos warehouse stacked high with sacks of rice, sugar and cement; the young man checks a list while workers carry sacks.
+Picture 21: A busy market stall with sacks of rice, sugar and cement and a long queue of different customers: a mother, a builder, a baker.
+Picture 22: A small office with an empty framed sign and a calendar with one date circled; the young man shaking hands with a partner.
+Picture 23: A chalkboard with the first of six icons glowing (a sweet), Tunde smiling and holding up one finger.
+Picture 24: A sunny street lemonade stand with a smiling stall owner and a line of customers.
+Picture 25: The stall owner buying lemons from a lemon seller with a big cart of lemons.
+Picture 26: The lemon seller holding up a huge price tag with an up arrow while the stall owner looks at his empty cup, worried.
+Picture 27: A lightbulb above the stall owner's head and a lemon tree growing in his own garden.
+Picture 28: A friendly factory diagram: raw materials go in at the left, machines in the middle, boxed products come out at the right, a yellow arrow looping back.
+Picture 29: Government officials clapping beside a board of Nigerian-made goods: sugar bags, flour, salt and cement.
+Picture 30: The businessman in a white agbada stepping from a market stall into the doorway of a large factory.
+Picture 31: A row of four factories side by side: a sugar plant, a flour mill, a salt plant and a big cement plant with tall chimneys.
+Picture 32: A balance scale: a small pile of coins on the seller side, a big pile on the maker side with a small factory.
+Picture 33: The chalkboard with the second icon glowing (a lemon), Tunde holding up two fingers.
+Picture 34: A busy port with big ships unloading sacks of cement and long queues of trucks.
+Picture 35: A construction site waiting with idle workers and a stack of empty cement trucks, a calendar flipping.
+Picture 36: A vast cement plant in a green landscape with huge silos and a queue of trucks, a map pin on Nigeria.
+Picture 37: A simple cutaway showing four steps left to right: rocks, a crusher, a glowing kiln and a heap of grey powder, using icons only.
+Picture 38: A skyline of new houses, a bridge and a road being built, cranes everywhere, workers smiling.
+Picture 39: A cheerful stock exchange floor: people clapping, a big bell being rung, a golden arrow pointing up, small certificates held up.
+Picture 40: A map of Africa with several small cement factories lighting up in different countries and trucks driving between them.
+Picture 41: Workers in helmets cheering beside a cement plant, coins looping in a circle back to a small Nigerian town.
+Picture 42: The chalkboard with the third icon glowing (a factory), Tunde holding up three fingers.
+Picture 43: Three connected factories drawn as a cheerful trio: a sugar refinery, a salt plant and a flour mill with smoking chimneys.
+Picture 44: A Nigerian kitchen table with a cup of tea, a pot of stew and a loaf of bread, Auntie Ngozi cooking with a smile.
+Picture 45: A street map with a glowing dot in every house, arrows from a factory to hundreds of homes and building sites.
+Picture 46: A magnifying glass over a big company building, with a small shop owner looking up at it, worried.
+Picture 47: Tunde putting a finger to his lips with a small bookmark flag in the air.
+Picture 48: A giant bullseye target on a hill with a tiny arrow flying toward it and the businessman watching.
+Picture 49: An oil field in Nigeria with pumpjacks and a tanker ship loading crude oil; a worker scratches his head.
+Picture 50: A split picture: on the left a ship carries away barrels of crude oil with a small coin; on the right the same ship brings back petrol containers with a big coin.
+Picture 51: A map of Lagos with a big map pin on Lekki and a drawing of a giant refinery rising beside the sea.
+Picture 52: A giant refinery with towers, pipes and tanks in bright colours, a mountain of small barrels showing how big it is.
+Picture 53: A huge mountain of dollar bundles beside the refinery, tiny workers standing at its base.
+Picture 54: A half-built refinery with scaffolding, a worried engineer and a calendar with many pages torn off.
+Picture 55: A crowd of people with question marks over their heads looking at the half-built refinery, some shaking their heads.
+Picture 56: The refinery glowing with lights and flames at the tops of the towers, fuel trucks leaving in a long line, workers cheering.
+Picture 57: The chalkboard with the fourth icon glowing (an hourglass), a snail beside it, Tunde holding up four fingers.
+Picture 58: A big cartoon balance scale in the centre of a field, two crowds waiting on either side.
+Picture 59: Cheering workers in helmets outside a factory gate, families waving, a banner of stars (no words).
+Picture 60: Coins looping in a circle between a factory, a school and a family house, all in bright colours.
+Picture 61: A giant company building casting a long shadow over a row of small shops with worried shop owners.
+Picture 62: A small shop owner looking through a glass door at an official handing papers to a large company representative.
+Picture 63: The balance scale nearly level, one side with a factory and cheering workers, the other with small shops and question marks.
+Picture 64: A spotlight on a tall businessman in a white agbada, a crowd below holding both flowers and question marks.
+Picture 65: Tunde and Auntie Ngozi sitting on a bench with a notebook, thinking.
+Picture 66: A tiny stall selling rice and bread on a street corner with a smiling seller, a line of customers.
+Picture 67: A little roadside shop that also has a small bakery oven behind it, the owner baking bread to sell.
+Picture 68: A long chain drawn as a path from a farm to a truck to a shop to a customer, every link glowing.
+Picture 69: A calendar with years flying by and a tree growing from a sapling into a big tree with fruit.
+Picture 70: A tightrope walker with a safety net, holding a heavy bag of coins, looking carefully down.
+Picture 71: Two traders shaking hands over a table of goods, a truck delivering exactly on time behind them.
+Picture 72: A small shop, a laptop with a skill icon and a side-business cart in a row, each with a tiny coin tree growing beside it.
+Picture 73: A split drawing: on the left the small boy at a sweet stall, on the right the businessman before the refinery, a golden road between them.
+Picture 74: Four simple icons floating in a ring: a sweet, a coin, a lemon and an hourglass, over a sunrise.
+Picture 75: Tunde and Auntie Ngozi pointing at a big question mark with six small icons around it.
+Picture 76: Tunde waving beside a giant glowing coin with a bell icon at the side, Auntie Ngozi clapping.
+
+THE THUMBNAIL
+Thumbnail: the small cartoon boy in a white shirt and cap holding a jar of sweets on the left, a giant glowing oil refinery with flames behind him on the right, Tunde in his mustard hoodie looking amazed at the bottom, Auntie Ngozi at the far right with both hands on her head, mouth open in shock. Bright blue sky with sun rays. Leave clear empty space at the top for big text. No text in the picture.
