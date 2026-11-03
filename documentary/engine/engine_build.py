@@ -39,10 +39,14 @@ def main():
         if os.path.exists(p):
             for k, pn in enumerate(slice_grid(p)):
                 panels[(g - 1) * 4 + k + 1] = pn
-    avail = sorted(panels)
-    if not avail:
+    if not panels:
         sys.exit("no grids found")
-    last = max(s for s in avail if all(x in panels for x in range(1, s + 1)))      # unbroken run from scene 1
+    for g in range(1, 17):                                                          # a missing grid reuses the previous grid's panels
+        for k in range(4):
+            n = (g - 1) * 4 + k + 1
+            if n not in panels:
+                panels[n] = panels[max(x for x in panels if x < n)] if any(x < n for x in panels) else panels[min(panels)]
+    last = 64
     GAP = 0.45
     t = 0.6; scenes = []; clips = []; words = []
     for s in range(1, last + 1):
