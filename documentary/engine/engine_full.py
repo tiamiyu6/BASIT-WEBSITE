@@ -45,7 +45,7 @@ def script_lines():
 
 def narrate(lines):
     meta = os.path.join(BUILD, "voice.json")
-    key = [lines, VOICE]
+    key = [{str(k): v for k, v in lines.items()}, VOICE]
     if os.path.exists(meta) and json.load(open(meta))["key"] == key:
         return json.load(open(meta))["items"], os.path.join(BUILD, "voice")
     import narrate as N
