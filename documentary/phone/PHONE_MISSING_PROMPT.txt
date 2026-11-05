@@ -1,0 +1,25 @@
+Open ChatGPT in the open tab, go to the project "Phone3", and use the chat in it (or start one new chat there). Its instructions already set the style: flat 2D cartoon, thick bold black outlines, one scene, 16:9, no text.
+
+Make these 19 pictures one at a time. Send each as "Picture NN: scene". Wait until it finishes. If it is realistic, soft, has no thick outlines, or shows any text, reply "Redo it sharper: flat 2D cartoon with thick bold black outlines, one single scene, wide 16:9, no text." and only download the good one. Download full size with the download button and name each file with its number (for example 01.png). If a picture is refused, reword the scene simply, keep the meaning, and carry on without asking me. If you are asked to log in or hit a limit, stop and tell me the number.
+
+Picture 01: Tunde asleep in bed under a bright window, one arm stretched out to a small glowing phone that is ringing, musical notes around it.
+Picture 04: The phone floating in the middle, with small icons flying out around it: a camera, a map, a naira note, a torch beam.
+Picture 05: Auntie Ngozi holding the phone up to her eye like a detective, shocked, while a shovel and dirt hill sit behind her.
+Picture 07: Tunde and Auntie Ngozi standing in front of a giant glowing phone, both looking amazed, a big question mark above them.
+Picture 09: An ancient workshop with a fire pit and clay oven, a worker pouring glowing orange metal into a stone mould.
+Picture 10: A close-up of a tiny orange wire winding through a phone circuit, a yellow spark glowing along it, Tunde pointing at it.
+Picture 11: A tiny gold-coloured connector plug glowing beside a small pile of gold bars, a magnifying glass over it.
+Picture 12: An ancient bronze sword and shield on a table next to a lump of tin and a lump of copper, a smiling blacksmith.
+Picture 13: A soldering iron joining tiny parts on a green circuit board, a small silver blob of metal at its tip, Auntie Ngozi watching.
+Picture 15: A sunny beach with golden sand dunes, a few palm trees, and a giant sand castle in the shape of a phone.
+Picture 16: Ancient craftspeople heating sand in a clay furnace, glowing orange glass dripping into a mould, a pyramid in the distance.
+Picture 17: A rich cobalt-blue glass bottle on a table next to a pile of blue powder, an ancient craftsperson smiling proudly.
+Picture 19: A row of glass objects from left to right, getting clearer and flatter: a bottle, a window pane, a phone screen.
+Picture 20: Tunde holding a small glowing spark between his fingers, Auntie Ngozi leaning in to look, dark background.
+Picture 21: A sunny hillside with an old Greek-style scholar watching a rubbed piece of amber lift a tiny feather.
+Picture 22: A lodestone rock pulling nails towards it, and an amber stone lifting feathers beside it.
+Picture 23: Tunde scratching his head at a table of odd stones, a lightning bolt glowing in the sky outside the window.
+Picture 25: A small bulb glowing on a table, wires leading to a simple battery stack, cheerful sparks flying.
+Picture 26: A telegraph operator tapping a key, a long wire stretching on poles over green hills toward a distant town.
+
+When all 19 are done, tell me.
