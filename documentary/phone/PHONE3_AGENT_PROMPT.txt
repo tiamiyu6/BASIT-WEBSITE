@@ -1,0 +1,96 @@
+Make 77 separate illustrations in my ChatGPT account, one at a time, and download each one. Follow these steps in order.
+
+STEP 1: Open ChatGPT (use the open tab). In the left sidebar open Projects and look for a project called "Phone3". If it does not exist, create it and paste this into its Instructions box:
+"Flat 2D animated cartoon illustration with thick bold black outlines, very sharp clean lines, high contrast, bright warm colours (sunny yellow, orange, green, sky blue), simple friendly shapes, clean flat shading, high resolution, like a kids' explainer cartoon. NOT a photograph, NOT 3D, NOT realistic, NOT blurry. No text, no letters, no numbers, no logos. Recurring cast: Tunde is a cartoon Nigerian young man with round glasses and a mustard-yellow hoodie. Auntie Ngozi is a cartoon Nigerian woman in a bright green gele head-tie, always shocked or amused. Historical and ordinary people are friendly cartoons. All are cartoon characters, not portraits of real people. When I send "Picture NN: scene", draw exactly that scene as ONE wide 16:9 picture (a single scene, NOT a grid, NOT comic panels), as sharp and detailed as possible. When I send "Thumbnail", draw ONE wide 16:9 picture."
+Then start ONE new chat inside that project and use only that chat.
+
+STEP 2: Send ONE picture per message, written as "Picture NN:" followed by the scene. Wait until each picture has fully finished.
+
+STEP 3: Check each picture: it must be ONE single scene (not a grid), sharp and clear, wide, with no text or letters. If wrong or blurry, reply: "Redo it sharper: flat 2D cartoon with thick bold black outlines, one single scene, wide 16:9, no text." Never download a wrong picture.
+
+STEP 4: Download the full-size picture with the download button (not a screenshot), one file per picture, in order 01 to 76, then the thumbnail last. Never skip a number.
+
+STEP 5: If asked to log in, solve a CAPTCHA, approve a purchase, or you hit a usage limit, stop and tell me which number you reached. Do not change any settings and do not open any other tab.
+
+STEP 6: After every 10 pictures, tell me which numbers are done. When all are finished, move them into a folder on my Desktop called "phone3", renamed 01.png to 76.png and thumbnail.png.
+
+THE 76 PICTURES (in order)
+Picture 01: Tunde asleep in bed under a bright window, one arm stretched out to a small glowing phone that is ringing, musical notes around it.
+Picture 02: Tunde sitting up in bed, face lit by the phone, little icons floating above it: a cloud, a football, a speech bubble.
+Picture 03: A giant close-up of a modern smartphone held in a hand, shiny glass front, glowing screen, sparkles around it.
+Picture 04: The phone floating in the middle, with small icons flying out around it: a camera, a map, a naira note, a torch beam.
+Picture 05: Auntie Ngozi holding the phone up to her eye like a detective, shocked, while a shovel and dirt hill sit behind her.
+Picture 06: The phone split open like a cutaway, with a pile of tiny coloured rocks, sand and metal bits spilling out from it.
+Picture 07: Tunde and Auntie Ngozi standing in front of a giant glowing phone, both looking amazed, a big question mark above them.
+Picture 08: A big shiny copper-coloured lump on a table, Tunde holding a pencil and notebook, looking curious.
+Picture 09: An ancient workshop with a fire pit and clay oven, a worker pouring glowing orange metal into a stone mould.
+Picture 10: A close-up of a tiny orange wire winding through a phone circuit, a yellow spark glowing along it, Tunde pointing at it.
+Picture 11: A tiny gold-coloured connector plug glowing beside a small pile of gold bars, a magnifying glass over it.
+Picture 12: An ancient bronze sword and shield on a table next to a lump of tin and a lump of copper, a smiling blacksmith.
+Picture 13: A soldering iron joining tiny parts on a green circuit board, a small silver blob of metal at its tip, Auntie Ngozi watching.
+Picture 14: Tunde and Auntie Ngozi with a notebook that has a copper lump and a tin lump drawn on it, both pointing at it and winking.
+Picture 15: A sunny beach with golden sand dunes, a few palm trees, and a giant sand castle in the shape of a phone.
+Picture 16: Ancient craftspeople heating sand in a clay furnace, glowing orange glass dripping into a mould, a pyramid in the distance.
+Picture 17: A rich cobalt-blue glass bottle on a table next to a pile of blue powder, an ancient craftsperson smiling proudly.
+Picture 18: Auntie Ngozi holding a blue chunk of mineral up to the light, Tunde looking amazed beside her.
+Picture 19: A row of glass objects from left to right, getting clearer and flatter: a bottle, a window pane, a phone screen.
+Picture 20: Tunde holding a small glowing spark between his fingers, Auntie Ngozi leaning in to look, dark background.
+Picture 21: A sunny hillside with an old Greek-style scholar watching a rubbed piece of amber lift a tiny feather.
+Picture 22: A lodestone rock pulling nails towards it, and an amber stone lifting feathers beside it.
+Picture 23: Tunde scratching his head at a table of odd stones, a lightning bolt glowing in the sky outside the window.
+Picture 24: A scientist standing next to a tall stack of coin-like metal discs with a wire, a bright bulb glowing in the background.
+Picture 25: A small bulb glowing on a table, wires leading to a simple battery stack, cheerful sparks flying.
+Picture 26: A telegraph operator tapping a key, a long wire stretching on poles over green hills toward a distant town.
+Picture 27: A inventor beside an early wooden telephone box, his assistant holding an earpiece, a long wire running out the window.
+Picture 28: A workshop scene: one man shouting into a funnel, the other man jumping up with an earpiece, Auntie Ngozi laughing in the corner.
+Picture 29: Tunde holding a tangled mess of wires attached to a phone, going nowhere, wires everywhere around the room.
+Picture 30: A glowing wave rising out of an antenna into the sky, with little music notes riding the wave.
+Picture 31: A scholar in an old study writing equations on paper while an invisible wave drawn as a glowing ribbon floats out the window.
+Picture 32: A laboratory: a spark jumping between two metal balls on one side of the table, and a small loop of wire sparking back on the other.
+Picture 33: Tunde holding a radio and Auntie Ngozi dancing beside it, little wave lines coming out of the speaker.
+Picture 34: A big antenna on a cliff beside the ocean, a glowing wave line crossing the sea to a far-away shore.
+Picture 35: Tunde lugging a huge radio on his back, sweating, while Auntie Ngozi giggles beside him.
+Picture 36: Tunde and Auntie Ngozi looking at a brain that is made of circuit lines, glowing blue.
+Picture 37: A giant room filled with huge glowing vacuum tubes and cables, a worker with a trolley replacing a burnt-out tube.
+Picture 38: Three scientists in a lab with a tiny metal-and-wire gadget glowing on the table, all hands clapping.
+Picture 39: A single glowing switch flipping on and off, with two light bulbs beside it, one lit and one dark.
+Picture 40: A pile of beach sand beside a shiny silver silicon disc, Tunde holding the disc up in wonder.
+Picture 41: A giant furnace pulling a long shining crystal rod out of molten glow, workers in helmets looking up at it.
+Picture 42: A tiny square chip with a handful of circuits shown under a microscope, two engineers high-fiving.
+Picture 43: A fingernail with a tiny chip on it, magnified in a large magnifying glass, Auntie Ngozi gasping.
+Picture 44: A simple map of a city with little people holding phones and no towers yet, question marks everywhere.
+Picture 45: One tall tower in a big city, with only three tiny car phones connected and a long queue of waiting cars.
+Picture 46: A city map divided into colourful hexagon cells, each hexagon with a small tower in the middle.
+Picture 47: Tunde walking along a road with a phone, a relay baton glowing as it passes from tower to tower.
+Picture 48: A map of many hexagon cells with the same colours repeating, tiny callers in each one, all happy.
+Picture 49: A man in a 1970s suit standing on a New York street holding a huge brick-like phone to his ear, taxi cabs behind him.
+Picture 50: A man on a street with a brick phone grinning, and a rival engineer in an office holding the phone, jaw dropped. Auntie Ngozi peeking from a corner.
+Picture 51: Tunde straining to hold a huge brick-like phone with both hands, a tiny battery meter on its side, Auntie Ngozi laughing.
+Picture 52: A fancy shop window with a single brick phone on a velvet cushion, a rich man in a suit buying it with a pile of cash.
+Picture 53: A line of phones from a giant brick on the left to a slim modern phone on the right, each one smaller, a ruler beneath them.
+Picture 54: Tunde staring at a phone with an empty-battery light, a tiny cloud of sadness above him.
+Picture 55: A scientist holding a glowing battery with a cluster of lithium atoms, another scientist beside him adding a blue mineral piece.
+Picture 56: A blue cobalt chunk dropping into a battery with a glowing lightning bolt, Auntie Ngozi pointing and shouting in delight.
+Picture 57: A neat row of small batteries on a conveyor belt in a factory, a happy worker in a hard hat giving a thumbs up.
+Picture 58: A mine with workers carrying sacks of blue rocks, Tunde and Auntie Ngozi looking at it with concerned faces, a worried sun above.
+Picture 59: A lab scene with scientists testing a new battery type, a tracking tag on a blue mineral sack, a green recycling arrow.
+Picture 60: A sheet of glass being lowered into a glowing bath of hot liquid in a factory vat, steam rising.
+Picture 61: A botanist squinting at a test tube with an orange liquid, cloudy and clear at the same time, a carrot on the table.
+Picture 62: A tiny stack of pixels on a screen switching colour as electric sparks pass through, rainbow glow.
+Picture 63: Tunde touching a glowing screen with his finger, ripples of electric blue spreading from the touch. Auntie Ngozi laughs.
+Picture 64: Auntie Ngozi holding up the notebook with the tin lump drawn on it, grinning and checking it off.
+Picture 65: All the parts floating together: copper wire, gold plug, sand chip, blue cobalt battery, glass screen, finger touch, glowing as one phone.
+Picture 66: Two phones side by side: a chunky grey early touchscreen phone on the left, a sleek modern phone on the right, a giant arrow between them.
+Picture 67: A Lagos street with a lonely public phone box, a long queue of people waiting in the sun, a small number of wire poles.
+Picture 68: A auction hall with bidders holding up paddles, and a happy official stamping a licence. Tunde watching from the side.
+Picture 69: A bright aerial view of Nigeria with glowing dots lighting up the whole map, towers and phone icons everywhere.
+Picture 70: A busy street collage in one picture: a trader taking mobile payments, a student watching a lesson, Auntie Ngozi on a video call with a relative.
+Picture 71: A long glowing chain across the picture: ore, sand, wires, waves, chips, battery, screen, ending at a hand holding a phone.
+Picture 72: Tunde waking in bed again with the phone alarm, but now smiling and looking at it with new respect. Morning light.
+Picture 73: Tunde and Auntie Ngozi standing in a sunlit street, each holding up a glowing phone to the sky, a flock of birds flying by.
+Picture 74: Tunde and Auntie Ngozi waving at the camera next to a giant phone shape, golden light.
+Picture 75: Tunde pulling a shiny bank card out of his wallet, Auntie Ngozi pointing at it with wide eyes, a big arrow glowing toward the card.
+Picture 76: Tunde and Auntie Ngozi holding up a big speech bubble, standing before a glowing subscribe bell shape and thumbs up icon. No text.
+
+THE THUMBNAIL
+Thumbnail: a funny, expressive Tunde (mustard hoodie, round glasses) on the left holding a giant old brick-style mobile phone with an antenna, mouth wide open. On the right, Auntie Ngozi in her bright green gele with both hands on her cheeks, shocked. Bright yellow-and-sky-blue background with sun rays and sparks. Leave clear empty space across the top for big text. No text in the picture.
